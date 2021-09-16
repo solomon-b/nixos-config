@@ -10,8 +10,6 @@
 
   #nixpkgs.overlays = [
   #  (import ./overlays/graphqurl.nix)
-  #  (import ./overlays/xmobar-solomon.nix)
-  #  (import ./overlays/kmonad.nix)
   #  #(import.b/overlays/xmonad.nix)
   #];
 
@@ -19,7 +17,7 @@
 
   home.username = "solomon";
   home.homeDirectory = "/home/solomon";
-  home.stateVersion = "21.03";
+  home.stateVersion = "21.11";
   home.sessionPath = [
     "${config.home.homeDirectory}/.local/scripts"
     "${config.home.homeDirectory}/.local/bin"
