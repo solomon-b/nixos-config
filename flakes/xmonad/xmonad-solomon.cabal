@@ -1,0 +1,21 @@
+name:                xmonad-solomon
+version:             0.1.0.0
+synopsis:            Solomon's xmonad configuration.
+homepage:            https://github.com/ssbothwel/nixos-config
+license:             GPL-3
+license-file:        LICENSE
+author:              Solomon Bothwell
+maintainer:          ssbothwell@gmail.com
+category:            System
+build-type:          Simple
+cabal-version:       >=1.10
+
+executable xmonad-solomon
+  main-is:             xmonad.hs
+  build-depends:       base >=4.7
+                     , process>=1.4.3.0
+                     , X11>=1.8
+                     , xmonad-contrib
+                     , xmonad
+  hs-source-dirs:      .
+  default-language:    Haskell2010
