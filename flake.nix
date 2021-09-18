@@ -7,11 +7,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     xmobar-solomon.url = "github:ssbothwell/xmobar-solomon/main";
+    xmonad-solomon.url = path:./flakes/xmonad;
     xmonad.url = "github:xmonad/xmonad";
     xmonad-contrib.url = "github:xmonad/xmonad-contrib";
   };
 
-  outputs = { self, nixpkgs, home-manager, kmonad, xmobar-solomon, xmonad, xmonad-contrib }:
+  outputs = { self, nixpkgs, home-manager, kmonad, xmobar-solomon, xmonad-solomon, xmonad, xmonad-contrib }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -20,6 +21,7 @@
         overlays = [
           kmonad.overlay
           xmobar-solomon.overlay
+          xmonad-solomon.overlay
           xmonad.overlay
           xmonad-contrib.overlay
         ];

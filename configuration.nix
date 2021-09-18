@@ -117,6 +117,15 @@
       enable = true;
       layout = "us";
       xkbOptions = "ctrl:nocaps";
+      #windowManager.session = [
+      #  {
+      #    name = "xmonad";
+      #    start = ''
+      #      /usr/bin/env xmonad-solomon &
+      #      waitPID=$!
+      #    '';
+      #  }
+      #];
       windowManager.xmonad.enable = true;
       windowManager.xmonad.extraPackages =
         haskellPackages: [

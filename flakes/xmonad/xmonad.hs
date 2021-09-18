@@ -38,6 +38,7 @@ import XMonad.Actions.Promote
 
 import qualified XMonad.StackSet as W
 import XMonad.Prompt
+import XMonad.Prompt.XMonad
 import XMonad.Prompt.ConfirmPrompt
 import XMonad.Prompt.Shell
 
@@ -184,23 +185,6 @@ myManageHook = composeAll
 --- Prompt ---
 --------------
 
-data XMonad = XMonad String
-
-instance XPrompt XMonad where
-  showXPrompt (XMonad str) = str <> ":"
-
-xmonadPrompt :: XPConfig -> X ()
-xmonadPrompt c = do
-  cmds <- defaultCommands
-  xmonadPromptC "XMonad" cmds c
-
--- | An xmonad prompt with a custom command list and custom title
-xmonadPromptC :: String -> [(String, X ())] -> XPConfig -> X ()
-xmonadPromptC title commands c =
-  mkXPrompt (XMonad title) c (mkComplFunFromList' (map fst commands)) $
-    fromMaybe (pure ()) . (`lookup` commands)
-
-
 promptConfig :: XPConfig
 promptConfig = def
   { position          = Top
@@ -218,7 +202,7 @@ promptConfig = def
   }
 
 exitPrompt :: X ()
-exitPrompt = xmonadPromptC "Exit" commands promptConfig
+exitPrompt = xmonadPromptCT "Exit" commands promptConfig
   where
     commands =
       [ ("1: Logout",   io exitSuccess)
@@ -230,7 +214,7 @@ closeWindowPrompt :: X ()
 closeWindowPrompt = confirmPrompt promptConfig "Close Window" kill1
 
 scrotPrompt :: X ()
-scrotPrompt = xmonadPromptC "Screenshot Options"commands promptConfig
+scrotPrompt = xmonadPromptCT "Screenshot Options"commands promptConfig
   where
     commands = [ ("1: Capture Screen", spawn "scrot")
                , ("2: Capture Selection", spawn "scrot -s")
@@ -277,20 +261,11 @@ systemCtlPrompt = do
   --units <- io fetchUnits
   --let commands = fmap (\ x -> (_unit x, spawn "scrot")) units
   let commands = fmap (\ x -> (show x, spawn "scrot")) [1000..20000]
-  xmonadPromptC "Systemd Services" commands promptConfig
+  xmonadPromptCT "Systemd Services" commands promptConfig
 
 -------------------
 --- Keybindings ---
 -------------------
-
--- | Apply an 'X' operation to all unfocused windows, if there are any.
-withUnfocused :: (Window -> X ()) -> X ()
-withUnfocused f = withWindowSet $ \ws ->
-  case W.peek ws of
-    Just w ->
-      let unfocusedWindows = filter (/= w) $ W.index ws
-      in mapM_ f unfocusedWindows
-    Nothing -> pure ()
 
 workSpaceNav :: XConfig a -> [(String, X ())]
 workSpaceNav c = do
@@ -440,12 +415,6 @@ addSupported props = withDisplay $ \dpy -> do
 
 setFullscreenSupported :: X ()
 setFullscreenSupported = addSupported ["_NET_WM_STATE", "_NET_WM_STATE_FULLSCREEN"]
-
-ewmhFullscreen :: XConfig a -> XConfig a
-ewmhFullscreen c =
-  c { startupHook = startupHook c <+> setFullscreenSupported
-  , handleEventHook = handleEventHook c <+> fullscreenEventHook
-  }
 
 main :: IO ()
 main = do
