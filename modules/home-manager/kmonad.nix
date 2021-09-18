@@ -38,8 +38,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    nixpkgs.overlays = [ (import ../../overlays/kmonad.nix) ];
-
     xdg.configFile."kmonad.kbd".text = ''
       ${cfg.defcfg}
       ${cfg.defsrc}

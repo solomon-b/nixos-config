@@ -6,6 +6,7 @@
 {
   imports = [
     ./modules/home-manager/zshExtras.nix
+    ./modules/home-manager/kmonad.nix
   ];
 
   #nixpkgs.overlays = [
@@ -88,7 +89,6 @@
     # UI
     xmobar
     xmobar-solomon
-    kmonad
     brightnessctl
 
     # Misc
@@ -192,5 +192,50 @@
     fadeDelta = 5;
     shadow = true;
     shadowOpacity = "0.75";
+  };
+
+  programs.kmonad = {
+    enable = true;
+
+    defcfg = ''
+      (defcfg
+        input (device-file "/dev/input/event0")
+        output (uinput-sink "internal-keyboard")
+        allow-cmd true
+        fallthrough true
+      )
+    '';
+
+    defsrc = ''
+      (defsrc
+        esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10   f11  f12  home end  ins  del
+        grv  1    2    3    4    5    6    7    8    9    0     -    =    bspc
+        tab  q    w    e    r    t    y    u    i    o    p     [    ]    \
+        caps a    s    d    f    g    h    j    k    l    ;     '    ret
+        lsft z    x    c    v    b    n    m    ,    .     /    rsft
+        lctl  lalt lmet           spc            ralt prnt rctl   pgup up   pgdn
+                                                                  left down rght
+      )
+    '';
+
+    defaliases = ''
+      (defalias
+        tmt (tap-next tab lmet)
+        \mt (tap-next \   rmet)
+        xcp (tap-next esc lctl)
+      )
+    '';
+
+    deflayers = ''
+      (deflayer test
+        esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10   f11  f12  home end  ins  del
+        grv  1    2    3    4    5    6    7    8    9    0     -    =    bspc
+        @tmt q    w    e    r    t    y    u    i    o    p     [    ]    @\mt
+        @xcp a    s    d    f    g    h    j    k    l    ;     '    ret
+        lsft z    x    c    v    b    n    m    ,    .     /    rsft
+        lctl  lalt lmet           spc            ralt prnt rctl   pgup up   pgdn
+                                                                  left down rght
+      )
+    '';
   };
 }

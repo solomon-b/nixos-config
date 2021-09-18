@@ -3,8 +3,6 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
-  #nixpkgs.overlays = [ (import ../../home/solomon/Development/nixops/homelab/overlays/xmonad.nix) ];
-
   # Use the GRUB 2 Boot Loader
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
@@ -26,10 +24,8 @@
   powerManagement.powertop.enable = true;
 
   environment.systemPackages = with pkgs; [
-    # Desktop Environment
     dunst
     dmenu
-    #haskell.packages.ghc8104.xmobar
     libnotify
     networkmanagerapplet
     termonad-with-packages
@@ -38,9 +34,6 @@
     xbanish
     xlayoutdisplay
     wireguard
-    #wpa_supplicant_gui
-
-    # Misc
   ];
 
   virtualisation.docker.enable = true;
@@ -87,6 +80,8 @@
     };
   };
 
+  users.users.localtimed.group = "localtimed";
+  users.groups.localtimed = {};
   services.localtime.enable = true;
   #time.timeZone = "America/Los_Angeles";
 
@@ -123,7 +118,10 @@
       layout = "us";
       xkbOptions = "ctrl:nocaps";
       windowManager.xmonad.enable = true;
-      windowManager.xmonad.enableContribAndExtras = true;
+      windowManager.xmonad.extraPackages =
+        haskellPackages: [
+          haskellPackages.xmonad-contrib
+        ];
       displayManager = {
         defaultSession = "none+xmonad";
         lightdm.enable = true;
