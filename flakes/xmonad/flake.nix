@@ -2,6 +2,7 @@
   description = "My XMonad Config";
 
   inputs = {
+    nixpkgs.url = "nixpkgs/nixos-unstable";
     xmonad.url = "github:xmonad/xmonad";
     xmonad-contrib.url = "github:xmonad/xmonad-contrib";
   };
@@ -26,6 +27,7 @@
         packages = p: [ p.xmonad-solomon p.xmonad-contrib ];
         buildInputs = with pkgs.haskellPackages; [
           cabal-install
+          ghc
           #haskell-language-server
           hlint
         ];

@@ -33,6 +33,7 @@
     udiskie
     xbanish
     xlayoutdisplay
+    xmonad-solomon
     wireguard
   ];
 
@@ -117,20 +118,15 @@
       enable = true;
       layout = "us";
       xkbOptions = "ctrl:nocaps";
-      #windowManager.session = [
-      #  {
-      #    name = "xmonad";
-      #    start = ''
-      #      /usr/bin/env xmonad-solomon &
-      #      waitPID=$!
-      #    '';
-      #  }
-      #];
-      windowManager.xmonad.enable = true;
-      windowManager.xmonad.extraPackages =
-        haskellPackages: [
-          haskellPackages.xmonad-contrib
-        ];
+      windowManager.session = [
+        {
+          name = "xmonad";
+          start = ''
+            /usr/bin/env xmonad-solomon &
+            waitPID=$!
+          '';
+        }
+      ];
       displayManager = {
         defaultSession = "none+xmonad";
         lightdm.enable = true;
