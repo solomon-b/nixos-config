@@ -3,7 +3,8 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
-    xmonad.url = "github:xmonad/xmonad";
+    #xmonad.url = "github:xmonad/xmonad";
+    xmonad.url = "github:IvanMalison/xmonad/nixRecompilationSupport";
     xmonad-contrib.url = "github:xmonad/xmonad-contrib";
   };
 

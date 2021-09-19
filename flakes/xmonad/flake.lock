@@ -104,25 +104,26 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1631931906,
-        "narHash": "sha256-d4d/OPNFCJC+ahNLGhDq9In0eD9eI4Ho6K99/WnhWsQ=",
+        "lastModified": 1631785487,
+        "narHash": "sha256-VSKEvOtaY/roDxEHFxXh6GguOqqWCJZ3E06fBdKu8+I=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e7b6d118f2198595f3269dd26e1752ca399fd30f",
+        "rev": "79c444b5bdeaba142d128afddee14c89ecf2a968",
         "type": "github"
       },
       "original": {
         "id": "nixpkgs",
+        "ref": "nixos-unstable",
         "type": "indirect"
       }
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1631931906,
-        "narHash": "sha256-d4d/OPNFCJC+ahNLGhDq9In0eD9eI4Ho6K99/WnhWsQ=",
+        "lastModified": 1632006655,
+        "narHash": "sha256-admTQw/z/UFd0KeW/w94xn8Q0oL8OpmZuMPWBEUX0fM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e7b6d118f2198595f3269dd26e1752ca399fd30f",
+        "rev": "1cf01b5215032228c9a3c7860adde5ee0e0cc160",
         "type": "github"
       },
       "original": {
@@ -132,11 +133,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1631931906,
-        "narHash": "sha256-d4d/OPNFCJC+ahNLGhDq9In0eD9eI4Ho6K99/WnhWsQ=",
+        "lastModified": 1632006655,
+        "narHash": "sha256-admTQw/z/UFd0KeW/w94xn8Q0oL8OpmZuMPWBEUX0fM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e7b6d118f2198595f3269dd26e1752ca399fd30f",
+        "rev": "1cf01b5215032228c9a3c7860adde5ee0e0cc160",
         "type": "github"
       },
       "original": {
@@ -146,11 +147,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1631931906,
-        "narHash": "sha256-d4d/OPNFCJC+ahNLGhDq9In0eD9eI4Ho6K99/WnhWsQ=",
+        "lastModified": 1632006655,
+        "narHash": "sha256-admTQw/z/UFd0KeW/w94xn8Q0oL8OpmZuMPWBEUX0fM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e7b6d118f2198595f3269dd26e1752ca399fd30f",
+        "rev": "1cf01b5215032228c9a3c7860adde5ee0e0cc160",
         "type": "github"
       },
       "original": {
@@ -160,11 +161,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1631931906,
-        "narHash": "sha256-d4d/OPNFCJC+ahNLGhDq9In0eD9eI4Ho6K99/WnhWsQ=",
+        "lastModified": 1632006655,
+        "narHash": "sha256-admTQw/z/UFd0KeW/w94xn8Q0oL8OpmZuMPWBEUX0fM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e7b6d118f2198595f3269dd26e1752ca399fd30f",
+        "rev": "1cf01b5215032228c9a3c7860adde5ee0e0cc160",
         "type": "github"
       },
       "original": {
@@ -174,11 +175,11 @@
     },
     "nixpkgs_6": {
       "locked": {
-        "lastModified": 1631931906,
-        "narHash": "sha256-d4d/OPNFCJC+ahNLGhDq9In0eD9eI4Ho6K99/WnhWsQ=",
+        "lastModified": 1632006655,
+        "narHash": "sha256-admTQw/z/UFd0KeW/w94xn8Q0oL8OpmZuMPWBEUX0fM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e7b6d118f2198595f3269dd26e1752ca399fd30f",
+        "rev": "1cf01b5215032228c9a3c7860adde5ee0e0cc160",
         "type": "github"
       },
       "original": {
@@ -188,11 +189,11 @@
     },
     "nixpkgs_7": {
       "locked": {
-        "lastModified": 1631931906,
-        "narHash": "sha256-d4d/OPNFCJC+ahNLGhDq9In0eD9eI4Ho6K99/WnhWsQ=",
+        "lastModified": 1632006655,
+        "narHash": "sha256-admTQw/z/UFd0KeW/w94xn8Q0oL8OpmZuMPWBEUX0fM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e7b6d118f2198595f3269dd26e1752ca399fd30f",
+        "rev": "1cf01b5215032228c9a3c7860adde5ee0e0cc160",
         "type": "github"
       },
       "original": {
@@ -214,15 +215,16 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1631615118,
-        "narHash": "sha256-+MLc1pSSWgEWvlorlPS7PB/KRHpZY4O+KBnEHkcPoxQ=",
-        "owner": "xmonad",
+        "lastModified": 1631524329,
+        "narHash": "sha256-KfJbMrG29XWXf7c3RrZXC1juppBXdKEv2aMfVK3jjhE=",
+        "owner": "IvanMalison",
         "repo": "xmonad",
-        "rev": "33a86c0cdb9aa481e23cc5527a997adef5e32d42",
+        "rev": "1e17c1c1bc26cdb93e23d4aa75e57fe48ff4c951",
         "type": "github"
       },
       "original": {
-        "owner": "xmonad",
+        "owner": "IvanMalison",
+        "ref": "nixRecompilationSupport",
         "repo": "xmonad",
         "type": "github"
       }
