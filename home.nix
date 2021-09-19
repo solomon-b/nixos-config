@@ -34,6 +34,7 @@
     discord
     slack
     zoom-us
+    quassel
 
     # General CLI Tools
     niv

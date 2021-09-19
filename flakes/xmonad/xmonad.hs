@@ -205,13 +205,14 @@ exitPrompt :: X ()
 exitPrompt = xmonadPromptCT "Exit" commands promptConfig
   where
     commands =
-      [ ("1: Logout",   io exitSuccess)
+      [ ("1: LOGOUT",   io exitSuccess)
       , ("2: Shutdown", spawn "systemctl poweroff")
       , ("3: Reboot",   spawn "systemctl reboot")
+      , ("4: RebootReboot",   spawn "systemctl reboot")
       ]
 
 closeWindowPrompt :: X ()
-closeWindowPrompt = confirmPrompt promptConfig "Close Window" kill1
+closeWindowPrompt = confirmPrompt promptConfig "This is a Close Window" kill1
 
 scrotPrompt :: X ()
 scrotPrompt = xmonadPromptCT "Screenshot Options"commands promptConfig
@@ -262,6 +263,12 @@ systemCtlPrompt = do
   --let commands = fmap (\ x -> (_unit x, spawn "scrot")) units
   let commands = fmap (\ x -> (show x, spawn "scrot")) [1000..20000]
   xmonadPromptCT "Systemd Services" commands promptConfig
+
+withUnfocused :: (Window -> X ()) -> X ()
+withUnfocused f = withWindowSet $ \ws ->
+    whenJust (W.peek ws) $ \w ->
+        let unfocusedWindows = filter (/= w) $ W.index ws
+        in mapM_ f unfocusedWindows
 
 -------------------
 --- Keybindings ---

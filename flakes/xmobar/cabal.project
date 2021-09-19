@@ -1,0 +1,4 @@
+packages: ./xmobar-solomon.cabal
+
+constraints:
+  xmobar +all_extensions
