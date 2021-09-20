@@ -1,6 +1,7 @@
 {-# LANGUAGE InstanceSigs #-}
 import XMonad
 
+
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.DynamicProperty
 import XMonad.Hooks.ManageDocks
@@ -205,10 +206,9 @@ exitPrompt :: X ()
 exitPrompt = xmonadPromptCT "Exit" commands promptConfig
   where
     commands =
-      [ ("1: LOGOUT",   io exitSuccess)
+      [ ("1: Logout",   io exitSuccess)
       , ("2: Shutdown", spawn "systemctl poweroff")
       , ("3: Reboot",   spawn "systemctl reboot")
-      , ("4: RebootReboot",   spawn "systemctl reboot")
       ]
 
 closeWindowPrompt :: X ()

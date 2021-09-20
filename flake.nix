@@ -6,11 +6,18 @@
       url = "github:pnotequalnp/kmonad/flake?dir=nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    xmobar-solomon.url = "github:ssbothwell/xmobar-solomon/main";
+    xmobar-solomon.url = path:./flakes/xmobar;
     xmonad-solomon.url = path:./flakes/xmonad;
   };
 
-  outputs = { self, nixpkgs, home-manager, kmonad, xmobar-solomon, xmonad-solomon }:
+  outputs = {
+      self,
+      nixpkgs,
+      home-manager,
+      kmonad,
+      xmobar-solomon,
+      xmonad-solomon
+  }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
