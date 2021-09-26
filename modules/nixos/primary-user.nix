@@ -1,0 +1,69 @@
+{ config, lib, pkgs, ... }:
+let
+  cfg = config.primary-user;
+  hostname = config.networking.hostName;
+  passwords = pkgs.callPackage ../../lib/passwords.nix { };
+  androidModule = lib.types.submodule ({config, ...}: {
+    options.wireguardPubKey = lib.mkOption {
+      type = lib.types.str;
+      default = "";
+      description = "Wireguard public key";
+    };
+  });
+in
+{
+  options.primary-user.name = lib.mkOption {
+    type = lib.types.nullOr lib.types.str;
+    default = null;
+    description = "The name of the primary user account.";
+  };
+
+  options.primary-user.wireguardPubKey = lib.mkOption {
+    type = lib.types.nullOr lib.types.str;
+    default = null;
+    description = "Wireguard Public Key";
+  };
+
+  options.primary-user.android = lib.mkOption {
+    type = lib.types.nullOr androidModule;
+    default = null;
+    description = "Android phone metadata";
+  };
+
+  imports = [
+    (lib.mkAliasOptionModule [ "primary-user" "home-manager" ] [ "home-manager" "users" cfg.name ])
+    (lib.mkAliasOptionModule [ "primary-user" "home" ] [ "users" "users" cfg.name "home" ])
+    (lib.mkAliasOptionModule [ "primary-user" "shell" ] [ "users" "users" cfg.name "shell" ])
+    (lib.mkAliasOptionModule [ "primary-user" "extraGroups" ] [ "users" "users" cfg.name "extraGroups" ])
+    (lib.mkAliasOptionModule [ "primary-user" "uid" ] [ "users" "users" cfg.name "uid" ])
+    (lib.mkAliasOptionModule [ "primary-user" "openssh" ] [ "users" "users" cfg.name "openssh" ])
+    (lib.mkAliasOptionModule [ "primary-user" "isNormalUser" ] [ "users" "users" cfg.name "isNormalUser" ])
+    (lib.mkAliasOptionModule [ "primary-user" "passwordFile" ] [ "users" "users" cfg.name "passwordFile" ])
+  ];
+
+  config = lib.mkIf (cfg.name != null) {
+    primary-user = {
+      extraGroups = [ "wheel" "users" "keys" "input" ];
+
+      home-manager = {
+        home.username = cfg.name;
+        home.homeDirectory = "/home/${cfg.name}";
+        home.stateVersion = "21.03";
+      };
+
+      isNormalUser = true;
+      passwordFile = "/secrets/primary-user-password";
+      shell = pkgs.zsh;
+      uid = lib.mkDefault 1000;
+
+      # TODO: Fetch Pub Keys from pass
+      #wireguardPubKey = builtins.extraBuiltins.getFullPasswordValue pkgs "system/solomon/wireguard/public-key";
+      wireguardPubKey = "IUBWUCxA4LFqEuEeK4D2n/25N+elPdkX2aM/Top50zY=";
+      # Read Public Key from pass
+      #android.wireguardPubKey = builtins.extraBuiltins.getFullPasswordValue pkgs "system/android/wireguard/public-key";
+      android.wireguardPubKey = "sOWjpd9qe0KdTQwsdMm/fGTh1oTI2DZL0TPtLo5tECY=";
+    };
+
+    nix.trustedUsers = [ cfg.name ];
+  };
+}
