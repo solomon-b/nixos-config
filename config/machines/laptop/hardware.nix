@@ -1,30 +1,43 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  imports =
+    [ (modulesPath + "/installer/scan/not-detected.nix")
+    ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "sr_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/ae2dfeea-ddd0-4da8-ae03-8df545e8563b";
-      fsType = "ext4";
+    { device = "tank/root";
+      fsType = "zfs";
     };
+
   fileSystems."/boot" =
-    { device = "/dev/sda1";
+    { device = "/dev/disk/by-uuid/4F59-6D3A";
       fsType = "vfat";
     };
 
+  fileSystems."/home" =
+    { device = "tank/user";
+      fsType = "zfs";
+    };
+
+  fileSystems."/nix" =
+    { device = "tank/nix";
+      fsType = "zfs";
+    };
+
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/05324ed4-a0ac-4970-96ca-3a556e59351c"; }
+    [ { device = "/dev/disk/by-uuid/46068d88-87e1-46ce-ac32-e12bab0e1a00"; }
     ];
+
+  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
   nix.buildCores = 2;
   nix.maxJobs = lib.mkDefault 4;
-
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
   interfaces.enp0s31f6.useDHCP = true;
   interfaces.wlp4s0.useDHCP = true;

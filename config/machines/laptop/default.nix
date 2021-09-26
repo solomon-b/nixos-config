@@ -4,7 +4,7 @@
   imports = [
     ./hardware.nix
     ./wireguard.nix
-    #./kmonad.nix
+    ./kmonad.nix
     ../../profiles/pc
 
     ../../modules/system/devices/touchpad

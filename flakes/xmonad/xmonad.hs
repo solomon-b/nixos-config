@@ -379,7 +379,7 @@ myMouseBindings XConfig {XMonad.modMask = modm} = M.fromList
 myStartupHook :: X ()
 myStartupHook = do
   spawn "nm-applet"
-  spawn "feh --bg-scale /home/solomon/Images/Wallpapers/Vaporwave.jpg"
+  spawn "feh --bg-scale /home/solomon/.wallpaper.jpg"
   spawn "xbanish"
   spawn "trayer --edge top --width 4 --align right --height 23 --transparent true --alpha 75 --tint 0x2d2d2d"
   spawn "dunst"

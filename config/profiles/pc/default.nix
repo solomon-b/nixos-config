@@ -73,6 +73,7 @@
     # Chat/Communication
     slack
     zoom-us
+    discord
 
     # Pandoc Related
     pandoc
