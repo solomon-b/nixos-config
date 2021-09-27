@@ -1,0 +1,12 @@
+packages:
+  xmonad-solomon.cabal
+
+source-repository-package
+  type: git
+  location: https://github.com/ssbothwell/xmonad-contrib
+  tag: 0dc4855339553c67aaa2086652d0e5555ad90dde
+
+source-repository-package
+  type: git
+  location: https://github.com/xmonad/xmonad
+  tag: 33a86c0cdb9aa481e23cc5527a997adef5e32d42

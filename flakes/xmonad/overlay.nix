@@ -1,17 +1,16 @@
 final: prev: {
-  xmonad-solomon = final.haskellPackages.callCabal2nix "xmonad-solomon" (
-    final.lib.sourceByRegex ./.
-    [
-      "xmonad.hs"
-      "xmonad-solomon.cabal"
-      "LICENSE"
-    ]
-  ) { };
-
   haskellPackages = prev.haskellPackages.override (old: {
     overrides = prev.lib.composeExtensions (old.overrides or (_: _: {}))
     (hfinal: hprev: {
-      #X11 = hfinal.callHackage "X11" "1.10.1" {};
+      xmonad-solomon = hfinal.callCabal2nix "xmonad-solomon" (
+        final.lib.sourceByRegex ./.
+        [
+          "xmonad.hs"
+          "xmonad-solomon.cabal"
+          "LICENSE"
+        ]
+      ) { };
+
       X11 = hfinal.callPackage
         ({ mkDerivation, base, data-default-class, libX11, libXext
          , libXinerama, libXrandr, libXrender, libXScrnSaver

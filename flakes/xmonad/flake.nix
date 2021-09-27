@@ -3,41 +3,40 @@
 
   inputs = {
     flake-utils.url = github:numtide/flake-utils;
-
     nixpkgs.url = "nixpkgs/nixos-unstable";
+    haskell-language-server.url = github:haskell/haskell-language-server;
 
     xmonad = {
-      url = github:xmonad/xmonad;
-      #url = github:IvanMalison/xmonad/nixRecompilationSupport;
+      #url = github:xmonad/xmonad;
+      url = github:IvanMalison/xmonad/nixRecompilationSupport;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     xmonad-contrib = {
-      url = github:xmonad/xmonad-contrib;
+      url = github:ssbothwell/xmonad-contrib/feature/scrolling-prompt-completions;
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, xmonad, xmonad-contrib }:
+  outputs = { self, nixpkgs, flake-utils, haskell-language-server, xmonad, xmonad-contrib }:
     let
-      system = "x86_64-linux";
       overlay = import ./overlay.nix;
-      overlays = [ overlay xmonad.overlay xmonad-contrib.overlay ];
-      pkgs = import nixpkgs { inherit system overlays; };
-      composeOverlays = oa: ob: self: super:
-        let super' = super // oa self super;
-            super'' = super' // ob self super';
-        in super'';
-    in {
-      overlay = pkgs.lib.foldl composeOverlays overlay overlays;
-      defaultPackage.x86_64-linux = pkgs.xmonad-solomon;
-      devShell.x86_64-linux = pkgs.haskellPackages.shellFor {
-        packages = p: [ p.xmonad p.xmonad-contrib ];
-        buildInputs = [
-          pkgs.cabal-install
-          pkgs.haskellPackages.ghc
-          pkgs.haskellPackages.hlint
-        ];
-      };
-    };
+      overlays = [
+        overlay
+        xmonad.overlay
+        xmonad-contrib.overlay
+        haskell-language-server.overlay
+      ];
+    in flake-utils.lib.eachDefaultSystem (system:
+      let pkgs = import nixpkgs { inherit system overlays; };
+      in rec {
+        devShell = pkgs.haskellPackages.shellFor {
+          packages = p: [ p.xmonad-solomon p.xmonad-contrib ];
+          buildInputs = [
+            pkgs.cabal-install
+            pkgs.haskell-language-server
+          ];
+        };
+        defaultPackage = pkgs.haskellPackages.xmonad-solomon;
+      }) // { inherit overlay overlays; };
 }

@@ -2,61 +2,63 @@
 import XMonad
 
 
-import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.DynamicProperty
-import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.EwmhDesktops
---import Xmonad.Hooks.StatusBar
---import Xmonad.Hooks.StatusBar.PP
+import           XMonad.Hooks.DynamicLog
+import           XMonad.Hooks.DynamicProperty
+import           XMonad.Hooks.ManageDocks
+import           XMonad.Hooks.EwmhDesktops
+--import         Xmonad.Hooks.StatusBar
+--import         Xmonad.Hooks.StatusBar.PP
 
-import XMonad.Util.EZConfig
-import XMonad.Util.Run (runInTerm, spawnPipe)
+import           XMonad.Util.EZConfig
+import           XMonad.Util.Run (runInTerm, spawnPipe)
 
-import XMonad.Layout.Gaps
-import XMonad.Layout.Hidden
-import XMonad.Layout.LayoutCombinators hiding ((|||))
-import XMonad.Layout.LayoutModifier (ModifiedLayout)
-import XMonad.Layout.MultiToggle
-import XMonad.Layout.MultiToggle.Instances
-import XMonad.Layout.Named
-import XMonad.Layout.NoFrillsDecoration
-import XMonad.Layout.NoBorders
-import XMonad.Layout.PerScreen
-import XMonad.Layout.ResizableTile
-import XMonad.Layout.Renamed
-import XMonad.Layout.Simplest
-import XMonad.Layout.SimpleFloat
-import XMonad.Layout.Spacing
-import XMonad.Layout.SubLayouts
-import XMonad.Layout.Tabbed
-import XMonad.Layout.ThreeColumns
-import XMonad.Layout.WindowNavigation
+import           XMonad.Layout.Gaps
+import           XMonad.Layout.Hidden
+import           XMonad.Layout.LayoutCombinators hiding ((|||))
+import           XMonad.Layout.LayoutModifier (ModifiedLayout)
+import           XMonad.Layout.MultiToggle
+import           XMonad.Layout.MultiToggle.Instances
+import           XMonad.Layout.Named
+import           XMonad.Layout.NoFrillsDecoration
+import           XMonad.Layout.NoBorders
+import           XMonad.Layout.PerScreen
+import           XMonad.Layout.ResizableTile
+import           XMonad.Layout.Renamed
+import           XMonad.Layout.Simplest
+import           XMonad.Layout.SimpleFloat
+import           XMonad.Layout.Spacing
+import           XMonad.Layout.SubLayouts
+import           XMonad.Layout.Tabbed
+import           XMonad.Layout.ThreeColumns
+import           XMonad.Layout.WindowNavigation
 
-import XMonad.Actions.Commands (defaultCommands)
-import XMonad.Actions.CopyWindow
-import XMonad.Actions.Navigation2D
-import XMonad.Actions.Promote
+import           XMonad.Actions.Commands (defaultCommands)
+import           XMonad.Actions.CopyWindow
+import           XMonad.Actions.Navigation2D
+import           XMonad.Actions.Promote
 
+import           XMonad.Prompt
+import           XMonad.Prompt.XMonad
+import           XMonad.Prompt.ConfirmPrompt
+import           XMonad.Prompt.Shell
+
+import           XMonad.Core (recompile)
+import           XMonad.Operations (restart)
 import qualified XMonad.StackSet as W
-import XMonad.Prompt
-import XMonad.Prompt.XMonad
-import XMonad.Prompt.ConfirmPrompt
-import XMonad.Prompt.Shell
+import           Data.Maybe
 
-import Data.Maybe
+import           System.IO
+import           System.Exit
+import           System.Process
+import           GHC.IO.Handle
 
-import System.IO
-import System.Exit
-import System.Process
-import GHC.IO.Handle
-
-import Control.Monad
+import           Control.Monad
 
 import qualified Data.Map as M
-import Data.Char (toLower)
-import Data.List (isInfixOf, intersperse, nub)
-import Data.Maybe (maybeToList)
-import Data.Function (on)
+import           Data.Monoid (All(..))
+import           Data.Char (toLower)
+import           Data.List (isInfixOf, intersperse, nub)
+import           Data.Function (on)
 
 -------------
 --- Theme ---
@@ -152,13 +154,13 @@ flex =
   . windowNavigation
   . addTabs shrinkText myTabTheme
   . subLayout [] Simplest
-  -- $ standardLayouts
+  --  $ standardLayouts
   $ ifWider 1920 wideLayouts standardLayout
   where
       wideThreeCol = suffixed "Wide 3Col" (ThreeColMid 1 (1/20) (1/2))
       wideLayouts  = mySpacing . myGaps $ wideThreeCol ||| standardLayout
       standardLayout = mySpacing . myGaps . named "Std 2/3" $
-          ResizableTall 1 (1/20) (2/3) [] -- ||| Mirror (ResizableTall 1 (1/20) (2/3) [])
+          ResizableTall 1 (1/20) (2/3) [] --  ||| Mirror (ResizableTall 1 (1/20) (2/3) [])
 
 myBrowser  = "/usr/bin/firefox"
 myTerminal = "termonad"
@@ -199,7 +201,7 @@ promptConfig = def
   , maxComplRows      = Just 12
   , alwaysHighlight   = True
   , promptKeymap      = emacsLikeXPKeymap
-  , searchPredicate   = isInfixOf `on` (map toLower)
+  , searchPredicate   = isInfixOf `on` map toLower
   }
 
 exitPrompt :: X ()
@@ -350,7 +352,8 @@ myKeys c = mkKeymap c $
     volumeDown     = spawn "amixer set Master 5%-"
     recompile      = do
       spawn "pkill trayer"
-      spawn "xmonad --recompile && xmonad --restart"
+      recompile
+      restart "xmonad-solomon" True
     toggleSticky w = windows $ \s ->
       if M.member w (W.floating s)
       then copyToAll s
@@ -386,6 +389,14 @@ myStartupHook = do
   spawn "batsignal -b -W \"Warning: Battery Low\""
   spawn "sleep 2 && kmonad /home/solomon/.config/kmonad.kbd"
 
+restartEventHook :: Event -> X All
+restartEventHook e@ClientMessageEvent { ev_message_type = mt } = do
+  a <- getAtom "XMONAD_RESTART"
+  if mt == a
+    then restart "xmonad-solomon" True >> return (All True)
+    else return $ All True
+restartEventHook _ = return $ All True
+
 myLogHook :: Handle -> X ()
 myLogHook xmproc = dynamicLogWithPP xmobarPP
   { ppCurrent         = xmobarColor yellow mempty
@@ -399,6 +410,7 @@ myLogHook xmproc = dynamicLogWithPP xmobarPP
 myConfig xmproc = def
     { layoutHook         = myLayoutHook
     , manageHook         = myManageHook <> manageHook def
+    , handleEventHook    = restartEventHook
     , logHook            = myLogHook xmproc
     , modMask            = mod4Mask
     , keys               = myKeys
@@ -417,7 +429,7 @@ addSupported props = withDisplay $ \dpy -> do
   -- fs <- getAtom "_NET_WM_STATE_FULLSCREEN"
   newSupportedList <- mapM (fmap fromIntegral . getAtom) props
   io $ do
-    supportedList <- fmap (join . maybeToList) $ getWindowProperty32 dpy a r
+    supportedList <- join . maybeToList <$> getWindowProperty32 dpy a r
     changeProperty32 dpy r a aTOM propModeReplace (nub $ newSupportedList ++ supportedList)
 
 setFullscreenSupported :: X ()
@@ -426,4 +438,5 @@ setFullscreenSupported = addSupported ["_NET_WM_STATE", "_NET_WM_STATE_FULLSCREE
 main :: IO ()
 main = do
   xmproc <- spawnPipe "xmobar-solomon"
-  xmonad . ewmhFullscreen . ewmh . docks . withNavigation2DConfig myNav2DConf $ myConfig xmproc
+  dirs <- getDirectories
+  (launch . ewmhFullscreen . ewmh . docks . withNavigation2DConfig myNav2DConf $ myConfig xmproc) dirs
