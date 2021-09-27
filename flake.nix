@@ -3,12 +3,12 @@
     nixpkgs.url = "nixpkgs/nixos-21.05";
 
     home-manager = {
-      url = "github:rycee/home-manager/release-21.05";
+      url = github:rycee/home-manager/release-21.05;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     kmonad = {
-      url = "github:pnotequalnp/kmonad/flake?dir=nix";
+      url = github:pnotequalnp/kmonad/flake?dir=nix;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -21,6 +21,18 @@
       url = path:./flakes/xmonad;
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    xmonad = {
+      url = github:ssbothwell/xmonad;
+      #url = path:./flakes/xmonad-solomon/xmonad;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    xmonad-contrib = {
+      url = github:ssbothwell/xmonad-contrib;
+      #url = path:./flakes/xmonad-solomon/xmonad-contrib;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -29,7 +41,9 @@
       home-manager,
       kmonad,
       xmobar-solomon,
-      xmonad-solomon
+      xmonad-solomon,
+      xmonad,
+      xmonad-contrib
   }:
     let
       system = "x86_64-linux";
@@ -40,6 +54,8 @@
         config = { allowUnfree = true; };
         overlays = [
           kmonad.overlay
+          xmonad.overlay
+          xmonad-contrib.overlay
           xmobar-solomon.overlay
           xmonad-solomon.overlay
           nix-plugins-overlay
