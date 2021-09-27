@@ -23,14 +23,12 @@
     };
 
     xmonad = {
-      url = github:ssbothwell/xmonad;
-      #url = path:./flakes/xmonad-solomon/xmonad;
+      url = path:./flakes/xmonad-solomon/xmonad;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     xmonad-contrib = {
-      url = github:ssbothwell/xmonad-contrib;
-      #url = path:./flakes/xmonad-solomon/xmonad-contrib;
+      url = path:./flakes/xmonad-solomon/xmonad-contrib;
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
