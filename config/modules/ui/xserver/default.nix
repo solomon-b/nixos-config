@@ -22,5 +22,5 @@
       };
   };
 
-  environment.systemPackages = [ pkgs.haskellPackages.xmonad-solomon pkgs.xmobar-solomon ];
+  environment.systemPackages = [ pkgs.haskellPackages.xmonad-solomon pkgs.haskellPackages.xmobar-solomon ];
 }
