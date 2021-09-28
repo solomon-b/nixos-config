@@ -13,12 +13,12 @@
     };
 
     xmobar-solomon = {
-      url = path:./flakes/xmobar;
+      url = path:./flakes/xmobar-solomon;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     xmonad-solomon = {
-      url = path:./flakes/xmonad;
+      url = path:./flakes/xmonad-solomon;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

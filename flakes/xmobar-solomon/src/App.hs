@@ -17,7 +17,8 @@ config = defaultConfig
   , position     = Static { xpos = 0, ypos = 0, width = 1920, height = 23 } --TopW L 95
   , commands = [
         Run StdinReader
-      , Run $ DiskU [("/", render HDD <> " <used>/<size>")] ["-L","20","-H","50","-m","1","-p","3"] 20
+      --, Run $ DiskU [("/", render HDD <> " <used>/<size>")] ["-L","20","-H","50","-m","1","-p","3"] 20
+      , Run $ DiskU [("/dev/sda1", render HDD <> " <used>/<size>")] ["-L","20","-H","50","-m","1","-p","3"] 20
       , Run $ Volume "default" "Master"
           [ "-t", "<status> <volume>%" , "--", "-O", render VolumeUp, "-o", render VolumeOff, "-C", "#585858" ] 1
       , Run $ Date "<fc=#ffcc66>%a %b %_d %Y %I:%M %p</fc>" "date" 9

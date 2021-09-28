@@ -2,7 +2,7 @@
 {
   imports = [
     ../../profiles/base
-    ../../modules/system/zone/pacific
+    ../../modules/system/timezone
     ./hardware.nix
     ./letsencrypt.nix
     ./networking.nix

@@ -212,9 +212,10 @@
         "type": "github"
       },
       "original": {
-        "id": "nixpkgs",
+        "owner": "NixOS",
         "ref": "nixos-unstable",
-        "type": "indirect"
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "nixpkgs_3": {
@@ -316,17 +317,13 @@
         ]
       },
       "locked": {
-        "lastModified": 1630775470,
         "narHash": "sha256-A64Rxcg0EgIGF36WyaurqDhv3V9wG+M0JL0PmaJDD7I=",
-        "owner": "ssbothwell",
-        "repo": "xmonad",
-        "rev": "5da25c5413e4f3e086228248d138ced7c878c767",
-        "type": "github"
+        "path": "./xmonad",
+        "type": "path"
       },
       "original": {
-        "owner": "ssbothwell",
-        "repo": "xmonad",
-        "type": "github"
+        "path": "./xmonad",
+        "type": "path"
       }
     },
     "xmonad-contrib": {
@@ -339,17 +336,13 @@
         "xmonad": "xmonad_2"
       },
       "locked": {
-        "lastModified": 1632393000,
-        "narHash": "sha256-DGsANPUuevS3QKbU53he+IDP/Pl2FVAHef3Y4OU4jWY=",
-        "owner": "ssbothwell",
-        "repo": "xmonad-contrib",
-        "rev": "20fdcbad0181d9e8fc7571799b1bb02952489df6",
-        "type": "github"
+        "narHash": "sha256-YxYj0N9jdkX6Yer0IElNr5XtDroel5ZfJ7NJbi+9h4A=",
+        "path": "./xmonad-contrib",
+        "type": "path"
       },
       "original": {
-        "owner": "ssbothwell",
-        "repo": "xmonad-contrib",
-        "type": "github"
+        "path": "./xmonad-contrib",
+        "type": "path"
       }
     },
     "xmonad_2": {

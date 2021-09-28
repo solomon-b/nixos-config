@@ -2,20 +2,20 @@
   description = "My XMonad Config";
 
   inputs = {
+    nixpkgs.url = github:NixOS/nixpkgs/nixos-unstable;
     flake-utils.url = github:numtide/flake-utils;
-    nixpkgs.url = "nixpkgs/nixos-unstable";
     haskell-language-server.url = github:haskell/haskell-language-server;
 
     xmonad = {
-      url = github:ssbothwell/xmonad;
-      #url = path:./xmonad;
+      #url = github:ssbothwell/xmonad;
+      url = path:./xmonad;
       #url = github:IvanMalison/xmonad/nixRecompilationSupport;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     xmonad-contrib = {
-      url = github:ssbothwell/xmonad-contrib;
-      #url = path:./xmonad-contrib;
+      #url = github:ssbothwell/xmonad-contrib;
+      url = path:./xmonad-contrib;
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
