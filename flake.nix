@@ -1,6 +1,7 @@
 {
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-21.05";
+    #nixpkgs.url = github:NixOS/nixpkgs/nixos-21.05;
+    nixpkgs.url = path:./nixpkgs;
 
     home-manager = {
       url = github:rycee/home-manager/release-21.05;
@@ -28,6 +29,7 @@
     };
 
     xmonad-contrib = {
+      #url = github:xmonad/xmonad-contrib;
       url = path:./flakes/xmonad-solomon/xmonad-contrib;
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -61,13 +63,33 @@
         ];
       };
     in {
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      inherit pkgs system;
-      modules = [
-        ./config/machines/laptop
-        nixpkgs.nixosModules.notDetected
-        home-manager.nixosModules.home-manager
-      ];
-    };
+      nixosConfigurations = {
+        yellowstone = nixpkgs.lib.nixosSystem {
+          inherit pkgs system;
+          modules = [
+            ./config/machines/yellowstone.cofree.coffee
+            nixpkgs.nixosModules.notDetected
+            home-manager.nixosModules.home-manager
+          ];
+        };
+
+        nixos = nixpkgs.lib.nixosSystem {
+          inherit pkgs system;
+          modules = [
+            ./config/machines/laptop
+            nixpkgs.nixosModules.notDetected
+            home-manager.nixosModules.home-manager
+          ];
+        };
+
+        sower = nixpkgs.lib.nixosSystem {
+          inherit pkgs system;
+          modules = [
+            ./config/machines/sower
+            nixpkgs.nixosModules.notDetected
+            home-manager.nixosModules.home-manager
+          ];
+        };
+      };
   };
 }

@@ -5,6 +5,7 @@
     ./hardware.nix
     ./wireguard.nix
     ./kmonad.nix
+    ./hoogle.nix
     ../../profiles/pc
 
     ../../modules/system/devices/touchpad

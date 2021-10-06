@@ -1,7 +1,6 @@
 {-# LANGUAGE InstanceSigs #-}
-import XMonad
-
-
+{-# LANGUAGE TupleSections #-}
+import           XMonad
 import           XMonad.Hooks.DynamicLog
 import           XMonad.Hooks.DynamicProperty
 import           XMonad.Hooks.ManageDocks
@@ -199,7 +198,7 @@ promptConfig = def
   , bgHLight          = "#073642"
   , promptBorderWidth = 0
   , maxComplRows      = Just 12
-  , alwaysHighlight   = True
+  , alwaysHighlight   = False
   , promptKeymap      = emacsLikeXPKeymap
   , searchPredicate   = isInfixOf `on` map toLower
   }
@@ -217,7 +216,7 @@ closeWindowPrompt :: X ()
 closeWindowPrompt = confirmPrompt promptConfig "This is a Close Window" kill1
 
 scrotPrompt :: X ()
-scrotPrompt = xmonadPromptCT "Screenshot Options"commands promptConfig
+scrotPrompt = xmonadPromptCT "Screenshot Options" commands promptConfig
   where
     commands = [ ("1: Capture Screen", spawn "scrot")
                , ("2: Capture Selection", spawn "scrot -s")
@@ -260,17 +259,14 @@ fetchUnits = do
     _ -> pure []
 
 systemCtlPrompt :: X ()
-systemCtlPrompt = do
-  --units <- io fetchUnits
-  --let commands = fmap (\ x -> (_unit x, spawn "scrot")) units
-  let commands = fmap (\ x -> (show x, spawn "scrot")) [1000..20000]
-  xmonadPromptCT "Systemd Services" commands promptConfig
-
---withUnfocused :: (Window -> X ()) -> X ()
---withUnfocused f = withWindowSet $ \ws ->
---    whenJust (W.peek ws) $ \w ->
---        let unfocusedWindows = filter (/= w) $ W.index ws
---        in mapM_ f unfocusedWindows
+systemCtlPrompt =
+  let commands =
+        [ ("1 foo", pure ())
+        , ("2 bar", pure ())
+        , ("3 baz", pure ())
+        , ("4 qux", pure ())
+        ]
+  in xmonadPromptCT "TEST!" commands promptConfig
 
 -------------------
 --- Keybindings ---
@@ -286,7 +282,7 @@ myKeys c = mkKeymap c $
   ------------------------------
   -- System
   ------------------------------
-  [ ("M-q",                     recompile)
+  [ ("M-q",                     restart)
   , ("M-S-q",                   exitPrompt)
   , ("M-<Backspace>",           closeWindowPrompt)
   , ("M-S-<Backspace>",         withUnfocused killWindow)
@@ -327,7 +323,7 @@ myKeys c = mkKeymap c $
   , ("M-r",       sendMessage $ Toggle MIRROR)
   , ("M-C-<Space>", toSubl NextLayout)
   -- Float/Sink floated window
-  , ("M-t",       withFocused toggleFloat >> killAllOtherCopies)
+  , ("M-t", withFocused toggleFloat >> killAllOtherCopies)
   , ("M-C-t",     withFocused toggleSticky)
   -- Full Screen a window
   , ("M-<F11>",   sendMessage $ Toggle FULL)
@@ -346,14 +342,13 @@ myKeys c = mkKeymap c $
   , ("M-p",        myLauncher)     -- Launch DMenu
   ]
   where
-    toggleDunst    = spawn "dunstctl set-paused toggle"
-    toggleMute     = spawn "amixer sset 'Master' toggle"
-    volumeUp       = spawn "amixer set Master 5%+"
-    volumeDown     = spawn "amixer set Master 5%-"
-    recompile      = do
+    toggleDunst = spawn "dunstctl set-paused toggle"
+    toggleMute  = spawn "amixer sset 'Master' toggle"
+    volumeUp    = spawn "amixer set Master 5%+"
+    volumeDown  = spawn "amixer set Master 5%-"
+    restart     = do
       spawn "pkill trayer"
-      recompile
-      restart "xmonad-solomon" True
+      spawn "xmonad --restart"
     toggleSticky w = windows $ \s ->
       if M.member w (W.floating s)
       then copyToAll s
@@ -438,5 +433,4 @@ setFullscreenSupported = addSupported ["_NET_WM_STATE", "_NET_WM_STATE_FULLSCREE
 main :: IO ()
 main = do
   xmproc <- spawnPipe "xmobar-solomon"
-  dirs <- getDirectories
-  (launch . ewmhFullscreen . ewmh . docks . withNavigation2DConfig myNav2DConf $ myConfig xmproc) dirs
+  xmonad . ewmhFullscreen . ewmh . docks . withNavigation2DConfig myNav2DConf $ myConfig xmproc

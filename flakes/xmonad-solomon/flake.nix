@@ -2,25 +2,32 @@
   description = "My XMonad Config";
 
   inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs/nixos-unstable;
-    flake-utils.url = github:numtide/flake-utils;
-    haskell-language-server.url = github:haskell/haskell-language-server;
+    nixpkgs.url = path:../../nixpkgs;
+    #nixpkgs.url = github:NixOS/nixpkgs/nixos-21.05;
+    flake-utils = {
+      url = github:numtide/flake-utils;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    haskell-language-server = {
+      url = github:haskell/haskell-language-server/1.4.0-hackage;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     xmonad = {
-      #url = github:ssbothwell/xmonad;
       url = path:./xmonad;
       #url = github:IvanMalison/xmonad/nixRecompilationSupport;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     xmonad-contrib = {
-      #url = github:ssbothwell/xmonad-contrib;
+      #url = github:xmonad/xmonad-contrib;
       url = path:./xmonad-contrib;
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, haskell-language-server, xmonad, xmonad-contrib }:
+  outputs = { self, nixpkgs, haskell-language-server, flake-utils, xmonad, xmonad-contrib }:
     let
       overlay = import ./overlay.nix;
       overlays = [
@@ -35,8 +42,9 @@
         devShell = pkgs.haskellPackages.shellFor {
           packages = p: [ p.xmonad-solomon p.xmonad-contrib ];
           buildInputs = [
-            pkgs.cabal-install
-            pkgs.haskell-language-server
+            pkgs.haskellPackages.cabal-install
+            pkgs.haskellPackages.ghc
+            pkgs.haskellPackages.haskell-language-server
           ];
         };
         defaultPackage = pkgs.haskellPackages.xmonad-solomon;

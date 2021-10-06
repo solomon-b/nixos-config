@@ -2,17 +2,21 @@
   description = "My XMobar Wrapper";
 
   inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs/nixos-unstable;
+    nixpkgs.url = path:../../nixpkgs;
+    #nixpkgs.url = github:NixOS/nixpkgs/nixos-21.05;
     flake-utils.url = github:numtide/flake-utils;
-    haskell-language-server.url = github:haskell/haskell-language-server;
+    easy-hls = {
+      url = github:ssbothwell/easy-hls-nix;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    #haskell-language-server.url = github:haskell/haskell-language-server;
   };
 
-  outputs = { self, nixpkgs, flake-utils, haskell-language-server }:
+  outputs = { self, nixpkgs, flake-utils, easy-hls }:
     let
       overlay = import ./overlay.nix;
       overlays = [
         overlay
-        haskell-language-server.overlay
       ];
     in flake-utils.lib.eachDefaultSystem (system:
       let pkgs = import nixpkgs { inherit system overlays; };
@@ -21,7 +25,7 @@
           packages = p: [ p.xmobar-solomon ];
           buildInputs = [
             pkgs.cabal-install
-            pkgs.haskell-language-server
+            easy-hls
             pkgs.pkg-config
           ];
         };

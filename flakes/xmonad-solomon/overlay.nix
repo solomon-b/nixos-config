@@ -2,14 +2,7 @@ final: prev: {
   haskellPackages = prev.haskellPackages.override (old: {
     overrides = prev.lib.composeExtensions (old.overrides or (_: _: {}))
     (hfinal: hprev: {
-      xmonad-solomon = hfinal.callCabal2nix "xmonad-solomon" (
-        final.lib.sourceByRegex ./.
-        [
-          "xmonad.hs"
-          "xmonad-solomon.cabal"
-          "LICENSE"
-        ]
-      ) { };
+      xmonad-solomon = hfinal.callCabal2nix "xmonad-solomon" (./.) { };
 
       X11 = hfinal.callPackage
         ({ mkDerivation, base, data-default-class, libX11, libXext
