@@ -3,13 +3,6 @@ let
   passwords = pkgs.callPackage ../../../lib/passwords.nix { };
 in
 {
-  deployment.keys = {
-    wireguard-private-key = {
-      keyCommand = passwords.getPassword "system/yellowstone/wireguard/private-key";
-      destDir = "/secrets";
-      user = "nextcloud";
-    };
-  };
   environment.systemPackages = [ pkgs.wireguard pkgs.wireguard-tools ];
 
   # enable NAT
@@ -36,7 +29,9 @@ in
         ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/24 -o eth0 -j MASQUERADE
       '';
 
-      privateKeyFile = config.deployment.keys.wireguard-private-key.path;
+      #privateKeyFile = config.deployment.keys.wireguard-private-key.path;
+      # "system/yellowstone/wireguard/private-key"
+      privateKeyFile = "/secrets/primary-user-wireguard-private-key";
 
       peers = [
         { publicKey = config.primary-user.wireguardPubKey;
@@ -47,7 +42,9 @@ in
         }
         # Sower's pubkey
         # Fetch password from pass
-        { publicKey = builtins.extraBuiltins.getFullPasswordValue pkgs "system/sower/wireguard/public-key";
+        {
+          #publicKey = builtins.extraBuiltins.getFullPasswordValue pkgs "system/sower/wireguard/public-key";
+        { publicKey = "Y6OqeDXON8DZ83Hf4yGBekMWDtIPRzyvVxg0M9zqZxg=";
           allowedIPs = [ "10.100.0.4/32" ];
         }
       ];
