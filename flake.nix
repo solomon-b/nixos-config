@@ -63,8 +63,12 @@
         ];
       };
     in {
+      devShell.x86_64-linux = pkgs.mkShell {
+        buildInputs = [ pkgs.nixops ];
+      };
+
       nixosConfigurations = {
-        yellowstone = nixpkgs.lib.nixosSystem {
+        yellowstone.cofree.coffee = nixpkgs.lib.nixosSystem {
           inherit pkgs system;
           modules = [
             ./config/machines/yellowstone.cofree.coffee
