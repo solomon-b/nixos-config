@@ -18,8 +18,6 @@
   nix.package = pkgs.nixUnstable;
   nix.extraOptions = ''
       experimental-features = nix-command flakes
-      plugin-files = ${pkgs.nix-plugins}/lib/nix/plugins/libnix-extra-builtins.so
-      extra-builtins-file = ${../../../lib/extra-builtins.nix}
     '';
 
   environment.systemPackages = [

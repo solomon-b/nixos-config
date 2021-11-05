@@ -48,7 +48,6 @@
     let
       system = "x86_64-linux";
       #password-utils-overlay = import ./overlays/password-utils-overlay.nix;
-      nix-plugins-overlay = import ./overlays/nix-plugins-overlay.nix;
       pkgs = import nixpkgs {
         inherit system;
         config = { allowUnfree = true; };
@@ -58,7 +57,6 @@
           xmonad-contrib.overlay
           xmobar-solomon.overlay
           xmonad-solomon.overlay
-          nix-plugins-overlay
           #password-utils-overlay
         ];
       };
