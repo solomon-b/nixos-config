@@ -28,6 +28,7 @@
 
   environment.systemPackages = with pkgs; [
     # General CLI Tools
+    cachix
     direnv
     exa
     fzf
