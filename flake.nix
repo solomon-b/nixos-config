@@ -68,14 +68,14 @@
       };
 
       nixosConfigurations = {
-        yellowstone.cofree.coffee = nixpkgs.lib.nixosSystem {
-          inherit pkgs system;
-          modules = [
-            ./config/machines/yellowstone.cofree.coffee
-            nixpkgs.nixosModules.notDetected
-            home-manager.nixosModules.home-manager
-          ];
-        };
+        #yellowstone.cofree.coffee = nixpkgs.lib.nixosSystem {
+        #  inherit pkgs system;
+        #  modules = [
+        #    ./config/machines/yellowstone.cofree.coffee
+        #    nixpkgs.nixosModules.notDetected
+        #    home-manager.nixosModules.home-manager
+        #  ];
+        #};
 
         nixos = nixpkgs.lib.nixosSystem {
           inherit pkgs system;
@@ -86,14 +86,14 @@
           ];
         };
 
-        sower = nixpkgs.lib.nixosSystem {
-          inherit pkgs system;
-          modules = [
-            ./config/machines/sower
-            nixpkgs.nixosModules.notDetected
-            home-manager.nixosModules.home-manager
-          ];
-        };
+        #sower = nixpkgs.lib.nixosSystem {
+        #  inherit pkgs system;
+        #  modules = [
+        #    ./config/machines/sower
+        #    nixpkgs.nixosModules.notDetected
+        #    home-manager.nixosModules.home-manager
+        #  ];
+        #};
       };
   };
 }
