@@ -2,7 +2,6 @@
 let
   cfg = config.primary-user;
   hostname = config.networking.hostName;
-  passwords = pkgs.callPackage ../../lib/passwords.nix { };
   androidModule = lib.types.submodule ({config, ...}: {
     options.wireguardPubKey = lib.mkOption {
       type = lib.types.str;

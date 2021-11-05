@@ -1,7 +1,4 @@
 { config, pkgs, ... }:
-let
-  passwords = pkgs.callPackage ../../../lib/passwords.nix { };
-in
 {
   environment.systemPackages = [ pkgs.wireguard pkgs.wireguard-tools ];
 

@@ -3,7 +3,7 @@
 with lib;
 let
   cfg = config.programs.s3fs;
-  passwords = pkgs.callPackage ../../lib/passwords.nix { };
+  #passwords = pkgs.callPackage ../../lib/passwords.nix { };
 in
 {
   options.programs.s3fs = {
