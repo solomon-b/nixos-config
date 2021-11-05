@@ -63,7 +63,7 @@
         ];
       };
     in {
-      devShell.x86_64-linux = pkgs.mkShell {
+      devShell."system" = pkgs.mkShell {
         buildInputs = [ pkgs.nixops ];
       };
 
