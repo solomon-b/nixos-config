@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = path:./nixpkgs;
+    #nixpkgs.url = github:nixos/nixpkgs/nixos-21.05;
     #nixops-plugged.url  = github:lukebfox/nixops-plugged;
 
     home-manager = {
