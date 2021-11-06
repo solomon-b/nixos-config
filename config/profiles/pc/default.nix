@@ -82,7 +82,7 @@
     poppler_utils
 
     # Web Browsers
-    firefox-beta-bin
+    firefox
     google-chrome
   ];
 
