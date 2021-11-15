@@ -36,7 +36,7 @@
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/46068d88-87e1-46ce-ac32-e12bab0e1a00"; }
+    [ { device = "/dev/disk/by-label/swap"; }
     ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
