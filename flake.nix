@@ -1,7 +1,7 @@
 {
   inputs = {
-    nixpkgs.url = path:./nixpkgs;
-    #nixpkgs.url = github:nixos/nixpkgs/nixos-21.05;
+    #nixpkgs.url = path:./nixpkgs;
+    nixpkgs.url = github:nixos/nixpkgs/nixos-21.05;
     #nixops-plugged.url  = github:lukebfox/nixops-plugged;
 
     home-manager = {
@@ -25,7 +25,7 @@
     };
 
     xmonad = {
-      url = path:./flakes/xmonad-solomon/xmonad;
+      url = "path:./flakes/xmonad-solomon/xmonad";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
