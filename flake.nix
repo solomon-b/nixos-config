@@ -25,13 +25,15 @@
     };
 
     xmonad = {
-      url = "/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad";
+      #url = "/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad";
+      url = path:/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     xmonad-contrib = {
       #url = github:xmonad/xmonad-contrib;
-      url = "/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad-contrib";
+      #url = "/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad-contrib";
+      url = path:/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad-contrib;
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

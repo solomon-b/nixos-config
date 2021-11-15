@@ -2,8 +2,8 @@
   description = "My XMobar Wrapper";
 
   inputs = {
-    nixpkgs.url = path:../../nixpkgs;
-    #nixpkgs.url = github:NixOS/nixpkgs/nixos-21.05;
+    #nixpkgs.url = path:../../nixpkgs;
+    nixpkgs.url = github:NixOS/nixpkgs/nixos-21.05;
     flake-utils.url = github:numtide/flake-utils;
     easy-hls = {
       url = github:ssbothwell/easy-hls-nix;

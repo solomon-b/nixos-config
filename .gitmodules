@@ -1,6 +1,6 @@
 [submodule "flakes/xmonad-solomon/xmonad-contrib"]
 	path = flakes/xmonad-solomon/xmonad-contrib
-	url = git@github.com:ssbothwell/xmonad-contrib.git
+	url = git@github.com:solomon-b/xmonad-contrib.git
 [submodule "flakes/xmonad-solomon/xmonad"]
 	path = flakes/xmonad-solomon/xmonad
-	url = git@github.com:ssbothwell/xmonad.git
+	url = git@github.com:solomon-b/xmonad.git
