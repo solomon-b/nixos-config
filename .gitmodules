@@ -4,6 +4,3 @@
 [submodule "flakes/xmonad-solomon/xmonad"]
 	path = flakes/xmonad-solomon/xmonad
 	url = git@github.com:ssbothwell/xmonad.git
-[submodule "nixpkgs"]
-	path = nixpkgs
-	url = git@github.com:NixOS/nixpkgs.git

@@ -1,7 +1,7 @@
 {
   inputs = {
-    nixpkgs.url = path:./nixpkgs;
-    #nixpkgs.url = github:nixos/nixpkgs/nixos-21.05;
+    #nixpkgs.url = path:./nixpkgs;
+    nixpkgs.url = github:nixos/nixpkgs/nixos-21.05;
     #nixops-plugged.url  = github:lukebfox/nixops-plugged;
 
     home-manager = {
@@ -25,13 +25,13 @@
     };
 
     xmonad = {
-      url = path:./flakes/xmonad-solomon/xmonad;
+      url = "/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     xmonad-contrib = {
       #url = github:xmonad/xmonad-contrib;
-      url = path:./flakes/xmonad-solomon/xmonad-contrib;
+      url = "/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad-contrib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -80,6 +80,15 @@
           inherit pkgs system;
           modules = [
             ./config/machines/laptop
+            nixpkgs.nixosModules.notDetected
+            home-manager.nixosModules.home-manager
+          ];
+        };
+
+        nightshade = nixpkgs.lib.nixosSystem {
+          inherit pkgs system;
+          modules = [
+            ./config/machines/nightshade
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
           ];

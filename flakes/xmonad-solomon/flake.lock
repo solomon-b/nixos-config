@@ -16,22 +16,6 @@
         "type": "github"
       }
     },
-    "flake-compat_2": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1627913399,
-        "narHash": "sha256-hY8g6H2KFL8ownSiFeMOjwPC8P0ueXpCVEbxgda3pko=",
-        "owner": "edolstra",
-        "repo": "flake-compat",
-        "rev": "12c64ca55c1014cdc1b16ed5a804aa8576601ff2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "edolstra",
-        "repo": "flake-compat",
-        "type": "github"
-      }
-    },
     "flake-utils": {
       "locked": {
         "lastModified": 1631561581,
@@ -94,21 +78,6 @@
     },
     "flake-utils_5": {
       "locked": {
-        "lastModified": 1629481132,
-        "narHash": "sha256-JHgasjPR0/J1J3DRm4KxM4zTyAj4IOJY8vIl75v/kPI=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "997f7efcb746a9c140ce1f13c72263189225f482",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "flake-utils_6": {
-      "locked": {
         "lastModified": 1631561581,
         "narHash": "sha256-3VQMV5zvxaVLvqqUrNz3iJelLw30mIVSfZmAaauM3dA=",
         "owner": "numtide",
@@ -162,7 +131,7 @@
     },
     "git-ignore-nix_3": {
       "inputs": {
-        "nixpkgs": "nixpkgs_5"
+        "nixpkgs": "nixpkgs_4"
       },
       "locked": {
         "lastModified": 1626413882,
@@ -180,22 +149,6 @@
       }
     },
     "gitignore": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1611672876,
-        "narHash": "sha256-qHu3uZ/o9jBHiA3MEKHJ06k7w4heOhA+4HCSIvflRxo=",
-        "owner": "hercules-ci",
-        "repo": "gitignore.nix",
-        "rev": "211907489e9f198594c0eb0ca9256a1949c9d412",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hercules-ci",
-        "repo": "gitignore.nix",
-        "type": "github"
-      }
-    },
-    "gitignore_2": {
       "flake": false,
       "locked": {
         "lastModified": 1611672876,
@@ -232,28 +185,6 @@
       "original": {
         "owner": "haskell",
         "ref": "1.4.0-hackage",
-        "repo": "haskell-language-server",
-        "type": "github"
-      }
-    },
-    "haskell-language-server_2": {
-      "inputs": {
-        "flake-compat": "flake-compat_2",
-        "flake-utils": "flake-utils_5",
-        "gitignore": "gitignore_2",
-        "nixpkgs": "nixpkgs_4",
-        "pre-commit-hooks": "pre-commit-hooks_2"
-      },
-      "locked": {
-        "lastModified": 1632565432,
-        "narHash": "sha256-Q4WpZmrx4QsFvi/0Y5iF8d56Ro3BUfKaYphSEyGNxbY=",
-        "owner": "haskell",
-        "repo": "haskell-language-server",
-        "rev": "682386d1c97ff98463f2cac260a8fe7aab099ebd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "haskell",
         "repo": "haskell-language-server",
         "type": "github"
       }
@@ -299,22 +230,6 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1630887066,
-        "narHash": "sha256-0ecIlrLsNIIa+zrNmzXXmbMBLZlmHU/aWFsa4bq99Hk=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "5e47a07e9f2d7ed999f2c7943b0896f5f7321ca3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_5": {
-      "locked": {
         "lastModified": 1632925901,
         "narHash": "sha256-SbSOn3pIH5bq85x8R1MF8WuQltPOT4XXsiNIxrMHSt4=",
         "owner": "NixOS",
@@ -327,7 +242,7 @@
         "type": "indirect"
       }
     },
-    "nixpkgs_6": {
+    "nixpkgs_5": {
       "locked": {
         "lastModified": 1632925901,
         "narHash": "sha256-SbSOn3pIH5bq85x8R1MF8WuQltPOT4XXsiNIxrMHSt4=",
@@ -366,33 +281,6 @@
         "type": "github"
       }
     },
-    "pre-commit-hooks_2": {
-      "inputs": {
-        "flake-utils": [
-          "xmonad-contrib",
-          "haskell-language-server",
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "xmonad-contrib",
-          "haskell-language-server",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1624971177,
-        "narHash": "sha256-Amf/nBj1E77RmbSSmV+hg6YOpR+rddCbbVgo5C7BS0I=",
-        "owner": "cachix",
-        "repo": "pre-commit-hooks.nix",
-        "rev": "397f0713d007250a2c7a745e555fa16c5dc8cadb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "cachix",
-        "repo": "pre-commit-hooks.nix",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -411,40 +299,41 @@
         ]
       },
       "locked": {
-        "narHash": "sha256-pPO2hg9z9HUC+5TJCHvRO0JtE4ahvc+mXzDgtok9IoM=",
-        "path": "./xmonad",
-        "type": "path"
+        "lastModified": 1630775470,
+        "narHash": "sha256-WOQSY6dkby3WFiUjHlKa/5HRh8YAQTCQaiMx4l50Onk=",
+        "type": "git",
+        "url": "file:///home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad"
       },
       "original": {
-        "path": "./xmonad",
-        "type": "path"
+        "type": "git",
+        "url": "file:///home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad"
       }
     },
     "xmonad-contrib": {
       "inputs": {
         "flake-utils": "flake-utils_4",
         "git-ignore-nix": "git-ignore-nix_2",
-        "haskell-language-server": "haskell-language-server_2",
         "nixpkgs": [
           "nixpkgs"
         ],
         "xmonad": "xmonad_2"
       },
       "locked": {
-        "narHash": "sha256-eVz5K+jzOEb13Mid87bHpHr8GwVV6SP5IpHL1X4LyjY=",
-        "path": "./xmonad-contrib",
-        "type": "path"
+        "lastModified": 1632393000,
+        "narHash": "sha256-IgM/QJQm7RN5A1ww1nk1J83O2kbaKrztB0QzexNd5uo=",
+        "type": "git",
+        "url": "file:///home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad-contrib"
       },
       "original": {
-        "path": "./xmonad-contrib",
-        "type": "path"
+        "type": "git",
+        "url": "file:///home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad-contrib"
       }
     },
     "xmonad_2": {
       "inputs": {
-        "flake-utils": "flake-utils_6",
+        "flake-utils": "flake-utils_5",
         "git-ignore-nix": "git-ignore-nix_3",
-        "nixpkgs": "nixpkgs_6"
+        "nixpkgs": "nixpkgs_5"
       },
       "locked": {
         "lastModified": 1631615118,

@@ -15,14 +15,15 @@
     };
 
     xmonad = {
-      url = path:./xmonad;
+      url = "/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad";
       #url = github:IvanMalison/xmonad/nixRecompilationSupport;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     xmonad-contrib = {
       #url = github:xmonad/xmonad-contrib;
-      url = path:./xmonad-contrib;
+      url = "/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad-contrib";
+      #url = path:./xmonad-contrib;
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
