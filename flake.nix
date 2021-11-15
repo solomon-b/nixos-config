@@ -1,4 +1,4 @@
-# This file is maintained by @IvanMalison (github) 
+# This file is maintained by @IvanMalison (github)
 {
   inputs = {
     flake-utils.url = github:numtide/flake-utils;
