@@ -459,13 +459,18 @@
     },
     "nixpkgs": {
       "locked": {
-        "narHash": "sha256-n0DKD1rG4gLZx6vDnalrQ5obZA9Y7uaOShTDSaOWGhM=",
-        "path": "./nixpkgs",
-        "type": "path"
+        "lastModified": 1636138231,
+        "narHash": "sha256-FZQ5wBcB9zI21uQMB/PaEQ/cLYk+Bwnig5cg1+2rPgg=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "5c02380de3951d0237807c16eb19873cb3c5f75d",
+        "type": "github"
       },
       "original": {
-        "path": "./nixpkgs",
-        "type": "path"
+        "owner": "nixos",
+        "ref": "nixos-21.05",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "nixpkgs_10": {
@@ -498,11 +503,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1636156651,
-        "narHash": "sha256-uEEBSkwam+Fl/yYq7NntEG1oFwZfRLwMP+eSVkCr2/A=",
+        "lastModified": 1636222022,
+        "narHash": "sha256-AD2qVcha+hWKYSiH7OZvsaSaKfSS+8CAz15DNJuktrc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "50e2b37c8b33c824a68ecb979fbcc2d3261b28a2",
+        "rev": "f63fb1b85eb3c9b548ebf2c13b1c5736caaf72c0",
         "type": "github"
       },
       "original": {
@@ -512,11 +517,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1636156651,
-        "narHash": "sha256-uEEBSkwam+Fl/yYq7NntEG1oFwZfRLwMP+eSVkCr2/A=",
+        "lastModified": 1636222022,
+        "narHash": "sha256-AD2qVcha+hWKYSiH7OZvsaSaKfSS+8CAz15DNJuktrc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "50e2b37c8b33c824a68ecb979fbcc2d3261b28a2",
+        "rev": "f63fb1b85eb3c9b548ebf2c13b1c5736caaf72c0",
         "type": "github"
       },
       "original": {
@@ -526,11 +531,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1636156651,
-        "narHash": "sha256-uEEBSkwam+Fl/yYq7NntEG1oFwZfRLwMP+eSVkCr2/A=",
+        "lastModified": 1636222022,
+        "narHash": "sha256-AD2qVcha+hWKYSiH7OZvsaSaKfSS+8CAz15DNJuktrc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "50e2b37c8b33c824a68ecb979fbcc2d3261b28a2",
+        "rev": "f63fb1b85eb3c9b548ebf2c13b1c5736caaf72c0",
         "type": "github"
       },
       "original": {
@@ -672,7 +677,7 @@
         ]
       },
       "locked": {
-        "narHash": "sha256-rQ3sAOYdI3OxeM3RGenkiRAbVmxE9gPfBcTPaRCdnNU=",
+        "narHash": "sha256-dYM32YZeQfQ+KtG4a6h4ArifNRpYAdDstWuw5nfcNao=",
         "path": "./flakes/xmobar-solomon",
         "type": "path"
       },
@@ -690,12 +695,12 @@
         ]
       },
       "locked": {
-        "narHash": "sha256-pPO2hg9z9HUC+5TJCHvRO0JtE4ahvc+mXzDgtok9IoM=",
-        "path": "./flakes/xmonad-solomon/xmonad",
+        "narHash": "sha256-gCBSbEU4rlpShlyqAo13g9iyx3h6mIFsfIaEIz5XXio=",
+        "path": "/home/solomon/Development/nix/nixos-config/flakes/xmonad-solomon/xmonad",
         "type": "path"
       },
       "original": {
-        "path": "./flakes/xmonad-solomon/xmonad",
+        "path": "/home/solomon/Development/nix/nixos-config/flakes/xmonad-solomon/xmonad",
         "type": "path"
       }
     },
@@ -709,12 +714,12 @@
         "xmonad": "xmonad_2"
       },
       "locked": {
-        "narHash": "sha256-DGsANPUuevS3QKbU53he+IDP/Pl2FVAHef3Y4OU4jWY=",
-        "path": "./flakes/xmonad-solomon/xmonad-contrib",
+        "narHash": "sha256-zkZ7DL1+HBmfGR4YEAZkDHJlrxeInL4/v6SW4r3Q4ds=",
+        "path": "/home/solomon/Development/nix/nixos-config/flakes/xmonad-solomon/xmonad-contrib",
         "type": "path"
       },
       "original": {
-        "path": "./flakes/xmonad-solomon/xmonad-contrib",
+        "path": "/home/solomon/Development/nix/nixos-config/flakes/xmonad-solomon/xmonad-contrib",
         "type": "path"
       }
     },
@@ -750,7 +755,7 @@
         "xmonad-contrib": "xmonad-contrib_2"
       },
       "locked": {
-        "narHash": "sha256-zlH6Iq6ONYbqbJOaZ2TXSxFr622wDBcSfGeN2CkbI8k=",
+        "narHash": "sha256-xYNmcv5siwGfJYoRy4zpnHZL8SkoHh4549U8s+Z1h6Q=",
         "path": "./flakes/xmonad-solomon",
         "type": "path"
       },
