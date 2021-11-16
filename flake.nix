@@ -1,6 +1,5 @@
 {
   inputs = {
-    #nixpkgs.url = path:./nixpkgs;
     nixpkgs.url = github:nixos/nixpkgs/nixos-21.05;
     #nixops-plugged.url  = github:lukebfox/nixops-plugged;
 
@@ -15,24 +14,25 @@
     };
 
     xmobar-solomon = {
-      url = path:./flakes/xmobar-solomon;
+      #url = path:./flakes/xmobar-solomon;
+      url = path:/home/solomon/Development/Nix/nixos-config/flakes/xmobar-solomon;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     xmonad-solomon = {
-      url = path:./flakes/xmonad-solomon;
+      #url = path:./flakes/xmonad-solomon;
+      url = path:/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     xmonad = {
-      #url = "/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad";
+      #url = github:xmonad/xmonad;
       url = path:/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     xmonad-contrib = {
       #url = github:xmonad/xmonad-contrib;
-      #url = "/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad-contrib";
       url = path:/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad-contrib;
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -64,9 +64,9 @@
         ];
       };
     in {
-      devShell."system" = pkgs.mkShell {
-        buildInputs = [ pkgs.nixops ];
-      };
+      #devShell."system" = pkgs.mkShell {
+      #  buildInputs = [ pkgs.nixops ];
+      #};
 
       nixosConfigurations = {
         #yellowstone.cofree.coffee = nixpkgs.lib.nixosSystem {
