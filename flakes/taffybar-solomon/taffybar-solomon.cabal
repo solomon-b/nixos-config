@@ -1,0 +1,30 @@
+cabal-version:      2.4
+name:               taffybar-solomon
+version:            0.1.0.0
+description:        My taffybar config
+author:             solomon
+maintainer:         ssbothwell@gmail.com
+
+executable taffybar-solomon
+  main-is:             taffybar.hs
+  build-depends:       base
+                     , X11
+                     , bytestring
+                     , containers
+                     , directory
+                     , filepath
+                     , gi-gtk
+                     , gtk-sni-tray
+                     , gtk-strut
+                     , haskell-gi-base
+                     , hostname
+                     , hslogger
+                     , process
+                     , split
+                     , text
+                     , time
+                     , taffybar>=3.2.0
+                     , transformers
+                     , xdg-basedir
+  hs-source-dirs:      .
+  default-language:    Haskell2010

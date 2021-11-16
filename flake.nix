@@ -13,6 +13,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    taffybar-solomon = {
+      url = path:/home/solomon/Development/Nix/nixos-config/flakes/taffybar-solomon;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     xmobar-solomon = {
       #url = path:./flakes/xmobar-solomon;
       url = path:/home/solomon/Development/Nix/nixos-config/flakes/xmobar-solomon;
@@ -43,6 +48,7 @@
       nixpkgs,
       home-manager,
       kmonad,
+      taffybar-solomon,
       xmobar-solomon,
       xmonad-solomon,
       xmonad,
@@ -56,6 +62,7 @@
         config = { allowUnfree = true; };
         overlays = [
           kmonad.overlay
+          taffybar-solomon.overlay
           xmonad.overlay
           xmonad-contrib.overlay
           xmobar-solomon.overlay
@@ -69,6 +76,7 @@
       #};
 
       nixosConfigurations = {
+        # TODO: Setup Nixops for yellowstone
         #yellowstone.cofree.coffee = nixpkgs.lib.nixosSystem {
         #  inherit pkgs system;
         #  modules = [
@@ -96,14 +104,14 @@
           ];
         };
 
-        #sower = nixpkgs.lib.nixosSystem {
-        #  inherit pkgs system;
-        #  modules = [
-        #    ./config/machines/sower
-        #    nixpkgs.nixosModules.notDetected
-        #    home-manager.nixosModules.home-manager
-        #  ];
-        #};
+        sower = nixpkgs.lib.nixosSystem {
+          inherit pkgs system;
+          modules = [
+            ./config/machines/sower
+            nixpkgs.nixosModules.notDetected
+            home-manager.nixosModules.home-manager
+          ];
+        };
       };
   };
 }
