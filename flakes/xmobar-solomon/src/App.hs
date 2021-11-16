@@ -14,7 +14,7 @@ config = defaultConfig
   , bgColor      = "#2d2d2d"
   , fgColor      = "#515151"
   , alpha        = 175
-  , position     = Static { xpos = 0, ypos = 0, width = 1920, height = 23 } --TopW L 95
+  , position     = TopW L 100 --Static { xpos = 0, ypos = 0, width = 1920, height = 23 } --TopW L 95
   , commands = [
         Run StdinReader
       --, Run $ DiskU [("/", render HDD <> " <used>/<size>")] ["-L","20","-H","50","-m","1","-p","3"] 20
