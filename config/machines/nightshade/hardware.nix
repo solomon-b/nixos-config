@@ -50,4 +50,5 @@
   nix.maxJobs = lib.mkDefault 4;
 
   hardware.video.hidpi.enable = lib.mkDefault true;
+  services.xserver.dpi = 130;
 }
