@@ -24,9 +24,8 @@
   outputs = { self, nixpkgs, haskell-language-server, flake-utils, taffybar }:
     let
       overlay = import ./overlay.nix;
-      overlays = [
+      overlays = taffybar.overlays ++ [
         overlay
-        taffybar.overlay
         haskell-language-server.overlay
       ];
     in flake-utils.lib.eachDefaultSystem (system:
