@@ -35,6 +35,11 @@
       fsType = "zfs";
     };
 
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-label/BOOT"; 
+      fsType = "vfat";
+    };
+
   swapDevices =
     [ { device = "/dev/disk/by-label/swap"; }
     ];
