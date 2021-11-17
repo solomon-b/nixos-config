@@ -41,12 +41,11 @@ in
           allowedIPs = [ "10.100.0.3/32" ];
         }
         # Sower
-        {
         { publicKey = "Y6OqeDXON8DZ83Hf4yGBekMWDtIPRzyvVxg0M9zqZxg=";
           allowedIPs = [ "10.100.0.4/32" ];
         }
         # Nightshade
-        { publicKey = "t/EwvkAtm7zrJwEuLF0T5/arzEhhTs1FcgX6dYjfgS8="
+        { publicKey = "t/EwvkAtm7zrJwEuLF0T5/arzEhhTs1FcgX6dYjfgS8=";
           allowedIPs = [ "10.100.0.5/32"];
         }
       ];

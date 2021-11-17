@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   imports = [
     ../../profiles/base
@@ -17,6 +17,7 @@
   primary-user.name = "solomon";
 
   #programs.s3fs.enable = true;
+  environment.systemPackages = [ pkgs.hello ];
 
   networking = {
     firewall.allowPing = true;

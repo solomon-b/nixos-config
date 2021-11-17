@@ -78,7 +78,7 @@
 
       nixopsConfigurations.default = {
         inherit nixpkgs;
-        yellowstone.cofree.coffee = { config, ... }: {
+        "yellowstone.cofree.coffee" = { config, ... }: {
           deployment = {
             targetHost = "yellowstone.cofree.coffee";
             targetUser = config.primary-user.name;

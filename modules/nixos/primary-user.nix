@@ -55,11 +55,7 @@ in
       shell = pkgs.zsh;
       uid = lib.mkDefault 1000;
 
-      # TODO: Fetch Pub Keys from pass
-      #wireguardPubKey = builtins.extraBuiltins.getFullPasswordValue pkgs "system/solomon/wireguard/public-key";
       wireguardPubKey = "IUBWUCxA4LFqEuEeK4D2n/25N+elPdkX2aM/Top50zY=";
-      # Read Public Key from pass
-      #android.wireguardPubKey = builtins.extraBuiltins.getFullPasswordValue pkgs "system/android/wireguard/public-key";
       android.wireguardPubKey = "sOWjpd9qe0KdTQwsdMm/fGTh1oTI2DZL0TPtLo5tECY=";
     };
 
