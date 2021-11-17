@@ -2,8 +2,7 @@
   description = "My XMonad Config";
 
   inputs = {
-    nixpkgs.url = path:../../nixpkgs;
-    #nixpkgs.url = github:NixOS/nixpkgs/nixos-21.05;
+    nixpkgs.url = github:NixOS/nixpkgs/nixos-21.05;
     flake-utils = {
       url = github:numtide/flake-utils;
       inputs.nixpkgs.follows = "nixpkgs";
@@ -15,15 +14,12 @@
     };
 
     xmonad = {
-      url = "/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad";
-      #url = github:IvanMalison/xmonad/nixRecompilationSupport;
+      url = path:/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     xmonad-contrib = {
-      #url = github:xmonad/xmonad-contrib;
-      url = "/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad-contrib";
-      #url = path:./xmonad-contrib;
+      url = path:/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad-contrib;
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
