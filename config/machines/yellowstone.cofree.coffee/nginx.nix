@@ -36,6 +36,7 @@
     };
   };
 
+  # TODO: Blog Deployment System
   systemd.services."cofree.coffee" = {
     description = "Fetch the latest version of the blog from github";
     serviceConfig = {
@@ -47,8 +48,8 @@
     script = ''
       set -ex
 
-      rev=$(curl https://api.github.com/repos/ssbothwell/cofree.coffee/git/ref/heads/main | jq -r .object.sha)
-      result=$(nix-build https://github.com/ssbothwell/cofree.coffee/archive/$rev.tar.gz)
+      rev=$(curl https://api.github.com/repos/solomon-b/cofree.coffee/git/ref/heads/main | jq -r .object.sha)
+      result=$(nix-build https://github.com/solomon-b/cofree.coffee/archive/$rev.tar.gz)
 
       ln -sfT $result /var/www/cofree.coffee
     '';

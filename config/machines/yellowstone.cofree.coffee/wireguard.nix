@@ -29,23 +29,25 @@ in
         ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/24 -o eth0 -j MASQUERADE
       '';
 
-      #privateKeyFile = config.deployment.keys.wireguard-private-key.path;
-      # "system/yellowstone/wireguard/private-key"
       privateKeyFile = "/secrets/primary-user-wireguard-private-key";
 
       peers = [
-        { publicKey = config.primary-user.wireguardPubKey;
+        # Nixos
+        { publicKey = "IUBWUCxA4LFqEuEeK4D2n/25N+elPdkX2aM/Top50zY=";
           allowedIPs = [ "10.100.0.2/32" ];
         }
-        { publicKey = config.primary-user.android.wireguardPubKey;
+        # Phone
+        { publicKey = "sOWjpd9qe0KdTQwsdMm/fGTh1oTI2DZL0TPtLo5tECY=";
           allowedIPs = [ "10.100.0.3/32" ];
         }
-        # Sower's pubkey
-        # Fetch password from pass
+        # Sower
         {
-          #publicKey = builtins.extraBuiltins.getFullPasswordValue pkgs "system/sower/wireguard/public-key";
         { publicKey = "Y6OqeDXON8DZ83Hf4yGBekMWDtIPRzyvVxg0M9zqZxg=";
           allowedIPs = [ "10.100.0.4/32" ];
+        }
+        # Nightshade
+        { publicKey = "t/EwvkAtm7zrJwEuLF0T5/arzEhhTs1FcgX6dYjfgS8="
+          allowedIPs = [ "10.100.0.5/32"];
         }
       ];
     };

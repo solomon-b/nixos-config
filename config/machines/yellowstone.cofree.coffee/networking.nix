@@ -2,7 +2,7 @@
   # This file was populated at runtime with the networking
   # details gathered from the active system.
   networking = {
-    nameservers = [ "8.8.8.8" ];
+    nameservers = [ "1.1.1.1" "1.0.0.1" ];
     defaultGateway = "165.227.48.1";
     defaultGateway6 = "";
     dhcpcd.enable = false;

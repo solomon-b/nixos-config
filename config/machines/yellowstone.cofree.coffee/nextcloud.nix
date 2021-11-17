@@ -1,7 +1,4 @@
 { pkgs, config, ... }:
-let
-  passwords = pkgs.callPackage ../../../lib/passwords.nix { };
-in
 {
   environment.systemPackages = [ pkgs.smbclient ];
 
@@ -27,9 +24,7 @@ in
       dbuser = "nextcloud";
       dbhost = "/run/postgresql"; # nextcloud will add /.s.PGSQL.5432 by itself
       dbname = "nextcloud";
-      #dbpassFile = config.deployment.keys.nextcloud-db-pass.path;
       dbpassFile = "/secrets/nextcloud-db-pass";
-      #adminpassFile = config.deployment.keys.nextcloud-admin-pass.path;
       adminpassFile = "/secrets/nextcloud-admin-pass";
       adminuser = "admin";
     };
