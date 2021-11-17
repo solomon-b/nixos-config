@@ -1,7 +1,7 @@
 {
   inputs = {
     nixpkgs.url = github:nixos/nixpkgs/nixos-21.05;
-    #nixops-plugged.url  = github:lukebfox/nixops-plugged;
+    nixops-plugged.url  = github:lukebfox/nixops-plugged;
 
     home-manager = {
       url = github:rycee/home-manager/release-21.05;
@@ -46,6 +46,7 @@
   outputs = {
       self,
       nixpkgs,
+      nixops-plugged,
       home-manager,
       kmonad,
       taffybar-solomon,
@@ -71,21 +72,27 @@
         ];
       };
     in {
-      #devShell."system" = pkgs.mkShell {
-      #  buildInputs = [ pkgs.nixops ];
-      #};
+      devShell."${system}" = pkgs.mkShell {
+        nativeBuildInputs = [ nixops-plugged.defaultPackage.${system} ];
+      };
+
+      nixopsConfigurations.default = {
+        yellowstone.cofree.coffee = { config, ... }: {
+          deployment = {
+            targetHost = "yellowstone.cofree.coffee";
+            targetUser = config.primary-user.name;
+            sshOptions = [ "-A"];
+            provisionSSHKey = false;
+          };
+
+          imports = [
+            ./config/machines/yellowstone.cofree.coffee
+            (home-manager.nixosModules.home-manager)
+          ];
+        };
+      };
 
       nixosConfigurations = {
-        # TODO: Setup Nixops for yellowstone
-        #yellowstone.cofree.coffee = nixpkgs.lib.nixosSystem {
-        #  inherit pkgs system;
-        #  modules = [
-        #    ./config/machines/yellowstone.cofree.coffee
-        #    nixpkgs.nixosModules.notDetected
-        #    home-manager.nixosModules.home-manager
-        #  ];
-        #};
-
         nixos = nixpkgs.lib.nixosSystem {
           inherit pkgs system;
           modules = [
@@ -113,5 +120,18 @@
           ];
         };
       };
-  };
+
+    };
+
+    # TODO: Figure out how to have nixops and regular configs here
+    #  nixosConfigurations = {
+    #    # TODO: Setup Nixops for yellowstone
+    #    #yellowstone.cofree.coffee = nixpkgs.lib.nixosSystem {
+    #    #  inherit pkgs system;
+    #    #  modules = [
+    #    #    ./config/machines/yellowstone.cofree.coffee
+    #    #    nixpkgs.nixosModules.notDetected
+    #    #    home-manager.nixosModules.home-manager
+    #    #  ];
+    #    #};
 }
