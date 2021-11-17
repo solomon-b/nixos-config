@@ -2,31 +2,12 @@
 let
   cfg = config.primary-user;
   hostname = config.networking.hostName;
-  androidModule = lib.types.submodule ({config, ...}: {
-    options.wireguardPubKey = lib.mkOption {
-      type = lib.types.str;
-      default = "";
-      description = "Wireguard public key";
-    };
-  });
 in
 {
   options.primary-user.name = lib.mkOption {
     type = lib.types.nullOr lib.types.str;
     default = null;
     description = "The name of the primary user account.";
-  };
-
-  options.primary-user.wireguardPubKey = lib.mkOption {
-    type = lib.types.nullOr lib.types.str;
-    default = null;
-    description = "Wireguard Public Key";
-  };
-
-  options.primary-user.android = lib.mkOption {
-    type = lib.types.nullOr androidModule;
-    default = null;
-    description = "Android phone metadata";
   };
 
   imports = [
@@ -54,9 +35,6 @@ in
       passwordFile = "/secrets/primary-user-password";
       shell = pkgs.zsh;
       uid = lib.mkDefault 1000;
-
-      wireguardPubKey = "IUBWUCxA4LFqEuEeK4D2n/25N+elPdkX2aM/Top50zY=";
-      android.wireguardPubKey = "sOWjpd9qe0KdTQwsdMm/fGTh1oTI2DZL0TPtLo5tECY=";
     };
 
     nix.trustedUsers = [ cfg.name ];
