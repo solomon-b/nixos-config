@@ -9,7 +9,6 @@
     ../../modules/security/gpg
     #../../modules/security/process-information-hiding
     ../../modules/security/sshd
-    # ../../modules/security/sudo  # Ask Connor
 
     ../../modules/system/nix-binary-caches
     ../../modules/system/nixpkgs
