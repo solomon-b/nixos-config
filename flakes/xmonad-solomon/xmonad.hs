@@ -8,6 +8,7 @@ import           XMonad.Hooks.EwmhDesktops
 --import         Xmonad.Hooks.StatusBar
 --import         Xmonad.Hooks.StatusBar.PP
 
+import           XMonad.Hooks.TaffybarPagerHints
 import           XMonad.Util.EZConfig
 import           XMonad.Util.Run (runInTerm, spawnPipe)
 
@@ -377,9 +378,9 @@ myMouseBindings XConfig {XMonad.modMask = modm} = M.fromList
 myStartupHook :: X ()
 myStartupHook = do
   spawn "nm-applet"
-  spawn "feh --bg-scale /home/solomon/.wallpaper.jpg"
+  spawn "feh --bg-scale /home/solomon/Public/wallpapers/Yosemite-Color-Block.png"
   spawn "xbanish"
-  spawn "trayer --edge top --width 4 --align right --height 23 --transparent true --alpha 75 --tint 0x2d2d2d"
+  spawn "trayer --edge top --width 4 --align right --height 28 --transparent true --alpha 0 --tint 0x2d2d2d"
   spawn "dunst"
   spawn "udiskie -t"
   spawn "batsignal -b -W \"Warning: Battery Low\""
@@ -434,4 +435,4 @@ setFullscreenSupported = addSupported ["_NET_WM_STATE", "_NET_WM_STATE_FULLSCREE
 main :: IO ()
 main = do
   xmproc <- spawnPipe "xmobar-solomon"
-  xmonad . ewmhFullscreen . ewmh . docks . withNavigation2DConfig myNav2DConf $ myConfig xmproc
+  xmonad . ewmhFullscreen . ewmh . pagerHints . docks . withNavigation2DConfig myNav2DConf $ myConfig xmproc
