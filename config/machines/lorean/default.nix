@@ -27,7 +27,7 @@
   primary-user.name = "solomon";
 
   networking = {
-    hostName = "nixos";
+    hostName = "lorean";
     hostId = "960855f8";
     networkmanager.enable = true;
 
