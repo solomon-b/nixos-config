@@ -6,7 +6,7 @@
     ./hardware.nix
     ./letsencrypt.nix
     ./networking.nix
-    ./nextcloud.nix
+    # ./nextcloud.nix
     ./nginx.nix
     ./postgres.nix
     ./wireguard.nix

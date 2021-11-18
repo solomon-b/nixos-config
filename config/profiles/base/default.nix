@@ -36,7 +36,6 @@
     gnumake
     htop
     jq
-    nixops
     ripgrep
     tree
     unzip
