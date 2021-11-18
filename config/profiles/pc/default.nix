@@ -87,7 +87,6 @@
   ];
 
   primary-user.extraGroups = [ "networkmanager" ];
-  primary-user.home-manager.home.file.".wallpaper.jpg".source = ./wallpaper.jpg;
 
   system.stateVersion = "21.05";
 }

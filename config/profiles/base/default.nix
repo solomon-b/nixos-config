@@ -17,9 +17,6 @@
     # ../../modules/ui/bash       # Home Manager
     ../../modules/ui/starship
     ../../modules/ui/zsh
-
-    # TODO: Write modules:
-    # ../../../modules/nixos/termonad.nix
   ];
 
   nix.trustedUsers = [ "@wheel" ];

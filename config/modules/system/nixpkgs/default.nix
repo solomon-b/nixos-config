@@ -3,7 +3,6 @@
 {
   nixpkgs = {
     config.allowUnfree = true;
-    #overlays = [];
   };
 
   nix.gc.automatic = true;
