@@ -94,10 +94,10 @@
       };
 
       nixosConfigurations = {
-        nixos = nixpkgs.lib.nixosSystem {
+        lorean = nixpkgs.lib.nixosSystem {
           inherit pkgs system;
           modules = [
-            ./config/machines/laptop
+            ./config/machines/lorean
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
           ];
