@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = github:nixos/nixpkgs/nixos-21.05;
+    unstable.url = github:nixos/nixpkgs;
     nixops-plugged.url  = github:lukebfox/nixops-plugged;
 
     home-manager = {
@@ -53,10 +54,11 @@
     };
   };
 
-  outputs = {
+  outputs = inputs@{
       self,
       nixpkgs,
       nixops-plugged,
+      unstable,
       home-manager,
       kmonad,
       taffybar-solomon,
@@ -115,6 +117,9 @@
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
           ];
+          specialArgs = {
+            inherit inputs;
+          };
         };
 
         nightshade = nixpkgs.lib.nixosSystem {
@@ -124,6 +129,9 @@
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
           ];
+          specialArgs = {
+            inherit inputs;
+          };
         };
 
         sower = nixpkgs.lib.nixosSystem {
@@ -133,6 +141,9 @@
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
           ];
+          specialArgs = {
+            inherit inputs;
+          };
         };
       };
 

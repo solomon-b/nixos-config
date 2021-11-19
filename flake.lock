@@ -587,6 +587,22 @@
         "type": "github"
       }
     },
+    "graphqurl": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "narHash": "sha256-/4UPDDPFIReKXPPcS824S9TPsf7SRx4SD50QZmxUIdc=",
+        "path": "/home/solomon/Development/Nix/nixos-config/flakes/graphqurl",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/solomon/Development/Nix/nixos-config/flakes/graphqurl",
+        "type": "path"
+      }
+    },
     "gtk-sni-tray": {
       "inputs": {
         "flake-utils": "flake-utils_7",
@@ -726,6 +742,26 @@
         "owner": "rycee",
         "ref": "release-21.05",
         "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "jwt-config": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1637287469,
+        "narHash": "sha256-a4eVbamMAMTlZ8VTWt65k4DtuLnbWgd3ra667Rn7IX0=",
+        "owner": "solomon-b",
+        "repo": "jwt-config-generator",
+        "rev": "0b39527e9814e83fbf1f4bced643c2c541eacafa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "solomon-b",
+        "repo": "jwt-config-generator",
         "type": "github"
       }
     },
@@ -1133,11 +1169,14 @@
     },
     "root": {
       "inputs": {
+        "graphqurl": "graphqurl",
         "home-manager": "home-manager",
+        "jwt-config": "jwt-config",
         "kmonad": "kmonad",
         "nixops-plugged": "nixops-plugged",
         "nixpkgs": "nixpkgs_3",
         "taffybar-solomon": "taffybar-solomon",
+        "unstable": "unstable",
         "xmobar-solomon": "xmobar-solomon",
         "xmonad": "xmonad",
         "xmonad-contrib": "xmonad-contrib",
@@ -1207,6 +1246,21 @@
       "original": {
         "path": "/home/solomon/Development/Nix/nixos-config/flakes/taffybar-solomon",
         "type": "path"
+      }
+    },
+    "unstable": {
+      "locked": {
+        "lastModified": 1637351920,
+        "narHash": "sha256-0AX9es5zbG3LAEFnmpGFFqiq4Z0WCYrcVAnBoXeEq7c=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "1d1d332bb29aa651a22c4bea66a9d27ccbf9a760",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "xmobar-solomon": {

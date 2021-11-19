@@ -1,12 +1,22 @@
-{ ... }:
+{ inputs, lib, ... }:
 
 {
   nixpkgs = {
     config.allowUnfree = true;
   };
 
-  nix.gc.automatic = true;
-  nix.gc.options = "--delete-older-than 14d";
-  nix.gc.dates = "03:15";
-  nix.autoOptimiseStore = true;
+  nix = {
+    nixPath = lib.mkForce [
+      "nixpkgs=${inputs.nixpkgs}"
+      "unstable=${inputs.unstable}"
+    ];
+
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 14d";
+      dates = "03:15";
+    };
+
+    autoOptimiseStore = true;
+  };
 }
