@@ -41,6 +41,16 @@
       url = path:/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad-contrib;
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    graphqurl = {
+      url = path:/home/solomon/Development/Nix/nixos-config/flakes/graphqurl;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    jwt-config = {
+      url = github:solomon-b/jwt-config-generator;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -53,7 +63,9 @@
       xmobar-solomon,
       xmonad-solomon,
       xmonad,
-      xmonad-contrib
+      xmonad-contrib,
+      graphqurl,
+      jwt-config
   }:
     let
       system = "x86_64-linux";
@@ -62,6 +74,8 @@
         inherit system;
         config = { allowUnfree = true; };
         overlays = [
+          graphqurl.overlay
+          jwt-config.overlay
           kmonad.overlay
           taffybar-solomon.overlay
           xmonad.overlay
