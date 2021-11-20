@@ -47,11 +47,6 @@
       url = path:/home/solomon/Development/Nix/nixos-config/flakes/graphqurl;
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    jwt-config = {
-      url = github:solomon-b/jwt-config-generator;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = inputs@{
@@ -66,8 +61,7 @@
       xmonad-solomon,
       xmonad,
       xmonad-contrib,
-      graphqurl,
-      jwt-config
+      graphqurl
   }:
     let
       system = "x86_64-linux";
@@ -77,7 +71,6 @@
         config = { allowUnfree = true; };
         overlays = [
           graphqurl.overlay
-          jwt-config.overlay
           kmonad.overlay
           taffybar-solomon.overlay
           xmonad.overlay
@@ -98,7 +91,7 @@
           deployment = {
             targetHost = "yellowstone.cofree.coffee";
             targetUser = config.primary-user.name;
-            sshOptions = [ "-A"];
+            sshOptions = [ "-A" ];
             provisionSSHKey = false;
           };
 
@@ -146,18 +139,5 @@
           };
         };
       };
-
     };
-
-    # TODO: Figure out how to have nixops and regular configs here
-    #  nixosConfigurations = {
-    #    # TODO: Setup Nixops for yellowstone
-    #    #yellowstone.cofree.coffee = nixpkgs.lib.nixosSystem {
-    #    #  inherit pkgs system;
-    #    #  modules = [
-    #    #    ./config/machines/yellowstone.cofree.coffee
-    #    #    nixpkgs.nixosModules.notDetected
-    #    #    home-manager.nixosModules.home-manager
-    #    #  ];
-    #    #};
 }

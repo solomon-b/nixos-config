@@ -745,26 +745,6 @@
         "type": "github"
       }
     },
-    "jwt-config": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1637287469,
-        "narHash": "sha256-a4eVbamMAMTlZ8VTWt65k4DtuLnbWgd3ra667Rn7IX0=",
-        "owner": "solomon-b",
-        "repo": "jwt-config-generator",
-        "rev": "0b39527e9814e83fbf1f4bced643c2c541eacafa",
-        "type": "github"
-      },
-      "original": {
-        "owner": "solomon-b",
-        "repo": "jwt-config-generator",
-        "type": "github"
-      }
-    },
     "kmonad": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -1171,7 +1151,6 @@
       "inputs": {
         "graphqurl": "graphqurl",
         "home-manager": "home-manager",
-        "jwt-config": "jwt-config",
         "kmonad": "kmonad",
         "nixops-plugged": "nixops-plugged",
         "nixpkgs": "nixpkgs_3",

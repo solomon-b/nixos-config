@@ -37,7 +37,7 @@
   environment.systemPackages = with pkgs; [
     # CLI Tools
     inetutils
-    #graphqurl
+    graphqurl
     niv
     pass
     rclone
