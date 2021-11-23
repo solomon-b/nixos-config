@@ -54,14 +54,15 @@
 
     # Desktop Environment
     batsignal
+    brightnessctl
     dunst
     dmenu
     libnotify
     networkmanagerapplet
     trayer
+    volume-bar
     xbanish
     xlayoutdisplay
-    brightnessctl
 
     # Media
     vlc

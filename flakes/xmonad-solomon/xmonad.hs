@@ -384,6 +384,7 @@ myStartupHook = do
   spawn "dunst"
   spawn "udiskie -t"
   spawn "batsignal -b -W \"Warning: Battery Low\""
+  spawn "volume-bar"
   spawn "sleep 2 && kmonad /home/solomon/.config/kmonad.kbd"
 
 restartEventHook :: Event -> X All

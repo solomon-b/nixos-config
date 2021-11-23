@@ -14,6 +14,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    volume-bar = {
+      url = path:/home/solomon/Development/Nix/nixos-config/flakes/volume-bar;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     taffybar-solomon = {
       url = path:/home/solomon/Development/Nix/nixos-config/flakes/taffybar-solomon;
       inputs.nixpkgs.follows = "nixpkgs";
@@ -57,6 +62,7 @@
       home-manager,
       kmonad,
       taffybar-solomon,
+      volume-bar,
       xmobar-solomon,
       xmonad-solomon,
       xmonad,
@@ -73,6 +79,7 @@
           graphqurl.overlay
           kmonad.overlay
           taffybar-solomon.overlay
+          volume-bar.overlay
           xmonad.overlay
           xmonad-contrib.overlay
           xmobar-solomon.overlay
