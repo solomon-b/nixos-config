@@ -14,6 +14,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    brightness-bar = {
+      url = path:/home/solomon/Development/Nix/nixos-config/flakes/brightness-bar;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     volume-bar = {
       url = path:/home/solomon/Development/Nix/nixos-config/flakes/volume-bar;
       inputs.nixpkgs.follows = "nixpkgs";
@@ -62,6 +67,7 @@
       home-manager,
       kmonad,
       taffybar-solomon,
+      brightness-bar,
       volume-bar,
       xmobar-solomon,
       xmonad-solomon,
@@ -76,6 +82,7 @@
         inherit system;
         config = { allowUnfree = true; };
         overlays = [
+          brightness-bar.overlays
           graphqurl.overlay
           kmonad.overlay
           taffybar-solomon.overlay

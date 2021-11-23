@@ -55,6 +55,7 @@
     # Desktop Environment
     batsignal
     brightnessctl
+    brightness-bar
     dunst
     dmenu
     libnotify

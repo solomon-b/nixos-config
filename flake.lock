@@ -949,11 +949,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1636944046,
-        "narHash": "sha256-74KLDsiWSBsYXKj/ql9EGbw1TbIJRE7clFkhl30HV/c=",
+        "lastModified": 1637448181,
+        "narHash": "sha256-ujcXli4esmtIHUBjE1BjmMuBWrcNvlHZrVXx56i5B1M=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "46251a79f752ae1d46ef733e8e9760b6d3429da4",
+        "rev": "d5b65f812cd4f5a8fa74b406075b59a46f1cfd98",
         "type": "github"
       },
       "original": {
@@ -1156,6 +1156,7 @@
         "nixpkgs": "nixpkgs_3",
         "taffybar-solomon": "taffybar-solomon",
         "unstable": "unstable",
+        "volume-bar": "volume-bar",
         "xmobar-solomon": "xmobar-solomon",
         "xmonad": "xmonad",
         "xmonad-contrib": "xmonad-contrib",
@@ -1229,17 +1230,33 @@
     },
     "unstable": {
       "locked": {
-        "lastModified": 1637351920,
-        "narHash": "sha256-0AX9es5zbG3LAEFnmpGFFqiq4Z0WCYrcVAnBoXeEq7c=",
+        "lastModified": 1637644521,
+        "narHash": "sha256-DhuulTgeZ5ZcOcGKEoSHMXfbBLw3B8oLbGu1JKCIPnY=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "1d1d332bb29aa651a22c4bea66a9d27ccbf9a760",
+        "rev": "ebbca75dc2b74d6b68f9a157ac2ec643a7570d19",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
         "repo": "nixpkgs",
         "type": "github"
+      }
+    },
+    "volume-bar": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "narHash": "sha256-4yOC6o1T3/DqFuamNyD5NuXpaLXR0idmkCBWDzq4Idw=",
+        "path": "/home/solomon/Development/Nix/nixos-config/flakes/volume-bar",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/solomon/Development/Nix/nixos-config/flakes/volume-bar",
+        "type": "path"
       }
     },
     "xmobar-solomon": {
@@ -1328,7 +1345,7 @@
         "xmonad-contrib": "xmonad-contrib_2"
       },
       "locked": {
-        "narHash": "sha256-Q0jq9nZSKz9S3k2wU0K1B4hgPDd8d2biL5PfHEeOXI8=",
+        "narHash": "sha256-pn+AGEWBl1l+L16K5A+Lr41qId9MrsZVZHyifYRvn3c=",
         "path": "/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon",
         "type": "path"
       },

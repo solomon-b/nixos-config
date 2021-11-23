@@ -290,8 +290,8 @@ myKeys c = mkKeymap c $
   , ("<XF86AudioMute>",         toggleMute)
   , ("<XF86AudioRaiseVolume>",  volumeUp)
   , ("<XF86AudioLowerVolume>",  volumeDown)
-  , ("<XF86MonBrightnessUp>",   spawn "brightnessctl set 10%+")
-  , ("<XF86MonBrightnessDown>", spawn "brightnessctl set 10%-")
+  , ("<XF86MonBrightnessUp>",   spawn "brightnessctl set 5%+")
+  , ("<XF86MonBrightnessDown>", spawn "brightnessctl set 5%-")
   , ("M-m",                     toggleDunst >> toggleMute)
   , ("M-<Print>",               scrotPrompt)
  -- , ("M-n", runInTerm "" "htop")
@@ -380,11 +380,12 @@ myStartupHook = do
   spawn "nm-applet"
   spawn "feh --bg-scale /home/solomon/Public/wallpapers/Yosemite-Color-Block.png"
   spawn "xbanish"
-  spawn "trayer --edge top --width 4 --align right --height 28 --transparent true --alpha 0 --tint 0x2d2d2d"
+  spawn "trayer --edge top --width 4 --align right --height 22 --transparent true --alpha 0 --tint 0x2d2d2d"
   spawn "dunst"
   spawn "udiskie -t"
   spawn "batsignal -b -W \"Warning: Battery Low\""
   spawn "volume-bar"
+  spawn "brightness-bar"
   spawn "sleep 2 && kmonad /home/solomon/.config/kmonad.kbd"
 
 restartEventHook :: Event -> X All
