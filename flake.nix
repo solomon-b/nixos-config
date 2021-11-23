@@ -82,7 +82,7 @@
         inherit system;
         config = { allowUnfree = true; };
         overlays = [
-          brightness-bar.overlays
+          brightness-bar.overlay
           graphqurl.overlay
           kmonad.overlay
           taffybar-solomon.overlay

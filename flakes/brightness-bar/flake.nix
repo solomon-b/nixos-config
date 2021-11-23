@@ -16,11 +16,11 @@
           '';
 
       overlay = final: prev: {
-        volume-bar =
+        brightness-bar =
           let watcher = final.callPackage ./derivation.nix { };
           in pkgs.writeShellScriptBin "brightness-bar"
             ''
-          ${watcher}/bin/brightness-bar-watcher.py | ${pkgs.xob}/bin/xob -c ${./xob.config} -s default
+          ${watcher}/bin/brightness-watcher.py | ${pkgs.xob}/bin/xob -c ${./xob.config} -s default
             '';
       };
 

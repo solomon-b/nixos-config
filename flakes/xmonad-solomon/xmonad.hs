@@ -22,6 +22,7 @@ import           XMonad.Layout.Named
 import           XMonad.Layout.NoFrillsDecoration
 import           XMonad.Layout.NoBorders
 import           XMonad.Layout.PerScreen
+
 import           XMonad.Layout.ResizableTile
 import           XMonad.Layout.Renamed
 import           XMonad.Layout.Simplest
@@ -165,15 +166,6 @@ flex =
 myBrowser  = "/usr/bin/firefox"
 myTerminal = "termonad"
 myLauncher = XMonad.Prompt.Shell.shellPrompt promptConfig
-  -- NOTE: Old DMenu Theming. Keeping in case I go back to dmenu.
-  --mconcat $ intersperse " " [path, font, bgcolor, fgcolor, sfcolor, sbcolor]
-  --  where
-  --      path = "dmenu_run"
-  --      font = "-fn \"" <> myFont <> "\""
-  --      bgcolor = "-nb " <> show background
-  --      fgcolor = "-nf " <> show orange
-  --      sbcolor = "-sb " <> show background
-  --      sfcolor = "-sf " <> show purple
 
 myWorkspaces = ["1:term","2:web", "3:slack"] ++ map show [4..9]
 
@@ -358,6 +350,7 @@ myKeys c = mkKeymap c $
       if M.member w (W.floating s)
       then W.sink w s
       else W.float w (W.RationalRect (1/6) (1/6) (2/3) (2/3)) s
+
 myNav2DConf = def
   { defaultTiledNavigation = centerNavigation
   , floatNavigation        = centerNavigation

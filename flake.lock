@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "brightness-bar": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "narHash": "sha256-w7CPOeU7J6ZTJV2NnNcsCSHMHQ6QEMWVd1Ef4N1fcUc=",
+        "path": "/home/solomon/Development/Nix/nixos-config/flakes/brightness-bar",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/solomon/Development/Nix/nixos-config/flakes/brightness-bar",
+        "type": "path"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -1149,6 +1165,7 @@
     },
     "root": {
       "inputs": {
+        "brightness-bar": "brightness-bar",
         "graphqurl": "graphqurl",
         "home-manager": "home-manager",
         "kmonad": "kmonad",
@@ -1250,7 +1267,7 @@
         ]
       },
       "locked": {
-        "narHash": "sha256-4yOC6o1T3/DqFuamNyD5NuXpaLXR0idmkCBWDzq4Idw=",
+        "narHash": "sha256-Rk7aRlEbb2vJyVV0oSKOmKCE1k7TCCQBAtnnbqU9o1g=",
         "path": "/home/solomon/Development/Nix/nixos-config/flakes/volume-bar",
         "type": "path"
       },
@@ -1345,7 +1362,7 @@
         "xmonad-contrib": "xmonad-contrib_2"
       },
       "locked": {
-        "narHash": "sha256-pn+AGEWBl1l+L16K5A+Lr41qId9MrsZVZHyifYRvn3c=",
+        "narHash": "sha256-JkaTKG9e88MoFETPDl4PsR/1+W0SpL7TktpCgd6kxsw=",
         "path": "/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon",
         "type": "path"
       },
