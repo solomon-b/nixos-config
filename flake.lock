@@ -7,7 +7,7 @@
         ]
       },
       "locked": {
-        "narHash": "sha256-w7CPOeU7J6ZTJV2NnNcsCSHMHQ6QEMWVd1Ef4N1fcUc=",
+        "narHash": "sha256-r88TG2RE5DgUdWSW8XGtj8Mu0ZatLRqiLuLvllO2NzM=",
         "path": "/home/solomon/Development/Nix/nixos-config/flakes/brightness-bar",
         "type": "path"
       },
