@@ -288,6 +288,8 @@ myKeys c = mkKeymap c $
   , ("M-<Print>",               scrotPrompt)
  -- , ("M-n", runInTerm "" "htop")
   , ("M-n", systemCtlPrompt)
+  , ("C-<Space>", dunstClose)
+  , ("C-S-<Space>", dunstCloseAll)
   ] <>
 
   ------------------------------
@@ -335,11 +337,13 @@ myKeys c = mkKeymap c $
   , ("M-p",        myLauncher)     -- Launch DMenu
   ]
   where
-    toggleDunst = spawn "dunstctl set-paused toggle"
-    toggleMute  = spawn "amixer sset 'Master' toggle"
-    volumeUp    = spawn "amixer set Master 5%+"
-    volumeDown  = spawn "amixer set Master 5%-"
-    restart     = do
+    toggleDunst   = spawn "dunstctl set-paused toggle"
+    toggleMute    = spawn "amixer sset 'Master' toggle"
+    dunstClose    = spawn "dunstctl close"
+    dunstCloseAll = spawn "dunstctl close-all"
+    volumeUp      = spawn "amixer set Master 5%+"
+    volumeDown    = spawn "amixer set Master 5%-"
+    restart       = do
       spawn "pkill trayer"
       spawn "xmonad --restart"
     toggleSticky w = windows $ \s ->
