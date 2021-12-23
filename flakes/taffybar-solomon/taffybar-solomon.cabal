@@ -6,25 +6,38 @@ author:             solomon
 maintainer:         ssbothwell@gmail.com
 
 executable taffybar-solomon
-  main-is:             taffybar.hs
-  build-depends:       base
-                     , X11
-                     , bytestring
-                     , containers
-                     , directory
-                     , filepath
-                     , gi-gtk
-                     , gtk-sni-tray
-                     , gtk-strut
-                     , haskell-gi-base
-                     , hostname
-                     , hslogger
-                     , process
-                     , split
-                     , text
-                     , time
-                     , taffybar>=3.2.0
-                     , transformers
-                     , xdg-basedir
-  hs-source-dirs:      .
-  default-language:    Haskell2010
+  main-is:          taffybar.hs
+  build-depends:    base ^>=4.14.1.0
+                  , taffybar-solomon
+  hs-source-dirs:   .
+  default-language: Haskell2010
+  ghc-options:      -threaded -rtsopts -with-rtsopts=-N
+
+library
+  exposed-modules:  App
+                  -- , Watcher
+  build-depends:    base
+                  -- , X11
+                  -- , bytestring
+                  -- , containers
+                  -- , directory
+                  , dbus
+                  , dbus-hslogger
+                  -- , filepath
+                  -- , gi-gtk
+                  -- , gtk-sni-tray
+                  -- , gtk-strut
+                  -- , haskell-gi-base
+                  -- , hostname
+                  , hslogger
+                  , optparse-applicative
+                  -- , process
+                  -- , split
+                  , status-notifier-item
+                  -- , text
+                  -- , time
+                  , taffybar>=3.2.0
+                  -- , transformers
+                  -- , xdg-basedir
+  hs-source-dirs:   src
+  default-language: Haskell2010

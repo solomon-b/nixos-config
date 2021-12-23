@@ -23,6 +23,7 @@
 
   environment.systemPackages = [
     pkgs.acpi
+    pkgs.freecad
   ];
 
   primary-user.name = "solomon";

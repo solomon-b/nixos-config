@@ -40,13 +40,6 @@
 
       experimental.per_monitor_dpi = false;
 
-      shortcuts = {
-        close = "ctrl+space";
-        close_all = "ctrl+shift+space";
-        history = "ctrl+grave";
-        context = "ctrl+shift+period";
-      };
-
       urgency_low = {
         frame_color = "#99cc99";
         background = "#2d2d2d";
