@@ -20,7 +20,7 @@
         tab  q    w    e    r    t    y    u    i    o    p     [    ]    \
         caps a    s    d    f    g    h    j    k    l    ;     '    ret
         lsft z    x    c    v    b    n    m    ,    .     /    rsft
-        lctl lmet lalt           spc                     ralt rctl   up   
+        lctl lmet lalt           spc                     ralt rctl   up
                                                                   left down rght
       )
     '';
@@ -40,7 +40,7 @@
         @tmt q    w    e    r    t    y    u    i    o    p     [    ]    @\mt
         @xcp a    s    d    f    g    h    j    k    l    ;     '    ret
         lsft z    x    c    v    b    n    m    ,    .     /    rsft
-        lctl  lmet  lalt          spc                    ralt rctl   up   
+        lctl  lmet  lalt          spc                    ralt rctl   up
                                                                   left down rght
       )
     '';
