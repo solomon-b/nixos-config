@@ -23,7 +23,7 @@ in
 
   config = lib.mkIf (cfg.name != null) {
     primary-user = {
-      extraGroups = [ "wheel" "users" "keys" "input" ];
+      extraGroups = [ "wheel" "users" "keys" "input" "cardano-node" ];
 
       home-manager = {
         home.username = cfg.name;
