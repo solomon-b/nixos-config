@@ -26,6 +26,6 @@
     pkgs.haskellPackages.xmonad
     pkgs.haskellPackages.xmonad-solomon
     pkgs.haskellPackages.xmobar-solomon
-    pkgs.haskellPackages.taffybar-solomon
+    #pkgs.haskellPackages.taffybar-solomon
   ];
 }

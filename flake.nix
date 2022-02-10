@@ -24,10 +24,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    taffybar-solomon = {
-      url = path:/home/solomon/Development/Nix/nixos-config/flakes/taffybar-solomon;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #taffybar-solomon = {
+    #  url = path:/home/solomon/Development/Nix/nixos-config/flakes/taffybar-solomon;
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
 
     xmobar-solomon = {
       #url = path:./flakes/xmobar-solomon;
@@ -74,7 +74,7 @@
       unstable,
       home-manager,
       kmonad,
-      taffybar-solomon,
+      #taffybar-solomon,
       brightness-bar,
       volume-bar,
       xmobar-solomon,
@@ -97,7 +97,7 @@
           cardano-wallet.overlay
           graphqurl.overlay
           kmonad.overlay
-          taffybar-solomon.overlay
+          #taffybar-solomon.overlay
           volume-bar.overlay
           xmonad.overlay
           xmonad-contrib.overlay
