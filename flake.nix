@@ -58,9 +58,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    cardano-node = {
-      url = github:input-output-hk/cardano-node;
-    };
+    #cardano-node = {
+    #  url = github:input-output-hk/cardano-node;
+    #};
 
     cardano-wallet = {
       url = github:input-output-hk/cardano-wallet;
@@ -82,7 +82,7 @@
       xmonad,
       xmonad-contrib,
       graphqurl,
-      cardano-node,
+      #cardano-node,
       cardano-wallet
   }:
     let
@@ -93,7 +93,7 @@
         config = { allowUnfree = true; };
         overlays = [
           brightness-bar.overlay
-          cardano-node.overlay
+          #cardano-node.overlay
           cardano-wallet.overlay
           graphqurl.overlay
           kmonad.overlay
@@ -159,7 +159,7 @@
             ./config/machines/sower
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
-            cardano-node.nixosModules.cardano-node
+            #cardano-node.nixosModules.cardano-node
           ];
           specialArgs = {
             inherit inputs;

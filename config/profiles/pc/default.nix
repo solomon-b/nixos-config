@@ -37,6 +37,7 @@
   environment.systemPackages = with pkgs; [
     # CLI Tools
     inetutils
+    ispell
     graphqurl
     niv
     pass
