@@ -3,7 +3,7 @@
 {
   imports = [
     ./hardware.nix
-    ./cardano-node.nix
+    #./cardano-node.nix
     #./wireguard.nix
     ./kmonad.nix
     ../../profiles/pc
@@ -17,11 +17,11 @@
 
   environment.systemPackages = [
     pkgs.acpi
-    pkgs.freecad
-    pkgs.cardano-node
-    pkgs.cardano-cli
-    pkgs.cardano-wallet
-    pkgs.tx-generator
+    #pkgs.freecad
+    #pkgs.cardano-node
+    #pkgs.cardano-cli
+    #pkgs.cardano-wallet
+    #pkgs.tx-generator
   ];
 
   primary-user.name = "solomon";
