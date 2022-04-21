@@ -88,9 +88,6 @@
     # Web Browsers
     firefox
     google-chrome
-
-    # Misc
-    qbittorrent
   ];
 
   primary-user.extraGroups = [ "networkmanager" ];
