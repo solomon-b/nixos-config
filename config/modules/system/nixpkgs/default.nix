@@ -1,8 +1,16 @@
-{ inputs, lib, ... }:
+{ inputs, config, lib, ... }:
 
 {
+  #config = {
+  #  permittedInsecurePackages = [
+  #    "electron-9.4.4"
+  #  ];
+  #};
+
   nixpkgs = {
-    config.allowUnfree = true;
+    config = {
+      allowUnfree = true;
+    };
   };
 
   nix = {
