@@ -3,7 +3,7 @@
 {
   imports = [
     ./hardware.nix
-    #./wireguard.nix
+    ./wireguard.nix
     ./kmonad.nix
     ./hoogle.nix
     ../../profiles/pc
