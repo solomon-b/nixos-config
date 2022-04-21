@@ -8,6 +8,8 @@
     ./hoogle.nix
     ../../profiles/pc
 
+    ../../modules/system/virtualisation/libvirt
+
     ../../modules/system/devices/touchpad
     ../../modules/system/powertop
 

@@ -8,7 +8,7 @@
 
     ../../modules/system/devices/bluetooth
     ../../modules/system/docker
-    # ../../modules/system/virtualbox
+    # ../../modules/system/virtualizaton/virtualbox
     ../../modules/system/postgresql
     ../../modules/system/redis
     ../../modules/system/syncthing
