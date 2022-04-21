@@ -2,7 +2,7 @@
 {
   services.hoogle = {
     enable = true;
-    port = 8081;
+    port = 8082;
 
     packages = hp: [
       hp.xmonad
