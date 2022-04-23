@@ -7,23 +7,22 @@
     ../../modules/security/gpg
 
     ../../modules/system/devices/bluetooth
-    ../../modules/system/docker
-    # ../../modules/system/virtualizaton/virtualbox
-    ../../modules/system/postgresql
-    ../../modules/system/redis
-    ../../modules/system/syncthing
+
+    ../../modules/services/docker
+    ../../modules/services/postgresql
+    ../../modules/services/redis
+    ../../modules/services/syncthing
+    # ../../modules/services/virtualizaton/virtualbox
 
     ../../modules/ui/audio
     ../../modules/ui/direnv
     ../../modules/ui/dunst
     ../../modules/ui/fonts
     ../../modules/ui/git
-    #../../modules/ui/kmonad
     ../../modules/ui/lorri
     ../../modules/ui/opengl
     ../../modules/ui/picom
     ../../modules/ui/termonad
-    #../../modules/ui/xmobar
     ../../modules/ui/xserver
 
     # TODO: Write Modules:

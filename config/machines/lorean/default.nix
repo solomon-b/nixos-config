@@ -6,8 +6,8 @@
     ./wireguard.nix
     ./kmonad.nix
     ./hoogle.nix
-    ../../profiles/pc
 
+    ../../profiles/pc
     ../../modules/system/devices/touchpad
     ../../modules/system/powertop
 
@@ -35,8 +35,8 @@
     useDHCP = false;
     interfaces.enp0s31f6.useDHCP = true;
     interfaces.wlp4s0.useDHCP = true;
-    hosts = {
-      "192.168.0.3" = [ "sower" ];
-    };
+    #hosts = {
+    #  "192.168.0.3" = [ "sower" ];
+    #};
   };
 }

@@ -6,10 +6,11 @@
     #./cardano-node.nix
     ./wireguard.nix
     ./kmonad.nix
-    ../../modules/system/bittorrent
-    ../../modules/system/virtualisation/libvirt
-    ../../modules/system/plex
+
     ../../profiles/pc
+    ../../modules/services/bittorrent
+    ../../modules/services/virtualisation/libvirt
+    ../../modules/services/plex
   ];
 
   nixpkgs.config.allowBroken = true;
