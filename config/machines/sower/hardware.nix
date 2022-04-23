@@ -33,6 +33,12 @@
       fsType = "vfat";
     };
 
+  fileSystems."/srv/NAS" =
+    { device = "/dev/disk/by-label/NAS";
+      fsType = "ext4";
+      options = [ "sync" ];
+    };
+
   swapDevices = [ ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
