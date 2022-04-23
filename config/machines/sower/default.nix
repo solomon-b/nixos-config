@@ -4,7 +4,7 @@
   imports = [
     ./hardware.nix
     #./cardano-node.nix
-    #./wireguard.nix
+    ./wireguard.nix
     ./kmonad.nix
     ../../modules/system/bittorrent
     ../../modules/system/virtualisation/libvirt

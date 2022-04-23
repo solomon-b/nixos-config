@@ -19,22 +19,22 @@
     '';
   };
 
-  networking.wireguard.interfaces = {
-    wg0 = {
-      ips = [ "10.100.0.5/24" ];
-      listenPort = 51820; # to match firewall allowedUDPPorts (without this wg uses random port numbers)
-      privateKeyFile = "/secrets/primary-user-wireguard-private-key";
+  #networking.wireguard.interfaces = {
+  #  wg0 = {
+  #    ips = [ "10.100.0.5/24" ];
+  #    listenPort = 51820; # to match firewall allowedUDPPorts (without this wg uses random port numbers)
+  #    privateKeyFile = "/secrets/primary-user-wireguard-private-key";
 
-      peers = [
-        {
-          # TODO: Fetch password from pass
-          #publicKey = builtins.extraBuiltins.getFullPasswordValue pkgs "system/yellowstone/wireguard/public-key";
-          publicKey = "Y6OqeDXON8DZ83Hf4yGBekMWDtIPRzyvVxg0M9zqZxg=";
-          allowedIPs = [ "0.0.0.0/0" "::/0" ];
-          endpoint = "yellowstone.cofree.coffee:51820";
-          persistentKeepalive = 25;
-        }
-      ];
-    };
-  };
+  #    peers = [
+  #      {
+  #        # TODO: Fetch password from pass
+  #        #publicKey = builtins.extraBuiltins.getFullPasswordValue pkgs "system/yellowstone/wireguard/public-key";
+  #        publicKey = "Y6OqeDXON8DZ83Hf4yGBekMWDtIPRzyvVxg0M9zqZxg=";
+  #        allowedIPs = [ "0.0.0.0/0" "::/0" ];
+  #        endpoint = "yellowstone.cofree.coffee:51820";
+  #        persistentKeepalive = 25;
+  #      }
+  #    ];
+  #  };
+  #};
 }
