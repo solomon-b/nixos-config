@@ -1,5 +1,6 @@
 {-# LANGUAGE InstanceSigs #-}
 {-# LANGUAGE TupleSections #-}
+{-# LANGUAGE TypeApplications #-}
 import           XMonad
 import           XMonad.Hooks.DynamicLog
 import           XMonad.Hooks.DynamicProperty
@@ -53,8 +54,11 @@ import           System.Exit
 import           System.Process
 import           GHC.IO.Handle
 
+import           Control.Exception (SomeException, try)
 import           Control.Monad
+import           Control.Monad.IO.Class
 
+import           Data.Foldable
 import qualified Data.Map as M
 import           Data.Monoid (All(..))
 import           Data.Char (toLower)
@@ -372,18 +376,14 @@ myMouseBindings XConfig {XMonad.modMask = modm} = M.fromList
 --- Main ---
 ------------
 
+readFileMaybe :: FilePath -> IO (Maybe String)
+readFileMaybe path =
+  fmap (either (const Nothing) Just) $ try @SomeException $ readFile path
+
 myStartupHook :: X ()
 myStartupHook = do
-  spawn "nm-applet"
-  spawn "feh --bg-scale /home/solomon/Public/wallpapers/Yosemite-Color-Block.png"
-  spawn "xbanish"
-  spawn "trayer --edge top --width 4 --align right --height 22 --transparent true --alpha 0 --tint 0x2d2d2d"
-  spawn "dunst"
-  spawn "udiskie -t"
-  spawn "batsignal -b -W \"Warning: Battery Low\""
-  spawn "volume-bar"
-  spawn "brightness-bar"
-  spawn "sleep 2 && kmonad /home/solomon/.config/kmonad.kbd"
+  commands <- liftIO $ readFileMaybe "/home/solomon/.startup" 
+  traverse_ (traverse_ spawn) (fmap lines $ commands)
 
 restartEventHook :: Event -> X All
 restartEventHook e@ClientMessageEvent { ev_message_type = mt } = do
