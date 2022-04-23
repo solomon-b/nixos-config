@@ -8,6 +8,7 @@
     ./kmonad.nix
     ../../modules/system/bittorrent
     ../../modules/system/virtualisation/libvirt
+    ../../modules/system/plex
     ../../profiles/pc
   ];
 
