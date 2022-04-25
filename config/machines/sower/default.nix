@@ -20,14 +20,12 @@
       experimental-features = nix-command flakes
     '';
 
-  environment.systemPackages = [
-    pkgs.acpi
-    #pkgs.freecad
-    #pkgs.cardano-node
-    #pkgs.cardano-cli
-    #pkgs.cardano-wallet
-    #pkgs.tx-generator
-  ];
+  #environment.systemPackages = [
+  #  pkgs.cardano-node
+  #  pkgs.cardano-cli
+  #  pkgs.cardano-wallet
+  #  pkgs.tx-generator
+  #];
 
   primary-user.name = "solomon";
 
