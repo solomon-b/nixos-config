@@ -30,6 +30,12 @@
       fsType = "zfs";
     };
 
+  fileSystems."/mnt/nas" = {
+    device = "server:/nas";
+    fsType = "nfs";
+    options = [ "x-systemd.automount" "noauto" ];
+  };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/46068d88-87e1-46ce-ac32-e12bab0e1a00"; }
     ];

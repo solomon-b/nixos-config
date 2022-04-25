@@ -39,6 +39,11 @@
       options = [ "sync" ];
     };
 
+  fileSystems."/nfs/nas" = {
+    device = "/srv/NAS";
+    options = [ "bind" ];
+  };
+
   swapDevices = [ ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";

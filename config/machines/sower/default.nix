@@ -3,9 +3,11 @@
 {
   imports = [
     ./hardware.nix
+
     #./cardano-node.nix
     ./wireguard.nix
     ./kmonad.nix
+    ./nfs.nix
 
     ../../profiles/physical-machine
     ../../modules/services/bittorrent
