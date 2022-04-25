@@ -11,6 +11,7 @@
     ../../modules/services/bittorrent
     ../../modules/services/virtualisation/libvirt
     ../../modules/services/plex
+    ../../modules/services/jellyfin
   ];
 
   nixpkgs.config.allowBroken = true;
