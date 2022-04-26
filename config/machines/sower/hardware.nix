@@ -45,9 +45,4 @@
 
   # nix.buildCores = ???
   # nix.maxJobs = lib.mkDefault ???
-
-  networking = {
-    interfaces.eno1.useDHCP = true;
-    useDHCP = false;
-  };
 }

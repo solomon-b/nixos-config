@@ -1,4 +1,5 @@
 { config, pkgs, ... }:
+
 {
   environment.systemPackages = [ pkgs.wireguard pkgs.wireguard-tools ];
 
@@ -19,22 +20,20 @@
     '';
   };
 
-  #networking.wireguard.interfaces = {
-  #  wg0 = {
-  #    ips = [ "10.100.0.5/24" ];
-  #    listenPort = 51820; # to match firewall allowedUDPPorts (without this wg uses random port numbers)
-  #    privateKeyFile = "/secrets/primary-user-wireguard-private-key";
-
-  #    peers = [
-  #      {
-  #        # TODO: Fetch password from pass
-  #        #publicKey = builtins.extraBuiltins.getFullPasswordValue pkgs "system/yellowstone/wireguard/public-key";
-  #        publicKey = "Y6OqeDXON8DZ83Hf4yGBekMWDtIPRzyvVxg0M9zqZxg=";
-  #        allowedIPs = [ "0.0.0.0/0" "::/0" ];
-  #        endpoint = "yellowstone.cofree.coffee:51820";
-  #        persistentKeepalive = 25;
-  #      }
-  #    ];
-  #  };
-  #};
+  networking.wg-quick.interfaces = {
+    wg0 = {
+      address = [ "10.65.202.199/32" "fc00:bbbb:bbbb:bb01::2:cac6/128" ];
+      dns = [ "193.138.218.74" ];
+      privateKeyFile = "/secrets/primary-user-wireguard-private-key-mulvad-257";
+      
+      peers = [
+        {
+          publicKey = "ELo9g48V0FSx8fgpAPKcSlRf1my+vagqI9J26IRLIC4=";
+          allowedIPs = [ "0.0.0.0/0" "::0/0" ];
+          endpoint = "37.19.210.1:51820";
+          persistentKeepalive = 25;
+        }
+      ];
+    };
+  };
 }

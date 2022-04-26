@@ -32,12 +32,7 @@
   networking = {
     hostName = "sower";
     hostId = "960855f8";
-    networkmanager.enable = true;
-
+    interfaces.eno1.useDHCP = true;
     useDHCP = false;
-    interfaces.wlp170s0.useDHCP = true;
-    hosts = {
-      "192.168.0.3" = [ "sower" ];
-    };
   };
 }
