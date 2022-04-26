@@ -48,8 +48,6 @@
 
   networking = {
     interfaces.eno1.useDHCP = true;
-    interfaces.wlp1s0.useDHCP = true;
-    networkmanager.enable = true;
     useDHCP = false;
   };
 }

@@ -7,9 +7,9 @@
     ./wireguard.nix
     ./kmonad.nix
 
-    ../../profiles/pc
+    ../../profiles/physical-machine
     ../../modules/services/bittorrent
-    ../../modules/services/virtualisation/libvirt
+    #../../modules/services/virtualisation/libvirt
     ../../modules/services/plex
     ../../modules/services/jellyfin
   ];

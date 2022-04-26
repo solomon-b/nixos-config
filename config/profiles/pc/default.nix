@@ -18,8 +18,6 @@
     ../../modules/ui/direnv
     ../../modules/ui/dunst
     ../../modules/ui/fonts
-    ../../modules/ui/git
-    ../../modules/ui/lorri
     ../../modules/ui/opengl
     ../../modules/ui/picom
     ../../modules/ui/termonad
