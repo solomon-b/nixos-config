@@ -35,12 +35,7 @@
 
   environment.systemPackages = with pkgs; [
     # CLI Tools
-    inetutils
     ispell
-    graphqurl
-    niv
-    pass
-    rclone
     udiskie
     sqlite # for org-roam, should I move to postgres? How would I sync between machines in that case?
     xclip
@@ -49,9 +44,6 @@
 
     # Editors
     emacs
-
-    # Haskell Dev Tools
-    cabal2nix
 
     # Desktop Environment
     batsignal
@@ -71,7 +63,6 @@
     scrot
     zathura
     feh
-    obs-studio
 
     # Chat/Communication
     slack
