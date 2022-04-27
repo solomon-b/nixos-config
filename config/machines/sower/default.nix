@@ -4,16 +4,10 @@
   imports = [
     ./hardware.nix
 
-    #./cardano-node.nix
     ./wireguard.nix
-    ./kmonad.nix
-    ./nfs.nix
 
     ../../profiles/physical-machine
-    ../../modules/services/dns
     ../../modules/services/bittorrent
-    #../../modules/services/virtualisation/libvirt
-    ../../modules/services/plex
     ../../modules/services/jellyfin
   ];
 
