@@ -10,6 +10,7 @@
     ./nfs.nix
 
     ../../profiles/physical-machine
+    ../../modules/services/dns
     ../../modules/services/bittorrent
     #../../modules/services/virtualisation/libvirt
     ../../modules/services/plex
