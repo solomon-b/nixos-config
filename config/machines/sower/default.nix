@@ -8,6 +8,7 @@
 
     ../../profiles/physical-machine
     ../../modules/services/bittorrent
+    ../../modules/services/dns
     ../../modules/services/jellyfin
   ];
 
@@ -24,5 +25,9 @@
     hostId = "960855f8";
     interfaces.eno1.useDHCP = true;
     useDHCP = false;
+
+    hosts = {
+      "192.168.0.1" = [ "router" ];
+    };
   };
 }

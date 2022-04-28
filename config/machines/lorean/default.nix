@@ -35,8 +35,5 @@
     useDHCP = false;
     interfaces.enp0s31f6.useDHCP = true;
     interfaces.wlp4s0.useDHCP = true;
-    #hosts = {
-    #  "192.168.0.3" = [ "sower" ];
-    #};
   };
 }

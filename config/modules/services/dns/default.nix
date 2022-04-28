@@ -4,31 +4,45 @@
   services.dnsmasq = {
     enable = true;
     extraConfig = ''
-      no-dhcp-interface=eno1
       bogus-priv
-      domain=foobar.com
-      expand-hosts
-      local=/foobar.com/
       domain-needed
-      no-resolv
+      no-dhcp-interface=eno1
+      no-hosts
       no-poll
- 
+      no-resolv
+
+      domain=local.net
+      local=/local.net/
+
+      listen-address=::1,127.0.0.1,192.168.0.3
+      bind-interfaces
+
+      cache-size=10000
+
       server=8.8.8.8
       server=8.8.4.4
+
+      address=/sower/192.168.0.3
+      address=/sower.local.net/192.168.0.3
+      address=/router/192.168.0.1
+      address=/router.local.net/192.168.0.1
     '';
   };
+
+  networking = {
+    firewall = {
+      allowedTCPPorts = [ 53 ];
+      allowedUDPPorts = [ 53 ];
+    };
+  };
 }
-      
-     # listen-address=::1,127.0.0.1,192.168.0.1
-     # bind-interfaces
-     # 
-     # cache-size=10000
      # log-queries
      # log-facility=/tmp/ad-block.log
      # local-ttl=300
  
      # conf-file=/etc/nixos/assets/hosts-blocklists/domains.txt
      # addn-hosts=/etc/nixos/assets/hosts-blocklists/hostnames.txt
+
 #let
 #  inherit (config.networking) domain hostName;
 #  fqdb = "${hostName}.${domain}";
