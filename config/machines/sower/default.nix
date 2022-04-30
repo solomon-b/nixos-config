@@ -5,6 +5,7 @@
     ./hardware.nix
 
     ./wireguard.nix
+    ./nginx.nix
 
     ../../profiles/physical-machine
     ../../modules/services/bittorrent
