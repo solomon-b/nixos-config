@@ -10,6 +10,7 @@
     ../../profiles/pc
     ../../modules/system/devices/touchpad
     ../../modules/system/powertop
+    ../../modules/services/virtualisation/libvirt
 
     # TODO: Setup Wifi Networks???
     # ../../modules/system/devices/wifi
