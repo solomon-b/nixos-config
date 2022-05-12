@@ -8,12 +8,10 @@
     ./hoogle.nix
 
     ../../profiles/pc
+    ../../modules/services/virtualisation/libvirt
+    ../../modules/services/syncthing
     ../../modules/system/devices/touchpad
     ../../modules/system/powertop
-    ../../modules/services/virtualisation/libvirt
-
-    # TODO: Setup Wifi Networks???
-    # ../../modules/system/devices/wifi
   ];
 
   nix.package = pkgs.nixUnstable;

@@ -9,11 +9,9 @@
 
     ../../profiles/pc
     ../../modules/services/virtualisation/libvirt
+    ../../modules/services/syncthing
     ../../modules/system/devices/touchpad
     ../../modules/system/powertop
-
-    # TODO: Setup Wifi Networks???
-    # ../../modules/system/devices/wifi
   ];
 
   nixpkgs.config.allowBroken = true;

@@ -11,6 +11,7 @@
     ../../modules/services/bittorrent
     ../../modules/services/dns
     ../../modules/services/jellyfin
+    ../../modules/services/syncthing
   ];
 
   nixpkgs.config.allowBroken = true;

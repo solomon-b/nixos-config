@@ -11,8 +11,6 @@
     ../../modules/services/docker
     ../../modules/services/postgresql
     ../../modules/services/redis
-    ../../modules/services/syncthing
-    # ../../modules/services/virtualizaton/virtualbox
 
     ../../modules/ui/audio
     ../../modules/ui/direnv
