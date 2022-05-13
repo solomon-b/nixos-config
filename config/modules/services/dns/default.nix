@@ -11,8 +11,8 @@
       no-poll
       no-resolv
 
-      domain=local.net
-      local=/local.net/
+      domain=galaxybrain.zone
+      local=/galaxybrain.zone/
 
       listen-address=::1,127.0.0.1,192.168.0.3
       bind-interfaces
@@ -23,9 +23,9 @@
       server=8.8.4.4
 
       address=/sower/192.168.0.3
-      address=/sower.local.net/192.168.0.3
+      address=/sower.galaxybrain.zone/192.168.0.3
       address=/router/192.168.0.1
-      address=/router.local.net/192.168.0.1
+      address=/router.galaxybrain.zone/192.168.0.1
     '';
   };
 

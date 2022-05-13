@@ -24,6 +24,7 @@
 
   networking = {
     hostName = "sower";
+    domain = "galaxybrain.zone";
     hostId = "960855f8";
     interfaces.eno1.useDHCP = true;
     useDHCP = false;
