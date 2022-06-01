@@ -1,11 +1,11 @@
 {
   inputs = {
-    nixpkgs.url = github:nixos/nixpkgs/nixos-21.11;
+    nixpkgs.url = github:nixos/nixpkgs/nixos-22.05;
     unstable.url = github:nixos/nixpkgs;
     nixops-plugged.url  = github:lukebfox/nixops-plugged;
 
     home-manager = {
-      url = github:rycee/home-manager/release-21.11;
+      url = github:rycee/home-manager/release-22.05;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

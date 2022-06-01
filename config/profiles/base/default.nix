@@ -21,6 +21,7 @@
     ../../modules/ui/zsh
   ];
 
+  system.stateVersion = "22.05";
   nix.trustedUsers = [ "@wheel" ];
   environment.shells = [pkgs.zsh pkgs.bashInteractive];
 
