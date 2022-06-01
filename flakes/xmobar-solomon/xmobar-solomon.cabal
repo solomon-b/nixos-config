@@ -12,7 +12,7 @@ extra-source-files: CHANGELOG.md
 
 executable xmobar-solomon
   main-is:          Main.hs
-  build-depends:    base ^>=4.14.1.0
+  build-depends:    base >= 2 && < 5
                   , xmobar-solomon
                   , xmobar
   hs-source-dirs:   app
@@ -25,7 +25,7 @@ library
                   , App.Acpi
                   , App.DunstStatus
                   , App.Icons
-  build-depends:    base ^>=4.14.1.0
+  build-depends:    base >= 2 && < 5
                   , extra
                   , font-awesome-type
                   , process
