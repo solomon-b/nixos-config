@@ -77,6 +77,4 @@
   ];
 
   primary-user.extraGroups = [ "networkmanager" ];
-
-  system.stateVersion = "21.11";
 }

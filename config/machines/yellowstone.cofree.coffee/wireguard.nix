@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-  environment.systemPackages = [ pkgs.wireguard pkgs.wireguard-tools ];
+  environment.systemPackages = [ pkgs.wireguard-tools ];
 
   # enable NAT
   networking.nat.enable = true;

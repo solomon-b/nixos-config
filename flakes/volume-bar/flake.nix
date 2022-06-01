@@ -1,8 +1,6 @@
 {
   description = "Xob Volume Bar";
 
-  inputs.nixpkgs.url = github:NixOS/nixpkgs/nixos-21.11;
-
   outputs = { self, nixpkgs }:
     let
       system = "x86_64-linux";
