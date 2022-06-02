@@ -1,4 +1,4 @@
-{ inputs, config, lib, ... }:
+{ config, lib, ... }:
 
 {
   #config = {
@@ -14,11 +14,6 @@
   };
 
   nix = {
-    nixPath = lib.mkForce [
-      "nixpkgs=${inputs.nixpkgs}"
-      "unstable=${inputs.unstable}"
-    ];
-
     gc = {
       automatic = true;
       options = "--delete-older-than 14d";

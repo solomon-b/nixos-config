@@ -7,7 +7,7 @@
         ]
       },
       "locked": {
-        "lastModified": 1654129755,
+        "lastModified": 1654182728,
         "narHash": "sha256-xrzZHGdFsYQI9u8VlgzIxG2zX7mVmQOp3HL1EQGfacM=",
         "path": "/home/solomon/Development/Nix/nixos-config/flakes/brightness-bar",
         "type": "path"
@@ -190,7 +190,7 @@
         ]
       },
       "locked": {
-        "lastModified": 1654129755,
+        "lastModified": 1654182728,
         "narHash": "sha256-vjabMLF+rKiSeX/7ibk1c+/hH9jjUxoe1CeIdvixofY=",
         "path": "/home/solomon/Development/Nix/nixos-config/flakes/graphqurl",
         "type": "path"
@@ -341,11 +341,11 @@
     },
     "unstable": {
       "locked": {
-        "lastModified": 1654140895,
-        "narHash": "sha256-Fi0js81alHvJQxs7ZiAVo76AYQ5F3kH+AilZ1LV9hkA=",
+        "lastModified": 1654186491,
+        "narHash": "sha256-un978lbRhtOlavZf2rnu475hoiNvmNXS6ECSiLXda6A=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "85473a18068c46daf2dc1f9cc8023965b33ca920",
+        "rev": "9b1a10af603213de0eb06884ff9ea7e8100c041b",
         "type": "github"
       },
       "original": {
@@ -360,7 +360,7 @@
         ]
       },
       "locked": {
-        "lastModified": 1654129755,
+        "lastModified": 1654182728,
         "narHash": "sha256-HxOjfdQvXvXV0PYxYAebDjkZDOuLZGfhjX/pD2LnV4U=",
         "path": "/home/solomon/Development/Nix/nixos-config/flakes/volume-bar",
         "type": "path"
@@ -380,7 +380,7 @@
         ]
       },
       "locked": {
-        "lastModified": 1654136917,
+        "lastModified": 1654182728,
         "narHash": "sha256-3CYvynimHmSmOnqNeo4st10x1IIEJBtyz/+7kjX7UX8=",
         "path": "/home/solomon/Development/Nix/nixos-config/flakes/xmobar-solomon",
         "type": "path"
@@ -404,7 +404,7 @@
         ]
       },
       "locked": {
-        "lastModified": 1654134674,
+        "lastModified": 1654184605,
         "narHash": "sha256-xIG4HSCjKF4VoDP6D4rqlkuzmXpecwDYqcyyRkXzYIQ=",
         "path": "/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad",
         "type": "path"
@@ -428,8 +428,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1654134721,
-        "narHash": "sha256-TC0wthlUrLzMIAZ7SV63p0kgAe4J+0+6yoMnbwXnD9w=",
+        "lastModified": 1654186995,
+        "narHash": "sha256-xMfO454pj0pbjurVszSROTyAvoSD8KO034wPkJWQHEE=",
         "path": "/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad-contrib",
         "type": "path"
       },
@@ -477,8 +477,8 @@
         "xmonad-contrib": "xmonad-contrib_2"
       },
       "locked": {
-        "lastModified": 1654142870,
-        "narHash": "sha256-3WWjD3JjPoMKhln41lgWIHA/lmYnDCpsya5TNF8pg30=",
+        "lastModified": 1654186995,
+        "narHash": "sha256-Csn5gTGmRvnEgrV8Ld6pytSFaEgYwsHBTaJSM+l7H3E=",
         "path": "/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon",
         "type": "path"
       },

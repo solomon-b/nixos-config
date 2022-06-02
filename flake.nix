@@ -84,7 +84,7 @@
     #};
   };
 
-  outputs = inputs@{
+  outputs = {
       self,
       nixpkgs,
       flake-utils,
@@ -154,9 +154,6 @@
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
           ];
-          specialArgs = {
-            inherit inputs;
-          };
         };
 
         nightshade = nixpkgs.lib.nixosSystem {
@@ -166,9 +163,6 @@
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
           ];
-          specialArgs = {
-            inherit inputs;
-          };
         };
 
         sower = nixpkgs.lib.nixosSystem {
@@ -179,9 +173,6 @@
             home-manager.nixosModules.home-manager
             #cardano-node.nixosModules.cardano-node
           ];
-          specialArgs = {
-            inherit inputs;
-          };
         };
       };
     };
