@@ -7,24 +7,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    haskell-language-server = {
-      url = github:haskell/haskell-language-server/1.4.0-hackage;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     taffybar = {
       url = github:taffybar/taffybar;
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
   };
 
-  outputs = { self, nixpkgs, haskell-language-server, flake-utils, taffybar }:
+  outputs = { self, nixpkgs, flake-utils, taffybar }:
     let
       overlay = import ./overlay.nix;
       overlays = taffybar.overlays ++ [
         overlay
-        haskell-language-server.overlay
       ];
     in flake-utils.lib.eachDefaultSystem (system:
       let pkgs = import nixpkgs { inherit system overlays; };
