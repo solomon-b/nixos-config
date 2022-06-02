@@ -11,12 +11,14 @@
       url = path:/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad;
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.unstable.follows = "unstable";
+      inputs.flake-utils.follows = "flake-utils";
     };
 
     xmonad-contrib = {
       url = path:/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad-contrib;
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.xmonad.follows = "xmonad";
+      inputs.flake-utils.follows = "flake-utils";
     };
   };
 

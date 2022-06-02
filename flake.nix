@@ -54,22 +54,6 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
-    xmonad = {
-      #url = github:xmonad/xmonad;
-      url = path:/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad;
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.unstable.follows = "unstable";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-
-    xmonad-contrib = {
-      #url = github:xmonad/xmonad-contrib;
-      url = path:/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad-contrib;
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.xmonad.follows = "xmonad";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-
     graphqurl = {
       url = path:/home/solomon/Development/Nix/nixos-config/flakes/graphqurl;
       inputs.nixpkgs.follows = "nixpkgs";
@@ -97,8 +81,6 @@
       volume-bar,
       xmobar-solomon,
       xmonad-solomon,
-      xmonad,
-      xmonad-contrib,
       graphqurl,
       #cardano-node,
       #cardano-wallet
@@ -117,8 +99,6 @@
           kmonad.overlay
           #taffybar-solomon.overlay
           volume-bar.overlay
-          xmonad.overlay
-          xmonad-contrib.overlay
           xmobar-solomon.overlay
           xmonad-solomon.overlay
           #password-utils-overlay
