@@ -62,9 +62,9 @@
     #  url = github:input-output-hk/cardano-node;
     #};
 
-    cardano-wallet = {
-      url = github:input-output-hk/cardano-wallet;
-    };
+    #cardano-wallet = {
+    #  url = github:input-output-hk/cardano-wallet;
+    #};
   };
 
   outputs = inputs@{
@@ -83,7 +83,7 @@
       xmonad-contrib,
       graphqurl,
       #cardano-node,
-      cardano-wallet
+      #cardano-wallet
   }:
     let
       system = "x86_64-linux";
@@ -94,7 +94,7 @@
         overlays = [
           brightness-bar.overlay
           #cardano-node.overlay
-          cardano-wallet.overlay
+          #cardano-wallet.overlay
           graphqurl.overlay
           kmonad.overlay
           #taffybar-solomon.overlay
