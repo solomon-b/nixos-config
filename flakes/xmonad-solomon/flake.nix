@@ -10,15 +10,17 @@
     xmonad = {
       url = path:/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad;
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.unstable.follows = "unstable";
     };
 
     xmonad-contrib = {
       url = path:/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad-contrib;
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.xmonad.follows = "xmonad";
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, xmonad, xmonad-contrib }:
+  outputs = { self, nixpkgs, unstable, flake-utils, xmonad, xmonad-contrib }:
     let
       overlay = import ./overlay.nix;
       overlays = [
