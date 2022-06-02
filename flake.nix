@@ -1,11 +1,16 @@
 {
   inputs = {
     nixpkgs.url = github:nixos/nixpkgs/nixos-22.05;
-    unstable.url = github:nixos/nixpkgs;
+
+    flake-utils = {
+      url = github:numtide/flake-utils;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nixops-plugged = {
       url = github:lukebfox/nixops-plugged;
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
 
     home-manager = {
@@ -16,6 +21,7 @@
     kmonad = {
       url = github:pnotequalnp/kmonad/flake?dir=nix;
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
 
     brightness-bar = {
@@ -37,24 +43,31 @@
       #url = path:./flakes/xmobar-solomon;
       url = path:/home/solomon/Development/Nix/nixos-config/flakes/xmobar-solomon;
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
 
     xmonad-solomon = {
       #url = path:./flakes/xmonad-solomon;
       url = path:/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon;
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.unstable.follows = "unstable";
+      inputs.flake-utils.follows = "flake-utils";
     };
 
     xmonad = {
       #url = github:xmonad/xmonad;
       url = path:/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad;
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.unstable.follows = "unstable";
+      inputs.flake-utils.follows = "flake-utils";
     };
 
     xmonad-contrib = {
       #url = github:xmonad/xmonad-contrib;
       url = path:/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad-contrib;
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.xmonad.follows = "xmonad";
+      inputs.flake-utils.follows = "flake-utils";
     };
 
     graphqurl = {
@@ -74,6 +87,7 @@
   outputs = inputs@{
       self,
       nixpkgs,
+      flake-utils,
       nixops-plugged,
       unstable,
       home-manager,
