@@ -7,11 +7,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    haskell-language-server = {
-      url = github:haskell/haskell-language-server/1.4.0-hackage;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     xmonad = {
       url = path:/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon/xmonad;
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,14 +18,13 @@
     };
   };
 
-  outputs = { self, nixpkgs, haskell-language-server, flake-utils, xmonad, xmonad-contrib }:
+  outputs = { self, nixpkgs, flake-utils, xmonad, xmonad-contrib }:
     let
       overlay = import ./overlay.nix;
       overlays = [
         overlay
         xmonad.overlay
         xmonad-contrib.overlay
-        haskell-language-server.overlay
       ];
     in flake-utils.lib.eachDefaultSystem (system:
       let pkgs = import nixpkgs { inherit system overlays; };
