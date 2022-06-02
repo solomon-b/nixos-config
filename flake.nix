@@ -1,16 +1,10 @@
 {
   inputs = {
     nixpkgs.url = github:nixos/nixpkgs/nixos-22.05;
-
+    
     flake-utils = {
       url = github:numtide/flake-utils;
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nixops-plugged = {
-      url = github:lukebfox/nixops-plugged;
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
 
     home-manager = {
@@ -72,7 +66,6 @@
       self,
       nixpkgs,
       flake-utils,
-      nixops-plugged,
       unstable,
       home-manager,
       kmonad,
@@ -106,7 +99,7 @@
       };
     in {
       devShell."${system}" = pkgs.mkShell {
-        nativeBuildInputs = [ nixops-plugged.defaultPackage.${system} ];
+        nativeBuildInputs = [ pkgs.nixops_unstable ];
       };
 
       nixopsConfigurations.default = {
