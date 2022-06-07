@@ -3,13 +3,13 @@
 {
   imports = [
     ./hardware.nix
-    ./wireguard.nix
     ./kmonad.nix
     ./hoogle.nix
 
     ../../profiles/pc
     ../../modules/services/virtualisation/libvirt
     ../../modules/services/syncthing
+    ../../modules/services/tailscale
     ../../modules/system/devices/touchpad
     ../../modules/system/powertop
   ];
