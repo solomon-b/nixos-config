@@ -20,6 +20,10 @@
       experimental-features = nix-command flakes
     '';
 
+  environment.systemPackages = [
+    pkgs.libva
+  ];
+
   primary-user.name = "solomon";
 
   networking = {
