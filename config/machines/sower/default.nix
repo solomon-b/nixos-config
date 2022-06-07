@@ -8,7 +8,7 @@
 
     ../../profiles/physical-machine
     ../../modules/services/bittorrent
-    ../../modules/services/dns
+    #../../modules/services/dns
     ../../modules/services/tailscale
     ../../modules/services/jellyfin
     ../../modules/services/syncthing
