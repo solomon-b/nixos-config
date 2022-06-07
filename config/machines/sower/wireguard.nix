@@ -26,4 +26,9 @@
       ];
     };
   };
+
+  # We must enforce the order for service launch of tailscale and
+  # wireguard to set the correct IP rule prioritization.
+  # https://rakhesh.com/linux-bsd/tailscale-wireguard-co-existing-or-i-love-policy-based-routing/
+  systemd.services.tailscaled.after = ["wg-quick-wg0.service"];
 }
