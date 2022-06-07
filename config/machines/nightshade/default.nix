@@ -34,8 +34,5 @@
 
     useDHCP = false;
     interfaces.wlp170s0.useDHCP = true;
-    hosts = {
-      "192.168.0.3" = [ "sower" ];
-    };
   };
 }
