@@ -1,14 +1,15 @@
 { pkgs, config, ... }:
+
 {
-  environment.systemPackages = [ pkgs.smbclient ];
+  environment.systemPackages = [ pkgs.samba ];
 
   services.nextcloud = {
     enable = true;
     package = pkgs.nextcloud24;
-    hostName = "yellowstone.cofree.coffee";
+    hostName = "nextcloud.sower";
 
     # Use HTTPS for links
-    https = true;
+    https = false;
 
     # Auto-update Nextcloud Apps
     autoUpdateApps.enable = true;
@@ -16,9 +17,6 @@
     autoUpdateApps.startAt = "05:00:00";
 
     config = {
-      # Further forces Nextcloud to use HTTPS
-      overwriteProtocol = "https";
-
       # Nextcloud PostegreSQL database configuration, recommended over using SQLite
       dbtype = "pgsql";
       dbuser = "nextcloud";

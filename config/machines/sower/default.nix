@@ -3,12 +3,14 @@
 {
   imports = [
     ./hardware.nix
+    ./nextcloud.nix
     ./nginx.nix
     ./wireguard.nix
 
     ../../profiles/physical-machine
     ../../modules/services/bittorrent
     #../../modules/services/dns
+    ../../modules/services/postgresql
     ../../modules/services/tailscale
     ../../modules/services/jellyfin
     ../../modules/services/syncthing
