@@ -53,6 +53,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    podcast-dl = {
+      url = path:./flakes/podcast-dl;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     #cardano-node = {
     #  url = github:input-output-hk/cardano-node;
     #};
@@ -75,6 +80,7 @@
       xmobar-solomon,
       xmonad-solomon,
       graphqurl,
+      podcast-dl,
       #cardano-node,
       #cardano-wallet
   }:
@@ -90,6 +96,7 @@
           #cardano-wallet.overlay
           graphqurl.overlay
           kmonad.overlay
+          podcast-dl.overlay
           #taffybar-solomon.overlay
           volume-bar.overlay
           xmobar-solomon.overlay

@@ -3,7 +3,7 @@
 {
   imports = [
     ./hardware.nix
-    ./podgrab.nix
+    ./podcast-dl.nix
     ./nextcloud.nix
     ./nginx.nix
     ./wireguard.nix
