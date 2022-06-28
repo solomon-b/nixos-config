@@ -1,19 +1,21 @@
 {
-  description = "My Graphqurl Wrapper";
+  description = "podcast-dl";
 
   outputs = { self, nixpkgs }:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs { inherit system; };
+      pkgs = import nixpkgs {
+        inherit system;
+      };
       nodePackages = import ./default.nix {
         inherit pkgs system;
         nodejs = pkgs."nodejs-14_x";
       };
     in {
-      defaultPackage.x86_64-linux = nodePackages."graphqurl-1.0.1";
+      defaultPackage.x86_64-linux = nodePackages."podcast-dl-7.3.2";
 
       overlay = final: prev: {
-        graphqurl = nodePackages."graphqurl-1.0.1" ;
+        podcast-dl = nodePackages."podcast-dl-7.3.2" ;
       };
 
       devShell.x86_64-linux = pkgs.mkShell {
