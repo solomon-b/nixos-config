@@ -1,8 +1,10 @@
 { ... }:
 
 {
+  disabledModules = [ "services/misc/podgrab.nix" ];
   imports = [
     ./nixos/network-interfaces.nix
+    ./nixos/podgrab.nix
     ./nixos/primary-user.nix
     ./nixos/qbittorrent.nix
     ./nixos/s3fs.nix
