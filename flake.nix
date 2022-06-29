@@ -54,7 +54,7 @@
     };
 
     podcast-dl = {
-      url = path:./flakes/podcast-dl;
+      url = path:/home/solomon/Development/Nix/nixos-config/flakes/podcast-dl;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
