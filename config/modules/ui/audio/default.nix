@@ -15,8 +15,7 @@
       
   };
 
-  #hardware.pulseaudio = {
-  #  enable = true;
-  #  package = pkgs.pulseaudioFull;
-  #};
+  environment.systemPackages = [
+    pkgs.pulseaudio
+  ];
 }

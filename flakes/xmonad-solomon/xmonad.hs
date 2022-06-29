@@ -345,8 +345,8 @@ myKeys c = mkKeymap c $
     toggleMute    = spawn "amixer sset 'Master' toggle"
     dunstClose    = spawn "dunstctl close"
     dunstCloseAll = spawn "dunstctl close-all"
-    volumeUp      = spawn "amixer set Master 5%+"
-    volumeDown    = spawn "amixer set Master 5%-"
+    volumeUp      = spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%"
+    volumeDown    = spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%"
     restart       = do
       spawn "pkill trayer"
       spawn "xmonad --restart"
