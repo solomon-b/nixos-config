@@ -1,73 +1,75 @@
 {-# LANGUAGE InstanceSigs #-}
-{-# LANGUAGE TupleSections #-}
+{-# LANGUAGE ImportQualifiedPost #-}
+{-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE TypeApplications #-}
-import           XMonad
-import           XMonad.Hooks.DynamicLog
-import           XMonad.Hooks.DynamicProperty
-import           XMonad.Hooks.ManageDocks
-import           XMonad.Hooks.EwmhDesktops
---import         Xmonad.Hooks.StatusBar
---import         Xmonad.Hooks.StatusBar.PP
+import XMonad
+import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.DynamicProperty
+import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.EwmhDesktops
+--import Xmonad.Hooks.StatusBar
+--import Xmonad.Hooks.StatusBar.PP
 
-import           XMonad.Hooks.TaffybarPagerHints
-import           XMonad.Util.EZConfig
-import           XMonad.Util.Run (runInTerm, spawnPipe)
+import XMonad.Hooks.TaffybarPagerHints
+import XMonad.Util.EZConfig
+import XMonad.Util.Run (runInTerm, spawnPipe)
 
-import           XMonad.Layout.Gaps
-import           XMonad.Layout.Hidden
-import           XMonad.Layout.LayoutCombinators hiding ((|||))
-import           XMonad.Layout.LayoutModifier (ModifiedLayout)
-import           XMonad.Layout.MultiToggle
-import           XMonad.Layout.MultiToggle.Instances
-import           XMonad.Layout.Named
-import           XMonad.Layout.NoFrillsDecoration
-import           XMonad.Layout.NoBorders
-import           XMonad.Layout.PerScreen
+import XMonad.Layout.Gaps
+import XMonad.Layout.Hidden
+import XMonad.Layout.LayoutCombinators hiding ((|||))
+import XMonad.Layout.LayoutModifier (ModifiedLayout)
+import XMonad.Layout.MultiToggle
+import XMonad.Layout.MultiToggle.Instances
+import XMonad.Layout.Named
+import XMonad.Layout.NoFrillsDecoration
+import XMonad.Layout.NoBorders
+import XMonad.Layout.PerScreen
 
-import           XMonad.Layout.ResizableTile
-import           XMonad.Layout.Renamed
-import           XMonad.Layout.Simplest
-import           XMonad.Layout.SimpleFloat
-import           XMonad.Layout.Spacing
-import           XMonad.Layout.SubLayouts
-import           XMonad.Layout.Tabbed
-import           XMonad.Layout.ThreeColumns
-import           XMonad.Layout.WindowNavigation
+import XMonad.Layout.ResizableTile
+import XMonad.Layout.Renamed
+import XMonad.Layout.Simplest
+import XMonad.Layout.SimpleFloat
+import XMonad.Layout.Spacing
+import XMonad.Layout.SubLayouts
+import XMonad.Layout.Tabbed
+import XMonad.Layout.ThreeColumns
+import XMonad.Layout.WindowNavigation
 
-import           XMonad.Actions.Commands (defaultCommands)
-import           XMonad.Actions.CopyWindow
-import           XMonad.Actions.Navigation2D
-import           XMonad.Actions.Promote
+import XMonad.Actions.Commands (defaultCommands)
+import XMonad.Actions.CopyWindow
+import XMonad.Actions.Navigation2D
+import XMonad.Actions.Promote
 
-import           XMonad.Prompt
-import           XMonad.Prompt.XMonad
-import           XMonad.Prompt.ConfirmPrompt
-import           XMonad.Prompt.Shell
+import XMonad.Prompt
+import XMonad.Prompt.XMonad
+import XMonad.Prompt.ConfirmPrompt
+import XMonad.Prompt.Shell
 
-import           XMonad.Core (recompile)
-import           XMonad.Operations (restart)
-import qualified XMonad.StackSet as W
-import           Data.Maybe
+import XMonad.Core (recompile)
+import XMonad.Operations (restart)
+import XMonad.StackSet qualified as W
+import Data.Maybe
 
-import           System.IO
-import           System.Exit
-import           System.Process
-import           GHC.IO.Handle
+import System.IO
+import System.Exit
+import System.Process
+import GHC.IO.Handle
 
-import           Control.Exception (SomeException, try)
-import           Control.Monad
-import           Control.Monad.IO.Class
+import Control.Exception (SomeException, try)
+import Control.Monad
+import Control.Monad.IO.Class
 
-import           Data.Foldable
-import qualified Data.Map as M
-import           Data.Monoid (All(..))
-import           Data.Char (toLower)
-import           Data.List (isInfixOf, intersperse, nub)
-import           Data.Function (on)
+import Data.Foldable
+import Data.Map qualified as M
+import Data.Monoid (All(..))
+import Data.Char (toLower)
+import Data.List (isInfixOf, intersperse, nub)
+import Data.Function (on)
+import GHC.IO (unsafeInterleaveIO)
 
--------------
---- Theme ---
--------------
+--------------------------------------------------------------------------------
+-- Theme
 
 background = "#2d2d2d"
 altBackground = "#333333"
@@ -105,9 +107,8 @@ myTabTheme = def
   , inactiveTextColor   = comment
   }
 
----------------
---- Layouts ---
----------------
+--------------------------------------------------------------------------------
+-- Layouts
 
 gap      = 4
 topbar   = 10
@@ -115,7 +116,10 @@ myBorder = 1
 prompt   = 20
 status   = 20
 
+mySpacing :: l a -> ModifiedLayout Spacing l a
 mySpacing = spacing gap
+
+myGaps :: l a -> ModifiedLayout Gaps l a
 myGaps = gaps [(U, gap),(D, gap),(L, gap),(R, gap)]
 
 trimNamed :: Int -> String -> l a -> ModifiedLayout Rename l a
@@ -180,9 +184,8 @@ myManageHook = composeAll
   , manageDocks
   ]
 
---------------
---- Prompt ---
---------------
+--------------------------------------------------------------------------------
+-- Prompts
 
 promptConfig :: XPConfig
 promptConfig = def
@@ -200,6 +203,7 @@ promptConfig = def
   , searchPredicate   = isInfixOf `on` map toLower
   }
 
+-- | X Session logout and system shutdown/reboot prompt
 exitPrompt :: X ()
 exitPrompt = xmonadPromptCT "Exit" commands promptConfig
   where
@@ -209,9 +213,11 @@ exitPrompt = xmonadPromptCT "Exit" commands promptConfig
       , ("3: Reboot",   spawn "systemctl reboot")
       ]
 
+-- | Kill the focused window
 closeWindowPrompt :: X ()
-closeWindowPrompt = confirmPrompt promptConfig "This is a Close Window" kill1
+closeWindowPrompt = confirmPrompt promptConfig "Close Window" kill1
 
+-- | Screenshot prompt
 scrotPrompt :: X ()
 scrotPrompt = xmonadPromptCT "Screenshot Options" commands promptConfig
   where
@@ -221,8 +227,9 @@ scrotPrompt = xmonadPromptCT "Screenshot Options" commands promptConfig
                , ("4: Capture with 3 second countdown", spawn "scrot -d 3 -c")
                ]
 
+-- | Given a 'Handle', return a list of all lines in that 'Handle'
 hGetLines :: Handle -> IO [String]
-hGetLines handle = do
+hGetLines handle = unsafeInterleaveIO $ do
   isEof <- hIsEOF handle
   if isEof
     then pure []
@@ -243,6 +250,9 @@ mkSystemUnit :: [String] -> Maybe SystemUnit
 mkSystemUnit [a,b,c,d,e] = Just $ SystemUnit a b c d e
 mkSystemUnit _ = Nothing
 
+-- | Fetch systemd user units.
+--
+-- TODO:
 fetchUnits :: IO [SystemUnit]
 fetchUnits = do
   let p = proc "systemctl" ["--user"]
@@ -255,19 +265,8 @@ fetchUnits = do
       pure res1
     _ -> pure []
 
-systemCtlPrompt :: X ()
-systemCtlPrompt =
-  let commands =
-        [ ("1 foo", pure ())
-        , ("2 bar", pure ())
-        , ("3 baz", pure ())
-        , ("4 qux", pure ())
-        ]
-  in xmonadPromptCT "TEST!" commands promptConfig
-
--------------------
---- Keybindings ---
--------------------
+--------------------------------------------------------------------------------
+-- Keybindings
 
 workSpaceNav :: XConfig a -> [(String, X ())]
 workSpaceNav c = do
@@ -276,9 +275,7 @@ workSpaceNav c = do
   return (m++i, windows $ f j)
 
 myKeys c = mkKeymap c $
-  ------------------------------
   -- System
-  ------------------------------
   [ ("M-q",                     restart)
   , ("M-S-q",                   exitPrompt)
   , ("M-<Backspace>",           closeWindowPrompt)
@@ -291,14 +288,10 @@ myKeys c = mkKeymap c $
   , ("M-m",                     toggleDunst >> toggleMute)
   , ("M-<Print>",               scrotPrompt)
  -- , ("M-n", runInTerm "" "htop")
-  , ("M-n", systemCtlPrompt)
   , ("C-<Space>", dunstClose)
   , ("C-S-<Space>", dunstCloseAll)
   ] <>
 
-  ------------------------------
-  -- Navigation
-  ------------------------------
   -- Navigate between windows
   [ ("M-j",       windowGo D False)
   , ("M-k",       windowGo U False)
@@ -372,9 +365,8 @@ myMouseBindings XConfig {XMonad.modMask = modm} = M.fromList
   , ((modm .|. controlMask, button1), \w -> focus w >> mouseResizeWindow w >> windows W.shiftMaster) -- Set window to float and resize by dragging
   ]
 
-------------
---- Main ---
-------------
+--------------------------------------------------------------------------------
+-- Main
 
 readFileMaybe :: FilePath -> IO (Maybe String)
 readFileMaybe path =
@@ -383,15 +375,15 @@ readFileMaybe path =
 myStartupHook :: X ()
 myStartupHook = do
   commands <- liftIO $ readFileMaybe "/home/solomon/.startup" 
-  traverse_ (traverse_ spawn) (fmap lines $ commands)
+  traverse_ (traverse_ spawn) $ fmap lines commands
 
 restartEventHook :: Event -> X All
-restartEventHook e@ClientMessageEvent { ev_message_type = mt } = do
-  a <- getAtom "XMONAD_RESTART"
-  if mt == a
-    then restart "xmonad-solomon" True >> return (All True)
-    else return $ All True
-restartEventHook _ = return $ All True
+restartEventHook = \case
+  ClientMessageEvent {ev_message_type} -> do
+    atom <- getAtom "XMONAD_RESTART"
+    when (ev_message_type == atom) $ restart "xmonad-solomon" True
+    pure $ All True
+  _ -> pure $ All True
 
 myLogHook :: Handle -> X ()
 myLogHook xmproc = dynamicLogWithPP xmobarPP
@@ -417,19 +409,6 @@ myConfig xmproc = def
     , startupHook        = myStartupHook
     , borderWidth        = myBorder
     }
-
-addSupported :: [String] -> X ()
-addSupported props = withDisplay $ \dpy -> do
-  r <- asks theRoot
-  a <- getAtom "_NET_SUPPORTED"
-  -- fs <- getAtom "_NET_WM_STATE_FULLSCREEN"
-  newSupportedList <- mapM (fmap fromIntegral . getAtom) props
-  io $ do
-    supportedList <- join . maybeToList <$> getWindowProperty32 dpy a r
-    changeProperty32 dpy r a aTOM propModeReplace (nub $ newSupportedList ++ supportedList)
-
-setFullscreenSupported :: X ()
-setFullscreenSupported = addSupported ["_NET_WM_STATE", "_NET_WM_STATE_FULLSCREEN"]
 
 main :: IO ()
 main = do
