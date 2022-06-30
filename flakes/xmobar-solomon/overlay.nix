@@ -7,8 +7,8 @@ final: prev: {
         let xmobar = prev.fetchFromGitHub {
               owner = "jaor";
               repo = "xmobar";
-              rev = "397953f1c626a3a81b9ef7280d961fb3ce340c56";
-              sha256 = "sha256-O42xW58EJBE7BIrApHF7EXlWoOeosLcn/cCy42aABrA=";
+              rev = "dbe9cba77dd23910103aeb667ef07377ceec9464";
+              sha256 = "sha256-uWke/S76FiANCiOg+2RhVoGRyH7It32AAEWuUCUpUpM=";
             };
         in final.haskell.lib.dontCheck (hfinal.callCabal2nix "xmobar" xmobar { });
 

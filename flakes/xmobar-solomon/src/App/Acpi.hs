@@ -16,7 +16,7 @@ import Xmobar (Exec(..))
 ---- Types ----
 ---------------
 
-data Battery = BAT0 | BAT1
+newtype Battery = Battery Int
 data Attr = EnergyNowAttr | EnergyFullAttr | StatusAttr | PowerNowAttr
 
 -- | ACPI Battery Properties
@@ -44,8 +44,7 @@ data BatteryStatus = BatteryStatus
 ---------------------
 
 instance Render Battery where
-  render BAT0 = "BAT0"
-  render BAT1 = "BAT1"
+  render (Battery n) = "BAT" <> show n
 
 instance Render Attr where
   render EnergyNowAttr  = "energy_now"
@@ -126,7 +125,7 @@ toTimeRemaining remain pow =
 
 getAcpiAc :: IO AcStatus
 getAcpiAc = do
-  let sysFsPath = "/sys/class/power_supply/AC/online"
+  let sysFsPath = "/sys/class/power_supply/ACAD/online"
   ac <- (== "1") . trim <$> readFile sysFsPath
   if ac then return Connected else return Disconnected
 
@@ -143,18 +142,18 @@ getAcpiBat bat = do
 
   pure $ BatteryStatus bat energyPercent status timeRemaining
 
-printStatus :: AcStatus -> BatteryStatus -> BatteryStatus -> IO String
+printStatus :: AcStatus -> BatteryStatus -> BatteryStatus -> String
 printStatus ac bat0@(BatteryStatus _ _ chargeStatus _) bat1@(BatteryStatus _ _ chargeStatus' _)
-  | chargeStatus  /= Full = pure $ render bat0
-  | chargeStatus' /= Full = pure $ render bat1
-  | otherwise             = pure $ render ac
+  | chargeStatus  /= Full = render bat0
+  | chargeStatus' /= Full = render bat1
+  | otherwise             = render ac
 
 runAcpi :: IO String
 runAcpi = do
   ac   <- getAcpiAc
-  bat0 <- getAcpiBat BAT0
-  bat1 <- getAcpiBat BAT1
-  printStatus ac bat0 bat1
+  bat0 <- getAcpiBat (Battery 0)
+  bat1 <- getAcpiBat (Battery 1)
+  pure $ printStatus ac bat0 bat1
 
 ----------------
 ---- Plugin ----

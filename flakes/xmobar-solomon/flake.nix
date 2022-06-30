@@ -20,7 +20,6 @@
         devShell = pkgs.haskellPackages.shellFor {
           packages = p: [ p.xmobar-solomon ];
           buildInputs = [
-            pkgs.haskellPackages.alex
             pkgs.haskellPackages.cabal-install
             pkgs.haskellPackages.ghc
             pkgs.haskellPackages.haskell-language-server
