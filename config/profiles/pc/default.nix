@@ -74,6 +74,7 @@
     # Web Browsers
     firefox
     google-chrome
+    surf
   ];
 
   primary-user.extraGroups = [ "networkmanager" ];

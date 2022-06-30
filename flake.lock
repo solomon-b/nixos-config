@@ -192,11 +192,11 @@
     },
     "unstable": {
       "locked": {
-        "lastModified": 1656619142,
-        "narHash": "sha256-YwHcaWH2HfvxcIY5UQHdi3uA+rSVBgRyC54Wr1B7dm8=",
+        "lastModified": 1656699318,
+        "narHash": "sha256-rcNk16zdxdiGXvGrUKqM/FtIOjuazZe3u0pKd1JHa10=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "f7cbcafc021f513f6bb97165afb117c54347a7bc",
+        "rev": "7446edab41042812a25b54c9209377d3876cba4f",
         "type": "github"
       },
       "original": {
@@ -310,8 +310,8 @@
         "xmonad-contrib": "xmonad-contrib"
       },
       "locked": {
-        "lastModified": 1656621653,
-        "narHash": "sha256-HbCJepRi7Mx3oaoKT554aaRi4F4iY9QVkht46PC8784=",
+        "lastModified": 1656699376,
+        "narHash": "sha256-Q7t/tqMx0KXPsnCXxW1vUeme1m+Zan2+jUCbfielXnM=",
         "path": "/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon",
         "type": "path"
       },

@@ -13,7 +13,7 @@ import XMonad.Hooks.EwmhDesktops
 
 import XMonad.Hooks.TaffybarPagerHints
 import XMonad.Util.EZConfig
-import XMonad.Util.Run (runInTerm, spawnPipe)
+import XMonad.Util.Run (spawnPipe)
 
 import XMonad.Layout.Gaps
 import XMonad.Layout.Hidden
@@ -67,6 +67,8 @@ import Data.Char (toLower)
 import Data.List (isInfixOf, intersperse, nub)
 import Data.Function (on)
 import GHC.IO (unsafeInterleaveIO)
+import XMonad.Util.NamedScratchpad (NamedScratchpad(..), customFloating, namedScratchpadAction)
+import XMonad.Hooks.ManageHelpers ((~?))
 
 --------------------------------------------------------------------------------
 -- Theme
@@ -198,7 +200,7 @@ promptConfig = def
   , bgHLight          = "#073642"
   , promptBorderWidth = 0
   , maxComplRows      = Just 12
-  , alwaysHighlight   = False
+  , alwaysHighlight   = True
   , promptKeymap      = emacsLikeXPKeymap
   , searchPredicate   = isInfixOf `on` map toLower
   }
@@ -211,7 +213,11 @@ exitPrompt = xmonadPromptCT "Exit" commands promptConfig
       [ ("1: Logout",   io exitSuccess)
       , ("2: Shutdown", spawn "systemctl poweroff")
       , ("3: Reboot",   spawn "systemctl reboot")
+      , ("4: Reload XMonad", restart)
       ]
+    restart = do
+      spawn "pkill trayer"
+      spawn "xmonad --restart"
 
 -- | Kill the focused window
 closeWindowPrompt :: X ()
@@ -225,6 +231,23 @@ scrotPrompt = xmonadPromptCT "Screenshot Options" commands promptConfig
                , ("2: Capture Selection", spawn "scrot -s")
                , ("3: Capture All Screens", spawn "scrot -m")
                , ("4: Capture with 3 second countdown", spawn "scrot -d 3 -c")
+               ]
+
+layoutPrompt :: X ()
+layoutPrompt = xmonadPromptCT "Window Commands" commands promptConfig
+  where
+    commands = [ ("1: Tabbed Layout", sendMessage (JumpToLayout "Tabs"))
+               , ("2: Two Column Layout", sendMessage (JumpToLayout "Flex"))
+               , ("3: Float/Unfloat window", floatFocused)
+               ]
+
+
+-- | Simple prompt for launching scratchpads
+scratchpadPrompt :: X ()
+scratchpadPrompt = xmonadPromptCT "Scratchpads" commands promptConfig
+  where
+    commands = [ ("1: Personal Calendar", namedScratchpadAction scratchpads "personalCal")
+               -- , ("2: Hasura Calendar", namedScratchpadAction scratchpads "hasuraCal")
                ]
 
 -- | Given a 'Handle', return a list of all lines in that 'Handle'
@@ -266,6 +289,22 @@ fetchUnits = do
     _ -> pure []
 
 --------------------------------------------------------------------------------
+-- Scratchpads
+
+-- | TODO: look into other useful scratchpads.
+-- https://github.com/thcipriani/dotfiles/blob/master/xmonad/xmonad.hs#L99-L101
+scratchpads :: [NamedScratchpad]
+scratchpads =
+    [ NS "personalCal" "surf 'calendar.google.com/?authuser=ssbothwell@gmail.com'"
+      -- TODO: Figure out why `title` isn't working as expected here
+      (className =? "Surf") -- <&&> title ~? "Google Calendar")
+      (customFloating $ W.RationalRect 0.9 0.9 0.9 0.9)
+    , NS "hasuraCal" "surf 'calendar.google.com/?authuser=solomon@hasura.io'"
+      ((className ~? "Surf") <&&> title ~? "Hasura")
+      (customFloating $ W.RationalRect 0.9 0.9 0.9 0.9)
+    ]
+
+--------------------------------------------------------------------------------
 -- Keybindings
 
 workSpaceNav :: XConfig a -> [(String, X ())]
@@ -274,10 +313,13 @@ workSpaceNav c = do
   (m, f) <- [("M-", W.greedyView), ("M-S-", W.shift)]
   return (m++i, windows $ f j)
 
+myKeys :: XConfig a -> M.Map (KeyMask, KeySym) (X ())
 myKeys c = mkKeymap c $
   -- System
-  [ ("M-q",                     restart)
-  , ("M-S-q",                   exitPrompt)
+  [ ("M-<Space> q",             exitPrompt)
+  , ("M-<Space> w",             layoutPrompt)
+  , ("M-<Space> <Space>",       myLauncher)
+  , ("M-<Space> p",             scratchpadPrompt)
   , ("M-<Backspace>",           closeWindowPrompt)
   , ("M-S-<Backspace>",         withUnfocused killWindow)
   , ("<XF86AudioMute>",         toggleMute)
@@ -285,11 +327,10 @@ myKeys c = mkKeymap c $
   , ("<XF86AudioLowerVolume>",  volumeDown)
   , ("<XF86MonBrightnessUp>",   spawn "brightnessctl set 5%+")
   , ("<XF86MonBrightnessDown>", spawn "brightnessctl set 5%-")
-  , ("M-m",                     toggleDunst >> toggleMute)
-  , ("M-<Print>",               scrotPrompt)
- -- , ("M-n", runInTerm "" "htop")
-  , ("C-<Space>", dunstClose)
-  , ("C-S-<Space>", dunstCloseAll)
+  , ("M-<XF86AudioMute>",       toggleDunst >> toggleMute)
+  , ("<Print>",                 scrotPrompt)
+  , ("C-<Space>",               dunstClose)
+  , ("C-S-<Space>",             dunstCloseAll)
   ] <>
 
   -- Navigate between windows
@@ -311,11 +352,9 @@ myKeys c = mkKeymap c $
   -- Shrink/Expand windows
   , ("M-[",       sendMessage Shrink)
   , ("M-]",       sendMessage Expand)
-  , ("M-<Space>", sendMessage NextLayout)
   , ("M-r",       sendMessage $ Toggle MIRROR)
-  , ("M-C-<Space>", toSubl NextLayout)
   -- Float/Sink floated window
-  , ("M-t", withFocused toggleFloat >> killAllOtherCopies)
+  , ("M-t",       floatFocused)
   , ("M-C-t",     withFocused toggleSticky)
   -- Full Screen a window
   , ("M-<F11>",   sendMessage $ Toggle FULL)
@@ -340,18 +379,24 @@ myKeys c = mkKeymap c $
     dunstCloseAll = spawn "dunstctl close-all"
     volumeUp      = spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%"
     volumeDown    = spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%"
-    restart       = do
-      spawn "pkill trayer"
-      spawn "xmonad --restart"
-    toggleSticky w = windows $ \s ->
-      if M.member w (W.floating s)
-      then copyToAll s
-      else s
-    toggleFloat w  = windows $ \s ->
-      if M.member w (W.floating s)
-      then W.sink w s
-      else W.float w (W.RationalRect (1/6) (1/6) (2/3) (2/3)) s
 
+toggleSticky :: Window -> X ()
+toggleSticky w = windows $ \s ->
+  if M.member w (W.floating s)
+  then copyToAll s
+  else s
+
+toggleFloat :: Window -> X ()
+toggleFloat w  = windows $ \s ->
+  if M.member w (W.floating s)
+  then W.sink w s
+  else W.float w (W.RationalRect (1/6) (1/6) (2/3) (2/3)) s
+
+floatFocused :: X ()
+floatFocused = do
+  withFocused toggleFloat
+  killAllOtherCopies
+  
 myNav2DConf = def
   { defaultTiledNavigation = centerNavigation
   , floatNavigation        = centerNavigation
@@ -374,7 +419,7 @@ readFileMaybe path =
 
 myStartupHook :: X ()
 myStartupHook = do
-  commands <- liftIO $ readFileMaybe "/home/solomon/.startup" 
+  commands <- liftIO $ readFileMaybe "/home/solomon/.startup"
   traverse_ (traverse_ spawn) $ fmap lines commands
 
 restartEventHook :: Event -> X All
