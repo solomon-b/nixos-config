@@ -5,14 +5,10 @@ module Prompt where
 import           XMonad
 import           XMonad.Prelude
 import           XMonad.Util.Font
-import           XMonad.Util.Types
-import           XMonad.Util.XSelection (getSelection)
 import qualified XMonad.StackSet as W
 
 import           Control.Exception (bracket, finally)
-import           Control.Monad
 import           Control.Monad.State
-import           Control.Monad.Reader
 import           Data.IORef
 import           System.IO.Unsafe
 
