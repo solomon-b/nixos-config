@@ -27,6 +27,7 @@ import XMonad.Hooks.DynamicLog (PP (..), dynamicLogWithPP, shorten, xmobarColor,
 import XMonad.Hooks.EwmhDesktops (ewmh, ewmhFullscreen)
 import XMonad.Hooks.ManageDocks (avoidStruts, docks, manageDocks)
 import XMonad.Hooks.ManageHelpers ((~?))
+import XMonad.Hooks.StatusBar (StatusBarConfig, statusBarProp, withSB)
 import XMonad.Hooks.TaffybarPagerHints (pagerHints)
 import XMonad.Layout.Decoration (ModifiedLayout)
 import XMonad.Layout.Gaps (Gaps, gaps)
@@ -57,48 +58,70 @@ import XMonad.Util.Run (spawnPipe)
 --------------------------------------------------------------------------------
 -- Theme
 
+background :: String
 background = "#2d2d2d"
 
+altBackground :: String
 altBackground = "#333333"
 
+currentLine :: String
 currentLine = "#393939"
 
+selection :: String
 selection = "#515151"
 
+foreground :: String
 foreground = "#cccccc"
 
+comment :: String
 comment = "#999999"
 
+red :: String
 red = "#f2777a"
 
+orange :: String
 orange = "#f99157"
 
+yellow :: String
 yellow = "#ffcc66"
 
+green :: String
 green = "#99cc99"
 
+aqua :: String
 aqua = "#66cccc"
 
+blue :: String
 blue = "#6699cc"
 
+purple :: String
 purple = "#cc99cc"
 
+active :: String
 active = red
 
+activeWarn :: String
 activeWarn = blue
 
+inactive :: String
 inactive = orange
 
+focusColor :: String
 focusColor = red
 
+unfocusColor :: String
 unfocusColor = orange
 
+myFont :: String
 myFont = "xft:Meslo LG M:style=Regular:size=12"
 
+myNormalBorderColor :: String
 myNormalBorderColor = blue
 
+myFocusedBorderColor :: String
 myFocusedBorderColor = red
 
+myTabTheme :: Theme
 myTabTheme =
   XMonad.def
     { fontName = myFont,
@@ -113,14 +136,19 @@ myTabTheme =
 --------------------------------------------------------------------------------
 -- Layouts
 
+gap :: Int
 gap = 4
 
+topbar :: Integer
 topbar = 10
 
+myBorder :: XMonad.Dimension
 myBorder = 1
 
+prompt :: Integer
 prompt = 20
 
+status :: Integer
 status = 20
 
 mySpacing :: l a -> ModifiedLayout Spacing l a
@@ -137,10 +165,6 @@ suffixed n = renamed [AppendWords n]
 
 trimSuffixed :: Int -> String -> l a -> ModifiedLayout Rename l a
 trimSuffixed w n = renamed [CutWordsRight w, AppendWords n]
-
---------------
---- Layout ---
---------------
 
 data TABBED = TABBED
   deriving (Show, Read, Eq, XMonad.Typeable)
@@ -418,6 +442,7 @@ floatFocused = do
   XMonad.withFocused toggleFloat
   killAllOtherCopies
 
+myNav2DConf :: Navigation2DConfig
 myNav2DConf =
   XMonad.def
     { defaultTiledNavigation = centerNavigation,
@@ -427,6 +452,7 @@ myNav2DConf =
       unmappedWindowRect = pure ("Full", singleWindowRect)
     }
 
+myMouseBindings :: XMonad.XConfig l -> M.Map (XMonad.KeyMask, XMonad.Button) (XMonad.Window -> XMonad.X ())
 myMouseBindings XMonad.XConfig {XMonad.modMask = modm} =
   M.fromList
     [ ((modm, XMonad.button1), \w -> XMonad.focus w >> XMonad.mouseMoveWindow w >> XMonad.windows W.shiftMaster), -- Set window to float and move by dragging
@@ -453,35 +479,34 @@ restartEventHook = \case
     pure $ All True
   _ -> pure $ All True
 
-myLogHook :: Handle -> XMonad.X ()
-myLogHook xmproc =
-  dynamicLogWithPP
-    xmobarPP
-      { ppCurrent = xmobarColor yellow mempty,
-        ppOutput = hPutStrLn xmproc,
-        ppLayout = id, -- drop 18
-        ppTitle = xmobarColor foreground mempty . shorten 85,
-        ppHidden = \ws -> if ws == "NSP" then mempty else ws,
-        ppHiddenNoWindows = const mempty
+statusBarConfig :: StatusBarConfig
+statusBarConfig =
+  statusBarProp "xmobar-solomon" $
+    pure $
+      xmobarPP
+        { ppCurrent = xmobarColor yellow mempty,
+          ppLayout = id, -- drop 18
+          ppTitle = xmobarColor foreground mempty . shorten 85,
+          ppHidden = \ws -> if ws == "NSP" then mempty else ws,
+          ppHiddenNoWindows = const mempty
+        }
+
+myConfig =
+  withSB statusBarConfig $
+    XMonad.def
+      { XMonad.layoutHook = myLayoutHook,
+        XMonad.manageHook = myManageHook <> XMonad.manageHook XMonad.def,
+        XMonad.handleEventHook = restartEventHook,
+        XMonad.modMask = XMonad.mod4Mask,
+        XMonad.keys = myKeys,
+        XMonad.mouseBindings = myMouseBindings,
+        XMonad.workspaces = myWorkspaces,
+        XMonad.normalBorderColor = myNormalBorderColor,
+        XMonad.focusedBorderColor = myFocusedBorderColor,
+        XMonad.startupHook = myStartupHook,
+        XMonad.borderWidth = myBorder
       }
 
-myConfig xmproc =
-  XMonad.def
-    { XMonad.layoutHook = myLayoutHook,
-      XMonad.manageHook = myManageHook <> XMonad.manageHook XMonad.def,
-      XMonad.handleEventHook = restartEventHook,
-      XMonad.logHook = myLogHook xmproc,
-      XMonad.modMask = XMonad.mod4Mask,
-      XMonad.keys = myKeys,
-      XMonad.mouseBindings = myMouseBindings,
-      XMonad.workspaces = myWorkspaces,
-      XMonad.normalBorderColor = myNormalBorderColor,
-      XMonad.focusedBorderColor = myFocusedBorderColor,
-      XMonad.startupHook = myStartupHook,
-      XMonad.borderWidth = myBorder
-    }
-
 main :: IO ()
-main = do
-  xmproc <- spawnPipe "xmobar-solomon"
-  XMonad.xmonad . ewmhFullscreen . ewmh . pagerHints . docks . withNavigation2DConfig myNav2DConf $ myConfig xmproc
+main =
+  XMonad.xmonad . ewmhFullscreen . ewmh . pagerHints . docks . withNavigation2DConfig myNav2DConf $ myConfig

@@ -39,7 +39,7 @@ config = defaultConfig
   , alpha        = 255
   , position     = TopW L 100
   , commands = [
-        Run StdinReader
+        Run XMonadLog
       --, Run $ DiskU [("/", render HDD <> " <used>/<size>")] ["-L","20","-H","50","-m","1","-p","3"] 20
       -- , Run $ DiskU [("/dev/sda1", render HDD <> " <used>/<size>")] ["-L","20","-H","50","-m","1","-p","3"] 20
       , Run $ Volume "default" "Master"
@@ -52,5 +52,5 @@ config = defaultConfig
   , sepChar = "%"
   , alignSep = "}{"
   --, template = "%StdinReader% }{ %disku% %default:Master% %battery% %wlp4s0wi% %dunstStatus% %date%          "
-  , template = "%StdinReader% }{ %default:Master% %battery% %wlp4s0wi% %dunstStatus% %date%          "
+  , template = "%XMonadLog% }{ %default:Master% %battery% %wlp4s0wi% %dunstStatus% %date%          "
   }
