@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware.nix
+    ./freshrss.nix
     ./podcast-dl.nix
     ./nextcloud.nix
     ./nginx.nix
