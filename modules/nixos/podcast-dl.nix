@@ -2,6 +2,18 @@
 
 let
   cfg = config.services.podcast-dl;
+  script = pkgs.writeShellScriptBin "run"
+    ''
+    set -e
+    cd ${cfg.dataDir}
+
+    IFS=' ' read -ra feeds <<< "${lib.concatStringsSep " " cfg.podcasts}"
+
+    for feed in "''${feeds[@]}"
+    do
+      ${pkgs.podcast-dl}/bin/podcast-dl --url "''${feed}" &
+    done
+    '';
 in
 {
   options.services.podcast-dl = with lib; {
@@ -29,18 +41,11 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.run-podcast-dl = {
       serviceConfig.Type = "oneshot";
-      script = pkgs.writeShellScriptBin "run"
-        ''
-        set -e
-        cd ${cfg.dataDir}
-
-        IFS=' ' read -ra feeds <<< "${lib.concatStringsSep " " cfg.podcasts}"
-
-        for feed in "''${feeds[@]}"
-        do
-          ${pkgs.podcast-dl}/bin/podcast-dl --url "''${feed}" &
-        done
-        '';
+      script = ''
+        echo "Excecuting podcast-dl
+        ${pkgs.bash}/bin/bash ${script}
+        echo "Completed podcast-dl  
+      '';
     };
 
     systemd.timers.run-podcast-dl = {

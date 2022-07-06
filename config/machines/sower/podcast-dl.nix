@@ -2,7 +2,7 @@
 
 {
   services.podcast-dl = {
-    enable = true;
+    enable = false;
     dataDir = "/srv/NAS/Media/Podcasts/";
     podcasts = [
       "https://malicious.life/feed/podcast"
