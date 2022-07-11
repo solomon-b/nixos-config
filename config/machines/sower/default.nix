@@ -4,6 +4,7 @@
   imports = [
     ./hardware.nix
     ./freshrss.nix
+    ./heimdall.nix
     ./podcast-dl.nix
     ./nextcloud.nix
     ./nginx.nix
