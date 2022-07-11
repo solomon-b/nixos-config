@@ -55,6 +55,12 @@ in
       description = "The IP and port to which the webui will bind.";
     };
 
+    openFirewall = lib.mkOption {
+      default = false;
+      type = lib.types.bool;
+      description = "Expose the webui to the network.";
+    };
+
     systemService = mkOption {
       type = types.bool;
       default = true;
@@ -122,7 +128,8 @@ in
   };
   
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [ cfg.webUIAddress.port ];
+    networking.firewall.allowedTCPPorts =
+      mkIf cfg.openFirewall [ cfg.webUIAddress.port ];
 
     systemd.packages = [ cfg.package ];
 
