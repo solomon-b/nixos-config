@@ -1,7 +1,17 @@
 { pkgs, ... }:
 
 {
+  virtualisation = {
+    containers = {
+      enable = true;
+    };
+
+    docker = {
+      enable = true;
+    };
+    oci-containers.backend = "docker";
+  };
+
   environment.systemPackages = [ pkgs.docker-compose ];
-  virtualisation.docker.enable = true;
   primary-user.extraGroups = [ "docker" ];
 }
