@@ -13,4 +13,8 @@
       CRON_MIN = "1, 31";
     };
   };
+
+  services.nginx.virtualHosts."rss.sower" = {
+    locations."/".proxyPass = "http://localhost:8081";
+  };
 }
