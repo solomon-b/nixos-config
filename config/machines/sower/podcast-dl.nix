@@ -13,6 +13,8 @@
       "https://feed.podbean.com/expandingmind/feed.xml"
       "https://lexfridman.com/feed/podcast/"
       "https://feeds.simplecast.com/bdb_rip_"
+      "https://changelog.fm/rss"
+      "https://changelog.com/brainscience/feed"
     ];
   };
 }
