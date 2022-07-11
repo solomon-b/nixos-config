@@ -34,15 +34,9 @@
     };
 
   fileSystems."/srv/NAS" =
-    { device = "/dev/disk/by-label/NAS";
-      fsType = "ext4";
-      options = [ "sync" ];
+    { device = "rpool/data";
+      fsType = "zfs";
     };
-
-  fileSystems."/nfs/nas" = {
-    device = "/srv/NAS";
-    options = [ "bind" ];
-  };
 
   swapDevices = [ ];
 
