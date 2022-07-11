@@ -6,7 +6,7 @@
     ./freshrss.nix
     ./heimdall.nix
     ./podcast-dl.nix
-    ./nextcloud.nix
+    #./nextcloud.nix
     ./nginx.nix
     ./wireguard.nix
 
