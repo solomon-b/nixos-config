@@ -12,7 +12,7 @@
 
     ../../profiles/physical-machine
     ../../modules/services/bittorrent
-    #../../modules/services/dns
+    ../../modules/services/dns
     ../../modules/services/docker
     ../../modules/services/postgresql
     ../../modules/services/tailscale

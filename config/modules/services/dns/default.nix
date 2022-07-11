@@ -1,96 +1,75 @@
 { config, pkgs, ... }:
 
+# Run the pihole container on a bridged network and expose it over the
+# tailscale mesh.
+#
+# https://shotor.com/blog/run-your-own-mesh-vpn-and-dns-with-tailscale-and-pihole/
+# https://www.breakds.org/post/declarative-docker-in-nixos/
+# https://github.com/jkachmar/dotnix/blob/trunk/config/services/dns/pihole.nix
 {
-  services.dnsmasq = {
-    enable = true;
-    extraConfig = ''
-      bogus-priv
-      domain-needed
-      no-dhcp-interface=eno1
-      no-hosts
-      no-poll
-      no-resolv
-
-      domain=local.net
-      local=/local.net/
-
-      listen-address=::1,127.0.0.1,192.168.0.3
-      bind-interfaces
-
-      cache-size=10000
-
-      server=8.8.8.8
-      server=8.8.4.4
-
-      address=/sower/192.168.0.3
-      address=/sower.local.net/192.168.0.3
-      address=/router/192.168.0.1
-      address=/router.local.net/192.168.0.1
-    '';
-  };
-
-  networking = {
-    firewall = {
-      allowedTCPPorts = [ 53 ];
-      allowedUDPPorts = [ 53 ];
+  services.nginx.virtualHosts."pi.sower" = {
+    locations."/" = {
+      proxyPass = "http://172.21.0.2";
+      extraConfig =
+        "proxy_set_header Host $host;" +
+        "proxy_set_header X-Real-IP $remote_addr;" +
+        "proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;";
     };
   };
-}
-     # log-queries
-     # log-facility=/tmp/ad-block.log
-     # local-ttl=300
- 
-     # conf-file=/etc/nixos/assets/hosts-blocklists/domains.txt
-     # addn-hosts=/etc/nixos/assets/hosts-blocklists/hostnames.txt
 
-#let
-#  inherit (config.networking) domain hostName;
-#  fqdb = "${hostName}.${domain}";
-#in
-#{
-#  networking.firewall = {
-#    allowedTCPPorts = [ 53 ];
-#    allowedUDPPorts = [ 53 ];
-#  };
-#
-#  interfaces.docker0 = {
-#    allowedTCPPorts = [ 5053 ];
-#    allowedUDPPorts = [ 5053 ];
-#  };
-#
-#
-#  services.nginx.virtualHosts."pihole.${fqdn}" = {
-#    forceSSL = true;
-#    useACMEHost = domain;
-#    locations."/".proxyPass = "http://localhost:7000";
-#  };
-#
-#  virtualisation.oci-containers.containers.pihole = {
-#    image = "pihole/pihole:latest";
-#    ports = [
-#      "53:53/tcp"
-#      "53:53/udp"
-#      "7000:80"
-#    ];
-#    volumes = [ "/etc/pihole:/etc/pihole/" ];
-#    environment = {
-#      DNS1 = "10.88.0.1#5053";
-#      REV_SERVER = "true";
-#      REV_SERVER_TARGET = "10.0.0.1"; # Router IP.
-#      REV_SERVER_CIDR = "10.0.0.0/16";
-#      TZ = config.time.timeZone;
-#      PROXY_LOCATION = "pihole";
-#      # NOTE: This must agree with the nginx virtual host.
-#      VIRTUAL_HOST = "pihole.${fqdn}";
-#      # TODO: Change this to something secure, obviously.
-#      WEBPASSWORD = "hunter2";
-#    };
-#    extraOptions = [ "--dns=127.0.0.1" "--dns=9.9.9.9" ];
-#    workdir = "/etc/pihole";
-#    autoStart = true;
-#  };
-#  systemd.services.podman-pihole = {
-#    after = [ "network.target" ];
-#    wantedBy = [ "multi-user.target" ];
-#  };
-#}
+  systemd.services.init-pihole-bridge = {
+    description = "Create the network bridge for pihole.";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    
+    serviceConfig.Type = "oneshot";
+     script = let dockercli = "${config.virtualisation.docker.package}/bin/docker";
+             in ''
+               # Put a true at the end to prevent getting non-zero return code, which will
+               # crash the whole service.
+               check=$(${dockercli} network ls | grep "pihole-br" || true)
+               if [ -z "$check" ]; then
+                 ${dockercli} network create \
+                   --driver=bridge \
+                   --subnet=172.21.0.0/16 \
+                   --gateway=172.21.0.1 \
+                   -o "com.docker.network.bridge.enable_ip_masquerade"="true" \
+                   -o "com.docker.network.bridge.enable_icc"="true" \
+                   -o "com.docker.network.driver.mtu"="1500" \
+                   pihole-br 
+               else
+                 echo "pihole-br already exists in docker"
+               fi
+             '';
+  };
+
+  virtualisation.oci-containers.containers.pihole = {
+    image = "pihole/pihole:latest";
+    volumes = [
+      "/etc/pihole:/etc/pihole/"
+      "/etc/dnsmasq.d:/etc/dnsmasq.d/"
+    ];
+    environment = {
+      TZ = config.time.timeZone;
+      #VIRTUAL_HOST = "pi.hole";
+      ServerIP="127.0.0.1";
+      WEBPASSWORD = "hunter2";
+    };
+
+    extraOptions = [
+      "--network=pihole-br"
+      "--ip=172.21.0.2"
+      "--dns=127.0.0.1"
+      "--dns=1.1.1.1"
+      # TODO: Why does setting --hostname break my reverse proxy?
+      #"--hostname=pi.sower"
+    ];
+    workdir = "/etc/pihole";
+    autoStart = true;
+  };
+
+  systemd.services.docker-pihole = {
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+  };
+}
