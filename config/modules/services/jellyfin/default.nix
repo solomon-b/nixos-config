@@ -3,7 +3,10 @@
 {
   services.jellyfin = {
     enable = true;
-    openFirewall = true;
+  };
+
+  services.nginx.virtualHosts."jellyfin.sower" = {
+    locations."/".proxyPass = "http://localhost:8096";
   };
 
   users.groups.nas.gid = 998;
