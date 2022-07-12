@@ -7,6 +7,7 @@
     enable = true;
     package = pkgs.nextcloud24;
     hostName = "nextcloud.sower";
+    datadir = "/srv/NAS/nextcloud";
 
     # Use HTTPS for links
     https = false;

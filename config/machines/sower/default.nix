@@ -7,7 +7,7 @@
     ./heimdall.nix
     ./podcast-dl.nix
     ./photoprism.nix
-    #./nextcloud.nix
+    ./nextcloud.nix
     ./nginx.nix
     ./wireguard.nix
 
