@@ -31,7 +31,7 @@
                if [ -z "$check" ]; then
                  ${dockercli} network create \
                    --driver=bridge \
-                   --subnet=172.21.0.0/16 \
+                   --subnet=172.21.0.0/24 \
                    --gateway=172.21.0.1 \
                    -o "com.docker.network.bridge.enable_ip_masquerade"="true" \
                    -o "com.docker.network.bridge.enable_icc"="true" \

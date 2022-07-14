@@ -1,47 +1,92 @@
 { pkgs, config, ... }:
 
 {
-  environment.systemPackages = [ pkgs.samba ];
-
-  services.nextcloud = {
-    enable = true;
-    package = pkgs.nextcloud24;
-    hostName = "nextcloud.sower";
-    datadir = "/srv/NAS/nextcloud";
-
-    # Use HTTPS for links
-    https = false;
-
-    # Auto-update Nextcloud Apps
-    autoUpdateApps.enable = true;
-    # Set what time makes sense for you
-    autoUpdateApps.startAt = "05:00:00";
-
-    config = {
-      # Nextcloud PostegreSQL database configuration, recommended over using SQLite
-      dbtype = "pgsql";
-      dbuser = "nextcloud";
-      dbhost = "/run/postgresql"; # nextcloud will add /.s.PGSQL.5432 by itself
-      dbname = "nextcloud";
-      dbpassFile = "/secrets/nextcloud-db-pass";
-      adminpassFile = "/secrets/nextcloud-admin-pass";
-      adminuser = "admin";
-    };
+  services.nginx.virtualHosts."nextcloud.sower" = {
+    locations."/".proxyPass = "http://172.21.1.3:80";
   };
 
-  users.users.nextcloud.extraGroups = [ "keys" ];
+  virtualisation.oci-containers.containers.nextcloud = {
+    image = "nextcloud";
+    autoStart = true;
 
-  services.postgresql = {
-    ensureDatabases = [ "nextcloud" ];
-    ensureUsers = [
-      { name = "nextcloud";
-        ensurePermissions."DATABASE nextcloud" = "ALL PRIVILEGES";
-      }
+    volumes = [
+      "/srv/NAS/nextcloud:/var/www/html"
+    ];
+
+    environment = {
+      TZ = "America/Los_Angeles";
+      MYSQL_PASSWORD = "hunter2";
+      MYSQL_DATABASE = "nextcloud";
+      MYSQL_USER = "nextcloud";
+      MYSQL_HOST = "172.21.1.2";
+      MYSQL_PORT = "3306";
+    };
+
+    extraOptions = [
+      "--network=nextcloud-br"
+      "--ip=172.21.1.3"
     ];
   };
 
-  systemd.services."nextcloud-setup" = {
-    requires = ["postgresql.service"];
-    after = ["postgresql.service"];
+  virtualisation.oci-containers.containers.mariadb-nextcloud = {
+    image = "mariadb:10.5";
+    autoStart = true;
+
+    cmd = [
+      "--transaction-isolation=READ-COMMITTED"
+      "--binlog-format=ROW"
+    ];
+
+    volumes = [
+      "/srv/NAS/db:/var/lib/mysql"
+    ];
+
+    extraOptions = [
+      "--network=nextcloud-br"
+      "--ip=172.21.1.2"
+    ];
+
+    environment = {
+      MYSQL_ROOT_PASSWORD = "hunter2";
+      MYSQL_PASSWORD = "hunter2";
+      MYSQL_DATABASE = "nextcloud";
+      MYSQL_USER = "nextcloud";
+    };
+  };
+
+  systemd.services.init-nextcloud-bridge = {
+    description = "Create the network bridge for nextcloud.";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    
+    serviceConfig.Type = "oneshot";
+     script = let dockercli = "${config.virtualisation.docker.package}/bin/docker";
+             in ''
+               # Put a true at the end to prevent getting non-zero return code, which will
+               # crash the whole service.
+               check=$(${dockercli} network ls | grep "nextcloud-br" || true)
+               if [ -z "$check" ]; then
+                 ${dockercli} network create \
+                   --driver=bridge \
+                   --subnet=172.21.1.0/24 \
+                   --gateway=172.21.1.1 \
+                   -o "com.docker.network.bridge.enable_ip_masquerade"="true" \
+                   -o "com.docker.network.bridge.enable_icc"="true" \
+                   -o "com.docker.network.driver.mtu"="1500" \
+                   nextcloud-br 
+               else
+                 echo "nextcloud-br already exists in docker"
+               fi
+             '';
+  };
+
+  systemd.services.docker-nextcloud = {
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+  };
+
+  systemd.services.docker-mariadb-nextcloud = {
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
   };
 }
