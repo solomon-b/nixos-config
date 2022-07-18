@@ -5,6 +5,7 @@
     ./hardware.nix
     ./freshrss.nix
     ./heimdall.nix
+    ./hoogle.nix
     ./podcast-dl.nix
     ./photoprism.nix
     ./nextcloud.nix

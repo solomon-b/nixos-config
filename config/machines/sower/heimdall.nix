@@ -3,7 +3,7 @@
 {
   virtualisation.oci-containers.containers.heimdall = {
     image = "linuxserver/heimdall";
-    ports = [ "8082:80" "406:443" ];
+    ports = [ "8080:80" "406:443" ];
     volumes = [
       "/srv/www/heimdall:/config"
     ];
@@ -15,6 +15,6 @@
   };
 
   services.nginx.virtualHosts."sower" = {
-    locations."/".proxyPass = "http://localhost:8082";
+    locations."/".proxyPass = "http://localhost:8080";
   };
 }

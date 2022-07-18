@@ -4,7 +4,6 @@
   imports = [
     ./hardware.nix
     ./kmonad.nix
-    ./hoogle.nix
 
     ../../profiles/pc
     ../../modules/services/virtualisation/libvirt
