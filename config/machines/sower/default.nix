@@ -9,6 +9,7 @@
     ./podcast-dl.nix
     ./photoprism.nix
     ./nextcloud.nix
+    ./nfs.nix
     ./nginx.nix
     ./wireguard.nix
 
