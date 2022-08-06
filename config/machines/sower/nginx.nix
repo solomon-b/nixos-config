@@ -18,7 +18,13 @@
 
   networking.firewall.allowedTCPPorts = [ 80 ];
 
-  services.nginx.virtualHosts."nas.sower" = {
-    locations."/".proxyPass = "http://192.168.1.174";
+  services.nginx.virtualHosts = {
+    "nas.sower" = {
+      locations."/".proxyPass = "http://192.168.1.174";
+    };
+
+    "nextcloud.sower" = {
+      locations."/".proxyPass = "https://192.168.1.61";
+    };
   };
 }
