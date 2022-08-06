@@ -61,9 +61,10 @@
     feh
 
     # Chat/Communication
+    discord
+    signal-desktop
     slack
     zoom-us
-    discord
 
     # Pandoc Related
     pandoc
