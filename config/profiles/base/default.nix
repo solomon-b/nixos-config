@@ -37,6 +37,7 @@
     htop
     jq
     ripgrep
+    tmux
     tree
     unzip
     wget
