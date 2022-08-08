@@ -26,6 +26,7 @@ library
                   , App.DunstStatus
                   , App.Icons
   build-depends:    base >= 2 && < 5
+                  , directory
                   , extra
                   , font-awesome-type
                   , process

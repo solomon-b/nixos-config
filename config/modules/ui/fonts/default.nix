@@ -2,8 +2,8 @@
 
 {
   fonts.fonts = with pkgs; [
-    font-awesome
     fira-code
+    material-design-icons
     noto-fonts-emoji
   ];
 }

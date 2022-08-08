@@ -12,8 +12,8 @@ import Xmobar (Exec(..))
 data Status = Active | Paused
 
 instance Render Status where
-  render Active = render Comment
-  render Paused = render NoComment
+  render Active = ""
+  render Paused = render DoNotDisturb
 
 parseStatus :: ReadP Status
 parseStatus =

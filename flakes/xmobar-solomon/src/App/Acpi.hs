@@ -1,86 +1,71 @@
-{-# LANGUAGE TypeApplications #-}
-{-# LANGUAGE InstanceSigs #-}
+{-# LANGUAGE BlockArguments #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE InstanceSigs #-}
+{-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE TypeApplications #-}
+{-# HLINT ignore "Use <$>" #-}
+
+-- | Fetch and print ACPI power status using Font Awesome icons.
+--
+-- Current Behavior:
+--   1. Fetch AC and all BAT* sources.
+--   2. Print AC status.
+--   3. Print any batteries whose charge status is not full.
 module App.Acpi where
 
+--------------------------------------------------------------------------------
+
 import App.Icons
+import Data.Foldable (fold)
+import Data.Function ((&))
+import Data.List.Extra (trim, isPrefixOf)
+import Data.Maybe (mapMaybe)
+import Data.Ratio ((%))
+import Data.Time.Clock (DiffTime, NominalDiffTime)
+import Data.Time.Clock.POSIX ( posixSecondsToUTCTime)
+import Data.Time.Format (formatTime, defaultTimeLocale)
+import System.Directory (listDirectory)
+import Xmobar (Exec (..))
 
-import Data.List.Extra (trim)
-import Data.Ratio
-import Data.Time.Clock
-import Data.Time.Format
-import Data.Time.Clock.POSIX
-import Xmobar (Exec(..))
+--------------------------------------------------------------------------------
 
----------------
----- Types ----
----------------
+data Attr = EnergyNowAttr | EnergyFullAttr | StatusAttr
 
-newtype Battery = Battery Int
-data Attr = EnergyNowAttr | EnergyFullAttr | StatusAttr | PowerNowAttr
+instance Render Attr where
+  render EnergyNowAttr  = "charge_now"
+  render EnergyFullAttr = "charge_full"
+  render StatusAttr     = "status"
 
--- | ACPI Battery Properties
+--------------------------------------------------------------------------------
+
+newtype Battery         = Battery Int
 newtype EnergyNow       = EnergyNow       { getEnergyNow       :: Integer }
 newtype EnergyFull      = EnergyFull      { getEnergyFull      :: Integer }
 newtype EnergyRemaining = EnergyRemaining { getEnergyRemaining :: Integer }
-newtype PowerNow        = PowerNow        { getPowerNow        :: Integer }
-data ChargeStatus       = Charging | Discharging | Full deriving stock Eq
+data ChargeStatus       = Charging | Discharging | Full deriving stock (Show, Eq)
+
+--------------------------------------------------------------------------------
 
 -- | Derived Battery Properties
-newtype TimeRemaining = TimeRemaining { getTime :: DiffTime }
 newtype EnergyPercent = EnergyPercent { getEnergyPercent :: Rational }
 
--- | Power Sources
-data AcStatus = Connected | Disconnected deriving stock Eq
+instance Render EnergyPercent where
+  render energy = show (fromEnergyPercent energy) <> "%"
+
+--------------------------------------------------------------------------------
+
 data BatteryStatus = BatteryStatus
   { _battery :: Battery
   , _energyPercent :: EnergyPercent
   , _chargeStatus :: ChargeStatus
-  , _timeRemaining :: TimeRemaining
   }
 
----------------------
----- TypeClasses ----
----------------------
-
-instance Render Battery where
-  render (Battery n) = "BAT" <> show n
-
-instance Render Attr where
-  render EnergyNowAttr  = "energy_now"
-  render EnergyFullAttr = "energy_full"
-  render StatusAttr     = "status"
-  render PowerNowAttr   = "power_now"
-
-instance Render EnergyPercent where
-  render energy =
-    let icon    =  render . iconForBattery $ energy
-        percent =  show (fromEnergyPercent energy) <> "%"
-    in icon <> " " <> percent
-
-instance Render TimeRemaining where
-  render = formatRemainingTime . getTime
-
-instance Render AcStatus where
-  render Disconnected = "AC"
-  render Connected    = render Plug <> " AC"
-
 instance Render BatteryStatus where
-  render (BatteryStatus bat energy status timeRemaining) =
-    let chargingIcon   = render Bolt
-        bat'           = render bat
-        energy'        = render energy
-        timeRemaining' = render timeRemaining
-        space          = " "
-    in if status == Charging
-       then bat' <> space <> energy' <> space <> chargingIcon
-       else if status == Discharging
-            then bat' <> space <> render energy <> space <> timeRemaining'
-            else bat' <> space <> render energy
+  render (BatteryStatus bat energy status) =
+    let icon =  render . iconForBattery status $ energy
+    in icon <> " " <> render energy
 
-------------------------
----- Pure Functions ----
-------------------------
+--------------------------------------------------------------------------------
 
 diffToNominal :: DiffTime -> NominalDiffTime
 diffToNominal = fromRational . toRational
@@ -91,14 +76,25 @@ formatRemainingTime = formatTime defaultTimeLocale "%H:%M" . posixSecondsToUTCTi
 fromEnergyPercent :: EnergyPercent -> Integer
 fromEnergyPercent = round @Double . (* 100) . realToFrac . getEnergyPercent
 
-iconForBattery :: EnergyPercent -> Icon
-iconForBattery (EnergyPercent rat)
-  | rat <= 1 % 8 = BatteryEmpty
-  | rat <= 1 % 4 = BatteryQuarter
-  | rat <= 1 % 2 = BatteryHalf
-  | rat <= 3 % 4 = BatteryThreeQuarters
+iconForBattery :: ChargeStatus -> EnergyPercent -> Icon
+iconForBattery Discharging (EnergyPercent rat)
+  | rat <= 1 % 10 = BatteryEmpty
+  | rat <= 2 % 10 = Battery10
+  | rat <= 3 % 10 = Battery20
+  | rat <= 4 % 10 = Battery30
+  | rat <= 5 % 10 = Battery40
+  | rat <= 6 % 10 = Battery50
+  | rat <= 7 % 10 = Battery60
+  | rat <= 8 % 10 = Battery70
+  | rat <= 9 % 10 = Battery80
+  | rat <= 10 % 10 = Battery90
   | otherwise = BatteryFull
-
+iconForBattery Charging (EnergyPercent rat)
+  | rat <= 1 % 4 = BatteryChargingEmpty
+  | rat <= 2 % 4 = BatteryChargingLow
+  | rat <= 4 % 4 = BatteryChargingMed
+  | otherwise = BatteryChargingHigh
+iconForBattery Full _ = BatteryChargingHigh
 
 toChargeStatus :: String -> ChargeStatus
 toChargeStatus str =
@@ -113,51 +109,40 @@ toEnergyRemaining (EnergyNow now) (EnergyFull full) = EnergyRemaining $ full - n
 toEnergyPercent :: EnergyNow -> EnergyFull -> EnergyPercent
 toEnergyPercent (EnergyNow now) (EnergyFull full) = EnergyPercent $ now % full
 
-toTimeRemaining :: EnergyRemaining -> PowerNow -> TimeRemaining
-toTimeRemaining remain pow =
-  let rem' = fromInteger . getEnergyRemaining $ remain
-      pow' = fromInteger . getPowerNow        $ pow
-  in TimeRemaining . secondsToDiffTime . round @Double . (* 3600) $ rem' / pow'
+--------------------------------------------------------------------------------
 
------------------------------
----- Effectful Functions ----
------------------------------
-
-getAcpiAc :: IO AcStatus
-getAcpiAc = do
-  let sysFsPath = "/sys/class/power_supply/ACAD/online"
-  ac <- (== "1") . trim <$> readFile sysFsPath
-  if ac then return Connected else return Disconnected
-
+-- | Lookup the 'BatteryStatus' for a particular battery. 
 getAcpiBat :: Battery -> IO BatteryStatus
-getAcpiBat bat = do
-  let sysFsPath = "/sys/class/power_supply/" ++ render bat ++ "/"
-  energyNow  <- EnergyNow  . read . trim <$> readFile (sysFsPath ++ render EnergyNowAttr)
-  energyFull <- EnergyFull . read . trim <$> readFile (sysFsPath ++ render EnergyFullAttr)
-  status     <- toChargeStatus    . trim <$> readFile (sysFsPath ++ render StatusAttr)
-  power      <- PowerNow   . read . trim <$> readFile (sysFsPath ++ render PowerNowAttr)
+getAcpiBat bat@(Battery i) = do
+  let sysFsPath = "/sys/class/power_supply/" <> "BAT" <> show i <> "/"
+  energyNow  <- EnergyNow  . read . trim <$> readFile (sysFsPath <> render EnergyNowAttr)
+  energyFull <- EnergyFull . read . trim <$> readFile (sysFsPath <> render EnergyFullAttr)
+  status     <- toChargeStatus    . trim <$> readFile (sysFsPath <> render StatusAttr)
   let energyPercent   = toEnergyPercent   energyNow energyFull
   let energyRemaining = toEnergyRemaining energyNow energyFull
-  let timeRemaining   = toTimeRemaining   energyRemaining power
 
-  pure $ BatteryStatus bat energyPercent status timeRemaining
+  pure $ BatteryStatus bat energyPercent status
 
-printStatus :: AcStatus -> BatteryStatus -> BatteryStatus -> String
-printStatus ac bat0@(BatteryStatus _ _ chargeStatus _) bat1@(BatteryStatus _ _ chargeStatus' _)
-  | chargeStatus  /= Full = render bat0
-  | chargeStatus' /= Full = render bat1
-  | otherwise             = render ac
+-- | Parse Battery battery identifiers.
+parseBattery :: String -> Maybe Battery
+parseBattery = \case
+   x | isPrefixOf "BAT" x -> Just $ Battery $ read $ drop 3 x
+   _ -> Nothing
 
+-- | Lookup and parse battery names.
+findBatteries :: IO [Battery]
+findBatteries =
+  let sysFsPath = "/sys/class/power_supply"
+  in fmap (mapMaybe parseBattery) $ listDirectory sysFsPath
+
+-- | Main entrypoint for application.
 runAcpi :: IO String
 runAcpi = do
-  ac   <- getAcpiAc
-  bat0 <- getAcpiBat (Battery 0)
-  bat1 <- getAcpiBat (Battery 1)
-  pure $ printStatus ac bat0 bat1
+  batteries <- findBatteries
+  bStates <- traverse getAcpiBat batteries
+  pure $ foldMap render bStates
 
-----------------
----- Plugin ----
-----------------
+--------------------------------------------------------------------------------
 
 newtype Acpi = Acpi String
   deriving stock (Show, Read)

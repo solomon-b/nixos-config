@@ -8,40 +8,53 @@ class Render a where
 
 data Icon =
     HDD
+  | Battery10
+  | Battery20
+  | Battery30
+  | Battery40
+  | Battery50
+  | Battery60
+  | Battery70
+  | Battery80
+  | Battery90
   | BatteryEmpty
-  | BatteryQuarter
-  | BatteryHalf
-  | BatteryThreeQuarters
   | BatteryFull
+  | BatteryChargingLow
+  | BatteryChargingMed
+  | BatteryChargingHigh
+  | BatteryChargingEmpty
   | VolumeUp
   | VolumeDown
   | VolumeOff
+  | VolumeOn
   | Wifi
-  | NoComment
-  | Comment
-  | Plug
-  | Bolt
+  | DoNotDisturb
   deriving Show
 
+iconToChar :: Icon -> Char
+iconToChar = \case
+  HDD -> '\xF02CA'
+  Battery10 -> '\xF007A'
+  Battery20 -> '\xF007B'
+  Battery30 -> '\xF007C'
+  Battery40 -> '\xF007D'
+  Battery50 -> '\xF007E'
+  Battery60 -> '\xF007F'
+  Battery70 -> '\xF0080'
+  Battery80 -> '\xF0081'
+  Battery90 -> '\xF0082'
+  BatteryEmpty -> '\xF008E'
+  BatteryFull -> '\xF0079'
+  BatteryChargingLow -> '\xF12A4'
+  BatteryChargingMed -> '\xF12A5'
+  BatteryChargingHigh-> '\xF12A6'
+  BatteryChargingEmpty -> '\xF089F'
+  VolumeUp -> '\xF075D'
+  VolumeDown -> '\xF075E'
+  VolumeOff -> '\xF057F'
+  VolumeOn -> '\xF057E'
+  Wifi -> '\xF05A9'
+  DoNotDisturb -> '\xF0376'
+    
 instance Render Icon where
-  render = \case
-    HDD                  -> showIcon FA.FaHddO
-    BatteryEmpty         -> showIcon FA.FaBatteryEmpty
-    BatteryQuarter       -> showIcon FA.FaBatteryQuarter
-    BatteryHalf          -> showIcon FA.FaBatteryHalf
-    BatteryThreeQuarters -> showIcon FA.FaBatteryThreeQuarters
-    BatteryFull          -> showIcon FA.FaBatteryFull
-    VolumeUp             -> showIcon FA.FaVolumeUp
-    VolumeDown           -> showIcon FA.FaVolumeDown
-    VolumeOff            -> showIcon FA.FaVolumeOff
-    Wifi                 -> showIcon FA.FaWifi
-    Plug                 -> showIcon FA.FaPlug
-    Bolt                 -> showIcon FA.FaBolt
-    NoComment            -> wrapIcon ['\62643']
-    Comment              -> wrapIcon ['\61557']
-    where
-      showIcon :: FA.FontAwesome -> String
-      showIcon = wrapIcon . pure . FA.fontAwesomeChar
-
-      wrapIcon :: String -> String
-      wrapIcon str = mconcat ["<fn=1>", str, "</fn>"]
+  render icon = mconcat ["<fn=1>", [iconToChar icon], "</fn>"]
