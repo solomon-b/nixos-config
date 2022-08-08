@@ -20,7 +20,14 @@
 
   services.nginx.virtualHosts = {
     "nas.sower" = {
-      locations."/".proxyPass = "http://192.168.1.174";
+      locations."/" = {
+        proxyPass = "http://192.168.1.174";
+        extraConfig = ''
+          proxy_http_version 1.1;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection $http_connection;
+        '';
+      };
     };
 
     "nextcloud.sower" = {
