@@ -114,6 +114,7 @@ in
         [Preferences]
         Connection\PortRangeMin=62876
         Queueing\QueueingEnabled=false
+        WebUI\Port=${cfg.webUIAddress.port}
       '';
     };
 
