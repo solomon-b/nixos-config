@@ -163,6 +163,19 @@
             inherit inputs;
           };
         };
+
+        apollyon = nixpkgs.lib.nixosSystem {
+          inherit pkgs system;
+          modules = [
+            ./config/machines/apollyon
+            nixpkgs.nixosModules.notDetected
+            home-manager.nixosModules.home-manager
+            #cardano-node.nixosModules.cardano-node
+          ];
+          specialArgs = {
+            inherit inputs;
+          };
+        };
       };
     };
 }

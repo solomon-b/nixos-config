@@ -33,5 +33,12 @@
     "nextcloud.sower" = {
       locations."/".proxyPass = "https://192.168.1.61";
     };
+
+
+    "qbittorrent2.sower" = {
+      locations."/" = {
+        proxyPass = "http://192.168.1.137:8081";
+      };
+    };
   };
 }
