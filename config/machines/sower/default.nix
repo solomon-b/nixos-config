@@ -20,7 +20,7 @@
     ../../modules/services/postgresql
     ../../modules/services/tailscale
     ../../modules/services/jellyfin
-    ../../modules/services/syncthing
+    #../../modules/services/syncthing
   ];
 
   nixpkgs.config.allowBroken = true;
