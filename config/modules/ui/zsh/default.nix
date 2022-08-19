@@ -43,6 +43,10 @@
       bindkey '^k' history-substring-search-up
       bindkey '^j' history-substring-search-down
 
+      autoload edit-command-line
+      zle -N edit-command-line 
+      bindkey “^x^e” edit-command-line
+
       # Load Functions
       if [ -f ${config.primary-user.home-manager.home.sessionVariables.SCRIPTS}/functions ]; then
           source ${config.primary-user.home-manager.home.sessionVariables.SCRIPTS}/functions
