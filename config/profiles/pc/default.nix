@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   imports = [
@@ -50,6 +50,7 @@
     dmenu
     libnotify
     networkmanagerapplet
+    rofi
     trayer
     volume-bar
     xbanish
