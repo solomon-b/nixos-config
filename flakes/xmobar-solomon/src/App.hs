@@ -68,14 +68,14 @@ config = defaultConfig
       --, Run $ DiskU [("/", render HDD <> " <used>/<size>")] ["-L","20","-H","50","-m","1","-p","3"] 20
       -- , Run $ DiskU [("/dev/sda1", render HDD <> " <used>/<size>")] ["-L","20","-H","50","-m","1","-p","3"] 20
       , Run $ Volume "default" "Master"
-        [ "-t", "<status> <volume>%" , "--", "-O", render VolumeOn, "-o", render VolumeOff, "-c", red, "-C", foreground ] 10
+        [ "-t", "<status><volume>%" , "--", "-O", render VolumeOn, "-o", render VolumeOff, "-c", red, "-C", foreground ] 10
       , Run $ Acpi "battery"
-      , Run $ Wireless "" [ "--template" , render Wifi <> " <essid>" ] 10
+      , Run $ Wireless "wlp170s0" ["--template", render Wifi <> "<essid> <txrate>Mb/s"] 10
       , Run $ DunstStatus "dunstStatus"
       , Run $ Date ("<fc=" <> yellow <> ">%a %b %_d %Y %I:%M %p</fc>") "date" 9
       ]
   , sepChar = "%"
   , alignSep = "}{"
   --, template = "%StdinReader% }{ %disku% %default:Master% %battery% %wlp4s0wi% %dunstStatus% %date%          "
-  , template = "%XMonadLog% }{ %default:Master% %dunstStatus% %battery% %wi% %date%          "
+  , template = "%XMonadLog% }{ %dunstStatus% %default:Master% %battery% %wlp170s0wi% %date%          "
   }

@@ -63,7 +63,7 @@ data BatteryStatus = BatteryStatus
 instance Render BatteryStatus where
   render (BatteryStatus bat energy status) =
     let icon =  render . iconForBattery status $ energy
-    in icon <> " " <> render energy
+    in icon <> render energy
 
 --------------------------------------------------------------------------------
 

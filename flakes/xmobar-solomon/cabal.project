@@ -2,3 +2,8 @@ packages: ./xmobar-solomon.cabal
 
 constraints:
   xmobar +all_extensions
+
+source-repository-package
+  type: git
+  location: git@codeberg.org:solomon/xmobar.git
+  tag: 0f07fd05247779c4f76b4c5d79e24adac89c4d4e
