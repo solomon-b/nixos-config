@@ -6,18 +6,12 @@
       url = github:numtide/flake-utils;
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    xmobar = {
-      url = "/home/solomon/Development/haskell/xmobar";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = { self, nixpkgs, flake-utils, xmobar }:
+  outputs = { self, nixpkgs, flake-utils }:
     let
       overlay = import ./overlay.nix;
       overlays = [
-        xmobar.overlay
         overlay
       ];
     in flake-utils.lib.eachDefaultSystem (system:
