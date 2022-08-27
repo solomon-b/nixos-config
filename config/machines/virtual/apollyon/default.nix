@@ -6,7 +6,7 @@
     ./nfs.nix
     ./wireguard.nix
 
-    ../../profiles/physical-machine
+    ../../../profiles/virtual-machine
   ];
 
   nixpkgs.config.allowBroken = true;
@@ -24,6 +24,7 @@
   networking = {
     hostName = "apollyon";
     interfaces.enp0s4.useDHCP = true;
+    #interfaces.enp1s0.useDHCP = true;
     useDHCP = false;
   };
 

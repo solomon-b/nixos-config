@@ -28,11 +28,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    #taffybar-solomon = {
-    #  url = path:/home/solomon/Development/Nix/nixos-config/flakes/taffybar-solomon;
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
-
     xmobar-solomon = {
       #url = path:./flakes/xmobar-solomon;
       url = path:/home/solomon/Development/Nix/nixos-config/flakes/xmobar-solomon;
@@ -57,14 +52,6 @@
       url = path:/home/solomon/Development/Nix/nixos-config/flakes/podcast-dl;
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    #cardano-node = {
-    #  url = github:input-output-hk/cardano-node;
-    #};
-
-    #cardano-wallet = {
-    #  url = github:input-output-hk/cardano-wallet;
-    #};
   };
 
   outputs = inputs@{
@@ -74,63 +61,34 @@
       unstable,
       home-manager,
       kmonad,
-      #taffybar-solomon,
       brightness-bar,
       volume-bar,
       xmobar-solomon,
       xmonad-solomon,
       graphqurl,
-      podcast-dl,
-      #cardano-node,
-      #cardano-wallet
+      podcast-dl
   }:
     let
       system = "x86_64-linux";
-      #password-utils-overlay = import ./overlays/password-utils-overlay.nix;
       pkgs = import nixpkgs {
         inherit system;
         config = { allowUnfree = true; };
         overlays = [
           brightness-bar.overlay
-          #cardano-node.overlay
-          #cardano-wallet.overlay
           graphqurl.overlay
           kmonad.overlay
           podcast-dl.overlay
-          #taffybar-solomon.overlay
           volume-bar.overlay
           xmobar-solomon.overlay
           xmonad-solomon.overlay
-          #password-utils-overlay
         ];
       };
     in {
-      devShell."${system}" = pkgs.mkShell {
-        nativeBuildInputs = [ pkgs.nixops_unstable ];
-      };
-
-      nixopsConfigurations.default = {
-        inherit nixpkgs;
-        "yellowstone.cofree.coffee" = { config, ... }: {
-          deployment = {
-            targetHost = "yellowstone.cofree.coffee";
-            targetUser = config.primary-user.name;
-            sshOptions = [ "-A" ];
-            provisionSSHKey = false;
-          };
-
-          imports = [
-            ./config/machines/yellowstone.cofree.coffee
-            (home-manager.nixosModules.home-manager)
-          ];
-        };
-      };
-
       nixosConfigurations = {
         lorean = nixpkgs.lib.nixosSystem {
           inherit pkgs system;
           modules = [
-            ./config/machines/lorean
+            ./config/machines/physical/lorean
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
           ];
@@ -142,7 +100,7 @@
         nightshade = nixpkgs.lib.nixosSystem {
           inherit pkgs system;
           modules = [
-            ./config/machines/nightshade
+            ./config/machines/physical/nightshade
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
           ];
@@ -154,7 +112,7 @@
         sower = nixpkgs.lib.nixosSystem {
           inherit pkgs system;
           modules = [
-            ./config/machines/sower
+            ./config/machines/physical/sower
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
             #cardano-node.nixosModules.cardano-node
@@ -167,7 +125,7 @@
         apollyon = nixpkgs.lib.nixosSystem {
           inherit pkgs system;
           modules = [
-            ./config/machines/apollyon
+            ./config/machines/virtual/apollyon
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
           ];
@@ -179,7 +137,7 @@
         madonna-of-the-wasps = nixpkgs.lib.nixosSystem {
           inherit pkgs system;
           modules = [
-            ./config/machines/madonna-of-the-wasps
+            ./config/machines/virtual/madonna-of-the-wasps
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
           ];

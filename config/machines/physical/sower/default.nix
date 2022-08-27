@@ -13,14 +13,14 @@
     ./nginx.nix
     ./wireguard.nix
 
-    ../../profiles/physical-machine
-    ../../modules/services/bittorrent
-    ../../modules/services/dns
-    ../../modules/services/docker
-    ../../modules/services/postgresql
-    ../../modules/services/tailscale
-    ../../modules/services/jellyfin
-    #../../modules/services/syncthing
+    ../../../profiles/physical-machine
+    ../../../modules/services/bittorrent
+    ../../../modules/services/dns
+    ../../../modules/services/docker
+    ../../../modules/services/postgresql
+    ../../../modules/services/tailscale
+    ../../../modules/services/jellyfin
+    #../../../modules/services/syncthing
   ];
 
   nixpkgs.config.allowBroken = true;

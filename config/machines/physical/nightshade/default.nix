@@ -6,12 +6,12 @@
     ./kmonad.nix
     ./nfs.nix
 
-    ../../profiles/pc
-    ../../modules/services/virtualisation/libvirt
-    #../../modules/services/syncthing
-    ../../modules/services/tailscale
-    ../../modules/system/devices/touchpad
-    ../../modules/system/powertop
+    ../../../profiles/pc
+    ../../../modules/services/virtualisation/libvirt
+    #../../../modules/services/syncthing
+    ../../../modules/services/tailscale
+    ../../../modules/system/devices/touchpad
+    ../../../modules/system/powertop
   ];
 
   nixpkgs.config.allowBroken = true;
