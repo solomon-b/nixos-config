@@ -4,6 +4,12 @@
 {-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE TypeApplications #-}
 
+-- TODO:
+-- - Setup dashboard view with widgets
+-- - Cleanup imports
+
+--------------------------------------------------------------------------------
+
 import Control.Exception (SomeException, try)
 import Control.Monad (when)
 import Data.Char (toLower)
