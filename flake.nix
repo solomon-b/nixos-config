@@ -91,9 +91,15 @@
       colmena = {
         meta.nixpkgs = pkgs;
 
-        silence-under-snow = {
-          deployment.targetHost = "192.168.1.141";
+        sower = {
+          imports = [
+            ./config/machines/physical/sower
+            nixpkgs.nixosModules.notDetected
+            home-manager.nixosModules.home-manager
+          ];
+        };
 
+        silence-under-snow = {
           imports = [
             ./config/machines/virtual/silence-under-snow
             nixpkgs.nixosModules.notDetected
