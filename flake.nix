@@ -106,16 +106,6 @@
             home-manager.nixosModules.home-manager
           ];
         };
-
-        test-vm = {
-          deployment.targetHost = "192.168.1.29";
-
-          imports = [
-            ./config/machines/virtual/test-vm
-            nixpkgs.nixosModules.notDetected
-            home-manager.nixosModules.home-manager
-          ];
-        };
       };
 
       nixosConfigurations = {
@@ -160,15 +150,6 @@
           inherit pkgs system;
           modules = [
             ./config/machines/virtual/madonna-of-the-wasps
-            nixpkgs.nixosModules.notDetected
-            home-manager.nixosModules.home-manager
-          ];
-        };
-
-        test-vm = nixpkgs.lib.nixosSystem {
-          inherit pkgs system;
-          modules = [
-            ./config/machines/virtual/test-vm
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
           ];
