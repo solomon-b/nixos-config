@@ -14,6 +14,8 @@
     ../../modules/system/timezone
     ../../modules/system/users
 
+    ../../modules/services/tailscale
+
     ../../modules/ui/git
     ../../modules/ui/lorri
     ../../modules/ui/starship

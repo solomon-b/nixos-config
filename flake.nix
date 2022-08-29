@@ -84,6 +84,34 @@
         ];
       };
     in {
+      devShell."${system}" = pkgs.mkShell {
+        nativeBuildInputs = [ pkgs.colmena ];
+      };
+
+      colmena = {
+        meta.nixpkgs = pkgs;
+
+        silence-under-snow = {
+          deployment.targetHost = "192.168.1.141";
+
+          imports = [
+            ./config/machines/virtual/silence-under-snow
+            nixpkgs.nixosModules.notDetected
+            home-manager.nixosModules.home-manager
+          ];
+        };
+
+        test-vm = {
+          deployment.targetHost = "192.168.1.29";
+
+          imports = [
+            ./config/machines/virtual/test-vm
+            nixpkgs.nixosModules.notDetected
+            home-manager.nixosModules.home-manager
+          ];
+        };
+      };
+
       nixosConfigurations = {
         lorean = nixpkgs.lib.nixosSystem {
           inherit pkgs system;
@@ -92,9 +120,6 @@
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
           ];
-          specialArgs = {
-            inherit inputs;
-          };
         };
 
         nightshade = nixpkgs.lib.nixosSystem {
@@ -104,9 +129,6 @@
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
           ];
-          specialArgs = {
-            inherit inputs;
-          };
         };
 
         sower = nixpkgs.lib.nixosSystem {
@@ -117,9 +139,6 @@
             home-manager.nixosModules.home-manager
             #cardano-node.nixosModules.cardano-node
           ];
-          specialArgs = {
-            inherit inputs;
-          };
         };
 
         apollyon = nixpkgs.lib.nixosSystem {
@@ -129,9 +148,6 @@
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
           ];
-          specialArgs = {
-            inherit inputs;
-          };
         };
 
         madonna-of-the-wasps = nixpkgs.lib.nixosSystem {
@@ -141,9 +157,15 @@
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
           ];
-          specialArgs = {
-            inherit inputs;
-          };
+        };
+
+        test-vm = nixpkgs.lib.nixosSystem {
+          inherit pkgs system;
+          modules = [
+            ./config/machines/virtual/test-vm
+            nixpkgs.nixosModules.notDetected
+            home-manager.nixosModules.home-manager
+          ];
         };
       };
     };
