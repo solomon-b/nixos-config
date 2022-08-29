@@ -99,6 +99,14 @@
           ];
         };
 
+        madonna-of-the-wasps = {
+          imports = [
+            ./config/machines/virtual/madonna-of-the-wasps
+            nixpkgs.nixosModules.notDetected
+            home-manager.nixosModules.home-manager
+          ];
+        };
+
         silence-under-snow = {
           imports = [
             ./config/machines/virtual/silence-under-snow
@@ -130,15 +138,6 @@
           inherit pkgs system;
           modules = [
             ./config/machines/physical/nightshade
-            nixpkgs.nixosModules.notDetected
-            home-manager.nixosModules.home-manager
-          ];
-        };
-
-        madonna-of-the-wasps = nixpkgs.lib.nixosSystem {
-          inherit pkgs system;
-          modules = [
-            ./config/machines/virtual/madonna-of-the-wasps
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
           ];
