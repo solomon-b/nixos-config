@@ -9,22 +9,16 @@
     ../../../profiles/virtual-machine
   ];
 
-  nixpkgs.config.allowBroken = true;
   nix.package = pkgs.nixUnstable;
   nix.extraOptions = ''
       experimental-features = nix-command flakes
     '';
-
-  environment.systemPackages = [
-    pkgs.libva
-  ];
 
   primary-user.name = "solomon";
 
   networking = {
     hostName = "apollyon";
     interfaces.enp0s4.useDHCP = true;
-    #interfaces.enp1s0.useDHCP = true;
     useDHCP = false;
   };
 

@@ -91,9 +91,9 @@
       colmena = {
         meta.nixpkgs = pkgs;
 
-        sower = {
+        apollyon = {
           imports = [
-            ./config/machines/physical/sower
+            ./config/machines/virtual/apollyon
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
           ];
@@ -102,6 +102,14 @@
         silence-under-snow = {
           imports = [
             ./config/machines/virtual/silence-under-snow
+            nixpkgs.nixosModules.notDetected
+            home-manager.nixosModules.home-manager
+          ];
+        };
+
+        sower = {
+          imports = [
+            ./config/machines/physical/sower
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
           ];
@@ -122,25 +130,6 @@
           inherit pkgs system;
           modules = [
             ./config/machines/physical/nightshade
-            nixpkgs.nixosModules.notDetected
-            home-manager.nixosModules.home-manager
-          ];
-        };
-
-        sower = nixpkgs.lib.nixosSystem {
-          inherit pkgs system;
-          modules = [
-            ./config/machines/physical/sower
-            nixpkgs.nixosModules.notDetected
-            home-manager.nixosModules.home-manager
-            #cardano-node.nixosModules.cardano-node
-          ];
-        };
-
-        apollyon = nixpkgs.lib.nixosSystem {
-          inherit pkgs system;
-          modules = [
-            ./config/machines/virtual/apollyon
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
           ];
