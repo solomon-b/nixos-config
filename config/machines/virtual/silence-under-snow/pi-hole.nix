@@ -52,7 +52,7 @@
     environment = {
       TZ = config.time.timeZone;
       VIRTUAL_HOST = "pi.hole";
-      ServerIP="127.0.0.1";
+      ServerIP="172.21.0.2";
       WEBPASSWORD = "hunter2";
     };
 
@@ -61,8 +61,7 @@
       "--ip=172.21.0.2"
       "--dns=127.0.0.1"
       "--dns=1.1.1.1"
-      # TODO: Why does setting --hostname break my reverse proxy?
-      #"--hostname=pi.sower"
+      #"--hostname=pi.hole"
     ];
     workdir = "/etc/pihole";
     autoStart = true;

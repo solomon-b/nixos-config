@@ -5,8 +5,9 @@
 {
   imports = [
     ./hardware.nix
-    #./pi-hole.nix
+    ./pi-hole.nix
     ../../../profiles/virtual-machine
+    ../../../modules/services/docker
   ];
 
   nix.package = pkgs.nixUnstable;
