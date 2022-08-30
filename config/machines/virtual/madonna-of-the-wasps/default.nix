@@ -1,21 +1,14 @@
 # Tailscale Exit Node and subnet relay
-# Todo write a systemd service to execute:
+# TODO: write a systemd service to execute:
 # sudo tailscale up --accept-routes --advertise-routes=192.168.1.174/32
 { pkgs, ... }:
 
 {
   imports = [
     ./hardware.nix
+
     ../../../profiles/virtual-machine
   ];
-
-  nixpkgs.config.allowBroken = true;
-  nix.package = pkgs.nixUnstable;
-  nix.extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-
-  primary-user.name = "solomon";
 
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 

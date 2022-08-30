@@ -22,6 +22,13 @@
     ../../modules/ui/zsh
   ];
 
+  primary-user.name = "solomon";
+
+  nix.package = pkgs.nixUnstable;
+  nix.extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+
   system.stateVersion = "22.05";
   nix.trustedUsers = [ "@wheel" ];
   environment.shells = [pkgs.zsh pkgs.bashInteractive];

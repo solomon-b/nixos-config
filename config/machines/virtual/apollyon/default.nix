@@ -1,20 +1,14 @@
+# qBittorrent
+# TODO: Disable tailscale
 { pkgs, ... }:
 
 {
   imports = [
     ./hardware.nix
-    ./nfs.nix
     ./wireguard.nix
 
     ../../../profiles/virtual-machine
   ];
-
-  nix.package = pkgs.nixUnstable;
-  nix.extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-
-  primary-user.name = "solomon";
 
   networking = {
     hostName = "apollyon";
@@ -26,5 +20,10 @@
     enable = true;
     openFirewall = true;
     webUIAddress.port = 8081;
+  };
+
+  fileSystems."/mnt/media" = {
+    device = "192.168.1.174:/mnt/tank/Media";
+    fsType = "nfs";
   };
 }

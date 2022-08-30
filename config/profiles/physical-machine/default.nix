@@ -7,7 +7,6 @@
     ../../modules/data/session-vars
 
     ../../modules/security/gpg
-    #../../modules/security/process-information-hiding
     ../../modules/security/sshd
 
     ../../modules/system/nix-binary-caches
@@ -16,7 +15,6 @@
     ../../modules/system/timezone
     ../../modules/system/users
 
-    # ../../modules/ui/bash       # Home Manager
     ../../modules/services/tailscale
 
     ../../modules/ui/git
