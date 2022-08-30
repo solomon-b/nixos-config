@@ -14,7 +14,6 @@
     ./youtube-dl.nix
 
     ../../../profiles/physical-machine
-    ../../../modules/services/bittorrent
     ../../../modules/services/docker
     ../../../modules/services/postgresql
     ../../../modules/services/jellyfin
