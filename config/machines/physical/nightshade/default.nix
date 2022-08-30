@@ -8,12 +8,10 @@
 
     ../../../profiles/pc
     ../../../modules/services/virtualisation/libvirt
-    #../../../modules/services/syncthing
     ../../../modules/system/devices/touchpad
     ../../../modules/system/powertop
   ];
 
-  nixpkgs.config.allowBroken = true;
   nix.package = pkgs.nixUnstable;
   nix.extraOptions = ''
       experimental-features = nix-command flakes
@@ -21,7 +19,6 @@
 
   environment.systemPackages = [
     pkgs.acpi
-    pkgs.freecad
   ];
 
   primary-user.name = "solomon";

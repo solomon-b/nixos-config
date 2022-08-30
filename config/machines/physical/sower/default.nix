@@ -5,9 +5,9 @@
     ./hardware.nix
     ./freshrss.nix
     ./heimdall.nix
-    ./hoogle.nix
-    ./podcast-dl.nix
-    ./photoprism.nix
+    #./hoogle.nix
+    #./podcast-dl.nix
+    #./photoprism.nix
     ./nfs.nix
     ./nginx.nix
     ./wireguard.nix
@@ -18,10 +18,8 @@
     ../../../modules/services/docker
     ../../../modules/services/postgresql
     ../../../modules/services/jellyfin
-    #../../../modules/services/syncthing
   ];
 
-  nixpkgs.config.allowBroken = true;
   nix.package = pkgs.nixUnstable;
   nix.extraOptions = ''
       experimental-features = nix-command flakes

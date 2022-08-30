@@ -7,7 +7,6 @@
 
     ../../../profiles/pc
     ../../../modules/services/virtualisation/libvirt
-    #../../../modules/services/syncthing
     ../../../modules/system/devices/touchpad
     ../../../modules/system/powertop
   ];
@@ -19,7 +18,6 @@
 
   environment.systemPackages = [
     pkgs.acpi
-    pkgs.freecad
   ];
 
   primary-user.name = "solomon";
