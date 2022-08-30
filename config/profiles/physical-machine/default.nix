@@ -17,6 +17,8 @@
     ../../modules/system/users
 
     # ../../modules/ui/bash       # Home Manager
+    ../../modules/services/tailscale
+
     ../../modules/ui/git
     ../../modules/ui/lorri
     ../../modules/ui/starship
