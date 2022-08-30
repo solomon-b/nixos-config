@@ -11,6 +11,7 @@
     ./nfs.nix
     ./nginx.nix
     ./wireguard.nix
+    ./youtube-dl.nix
 
     ../../../profiles/physical-machine
     ../../../modules/services/bittorrent

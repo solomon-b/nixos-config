@@ -21,7 +21,24 @@ in
       default = [];
       example = [ "https://www.youtube.com/channel/UCu6mSoMNzHQiBIOCkHUa2Aw" ];
       description = ''
-        A list of xml feeds for youtubes to archive.
+        A list of xml feeds for yt-dlp to archive.
+      '';
+    };
+
+    onCalendar = mkOption {
+      type = types.str;
+      default = "Sat, 04:00:00";
+      example = "Sat, 04:00:00";
+      description = ''
+        The schedule to run youtube-dl in cron onCalendar format.
+      '';
+    };
+
+    configFlags = mkOption {
+      type = types.listOf types.str;
+      default = null;
+      description = ''
+        An optional list of configuration flags.
       '';
     };
   };
@@ -29,22 +46,12 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.run-youtube-dl = {
       serviceConfig.Type = "oneshot";
-      script = pkgs.writeShellScriptBin "run"
+      script =
         ''
         set -e
         cd ${cfg.dataDir}
-
-        ${pkgs.yt-dlp}/bin/yt-dlp \
-          -i \
-          -o '%(uploader)s (%(uploader_id)s)/%(upload_date)s - %(title)s - [%(resolution)s] [%(id)s].%(ext)s' \
-          --merge-output-format mkv \
-          --write-subs \
-          --sub-langs all \
-          --convert-subs srt \
-          --add-metadata \
-          --write-description \
-          --write-thumbnail \
-          "${lib.concatStringsSep " " cfg.youtubes}"
+        
+        ${pkgs.yt-dlp}/bin/yt-dlp ${lib.concatStringsSep " " cfg.configFlags} "${lib.concatStringsSep " " cfg.youtubes}"
         '';
     };
 
