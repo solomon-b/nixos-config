@@ -3,23 +3,23 @@
 {
   imports = [ ];
 
-  boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "sd_mod" "sr_mod" ];
+  boot.initrd.availableKernelModules = [ "ahci" "virtio_pci" "xhci_pci" "sr_mod" "virtio_blk" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/01400281-bbf7-4b03-9f9d-137997953e00";
+    { device = "/dev/disk/by-uuid/c194438f-89a7-41c4-9346-426239c95603";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/FE34-A2DF";
+    { device = "/dev/disk/by-uuid/70FB-A427";
       fsType = "vfat";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/b474a37c-5279-4713-a972-1215519b6b42"; }
+    [ { device = "/dev/disk/by-uuid/f5ec6929-4b9b-4816-ab31-a07cec79eb43"; }
     ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
@@ -31,4 +31,3 @@
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
-

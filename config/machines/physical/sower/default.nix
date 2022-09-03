@@ -4,12 +4,10 @@
   imports = [
     ./hardware.nix
     ./freshrss.nix
-    ./heimdall.nix
     #./hoogle.nix
     #./podcast-dl.nix
     #./photoprism.nix
     ./nfs.nix
-    ./nginx.nix
     ./wireguard.nix
     ./youtube-dl.nix
 
@@ -36,4 +34,19 @@
     interfaces.eno1.useDHCP = true;
     useDHCP = false;
   };
+  
+  services.nginx = {
+    enable = true;
+
+    recommendedGzipSettings = true;
+    recommendedOptimisation = true;
+    recommendedProxySettings = true;
+  };
+
+  # 8082 == FreshRSS
+  # 8083 == Hoogle
+  # 8096 == Jellyfin
+  # 2342 == Photoprism
+
+  networking.firewall.allowedTCPPorts = [ 80 ];
 }

@@ -14,7 +14,7 @@
     };
   };
 
-  services.nginx.virtualHosts."sower" = {
+  services.nginx.virtualHosts."heimdall.local" = {
     locations."/".proxyPass = "http://localhost:8080";
   };
 }

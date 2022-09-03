@@ -12,9 +12,5 @@
 
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 
-  networking = {
-    hostName = "madonna-of-the-wasps";
-    interfaces.enp0s4.useDHCP = true;
-    useDHCP = false;
-  };
+  networking.hostName = "madonna-of-the-wasps";
 }

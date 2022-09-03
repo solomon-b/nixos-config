@@ -91,6 +91,14 @@
       colmena = {
         meta.nixpkgs = pkgs;
 
+        accompaniment-of-shadows = {
+          imports = [
+            ./config/machines/virtual/accompaniment-of-shadows
+            nixpkgs.nixosModules.notDetected
+            home-manager.nixosModules.home-manager
+          ];
+        };
+
         apollyon = {
           imports = [
             ./config/machines/virtual/apollyon
