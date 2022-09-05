@@ -1,4 +1,4 @@
-# nginx reverse proxy
+# nginx reverse proxy and docker orchestration
 { pkgs, ... }:
 
 {
@@ -24,7 +24,7 @@
   networking.firewall.allowedTCPPorts = [ 80 ];
 
   services.nginx.virtualHosts = {
-    "qbittorrent2.local" = {
+    "qbittorrent.local" = {
       locations."/" = {
         proxyPass = "http://192.168.1.137:8081";
       };
