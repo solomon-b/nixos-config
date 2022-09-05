@@ -83,6 +83,24 @@
           xmonad-solomon.overlay
         ];
       };
+
+      mkServer = targetHost: {config, ...}: {
+        imports = [
+          "${toString ./config/machines/servers}/${targetHost}"
+          nixpkgs.nixosModules.notDetected
+          home-manager.nixosModules.home-manager
+        ];
+      };
+
+      mkPersonalComputer = targetHost: 
+        nixpkgs.lib.nixosSystem {
+          inherit pkgs system;
+          modules = [
+            "${toString ./config/machines/personal-computers}/${targetHost}"
+            nixpkgs.nixosModules.notDetected
+            home-manager.nixosModules.home-manager
+          ];
+        };
     in {
       devShell."${system}" = pkgs.mkShell {
         nativeBuildInputs = [ pkgs.colmena ];
@@ -90,66 +108,8 @@
 
       colmena = {
         meta.nixpkgs = pkgs;
+      } // builtins.mapAttrs (machine: _: mkServer machine) (builtins.readDir ./config/machines/servers);
 
-        accompaniment-of-shadows = {
-          imports = [
-            ./config/machines/virtual/accompaniment-of-shadows
-            nixpkgs.nixosModules.notDetected
-            home-manager.nixosModules.home-manager
-          ];
-        };
-
-        apollyon = {
-          imports = [
-            ./config/machines/virtual/apollyon
-            nixpkgs.nixosModules.notDetected
-            home-manager.nixosModules.home-manager
-          ];
-        };
-
-        madonna-of-the-wasps = {
-          imports = [
-            ./config/machines/virtual/madonna-of-the-wasps
-            nixpkgs.nixosModules.notDetected
-            home-manager.nixosModules.home-manager
-          ];
-        };
-
-        silence-under-snow = {
-          imports = [
-            ./config/machines/virtual/silence-under-snow
-            nixpkgs.nixosModules.notDetected
-            home-manager.nixosModules.home-manager
-          ];
-        };
-
-        sower = {
-          imports = [
-            ./config/machines/physical/sower
-            nixpkgs.nixosModules.notDetected
-            home-manager.nixosModules.home-manager
-          ];
-        };
-      };
-
-      nixosConfigurations = {
-        lorean = nixpkgs.lib.nixosSystem {
-          inherit pkgs system;
-          modules = [
-            ./config/machines/physical/lorean
-            nixpkgs.nixosModules.notDetected
-            home-manager.nixosModules.home-manager
-          ];
-        };
-
-        nightshade = nixpkgs.lib.nixosSystem {
-          inherit pkgs system;
-          modules = [
-            ./config/machines/physical/nightshade
-            nixpkgs.nixosModules.notDetected
-            home-manager.nixosModules.home-manager
-          ];
-        };
-      };
+      nixosConfigurations = builtins.mapAttrs (machine: _: mkPersonalComputer machine) (builtins.readDir ./config/machines/personal-computers);
     };
 }

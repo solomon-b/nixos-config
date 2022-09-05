@@ -3,8 +3,8 @@
 ## Structure
 
 - [config](https://github.com/solomon-b/nixos-config/tree/main/config): This folder contains all configurations. It is organized into the following subdirectories: 
-  - [machines/physical/<name>](https://github.com/solomon-b/nixos-config/tree/main/config/machines/physical): The entrypoints to physical servers and desktop PCs. 
-  - [machines/virtual/<name>](https://github.com/solomon-b/nixos-config/tree/main/config/machines/virtual): The entrypoints to virtual servers.
+  - [machines/personal-computers/<name>](https://github.com/solomon-b/nixos-config/tree/main/config/machines/personal-computers): The entrypoints to desktop PCs. 
+  - [machines/servers/<name>](https://github.com/solomon-b/nixos-config/tree/main/config/machines/servers): The entrypoints to servers.
   - [profiles](https://github.com/solomon-b/nixos-config/tree/main/config/profiles): Basic nixos module sets for virtual machines, physical machines, and PCs. These are imported into machine configurations to form a standard baseline for all my systems.
   - [modules](https://github.com/solomon-b/nixos-config/tree/main/config/modules): Nixos configuration modules which constitute the `profiles`. Any machine unique configuration should go in the `machines/` folder for the specific machine in question.
 - [modules](https://github.com/solomon-b/nixos-config/tree/main/modules): Custom nixos and home-manager modules I use in my `config`.
@@ -23,9 +23,9 @@ Be sure to update the [authorizedKeys](https://github.com/solomon-b/nixos-config
 
 NOTE: If you don't use the installer ISO and wish to deploy with `colmena` then be sure to provide your root user with an [authorized SSH key](https://github.com/solomon-b/nixos-config/blob/main/installer/configuration.nix#L48).
 
-Once you have a machine provisioned, create a machine configuration in either `config/machines/virtual` or `config/machines/physical`. Be sure to use a `profile` or else the `primary-user` module will not work.
+Once you have a machine provisioned, create a machine configuration in either `config/machines/servers` or `config/machines/personal-computers`. Be sure to use a `profile` or else the `primary-user` module will not work.
 
-Lastly, your machines must be explicitly listed in [flake.nix](https://github.com/solomon-b/nixos-config/blob/main/flake.nix#L86). If you are deploying with `colmena` then you will either need a DNS entry for your machine names or you will need to set the IP with [deployment.targetHost](https://colmena.cli.rs/unstable/reference/deployment.html#deploymenttargethost).
+Lastly, if you are deploying with `colmena` then you will either need a DNS entry for your machine names or you will need to tweak the `mkServer` function and set the IP with [deployment.targetHost](https://colmena.cli.rs/unstable/reference/deployment.html#deploymenttargethost).
 
 ### Deployment
 Desktop machines can be deployed with `nixos-rebuild`:
