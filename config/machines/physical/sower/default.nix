@@ -8,8 +8,7 @@
     #./podcast-dl.nix
     #./photoprism.nix
     ./nfs.nix
-    ./wireguard.nix
-    ./youtube-dl.nix
+    #./youtube-dl.nix
 
     ../../../profiles/physical-machine
     ../../../modules/services/docker
