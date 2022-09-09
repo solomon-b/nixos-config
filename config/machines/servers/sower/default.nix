@@ -3,7 +3,6 @@
 {
   imports = [
     ./hardware.nix
-    ./freshrss.nix
     #./hoogle.nix
     #./podcast-dl.nix
     #./photoprism.nix

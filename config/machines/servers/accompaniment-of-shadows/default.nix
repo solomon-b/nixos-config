@@ -7,6 +7,7 @@
 
     ./heimdall.nix
     ./filebrowser.nix
+    ./tt-rss.nix
     ../../../profiles/virtual-machine
     ../../../modules/services/docker
   ];
