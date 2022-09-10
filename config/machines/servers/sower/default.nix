@@ -46,5 +46,13 @@
   # 8096 == Jellyfin
   # 2342 == Photoprism
 
-  networking.firewall.allowedTCPPorts = [ 80 ];
+  networking.firewall.allowedTCPPorts = [ 80 9002 ];
+
+  services.prometheus.exporters = {
+    node = {
+      enable = true;
+      enabledCollectors = [ "systemd" ];
+      port = 9002;
+    };
+  };
 }
