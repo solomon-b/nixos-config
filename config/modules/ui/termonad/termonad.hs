@@ -4,8 +4,8 @@ module Main where
 import Termonad
   ( CursorBlinkMode(CursorBlinkModeOff), Option(Set)
   , ShowScrollbar(ShowScrollbarNever), TMConfig, confirmExit, cursorBlinkMode
-  , defaultConfigOptions, defaultTMConfig, options, showMenu, showScrollbar
-  , start
+  , defaultConfigOptions, defaultFontConfig, defaultTMConfig, options, showMenu
+  , showScrollbar, start
   )
 import Termonad.Config.Colour
   ( AlphaColour, ColourConfig, Palette(ExtendedPalette), addColourExtension
@@ -19,7 +19,8 @@ myTMConfig =
   defaultTMConfig
     { options =
         defaultConfigOptions
-          { showScrollbar = ShowScrollbarNever
+          { fontConfig = defaultFontConfig { fontSize = 14 }
+          , showScrollbar = ShowScrollbarNever
           , confirmExit = False
           , showMenu = False
           }
