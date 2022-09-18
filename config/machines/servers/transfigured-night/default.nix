@@ -10,7 +10,7 @@
   networking.hostName = "transfigured-night";
 
   fileSystems."/mnt/postgresql" = {
-    device = "192.168.1.174:/mnt/tank/postgresql";
+    device = "192.168.5.6:/mnt/tank/postgresql";
     fsType = "nfs";
   };
 

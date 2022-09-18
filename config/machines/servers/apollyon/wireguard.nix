@@ -15,6 +15,12 @@
       address = [ "10.67.117.137/32" "fc00:bbbb:bbbb:bb01::4:7588/128" ];
       dns = [ "10.64.0.1" ];
       privateKeyFile = "/secrets/primary-user-wireguard-private-key-mulvad-257";
+      postUp = ''
+        ip route add 192.168.1.0/24 via 192.168.5.1
+      '';
+      preDown = ''
+        ip route delete 192.168.1.0/24
+      '';
       
       peers = [
         {
@@ -30,5 +36,5 @@
   # We must enforce the order for service launch of tailscale and
   # wireguard to set the correct IP rule prioritization.
   # https://rakhesh.com/linux-bsd/tailscale-wireguard-co-existing-or-i-love-policy-based-routing/
-  systemd.services.tailscaled.after = ["wg-quick-wg0.service"];
+  #systemd.services.tailscaled.after = ["wg-quick-wg0.service"];
 }

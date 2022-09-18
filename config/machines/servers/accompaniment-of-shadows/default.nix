@@ -27,7 +27,7 @@
   services.nginx.virtualHosts = {
     "qbittorrent.local" = {
       locations."/" = {
-        proxyPass = "http://192.168.1.137:8081";
+        proxyPass = "http://192.168.5.104:8081";
       };
     };
   };
