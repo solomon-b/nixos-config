@@ -7,3 +7,6 @@
 /result
 primary-user-password
 /.direnv/
+/installer/id_ed25519
+/installer/id_ed25519.pub
+/installer/result

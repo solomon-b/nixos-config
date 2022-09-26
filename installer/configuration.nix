@@ -52,6 +52,8 @@
     interfaces.enp0s4.useDHCP = true;
     #interfaces.enp1s0.useDHCP = true;
     useDHCP = false;
+    # TODO: This should be generated in the install.sh script
+    hostId = "997f3c8d";
   };
 
   environment.systemPackages = [ pkgs.vim ];

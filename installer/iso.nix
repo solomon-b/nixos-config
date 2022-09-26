@@ -29,12 +29,28 @@
       mode = "0700";
     };
 
+    "install-desktop.sh" = {
+      source = ./install-desktop.sh;
+      mode = "0700";
+    };
+
     "configuration.nix" = {
       source = ./configuration.nix;
       mode = "0600";
     };
+
     "primary-user-password" = {
       source = ./primary-user-password;
+      mode = "0600";
+    };
+
+    "id_ed25519" = {
+      source = ./id_ed25519;
+      mode = "0600";
+    };
+
+    "id_ed25519.pub" = {
+      source = ./id_ed25519.pub;
       mode = "0600";
     };
   };
