@@ -70,7 +70,7 @@ config = defaultConfig
       , Run $ Volume "default" "Master"
         [ "-t", "<status><volume>%" , "--", "-O", render VolumeOn, "-o", render VolumeOff, "-c", red, "-C", foreground ] 10
       , Run $ Acpi "battery"
-      , Run $ Wireless "wlp170s0" ["--template", render Wifi <> "<essid> <txrate>Mb/s"] 10
+      , Run $ Wireless "wlp170s0" ["--template", render Wifi <> "<essid>"] 10
       , Run $ DunstStatus "dunstStatus"
       , Run $ Date ("<fc=" <> yellow <> ">%a %b %_d %Y %I:%M %p</fc>") "date" 9
       ]
