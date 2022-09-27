@@ -51,11 +51,13 @@ zfs create -p -v \
 zfs create -p -v \
   -o mountpoint=legacy \
   -o secondarycache=none \
+  -o com.sun:auto-snapshot=true \
   tank/home
 
 zfs create -p -v \
   -o mountpoint=legacy \
   -o secondarycache=none \
+  -o com.sun:auto-snapshot=true \
   tank/root
 
 # It's not very useful to snapshot systemd logs, so that can have its
