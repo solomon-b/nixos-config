@@ -32,6 +32,21 @@
         "type": "github"
       }
     },
+    "flake-utils_2": {
+      "locked": {
+        "lastModified": 1659877975,
+        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "git-ignore-nix": {
       "inputs": {
         "nixpkgs": [
@@ -93,6 +108,27 @@
       "original": {
         "path": "/home/solomon/Development/Nix/nixos-config/flakes/graphqurl",
         "type": "path"
+      }
+    },
+    "gum": {
+      "inputs": {
+        "flake-utils": "flake-utils_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1664261851,
+        "narHash": "sha256-OIMLh2gBneqar9hlwyHsBVsgTXZi3jz2pWTbnQT4tOs=",
+        "owner": "solomon-b",
+        "repo": "gum",
+        "rev": "c53643256cce00c64d5328828e6a18cd2530f359",
+        "type": "github"
+      },
+      "original": {
+        "owner": "solomon-b",
+        "repo": "gum",
+        "type": "github"
       }
     },
     "home-manager": {
@@ -180,6 +216,7 @@
         "brightness-bar": "brightness-bar",
         "flake-utils": "flake-utils",
         "graphqurl": "graphqurl",
+        "gum": "gum",
         "home-manager": "home-manager",
         "kmonad": "kmonad",
         "nixpkgs": "nixpkgs",

@@ -36,6 +36,7 @@
     git
     gnugrep
     gnumake
+    gum
     htop
     inetutils
     jq

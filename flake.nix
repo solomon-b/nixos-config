@@ -52,6 +52,11 @@
       url = path:/home/solomon/Development/Nix/nixos-config/flakes/podcast-dl;
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    gum = {
+      url = github:solomon-b/gum;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{
@@ -66,7 +71,8 @@
       xmobar-solomon,
       xmonad-solomon,
       graphqurl,
-      podcast-dl
+      podcast-dl,
+      gum
   }:
     let
       system = "x86_64-linux";
@@ -81,6 +87,7 @@
           volume-bar.overlay
           xmobar-solomon.overlay
           xmonad-solomon.overlay
+          gum.overlays.default
         ];
       };
 
