@@ -19,8 +19,7 @@ myTMConfig =
   defaultTMConfig
     { options =
         defaultConfigOptions
-          { fontConfig = defaultFontConfig { fontSize = 14 }
-          , showScrollbar = ShowScrollbarNever
+          { showScrollbar = ShowScrollbarNever
           , confirmExit = False
           , showMenu = False
           }
