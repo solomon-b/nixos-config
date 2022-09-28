@@ -15,6 +15,7 @@
     ../../modules/ui/audio
     ../../modules/ui/direnv
     ../../modules/ui/dunst
+    ../../modules/ui/eww
     ../../modules/ui/fonts
     ../../modules/ui/opengl
     ../../modules/ui/picom
