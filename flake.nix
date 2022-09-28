@@ -53,6 +53,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    fonts = {
+      url = path:/home/solomon/Development/Nix/nixos-config/flakes/fonts;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     gum = {
       url = github:solomon-b/gum;
       inputs.nixpkgs.follows = "nixpkgs";
@@ -72,7 +77,8 @@
       xmonad-solomon,
       graphqurl,
       podcast-dl,
-      gum
+      gum,
+      fonts
   }:
     let
       system = "x86_64-linux";
@@ -88,6 +94,7 @@
           xmobar-solomon.overlay
           xmonad-solomon.overlay
           gum.overlays.default
+          fonts.overlays.default
         ];
       };
 

@@ -47,6 +47,39 @@
         "type": "github"
       }
     },
+    "flake-utils_3": {
+      "locked": {
+        "lastModified": 1659877975,
+        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "fonts": {
+      "inputs": {
+        "flake-utils": "flake-utils_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1664339518,
+        "narHash": "sha256-NQHLuRNcMLU4eoRbw7btyqxwPlNWUAoexN80zf2tpDs=",
+        "path": "/home/solomon/Development/Nix/nixos-config/flakes/fonts",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/solomon/Development/Nix/nixos-config/flakes/fonts",
+        "type": "path"
+      }
+    },
     "git-ignore-nix": {
       "inputs": {
         "nixpkgs": [
@@ -112,7 +145,7 @@
     },
     "gum": {
       "inputs": {
-        "flake-utils": "flake-utils_2",
+        "flake-utils": "flake-utils_3",
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -215,6 +248,7 @@
       "inputs": {
         "brightness-bar": "brightness-bar",
         "flake-utils": "flake-utils",
+        "fonts": "fonts",
         "graphqurl": "graphqurl",
         "gum": "gum",
         "home-manager": "home-manager",
