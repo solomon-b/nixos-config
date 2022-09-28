@@ -70,8 +70,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1664341913,
-        "narHash": "sha256-kqSGh2pCuDp2C4nc5IWetFXVNtyk4dtqnNQMAbZI5gM=",
+        "lastModified": 1664345239,
+        "narHash": "sha256-noiRafZaw9fIJRffuWitLkFYo8r8pHf83RsdeKHGqCs=",
         "path": "/home/solomon/Development/Nix/nixos-config/flakes/fonts",
         "type": "path"
       },
@@ -263,11 +263,11 @@
     },
     "unstable": {
       "locked": {
-        "lastModified": 1664195620,
-        "narHash": "sha256-/0V1a1gAR+QbiQe4aCxBoivhkxss0xyt2mBD6yDrgjw=",
+        "lastModified": 1664281702,
+        "narHash": "sha256-haixZ4TJLu1Dciow54wrHrHvlGDVr5sW6MTeAV/ZLuI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "62228ccc672ed000f35b1e5c82e4183e46767e52",
+        "rev": "7e52b35fe98481a279d89f9c145f8076d049d2b9",
         "type": "github"
       },
       "original": {

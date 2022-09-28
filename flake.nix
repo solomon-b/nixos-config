@@ -82,21 +82,7 @@
   }:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-        config = { allowUnfree = true; };
-        overlays = [
-          brightness-bar.overlay
-          graphqurl.overlay
-          kmonad.overlay
-          podcast-dl.overlay
-          volume-bar.overlay
-          xmobar-solomon.overlay
-          xmonad-solomon.overlay
-          gum.overlays.default
-          fonts.overlays.default
-        ];
-      };
+      pkgs = import nixpkgs { inherit system; };
 
       mkServer = targetHost: {config, ...}: {
         imports = [
@@ -108,12 +94,15 @@
 
       mkPersonalComputer = targetHost: 
         nixpkgs.lib.nixosSystem {
-          inherit pkgs system;
+          inherit system;
           modules = [
             "${toString ./config/machines/personal-computers}/${targetHost}"
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
           ];
+          specialArgs = {
+            inherit inputs;
+          };
         };
     in {
       devShell."${system}" = pkgs.mkShell {
@@ -122,6 +111,9 @@
 
       colmena = {
         meta.nixpkgs = pkgs;
+        meta.specialArgs = {
+          inherit inputs;
+        };
       } // builtins.mapAttrs (machine: _: mkServer machine) (builtins.readDir ./config/machines/servers);
 
       nixosConfigurations = builtins.mapAttrs (machine: _: mkPersonalComputer machine) (builtins.readDir ./config/machines/personal-computers);

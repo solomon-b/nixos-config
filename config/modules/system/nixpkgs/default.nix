@@ -1,10 +1,22 @@
-{ config, lib, ... }:
+{ config, lib, inputs, ... }:
 
 {
   nixpkgs = {
     config = {
       allowUnfree = true;
     };
+
+    overlays = with inputs; [
+      brightness-bar.overlay
+      graphqurl.overlay
+      kmonad.overlay
+      podcast-dl.overlay
+      volume-bar.overlay
+      xmobar-solomon.overlay
+      xmonad-solomon.overlay
+      gum.overlays.default
+      fonts.overlays.default
+    ];
   };
 
   nix = {
