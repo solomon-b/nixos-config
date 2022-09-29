@@ -24,6 +24,7 @@
             xorg.libXext
             xorg.libXft
             xorg.libXpm.out
+            xorg.libXpm.dev
             xorg.libXrandr
             xorg.libXrender
           ];

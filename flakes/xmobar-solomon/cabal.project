@@ -5,5 +5,5 @@ constraints:
 
 source-repository-package
   type: git
-  location: git@codeberg.org:solomon/xmobar.git
-  tag: 0f07fd05247779c4f76b4c5d79e24adac89c4d4e
+  location: git@codeberg.org:xmobar/xmobar.git
+  tag: 2fc3c00834dcb64a60aca81a721821323ba3f743

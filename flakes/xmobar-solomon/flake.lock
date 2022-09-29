@@ -15,61 +15,13 @@
         "type": "github"
       }
     },
-    "flake-utils_2": {
-      "locked": {
-        "lastModified": 1659877975,
-        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "git-ignore-nix": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_2"
-      },
-      "locked": {
-        "lastModified": 1660459072,
-        "narHash": "sha256-8DFJjXG8zqoONA1vXtgeKXy68KdJL5UaXR8NtVMUbx8=",
-        "owner": "hercules-ci",
-        "repo": "gitignore.nix",
-        "rev": "a20de23b925fd8264fd7fad6454652e142fd7f73",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hercules-ci",
-        "ref": "master",
-        "repo": "gitignore.nix",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1661151577,
-        "narHash": "sha256-++S0TuJtuz9IpqP8rKktWyHZKpgdyrzDFUXVY07MTRI=",
+        "lastModified": 1664370076,
+        "narHash": "sha256-NDnIo0nxJozLwEw0VPM+RApMA90uTfbvaNNtC5eB7Os=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "54060e816971276da05970a983487a25810c38a7",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1632846328,
-        "narHash": "sha256-sFi6YtlGK30TBB9o6CW7LG9mYHkgtKeWbSLAjjrNTX0=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "2b71ddd869ad592510553d09fe89c9709fa26b2b",
+        "rev": "854fdc68881791812eddd33b2fed94b954979a8e",
         "type": "github"
       },
       "original": {
@@ -80,27 +32,7 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs",
-        "xmobar": "xmobar"
-      }
-    },
-    "xmobar": {
-      "inputs": {
-        "flake-utils": "flake-utils_2",
-        "git-ignore-nix": "git-ignore-nix",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1661241851,
-        "narHash": "sha256-ZIvg6aCIV2bERC82fk+4Hj1lWTAmpz71uBRR2h1oxE0=",
-        "type": "git",
-        "url": "file:///home/solomon/Development/haskell/xmobar"
-      },
-      "original": {
-        "type": "git",
-        "url": "file:///home/solomon/Development/haskell/xmobar"
+        "nixpkgs": "nixpkgs"
       }
     }
   },

@@ -16,6 +16,7 @@
       xmonad-solomon.overlay
       gum.overlays.default
       fonts.overlays.default
+      (final: prev: { eww = eww.packages.${final.system}.default; })
     ];
   };
 

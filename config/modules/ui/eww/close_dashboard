@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+## Files and cmd
+CFG="$HOME/.config/eww"
+EWW=`which eww`
+
+${EWW} --config "$CFG" close-all

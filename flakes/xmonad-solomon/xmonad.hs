@@ -57,6 +57,7 @@ import XMonad.Prompt.ConfirmPrompt (confirmPrompt)
 import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Prompt.XMonad (xmonadPromptCT)
 import XMonad.StackSet qualified as W
+import XMonad.Util.ExtensibleState qualified as XS
 import XMonad.Util.EZConfig (mkKeymap)
 import XMonad.Util.NamedScratchpad (NamedScratchpad (..), customFloating, namedScratchpadAction)
 import XMonad.Util.Run (spawnPipe)
@@ -354,6 +355,26 @@ scratchpads =
   ]
 
 --------------------------------------------------------------------------------
+-- Dashboard State
+
+data DashboardState = On | Off
+  deriving Eq
+
+instance XMonad.ExtensionClass DashboardState where
+  initialValue = Off
+
+
+toggleDashboard :: XMonad.X ()
+toggleDashboard = do
+  XS.get >>= \case
+    On -> do
+      XMonad.spawn "/home/solomon/.config/eww/close_dashboard" 
+      XS.put Off
+    Off -> do
+      XMonad.spawn "/home/solomon/.config/eww/open_dashboard" 
+      XS.put On
+
+--------------------------------------------------------------------------------
 -- Keybindings
 
 workSpaceNav :: XMonad.XConfig a -> [(String, XMonad.X ())]
@@ -372,6 +393,7 @@ myKeys c =
       ("M-<Space> p", scratchpadPrompt),
       ("M-<Backspace>", closeWindowPrompt),
       ("M-S-<Backspace>", XMonad.withUnfocused XMonad.killWindow),
+      ("<XF86AudioMedia>", toggleDashboard),
       ("<XF86AudioMute>", toggleMute),
       ("<XF86AudioRaiseVolume>", volumeUp),
       ("<XF86AudioLowerVolume>", volumeDown),

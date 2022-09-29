@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+## Files and cmd
+CFG="$HOME/.config/eww"
+EWW=`which eww`
+
+## Open widgets 
+run_eww() {
+	${EWW} --config "$CFG" open dashboard
+}
+
+run_eww

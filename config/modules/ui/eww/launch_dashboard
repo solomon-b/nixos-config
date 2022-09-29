@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+## Files and cmd
+FILE="$HOME/.cache/eww_launch.dashboard"
+CFG="$HOME/.config/eww"
+EWW=`which eww`
+
+## Open widgets 
+run_eww() {
+	${EWW} --config "$CFG" open-many \
+	           background \
+		   profile \
+		   clock \
+		   uptime \
+		   music \
+		   weather \
+		   logout \
+		   sleep \
+		   reboot \
+		   poweroff \
+		   system \
+		   apps \
+		   github \
+		   reddit \
+		   twitter \
+		   youtube \
+		   mail \
+		   folders
+}
+
+## Launch or close widgets accordingly
+if [[ ! -f "$FILE" ]]; then
+	touch "$FILE"
+	run_eww
+else
+	${EWW} --config "$CFG" close-all
+	rm "$FILE"
+fi

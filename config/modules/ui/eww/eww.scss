@@ -1,0 +1,201 @@
+/** Global *******************************************/
+*{
+  all: unset;
+  font-family: Iosevka;
+}
+
+.background {
+  color: #2d2d2d;
+}
+
+.altBackground {
+  color: #333333;
+}
+
+.selection {
+  color: #515151;
+}
+
+.foreground {
+  color: #cccccc;
+}
+
+.comment {
+  color: #999999;
+}
+
+.red {
+  color: #f2777a;
+}
+
+.orange {
+  color: #f99157;
+}
+
+.yellow {
+  color: #ffcc66;
+}
+
+.green {
+  color: #99cc99;
+}
+
+.aqua {
+  color: #66cccc;
+}
+
+.blue {
+  color: #6699cc;
+}
+
+.purple {
+  color: #cc99cc;
+}
+
+.bold {
+  font-weight : bold;
+}
+
+/** Background ***************************************/
+.bg {
+  background-image: url("/home/solomon/Public/wallpapers/Yosemite-Color-Block.png");
+  background-color: #474D59;
+  opacity: 1;
+}
+
+/** Generic window ***********************************/
+.genwin {
+  background-color: #333333;
+  border-radius: 16px;
+  font-size : 1.5rem;
+  font-weight : normal;
+  //padding: 20px;
+}
+
+/** Profile ******************************************/
+.face {
+  background-size: 400px;
+  min-height: 200px;
+  min-width: 200px;
+  //margin: 65px 0px 0px 0px;
+  border-radius: 100%;
+}
+
+.fullname {
+  font-size : 30px;
+  font-weight : bold;
+}
+
+.username {
+  font-size : 22px;
+  font-weight : bold;
+  //margin : -15px 0px 0px 0px;
+}
+
+/** System ********************************************/
+.icon {
+  font-size : 32px;
+  font-weight : normal;
+}
+
+.hdd_bar, .cpu_bar, .mem_bar, .bright_bar, .bat_bar, scale trough {
+  all: unset;
+  background-color: #2d2d2d;
+  border-radius: 16px;
+  min-height: 18px;
+  min-width: 240px;
+}
+
+.hdd_bar, .cpu_bar, .mem_bar, .bright_bar, .bat_bar, scale trough highlight {
+  all: unset;
+  border-radius: 16px;
+}
+.hdd_bar scale trough highlight {
+  background-color: #cc99cc;
+}
+.cpu_bar scale trough highlight {
+  background-color: #f2777a;
+}
+.mem_bar scale trough highlight {
+  background-color: #99cc99;
+}
+.vol_bar scale trough highlight {
+  background-color: #6699cc;
+}
+.bright_bar scale trough highlight {
+  background-color: #ffcc66;
+}
+.bat_bar scale trough highlight {
+  background-color: #66cccc;
+}
+
+/** Clock ********************************************/
+.time_hour, .time_min {
+  font-size : 70px;
+  font-weight : bold;
+}
+
+.time_mer {
+  font-size : 40px;
+  font-weight : bold;
+}
+
+.time_day {
+  font-size : 30px;
+  font-weight : normal;
+}
+
+/** Uptime ********************************************/
+.icontimer {
+  font-size : 90px;
+  font-weight : normal;
+}
+
+.uphour {
+  font-size : 42px;
+  font-weight : bold;
+}
+
+.upmin {
+  font-size : 32px;
+  font-weight : bold;
+}
+
+/** Weather ***************************************/
+.iconweather {
+  font-family: Iosevka Nerd Font;
+  font-size : 120px;
+  font-weight : normal;
+  //margin : 15px 0px 0px 30px;
+}
+
+.label_temp {
+  color : #A6D1DD;
+  font-size : 80px;
+  font-weight : bold;
+  //margin : -15px 30px 0px 0px;
+}
+
+.label_stat {
+  color : #BF616A;
+  font-size : 38px;
+  font-weight : bold;
+}
+
+.label_quote {
+  color : #E5E5E5;
+  font-size : 18px;
+  font-weight : normal;
+}
+
+/** Power buttons ***************************************/
+.btn_logout, .btn_sleep, .btn_reboot, .btn_poweroff {
+  font-size : 48px;
+  font-weight : bold;
+}
+
+tooltip.background {
+    background-color: #333333;
+    font-size: 18;
+    color: #cccccc;
+}
