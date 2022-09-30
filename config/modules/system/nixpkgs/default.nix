@@ -13,7 +13,9 @@
       podcast-dl.overlay
       volume-bar.overlay
       xmobar-solomon.overlay
-      xmonad-solomon.overlay
+      xmonad-solomon.overlays.default
+      xmonad-solomon.overlays.xmonad
+      xmonad-solomon.overlays.xmonad-contrib
       gum.overlays.default
       fonts.overlays.default
       (final: prev: { eww = eww.packages.${final.system}.default; })
