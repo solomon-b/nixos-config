@@ -4,7 +4,7 @@
   imports = [
     ./hardware.nix
     #./hoogle.nix
-    #./podcast-dl.nix
+    ./podcast-dl.nix
     #./photoprism.nix
     ./nfs.nix
     #./youtube-dl.nix

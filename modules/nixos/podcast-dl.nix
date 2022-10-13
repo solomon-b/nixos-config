@@ -43,7 +43,7 @@ in
       serviceConfig.Type = "oneshot";
       script = ''
         echo "Excecuting podcast-dl
-        ${pkgs.bash}/bin/bash ${script}
+        ${pkgs.bash}/bin/bash ${script}/bin/run
         echo "Completed podcast-dl  
       '';
     };

@@ -2,9 +2,10 @@
 
 {
   services.podcast-dl = {
-    enable = false;
-    dataDir = "/srv/NAS/Media/Podcasts/";
+    enable = true;
+    dataDir = "/mnt/media/Podcasts/";
     podcasts = [
+      "https://data.bff.fm/shows/tapecase.rss"
       "https://malicious.life/feed/podcast"
       "https://feed.podbean.com/palladiummag/feed.xml"
       "http://feeds.wnyc.org/onthemedia"
