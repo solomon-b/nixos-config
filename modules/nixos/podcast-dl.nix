@@ -5,6 +5,8 @@ let
   script = pkgs.writeShellScriptBin "run"
     ''
     set -e
+
+    echo "Excecuting podcast-dl"
     cd ${cfg.dataDir}
 
     IFS=' ' read -ra feeds <<< "${lib.concatStringsSep " " cfg.podcasts}"
@@ -13,6 +15,8 @@ let
     do
       ${pkgs.podcast-dl}/bin/podcast-dl --url "''${feed}" &
     done
+
+    echo "Completed podcast-dl"  
     '';
 in
 {
@@ -42,9 +46,7 @@ in
     systemd.services.run-podcast-dl = {
       serviceConfig.Type = "oneshot";
       script = ''
-        echo "Excecuting podcast-dl
         ${pkgs.bash}/bin/bash ${script}/bin/run
-        echo "Completed podcast-dl  
       '';
     };
 

@@ -1,5 +1,4 @@
 # qBittorrent
-# TODO: Disable tailscale
 { pkgs, ... }:
 
 {
