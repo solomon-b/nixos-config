@@ -8,12 +8,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "zfs" ];
 
-  services.zfs = {
-    autoScrub.enable = true;
-    autoSnapshot.enable = true;
-    trim.enable = true;
-  };
-
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_5_15;
