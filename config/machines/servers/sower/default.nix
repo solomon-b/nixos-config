@@ -4,6 +4,7 @@
   imports = [
     ./hardware.nix
     #./hoogle.nix
+    ./airsonic.nix
     ./podcast-dl.nix
     #./photoprism.nix
     ./nfs.nix
@@ -45,6 +46,7 @@
   # 8083 == Hoogle
   # 8096 == Jellyfin
   # 2342 == Photoprism
+  # 4040 == Airsonic
 
   networking.firewall.allowedTCPPorts = [ 80 9002 ];
 
