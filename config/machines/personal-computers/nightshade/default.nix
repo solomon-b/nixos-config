@@ -4,6 +4,7 @@
   imports = [
     ./hardware.nix
     ./kmonad.nix
+    ./mpd.nix
     ./nfs.nix
     ./zfs.nix
 
