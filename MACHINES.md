@@ -1,14 +1,14 @@
-- accompaniment-of-shadows:
+- accompaniment-of-shadows
   nginx reverse proxy and docker orchestration
-- apollyon:
+- apollyon
   qBittorent
-- madonna-of-the-wasps:
+- madonna-of-the-wasps
   Tailscale Exit Node and subnet relay
 - silence-under-snow:
   pi-hole
-- sower:
+- sower
   media streaming
-- storm-bird:
+- storm-bird
   Prometheus/Grafana Monitoring
-- transfigured-night:
+- transfigured-night
   Postgres Service
