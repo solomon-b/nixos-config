@@ -12,9 +12,9 @@
 
   networking.wg-quick.interfaces = {
     wg0 = {
-      address = [ "10.67.117.137/32" "fc00:bbbb:bbbb:bb01::4:7588/128" ];
+      address = [ "10.66.157.31/32" "fc00:bbbb:bbbb:bb01::3:9d1e/128" ];
       dns = [ "10.64.0.1" ];
-      privateKeyFile = "/secrets/primary-user-wireguard-private-key-mulvad-257";
+      privateKeyFile = "/secrets/primary-user-wireguard-private-key-mulvad-230";
       postUp = ''
         ip route add 192.168.1.0/24 via 192.168.5.1
       '';
@@ -24,9 +24,9 @@
       
       peers = [
         {
-          publicKey = "9BP/NfyAc1gljj86BXgu0/DcP5nK9OismCKxX70kO2k=";
+          publicKey = "boR0Y8kuqvEtgmr8xHRfHYGBT5YK8KBCImqgzXd0YT4=";
           allowedIPs = [ "0.0.0.0/0" "::0/0" ];
-          endpoint = "37.19.210.27:51820";
+          endpoint = "204.152.216.114:51820";
           persistentKeepalive = 25;
         }
       ];
