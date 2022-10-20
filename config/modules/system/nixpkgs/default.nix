@@ -29,6 +29,11 @@
       dates = "03:15";
     };
 
+    nixPath = lib.mkForce [
+      "unstable=${inputs.unstable}"
+      "nixpkgs=${inputs.nixpkgs}"
+    ];
+
     autoOptimiseStore = true;
 
     registry = {
