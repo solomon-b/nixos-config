@@ -25,19 +25,24 @@ NOTE: If you don't use the installer ISO and wish to deploy with `colmena` then 
 
 Once you have a machine provisioned, create a machine configuration in either `config/machines/servers` or `config/machines/personal-computers`. Be sure to use a `profile` or else the `primary-user` module will not work.
 
-Lastly, if you are deploying with `colmena` then you will either need a DNS entry for your machine names or you will need to tweak the `mkServer` function and set the IP with [deployment.targetHost](https://colmena.cli.rs/unstable/reference/deployment.html#deploymenttargethost).
+Lastly, if you are deploying with `colmena` then you will either need a DNS entry for your machine names or you will need to tweak the `mkMachine` function and set the IP with [deployment.targetHost](https://colmena.cli.rs/unstable/reference/deployment.html#deploymenttargethost).
 
 ### Deployment
-Desktop machines can be deployed with `nixos-rebuild`:
+Deployments are done with [colmena](https://colmena.cli.rs/unstable/reference/deployment.html#deploymenttargethost):
 
+Build all servers:
 ```
-$ sudo nixos-rebuild switch --flake '.#nightshade'
+$ colmena apply --on @server
 ```
 
-Webservers are deployed with [colmena](https://colmena.cli.rs/unstable/reference/deployment.html#deploymenttargethost):
-
+Build a specific server:
 ```
-$ colmena apply
+$ colmena apply --on @sower
+```
+
+Build all PCs:
+```
+$ colmena apply --on @pc
 ```
 
 ## Prior Art/Inspirations

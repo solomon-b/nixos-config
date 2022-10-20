@@ -89,27 +89,24 @@
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
-
-      mkServer = targetHost: {config, ...}: {
+      
+      mkMachine = tag: path: local: targetHost: {config, ...}: {
+        deployment = {
+          inherit targetHost;
+          #targetUser = config.primary-user.name;
+          tags = [ tag ];
+          allowLocalDeployment = local;
+        };
+        
         imports = [
-          "${toString ./config/machines/servers}/${targetHost}"
+          "${toString path}/${targetHost}"
           nixpkgs.nixosModules.notDetected
           home-manager.nixosModules.home-manager
         ];
       };
 
-      mkPersonalComputer = targetHost: 
-        nixpkgs.lib.nixosSystem {
-          inherit system;
-          modules = [
-            "${toString ./config/machines/personal-computers}/${targetHost}"
-            nixpkgs.nixosModules.notDetected
-            home-manager.nixosModules.home-manager
-          ];
-          specialArgs = {
-            inherit inputs;
-          };
-        };
+      mkServer = mkMachine "server" ./config/machines/servers false;
+      mkPersonalComputer = mkMachine "pc" ./config/machines/personal-computers true;
     in {
       devShell."${system}" = pkgs.mkShell {
         nativeBuildInputs = [ pkgs.colmena ];
@@ -120,8 +117,7 @@
         meta.specialArgs = {
           inherit inputs;
         };
-      } // builtins.mapAttrs (machine: _: mkServer machine) (builtins.readDir ./config/machines/servers);
-
-      nixosConfigurations = builtins.mapAttrs (machine: _: mkPersonalComputer machine) (builtins.readDir ./config/machines/personal-computers);
+      } // builtins.mapAttrs (machine: _: mkServer machine) (builtins.readDir ./config/machines/servers)
+        // builtins.mapAttrs (machine: _: mkPersonalComputer machine) (builtins.readDir ./config/machines/personal-computers);
     };
 }
