@@ -9,7 +9,6 @@
     ../../modules/system/devices/bluetooth
 
     ../../modules/services/docker
-    ../../modules/services/postgresql
     ../../modules/services/redis
 
     ../../modules/ui/audio
@@ -56,6 +55,9 @@
     volume-bar
     xbanish
     xlayoutdisplay
+
+    # DB
+    postgresql_14
 
     # Media
     vlc
