@@ -53,11 +53,20 @@
       fi
 
       [ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
+
+      function jump-to-git-root {
+        local ROOT_DIR="$(git rev-parse --show-toplevel 2>/dev/null)"
+        [[ -z $ROOT_DIR ]] || [[ $ROOT_DIR == $(pwd) ]] || cd $ROOT_DIR
+      }
     '';
 
-    shellAliases = {
-      ls = "exa -l";
-      refresh = "exec $SHELL -l";
-    };
+    shellAliases = let
+      home = config.primary-user.home-manager.home.homeDirectory;
+       in {
+         ls = "exa";
+         refresh = "exec $SHELL -l";
+         g = "cd \"${home}/Development/$(find ${home}/Development/ -maxdepth 2 -type d  | sed -E 's|^${home}/Development/||g' | fzf)\"";
+         gr = "jump-to-git-root";
+       };
   };
 }
