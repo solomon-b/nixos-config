@@ -9,7 +9,7 @@
     extraConfig = ''
       audio_output {
         type "pulse"
-        name "My PulseAudio" # this can be whatever you want
+        name "System PulseAudio" # this can be whatever you want
       }
     '';
     startWhenNeeded = true;
