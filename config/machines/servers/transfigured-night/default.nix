@@ -22,12 +22,18 @@
 
     ensureDatabases = [
       "tt_rss"
+      "hasura"
     ];
 
     ensureUsers = [
       { name = "tt_rss";
         ensurePermissions = {
           "DATABASE tt_rss" = "ALL PRIVILEGES";
+        };
+      }
+      { name = "hasura_admin";
+        ensurePermissions = {
+          "DATABASE hasura" = "ALL PRIVILEGES";
         };
       }
     ];
