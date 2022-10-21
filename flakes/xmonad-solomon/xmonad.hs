@@ -447,7 +447,7 @@ myKeys c =
          ]
   where
     toggleDunst = XMonad.spawn "dunstctl set-paused toggle"
-    toggleMute = XMonad.spawn "amixer sset 'Master' toggle"
+    toggleMute = XMonad.spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle"
     dunstClose = XMonad.spawn "dunstctl close"
     dunstCloseAll = XMonad.spawn "dunstctl close-all"
     volumeUp = XMonad.spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%"
