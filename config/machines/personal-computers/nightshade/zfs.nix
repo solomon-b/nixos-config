@@ -15,7 +15,7 @@
 
   services.syncoid = {
     enable = true;
-    sshKey = /secrets/syncoid-ssh-key;
+    sshKey = config.sops.secrets.syncoid-ssh-key.path;
     commands = {
       "tank/home" = {
         target = "syncoid@sandra-voi.local:tank/system-snapshots/nightshade/home";
@@ -27,4 +27,6 @@
       };
     };
   };
+
+  users.users.syncoid.extraGroups = [ "keys" ];
 }

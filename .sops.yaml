@@ -1,0 +1,23 @@
+keys:
+  - &solomon age1nq3ecxhfnr4j656gydwmedlrrwj0huuzel0lhu32hq02xwcjzajsfz4s96
+  - &server_accompaniment-of-shadows age1m34247m4q466wdxrg729ytss0n4jqwa29577m5u2w7rnytyep50s8wuusn
+  - &server_apollyon age1rd3mdchrf5lnkcl55ve7jq30rptaw7g7qu9jn940uawqu2saadzspr3e7x
+  - &server_madonna-of-the-wasps age1x0ky8x43artkyr2w47ca6muy7pqr9h57l5284aex6wftltj6u45q6kc6g4
+  - &server_silence-under-snow age1u4gshp9w29annppw98fyh8wpssj3n324xmm9rvqdkt2mx62tkesq30dcjk
+  - &server_sower age1h2nlwkzquf4c8ltwuqey2y9z6cpumxw42q8x9qu0dwzx638vtd0scpm80c
+  - &server_storm-bird age14qgly6gwzf0sc4sfchwkaesd6u4gl4mksjhx2reapnxz7p25kugshk0x2f
+  - &server_transfigured-night age1cw04hz668dw2gxd8dkpyzk7yjwushtg9v77qzyhn9jgtfl4xm46s2jeexg
+  - &pc_nightshade age1tectddc3anxgl6yj7k8x85udfht5n9vhk9p8ry8x8rlsawgwvfrq8fza4d
+creation_rules:
+  - path_regex: secrets.yaml$
+    key_groups:
+    - age:
+      - *solomon
+      - *server_accompaniment-of-shadows
+      - *server_apollyon
+      - *server_madonna-of-the-wasps
+      - *server_silence-under-snow
+      - *server_sower
+      - *server_storm-bird
+      - *server_transfigured-night
+      - *pc_nightshade

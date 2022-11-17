@@ -25,6 +25,11 @@
 
   primary-user.name = "solomon";
 
+  sops.secrets.syncoid-ssh-key = {
+    owner = "syncoid";
+    mode = "600";
+  };
+
   networking = {
     hostName = "nightshade";
     hostId = "997f3c8d";

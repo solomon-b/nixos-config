@@ -12,6 +12,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     kmonad = {
       url = github:pnotequalnp/kmonad/flake?dir=nix;
       inputs.nixpkgs.follows = "nixpkgs";
@@ -72,8 +77,9 @@
   outputs = inputs@{
       self,
       nixpkgs,
-      flake-utils,
       unstable,
+      flake-utils,
+      sops-nix,
       home-manager,
       kmonad,
       brightness-bar,
@@ -102,7 +108,13 @@
           "${toString path}/${targetHost}"
           nixpkgs.nixosModules.notDetected
           home-manager.nixosModules.home-manager
+          sops-nix.nixosModules.sops
         ];
+
+        sops = {
+          defaultSopsFile = ./secrets.yaml;
+          secrets.primary-user-password = { };
+        };
       };
 
       mkServer = mkMachine "server" ./config/machines/servers false;

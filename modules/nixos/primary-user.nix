@@ -22,6 +22,7 @@ in
   ];
 
   config = lib.mkIf (cfg.name != null) {
+    sops.secrets.primary-user-password.neededForUsers = true;
     primary-user = {
       extraGroups = [ "wheel" "users" "keys" "input" ];
 
@@ -32,7 +33,7 @@ in
       };
 
       isNormalUser = true;
-      passwordFile = "/secrets/primary-user-password";
+      passwordFile = config.sops.secrets.primary-user-password.path;
       shell = pkgs.zsh;
       uid = lib.mkDefault 1000;
     };
