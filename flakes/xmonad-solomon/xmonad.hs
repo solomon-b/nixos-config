@@ -334,6 +334,20 @@ fetchUnits = do
       pure res1
     _ -> pure []
 
+readEmojis :: IO [String]
+readEmojis = do
+  let p = proc "cat" ["/home/solomon/.local/share/emoji"] 
+  (_, hout, _, _) <- createProcess p {std_out = CreatePipe}
+  case hout of
+    Just hout' -> hGetLines hout'
+    _ -> pure []
+
+emojiPrompt :: XMonad.X ()
+emojiPrompt = do
+  let action e = XMonad.spawn $ "echo " <> e <> " | xclip -sel clip"
+  emojis <- fmap (\e -> (e, action e)) <$> XMonad.liftIO readEmojis
+  xmonadPromptCT "Emojis" emojis promptConfig
+       
 --------------------------------------------------------------------------------
 -- Scratchpads
 
@@ -390,6 +404,7 @@ myKeys c =
     [ ("M-<Space> q", exitPrompt),
       ("M-<Space> w", layoutPrompt),
       ("M-<Space> <Space>", myLauncher),
+      ("M-<Space> e", emojiPrompt),
       ("M-<Space> p", scratchpadPrompt),
       ("M-<Backspace>", closeWindowPrompt),
       ("M-S-<Backspace>", XMonad.withUnfocused XMonad.killWindow),

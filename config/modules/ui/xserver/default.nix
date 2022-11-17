@@ -28,4 +28,6 @@
     pkgs.haskellPackages.xmobar-solomon
     #pkgs.haskellPackages.taffybar-solomon
   ];
+
+  primary-user.home-manager.xdg.dataFile."emoji".source = ./emoji;
 }
