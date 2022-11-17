@@ -67,6 +67,9 @@
          refresh = "exec $SHELL -l";
          g = "cd \"${home}/Development/$(find ${home}/Development/ -maxdepth 2 -type d  | sed -E 's|^${home}/Development/||g' | fzf)\"";
          gr = "jump-to-git-root";
+         gp = "git pull";
+         gf = "git fetch";
+         gb = "git checkout \"$(git branch | fzf| tr -d '[:space:]')\"";
        };
   };
 }
