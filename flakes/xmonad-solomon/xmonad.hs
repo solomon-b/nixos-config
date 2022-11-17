@@ -292,7 +292,7 @@ scratchpadPrompt = xmonadPromptCT "Scratchpads" commands promptConfig
   where
     commands =
       [ ("1: Personal Calendar", namedScratchpadAction scratchpads "personalCal")
-      -- , ("2: Hasura Calendar", namedScratchpadAction scratchpads "hasuraCal")
+      , ("2: Hasura Calendar", namedScratchpadAction scratchpads "hasuraCal")
       ]
 
 -- | Given a 'Handle', return a list of all lines in that 'Handle'
@@ -363,6 +363,7 @@ scratchpads =
       (customFloating $ W.RationalRect 0.9 0.9 0.9 0.9),
     NS
       "hasuraCal"
+      -- https://calendar.google.com/calendar/u/1?cid=c29sb21vbkBoYXN1cmEuaW8
       "surf 'calendar.google.com/?authuser=solomon@hasura.io'"
       ((XMonad.className ~? "Surf") XMonad.<&&> XMonad.title ~? "Hasura")
       (customFloating $ W.RationalRect 0.9 0.9 0.9 0.9)
