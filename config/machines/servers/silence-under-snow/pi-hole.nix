@@ -69,27 +69,25 @@
   systemd.services.docker-pihole = {
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
+    postStart = ''
+      sleep 10s
+      docker exec pihole pihole -a addcustomdns 100.80.98.4 sower
+      docker exec pihole pihole -a addcustomdns 100.117.45.47 silence-under-snow
+      docker exec pihole pihole -a addcustomdns 100.92.19.49 lorean
+      docker exec pihole pihole -a addcustomdns 100.70.16.79 madonna-of-the-wasps
+      docker exec pihole pihole -a addcustomdns 100.80.98.4 jellyfin.sower
+      docker exec pihole pihole -a addcustomdns 100.123.147.26 accompaniment-of-shadows
+      docker exec pihole pihole -a addcustomdns 100.123.147.26 heimdall.local
+      docker exec pihole pihole -a addcustomdns 100.123.147.26 filebrowser.sandra-voi.local
+      docker exec pihole pihole -a addcustomdns 100.123.147.26 qbittorrent.local
+      docker exec pihole pihole -a addcustomdns 100.123.147.26 tt-rss
+      docker exec pihole pihole -a addcustomdns 100.96.251.72 transfigured-night
+      docker exec pihole pihole -a addcustomdns 100.97.232.9 storm-bird
+      docker exec pihole pihole -a addcustomdns 192.168.5.104 apollyon
+      docker exec pihole pihole -a addcustomdns 192.168.5.6 sandra-voi.local
+      docker exec pihole pihole -a addcustomdns 192.168.5.6 sandra-voi
+      docker exec pihole pihole -a addcustomdns 100.100.33.33 nightshade
+      docker exec pihole pihole -a addcustomdns 100.80.98.4 navidrome.sower
+    '';
   };
-
-
-  environment.etc."pihole/custom.list".text = ''
-    100.80.98.4 sower
-    100.117.45.47 silence-under-snow
-    100.92.19.49 lorean
-    100.70.16.79 madonna-of-the-wasps
-    100.80.98.4 jellyfin.sower
-    100.123.147.26 accompaniment-of-shadows
-    100.123.147.26 heimdall.local
-    100.123.147.26 filebrowser.sandra-voi.local
-    100.123.147.26 qbittorrent.local
-    100.123.147.26 tt-rss
-    100.96.251.72 transfigured-night
-    100.97.232.9 storm-bird
-    192.168.5.104 apollyon
-    192.168.5.6 sandra-voi.local
-    192.168.5.6 sandra-voi
-    100.100.33.33 nightshade
-    100.80.98.4 navidrome.sower
-  '';
-
 }
