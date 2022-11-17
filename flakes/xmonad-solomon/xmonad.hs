@@ -511,7 +511,7 @@ readFileMaybe path =
 
 myStartupHook :: XMonad.X ()
 myStartupHook = do
-  commands <- XMonad.liftIO $ readFileMaybe "/home/solomon/.startup"
+  commands <- XMonad.liftIO $ readFileMaybe "/home/solomon/.config/startup.sh"
   traverse_ (traverse_ XMonad.spawn) $ fmap lines commands
 
 restartEventHook :: XMonad.Event -> XMonad.X All
