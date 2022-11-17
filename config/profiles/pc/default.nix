@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports = [
@@ -47,10 +47,8 @@
     brightnessctl
     brightness-bar
     dunst
-    dmenu
     libnotify
     networkmanagerapplet
-    rofi
     trayer
     volume-bar
     xbanish
@@ -84,4 +82,19 @@
   ];
 
   primary-user.extraGroups = [ "networkmanager" ];
+
+  primary-user.home-manager.programs.rofi = {
+    enable = true;
+    #location = "top";
+    plugins = [
+    #  pkgs.rofi-mpd
+      pkgs.rofi-calc
+      pkgs.rofi-emoji
+    #  pkgs.rofi-systemd
+    #  pkgs.rofi-power-menu
+    ];
+
+    terminal = "${pkgs.termonad}/bin/termonad";
+
+  };
 }
