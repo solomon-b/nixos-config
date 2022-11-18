@@ -1,5 +1,8 @@
 { pkgs, lib, config, ... }:
 
+let
+  home = config.primary-user.home-manager.home.homeDirectory;
+in
 {
   primary-user.home-manager.programs.zsh = {
     enable = true;
@@ -54,22 +57,38 @@
 
       [ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
 
+      function git-jump {
+        REPO=$(find ${home}/Development/ -maxdepth 2 -type d  | sed -E 's|^${home}/Development/||g' | fzf)
+        [[ -n $REPO ]] && cd "${home}/Development/''${REPO}"
+      }
+
       function jump-to-git-root {
         local ROOT_DIR="$(git rev-parse --show-toplevel 2>/dev/null)"
         [[ -z $ROOT_DIR ]] || [[ $ROOT_DIR == $(pwd) ]] || cd $ROOT_DIR
       }
+
+      function fzf-checkout {
+          BRANCH=$(git branch | fzf| tr -d '[:space:]')
+          [[ -n $BRANCH ]] && git checkout $BRANCH
+      }
+      
+      function git-checkout-branch {
+          $(git rev-parse --is-inside-work-tree >& /dev/null)
+      
+          if [ "$?" -eq "0" ]; then
+              [[ -n $1 ]] && git checkout $1 || fzf-checkout
+          fi
+      }
     '';
 
-    shellAliases = let
-      home = config.primary-user.home-manager.home.homeDirectory;
-       in {
-         ls = "exa";
-         refresh = "exec $SHELL -l";
-         g = "cd \"${home}/Development/$(find ${home}/Development/ -maxdepth 2 -type d  | sed -E 's|^${home}/Development/||g' | fzf)\"";
-         gr = "jump-to-git-root";
-         gp = "git pull";
-         gf = "git fetch";
-         gb = "git checkout \"$(git branch | fzf| tr -d '[:space:]')\"";
-       };
+    shellAliases = {
+       ls = "exa";
+       refresh = "exec $SHELL -l";
+       g = "git-jump";
+       gr = "jump-to-git-root";
+       gp = "git pull";
+       gf = "git fetch";
+       gc = "git-checkout-branch";
+     };
   };
 }
