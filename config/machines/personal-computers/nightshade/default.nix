@@ -39,6 +39,10 @@
     interfaces.wlp170s0.useDHCP = true;
   };
 
+  systemd.network.wait-online.anyInterface = true;
+  systemd.services.systemd-udevd.restartIfChanged = false;
+  systemd.services.NetworkManager-wait-online.enable = false;
+
   services.printing.enable = true;
   services.avahi.enable = true;
   # Important to resolve .local domains of printers, otherwise you get an error
