@@ -29,7 +29,7 @@
     #pkgs.haskellPackages.taffybar-solomon
   ];
 
-
+  # https://mynixos.com/home-manager/option/xdg.configFile.%3Cname%3E.source
   primary-user.home-manager.xdg.configFile."startup.sh".text = ''
     nm-applet
     feh --bg-scale /home/solomon/Public/wallpapers/Yosemite-Color-Block.png
