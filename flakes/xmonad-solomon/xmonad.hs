@@ -120,7 +120,7 @@ unfocusColor :: String
 unfocusColor = orange
 
 myFont :: String
-myFont = "xft:Meslo LG M:style=Regular:size=12"
+myFont = "xft:Meslo LG M:style=Regular:size=10"
 
 myNormalBorderColor :: String
 myNormalBorderColor = blue
@@ -530,7 +530,7 @@ statusBarConfig =
       xmobarPP
         { ppCurrent = xmobarColor yellow mempty,
           ppLayout = id, -- drop 18
-          ppTitle = xmobarColor foreground mempty . shorten 85,
+          ppTitle = xmobarColor foreground mempty,
           ppHidden = \ws -> if ws == "NSP" then mempty else ws,
           ppHiddenNoWindows = const mempty
         }

@@ -62,7 +62,7 @@ config = defaultConfig
   , bgColor      = background
   , fgColor      = foreground
   , alpha        = 255
-  , position     = TopW L 100
+  , position     = TopP 0 67
   , commands = [
         Run XMonadLog
       --, Run $ DiskU [("/", render HDD <> " <used>/<size>")] ["-L","20","-H","50","-m","1","-p","3"] 20
@@ -76,6 +76,5 @@ config = defaultConfig
       ]
   , sepChar = "%"
   , alignSep = "}{"
-  --, template = "%StdinReader% }{ %disku% %default:Master% %battery% %wlp4s0wi% %dunstStatus% %date%          "
-  , template = "%XMonadLog% }{ %dunstStatus% %default:Master% %battery% %wlp170s0wi% %date%      "
+  , template = "%XMonadLog% }{ %dunstStatus% %default:Master% %battery% %wlp170s0wi% %date%"
   }
