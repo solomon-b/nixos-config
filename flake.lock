@@ -7,8 +7,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1665635376,
-        "narHash": "sha256-Ozn1Jg/ChQpo1/CbGwlQbeIcUjsBI4kmykC+sKJZuQI=",
+        "lastModified": 1672546017,
+        "narHash": "sha256-ea3GoM8tP3E9eYVcgTXRX4YY5JI71kgjadSt6u6+X1c=",
         "path": "/home/solomon/Development/Nix/nixos-config/flakes/brightness-bar",
         "type": "path"
       },
@@ -87,11 +87,11 @@
     },
     "flake-utils_3": {
       "locked": {
-        "lastModified": 1659877975,
-        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
+        "lastModified": 1667395993,
+        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
+        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
         "type": "github"
       },
       "original": {
@@ -123,8 +123,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1665635376,
-        "narHash": "sha256-DEr90WTTCGSed58gG6Dw7NyqpdKcF8jCt0uqOPq8NJM=",
+        "lastModified": 1672546017,
+        "narHash": "sha256-JNeIIdkeHcVfqDprsW8YlxtDNTxbwFnHI978DspO/iE=",
         "path": "/home/solomon/Development/Nix/nixos-config/flakes/fonts",
         "type": "path"
       },
@@ -178,8 +178,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1665635376,
-        "narHash": "sha256-FhKWoknyrJ6ELFnBR5DXETZZREz41JgTow+A8dImWuc=",
+        "lastModified": 1672541031,
+        "narHash": "sha256-daBTtKVfCaUuRC9O9VerpulclGt2EJjgcuE1uaaoZvE=",
         "path": "/home/solomon/Development/Nix/nixos-config/flakes/graphqurl",
         "type": "path"
       },
@@ -258,11 +258,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1672170105,
-        "narHash": "sha256-RabUtQyG7VCTlWgSu8/nzfF48sWaoO9xAPpRRoVDd18=",
+        "lastModified": 1672353432,
+        "narHash": "sha256-oZfgp/44/o2tWiylV30cR+DLyWTJ+5dhsdWZVpzs3e4=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "619a61fcfde0cce679708b8644d136e455e84eac",
+        "rev": "913a47cd064cc06440ea84e5e0452039a85781f0",
         "type": "github"
       },
       "original": {
@@ -274,11 +274,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1671923641,
-        "narHash": "sha256-flPauiL5UrfRJD+1oAcEefpEIUqTqnyKScWe/UUU+lE=",
+        "lastModified": 1672500394,
+        "narHash": "sha256-yzwBzCoeRBoRzm7ySHhm72kBG0QjgFalLz2FY48iLI4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "939c05a176b8485971463c18c44f48e56a7801c9",
+        "rev": "feda52be1d59f13b9aa02f064b4f14784b9a06c8",
         "type": "github"
       },
       "original": {
@@ -323,8 +323,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1665635376,
-        "narHash": "sha256-JHYD+U4idiFjN+Mdn69nhvbkZJwFOJmhk7DhI2SyaSg=",
+        "lastModified": 1672541043,
+        "narHash": "sha256-uhk4tyAFtMU4xbLXLOe8jKb7zmzxQNE0yQt7d7SQ5A0=",
         "path": "/home/solomon/Development/Nix/nixos-config/flakes/podcast-dl",
         "type": "path"
       },
@@ -382,11 +382,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1671937829,
-        "narHash": "sha256-YtaNB+mLw0d67JFYNjRWM+/AL3JCXuD/DGlnTlyX1tY=",
+        "lastModified": 1672543202,
+        "narHash": "sha256-nlCUtcIZxaBqUBG1GyaXhZmfyG5WK4e6LqypP8llX9E=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "855b8d51fc3991bd817978f0f093aa6ae0fae738",
+        "rev": "b35586cc5abacd4eba9ead138b53e2a60920f781",
         "type": "github"
       },
       "original": {
@@ -397,11 +397,11 @@
     },
     "unstable": {
       "locked": {
-        "lastModified": 1672262501,
-        "narHash": "sha256-ZNXqX9lwYo1tOFAqrVtKTLcJ2QMKCr3WuIvpN8emp7I=",
+        "lastModified": 1672350804,
+        "narHash": "sha256-jo6zkiCabUBn3ObuKXHGqqORUMH27gYDIFFfLq5P4wg=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e182da8622a354d44c39b3d7a542dc12cd7baa5f",
+        "rev": "677ed08a50931e38382dbef01cba08a8f7eac8f6",
         "type": "github"
       },
       "original": {
@@ -416,8 +416,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1665635376,
-        "narHash": "sha256-uPunZMd0hw6GXx2piOD+AGkW/wIH2ynWAoMXKf1IrHM=",
+        "lastModified": 1672546017,
+        "narHash": "sha256-tXKvrwrlRnuLpRjQIKk2oZhWgYB4Q5hLWV5TsSq+gYY=",
         "path": "/home/solomon/Development/Nix/nixos-config/flakes/volume-bar",
         "type": "path"
       },
@@ -436,8 +436,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1670231133,
-        "narHash": "sha256-/26g9U0udcjjeg1mMWMGkpLEY1oUnvRuQmO05SniTjk=",
+        "lastModified": 1672546193,
+        "narHash": "sha256-kkjPvmO5DQhTPRJIm/GZ3rXUZeKVCOqgPjzZdOWWQZc=",
         "path": "/home/solomon/Development/Nix/nixos-config/flakes/xmobar-solomon",
         "type": "path"
       },
@@ -493,11 +493,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1670879805,
-        "narHash": "sha256-jBc0+Cnj4U7173fZHcCy30F5Cjda1mtX2M/fCvKYZg0=",
+        "lastModified": 1672491152,
+        "narHash": "sha256-cz48wXI/uW0PBPVpzEpjt6diur9x0PTVHvHt9cWph9c=",
         "owner": "xmonad",
         "repo": "xmonad-contrib",
-        "rev": "4df20361876aea517b051b76d7d80cbb364c97e4",
+        "rev": "6117a867d984f97fb689eca986eff2989b2fe069",
         "type": "github"
       },
       "original": {
@@ -521,8 +521,8 @@
         "xmonad-contrib": "xmonad-contrib"
       },
       "locked": {
-        "lastModified": 1671835669,
-        "narHash": "sha256-QoBcpuV40TNbNxCPHcy9R5plr1XUE+s8GGy2qa2eW0I=",
+        "lastModified": 1672546091,
+        "narHash": "sha256-ipiNSa5PemGI1JJJqTXvKVGPBtXuVZuJfPfEFvpRjyg=",
         "path": "/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon",
         "type": "path"
       },
