@@ -1,5 +1,5 @@
 # Postgres Service
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
@@ -39,6 +39,7 @@
     ];
 
     authentication = ''
+      host all all 100.100.33.33/32 md5
       host all all nightshade md5
       host tt_rss tt_rss accompaniment-of-shadows md5
     '';
