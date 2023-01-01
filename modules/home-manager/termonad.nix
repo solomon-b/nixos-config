@@ -20,7 +20,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ pkgs.termonad-with-packages ];
+    home.packages = [ pkgs.termonad ];
     xdg.configFile."termonad/termonad.hs".source = cfg.config;
   };
 }
