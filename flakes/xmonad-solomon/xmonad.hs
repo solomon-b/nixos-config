@@ -271,10 +271,10 @@ scrotPrompt :: XMonad.X ()
 scrotPrompt = xmonadPromptCT "Screenshot Options" commands promptConfig
   where
     commands =
-      [ ("1: Capture Screen", XMonad.spawn "scrot"),
-        ("2: Capture Selection", XMonad.spawn "scrot -s"),
-        ("3: Capture All Screens", XMonad.spawn "scrot -m"),
-        ("4: Capture with 3 second countdown", XMonad.spawn "scrot -d 3 -c")
+      [ ("1: Capture Screen", XMonad.spawn "scrot -F /home/solomon/Public/screenshots/%Y-%m-%d:%H:%M:%s.png"),
+        ("2: Capture Selection", XMonad.spawn "scrot -s -F /home/solomon/Public/screenshots/%Y-%m-%d:%H:%M:%s.png"),
+        ("3: Capture All Screens", XMonad.spawn "scrot -m -F /home/solomon/Public/screenshots/%Y-%m-%d:%H:%M:%s.png"),
+        ("4: Capture with 3 second countdown", XMonad.spawn "scrot -d 3 -c -F /home/solomon/Public/screenshots/%Y-%m-%d:%H:%M:%s.png")
       ]
 
 layoutPrompt :: XMonad.X ()
