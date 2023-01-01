@@ -19,6 +19,7 @@
       gum.overlays.default
       fonts.overlays.default
       (final: prev: { eww = eww.packages.${final.system}.default; })
+      #(self: super: { nix-direnv = super.nix-direnv.override { enableFlakes = true; }; } )
     ];
   };
 
