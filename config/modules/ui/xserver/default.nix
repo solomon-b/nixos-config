@@ -39,7 +39,6 @@
     batsignal -b -W \"Warnings: Battery Low\"
     volume-bar
     brightness-bar
-    sleep 2 && kmonad /home/solomon/.config/kmonad.kbd
   '';
 
   primary-user.home-manager.xdg.dataFile."emoji".source = ./emoji;

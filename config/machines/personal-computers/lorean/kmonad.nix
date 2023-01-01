@@ -1,19 +1,15 @@
 { ... }:
 
-{
-  primary-user.home-manager.programs.kmonad = {
-    enable = true;
-
-    defcfg = ''
+let
+  config-file = device: pkgs.writeText "kmonad.cfg"
+    ''
       (defcfg
-        input (device-file "/dev/input/event0")
+        input (device-file "${device}")
         output (uinput-sink "internal-keyboard")
         allow-cmd true
         fallthrough true
       )
-    '';
 
-    defsrc = ''
       (defsrc
         esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10   f11  f12  home end  ins  del
         grv  1    2    3    4    5    6    7    8    9    0     -    =    bspc
@@ -23,17 +19,13 @@
         lctl  lalt lmet           spc            ralt prnt rctl   pgup up   pgdn
                                                                   left down rght
       )
-    '';
 
-    defaliases = ''
       (defalias
         tmt (tap-next tab lmet)
         \mt (tap-next \   rmet)
         xcp (tap-next esc lctl)
       )
-    '';
 
-    deflayers = ''
       (deflayer test
         esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10   f11  f12  home end  ins  del
         grv  1    2    3    4    5    6    7    8    9    0     -    =    bspc
@@ -44,8 +36,8 @@
                                                                   left down rght
       )
     '';
-  };
-
+in
+{
   primary-user.extraGroups = [ "uinput" "input" ];
 
   users.groups = { uinput = {}; };
@@ -54,4 +46,15 @@
     # KMonad user access to /dev/uinput
     KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"
   '';
+
+  systemd.services.kmonad-internal = {
+    enable = true;
+    description = "kmonad internal keyboard config";
+    serviceConfig = {
+      Restart = "always";
+      RestartSec = "3";
+      ExecStart = "${pkgs.kmonad}/bin/kmonad ${config-file "/dev/input/event0"}";
+    };
+    wantedBy = [ "default.target" ];
+  };
 }
