@@ -2,10 +2,10 @@ module App (config) where
 
 --------------------------------------------------------------------------------
 
-import           App.Acpi
-import           App.DunstStatus
-import           App.Icons
-import           Xmobar
+import App.Acpi
+import App.DunstStatus
+import App.Icons
+import Xmobar
 
 --------------------------------------------------------------------------------
 -- Colors
@@ -77,5 +77,5 @@ config = defaultConfig
   , sepChar = "%"
   , alignSep = "}{"
   --, template = "%StdinReader% }{ %disku% %default:Master% %battery% %wlp4s0wi% %dunstStatus% %date%          "
-  , template = "%XMonadLog% }{ %dunstStatus% %default:Master% %battery% %wlp170s0wi% %date%          "
+  , template = "%XMonadLog% }{ %dunstStatus% %default:Master% %battery% %wlp170s0wi% %date%      "
   }

@@ -34,7 +34,7 @@
     nm-applet
     feh --bg-scale /home/solomon/Public/wallpapers/Yosemite-Color-Block.png
     xbanish
-    trayer --edge top --width 4 --align right --height 22 --transparent true --alpha 0 --tint 0x2d2d2d
+    trayer --edge top --width 3 --align right --height 17 --transparent true --alpha 0 --tint 0x2d2d2d
     dunst
     batsignal -b -W \"Warnings: Battery Low\"
     volume-bar
