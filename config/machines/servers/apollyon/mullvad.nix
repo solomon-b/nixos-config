@@ -1364,6 +1364,13 @@
     persistentKeepalive = 25;
   };
   
+  us-lax-wg-303 = {
+    publicKey = "AcExK2CiCHYWU6Sft49uYnLUhIZiId1M+ISzupOJznI=";
+    allowedIPs = ["0.0.0.0/0" "::0/0"];
+    endpoint = "204.152.216.114:51820";
+    persistentKeepalive = 25;
+  };
+  
   us-mia-wg-001 = {
     publicKey = "FVEKAMJqaJU2AwWn5Mg9TK9IAfJc4XDUmSzEeC/VXGs=";
     allowedIPs = ["0.0.0.0/0" "::0/0"];
