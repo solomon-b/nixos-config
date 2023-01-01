@@ -9,6 +9,10 @@
     locations."/".proxyPass = "http://localhost:8096";
   };
 
+  environment.systemPackages = [
+    pkgs.ffmpeg
+  ];
+
   users.groups.nas.gid = 998;
   users.users.jellyfin.extraGroups = [ "nas" ];
 
