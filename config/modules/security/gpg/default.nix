@@ -9,8 +9,17 @@
 
   services.udev.packages = [ pkgs.yubikey-personalization ];
 
+  services.pcscd.enable = true;
+
   environment.systemPackages = [
+    pkgs.passage
+    pkgs.age-plugin-yubikey
+    pkgs.rage
     pkgs.yubikey-manager
     pkgs.yubikey-manager-qt
   ];
+
+  environment.variables = {
+    PASSAGE_AGE = "rage";
+  };
 }
