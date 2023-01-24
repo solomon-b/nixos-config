@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 
 let
   config-file = device: pkgs.writeText "kmonad.cfg" 
