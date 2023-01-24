@@ -6,6 +6,7 @@
     ./hardware.nix
 
     ./heimdall.nix
+    ./homepage.nix
     ./filebrowser.nix
     ./tt-rss.nix
     ../../../profiles/virtual-machine
