@@ -7,7 +7,6 @@
 
     ./homepage.nix
     ./filebrowser.nix
-    ./tt-rss.nix
     ./sabnzbd.nix
     ./servarr.nix
     ../../../profiles/virtual-machine
