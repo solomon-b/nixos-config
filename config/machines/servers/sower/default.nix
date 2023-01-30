@@ -4,7 +4,7 @@
   imports = [
     ./hardware.nix
     #./hoogle.nix
-    ./podcast-dl.nix
+    ./podgrab.nix
     #./photoprism.nix
     ./navidrome.nix
     ./nfs.nix
@@ -42,6 +42,7 @@
     recommendedProxySettings = true;
   };
 
+  # 8081 == podgrab
   # 8082 == FreshRSS
   # 8083 == Hoogle
   # 8096 == Jellyfin
