@@ -58,7 +58,7 @@ in
       [ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
 
       function git-jump {
-        REPO=$(find ${home}/Development/ -maxdepth 2 -type d  | sed -E 's|^${home}/Development/||g' | fzf)
+        REPO=$(find ${home}/Development/ -maxdepth 3 -type d -exec test -e '{}/.git' ';' -print -prune | sed -E 's|^${home}/Development/||g' | fzf)
         [[ -n $REPO ]] && cd "${home}/Development/''${REPO}"
       }
 
