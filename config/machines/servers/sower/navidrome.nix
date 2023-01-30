@@ -11,7 +11,7 @@
       };
   };
 
-  services.nginx.virtualHosts."navidrome.sower" = {
+  services.nginx.virtualHosts."navidrome.service" = {
     locations."/".proxyPass = "http://localhost:4533";
   };
 }

@@ -5,7 +5,7 @@
 {
   services.tt-rss = {
     enable = true;
-    selfUrlPath = "http://tt-rss";
+    selfUrlPath = "http://tt-rss.service";
     database = {
       host = "transfigured-night";
       port = 5432;

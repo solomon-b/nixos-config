@@ -15,7 +15,7 @@
     fsType = "nfs";
   };
 
-  services.nginx.virtualHosts."filebrowser.sandra-voi.local" = {
+  services.nginx.virtualHosts."filebrowser.service" = {
     locations."/".proxyPass = "http://localhost:8081";
   };
 }

@@ -9,7 +9,7 @@
     ];
   };
 
-  services.nginx.virtualHosts."homepage.local" = {
+  services.nginx.virtualHosts."homepage.service" = {
     locations."/".proxyPass = "http://localhost:3000";
   };
 }

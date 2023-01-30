@@ -5,7 +5,7 @@
     enable = true;
   };
 
-  services.nginx.virtualHosts."jellyfin.sower" = {
+  services.nginx.virtualHosts."jellyfin.service" = {
     locations."/".proxyPass = "http://localhost:8096";
   };
 
