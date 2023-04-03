@@ -5,8 +5,14 @@
     enable = true;
   };
 
-  services.nginx.virtualHosts."jellyfin.service" = {
-    locations."/".proxyPass = "http://localhost:8096";
+  services.nginx.virtualHosts = {
+    "jellyfin.local" = {
+      locations."/".proxyPass = "http://localhost:8096";
+    };
+
+    "jellyfin.service" = {
+      locations."/".proxyPass = "http://localhost:8096";
+    };
   };
 
   environment.systemPackages = [
