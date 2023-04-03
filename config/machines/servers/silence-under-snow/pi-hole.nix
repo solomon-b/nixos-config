@@ -70,9 +70,13 @@
     "pihole/hosts" = {
       text = ''
       100.100.33.33 nightshade
+      100.100.33.33 nightshade.machine
       100.92.19.49  lorean
+      100.92.19.49  lorean.machine
       100.80.98.4   sower
+      100.80.98.4   sower.machine
       192.168.5.6   sandra-voi
+      192.168.5.6   sandra-voi.machine
 
       100.123.147.26 accompaniment-of-shadows
       192.168.5.104  apollyon
@@ -89,6 +93,7 @@
       100.123.147.26 prowlarr.service
       100.123.147.26 sabnzbd.service
 
+      192.168.5.7    jellyfin.local
       100.80.98.4    jellyfin.service
       100.80.98.4    podgrab.service
       100.80.98.4    navidrome.service
