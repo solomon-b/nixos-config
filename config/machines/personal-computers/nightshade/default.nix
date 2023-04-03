@@ -37,6 +37,8 @@
 
     useDHCP = false;
     interfaces.wlp170s0.useDHCP = true;
+
+    firewall.checkReversePath = "loose";
   };
 
   systemd.network.wait-online.anyInterface = true;
