@@ -5,7 +5,7 @@
 - madonna-of-the-wasps
   Tailscale Exit Node and subnet relay
 - silence-under-snow:
-  pi-hole
+  DNS Server
 - sower
   media streaming
 - storm-bird
