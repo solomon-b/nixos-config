@@ -18,11 +18,11 @@
     sshKey = config.sops.secrets.syncoid-ssh-key.path;
     commands = {
       "tank/home" = {
-        target = "syncoid@sandra-voi.local:tank/system-snapshots/nightshade/home";
+        target = "syncoid@sandra-voi:tank/system-snapshots/nightshade/home";
         recursive = true;
       };
       "tank/root" = {
-        target = "syncoid@sandra-voi.local:tank/system-snapshots/nightshade/root";
+        target = "syncoid@sandra-voi:tank/system-snapshots/nightshade/root";
         recursive = true;
       };
     };
