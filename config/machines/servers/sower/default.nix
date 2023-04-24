@@ -5,7 +5,6 @@
     ./hardware.nix
     #./hoogle.nix
     ./podgrab.nix
-    #./photoprism.nix
     ./navidrome.nix
     ./nfs.nix
     #./youtube-dl.nix
@@ -46,7 +45,6 @@
   # 8082 == FreshRSS
   # 8083 == Hoogle
   # 8096 == Jellyfin
-  # 2342 == Photoprism
 
   networking.firewall.allowedTCPPorts = [ 80 9002 ];
 
