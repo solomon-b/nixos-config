@@ -41,8 +41,7 @@
     };
 
     xmonad-solomon = {
-      #url = path:./flakes/xmonad-solomon;
-      url = path:/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon;
+      url = path:./flakes/xmonad-solomon;
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.unstable.follows = "unstable";
       inputs.flake-utils.follows = "flake-utils";
