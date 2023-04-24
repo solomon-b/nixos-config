@@ -114,7 +114,7 @@
       mkPersonalComputer = mkMachine "pc" ./config/machines/personal-computers true;
     in {
       devShell."${system}" = pkgs.mkShell {
-        nativeBuildInputs = [ pkgs.colmena ];
+        nativeBuildInputs = [ pkgs.colmena pkgs.nixfmt ];
       };
 
       colmena = {
