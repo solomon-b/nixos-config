@@ -2,8 +2,17 @@
   description = "My XMonad Config";
 
   inputs = {
+    nixpkgs = {
+      url = github:nixos/nixpkgs/nixos-22.11;
+    };
+
     flake-utils = {
       url = github:numtide/flake-utils;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    git-ignore-nix = {
+      url = github:hercules-ci/gitignore.nix;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -12,6 +21,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.unstable.follows = "unstable";
       inputs.flake-utils.follows = "flake-utils";
+      inputs.git-ignore-nix.follows = "git-ignore-nix";
     };
 
     xmonad-contrib = {
@@ -19,10 +29,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.xmonad.follows = "xmonad";
       inputs.flake-utils.follows = "flake-utils";
+      inputs.git-ignore-nix.follows = "git-ignore-nix";
     };
   };
 
-  outputs = { self, nixpkgs, unstable, flake-utils, xmonad, xmonad-contrib }:
+  outputs = { self, nixpkgs, unstable, flake-utils, xmonad, xmonad-contrib, git-ignore-nix }:
     let
       overlay = import ./overlay.nix;
       overlays = [
