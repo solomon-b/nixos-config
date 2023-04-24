@@ -39,7 +39,7 @@
     users.root.hashedPassword = "*";
   }; 
 
-  nix.trustedUsers = [ "root" "solomon" ];
+  nix.settings.trusted-users = [ "root" "solomon" ];
   nix.package = pkgs.nixUnstable;
   nix.extraOptions = ''
     experimental-features = nix-command flakes
