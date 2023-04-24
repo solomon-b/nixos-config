@@ -56,6 +56,7 @@
         "jellyfin.service" = "100.80.98.4";
         "podgrab.service" = "100.80.98.4";
         "navidrome.service" = "100.80.98.4";
+        "immich.service" = "100.80.98.4";
       };
 
       blocking = {
