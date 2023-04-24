@@ -24,7 +24,7 @@ in
   config = lib.mkIf (cfg.name != null) {
     sops.secrets.primary-user-password.neededForUsers = true;
     primary-user = {
-      extraGroups = [ "wheel" "users" "keys" "input" ];
+      extraGroups = [ "wheel" "users" "keys" "input" "plugdev" ];
 
       home-manager = {
         home.username = cfg.name;
