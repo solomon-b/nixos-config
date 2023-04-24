@@ -23,10 +23,8 @@
   };
 
   environment.systemPackages = [
-    pkgs.haskellPackages.xmonad
     pkgs.haskellPackages.xmonad-solomon
     pkgs.haskellPackages.xmobar-solomon
-    #pkgs.haskellPackages.taffybar-solomon
   ];
 
   # https://mynixos.com/home-manager/option/xdg.configFile.%3Cname%3E.source
