@@ -67,11 +67,6 @@
       url = github:solomon-b/gum;
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    eww = {
-      url = github:elkowar/eww;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = inputs@{
@@ -89,8 +84,7 @@
       graphqurl,
       podcast-dl,
       gum,
-      fonts,
-      eww
+      fonts
   }:
     let
       system = "x86_64-linux";
