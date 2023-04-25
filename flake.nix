@@ -1,6 +1,11 @@
 {
   inputs = {
     nixpkgs.url = github:nixos/nixpkgs/nixos-22.11;
+
+    nixos-generators = {
+      url = github:nix-community/nixos-generators;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     
     flake-utils = {
       url = github:numtide/flake-utils;
@@ -70,6 +75,7 @@
   outputs = inputs@{
       self,
       nixpkgs,
+      nixos-generators,
       unstable,
       flake-utils,
       sops-nix,
@@ -114,6 +120,14 @@
     in {
       devShell."${system}" = pkgs.mkShell {
         nativeBuildInputs = [ pkgs.colmena pkgs.nixfmt ];
+      };
+
+      packages."${system}".storm-bird-installer = nixos-generators.nixosGenerate {
+        inherit system;
+        modules = [
+          ./configuration.nix
+        ];
+        format = "iso";
       };
 
       colmena = {
