@@ -14,7 +14,7 @@
     useDHCP = false;
   };
 
-  networking.firewall.allowedTCPPorts = [ 53 ];
+  networking.firewall.allowedTCPPorts = [ 53 4000 ];
   networking.firewall.allowedUDPPorts = [ 53 ];
 
   services.blocky = {
@@ -57,6 +57,7 @@
         "podgrab.service" = "100.80.98.4";
         "navidrome.service" = "100.80.98.4";
         "immich.service" = "100.80.98.4";
+        "tubearchivist.service" = "100.80.98.4";
       };
 
       blocking = {
