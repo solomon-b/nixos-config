@@ -5,6 +5,10 @@
       enable = true;
       layout = "us";
       xkbOptions = "ctrl:nocaps";
+      xautolock = {
+        time = 15;
+        enable = true;
+      };
       desktopManager.xfce.enable = true;
       windowManager.session = [
         {
