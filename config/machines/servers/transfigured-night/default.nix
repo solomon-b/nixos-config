@@ -23,6 +23,15 @@
       requirePass = "hunter2";
       bind = null;
     };
+
+    tubearchivist = {
+      enable = true;
+      openFirewall = true;
+      port = 6380;
+      # TODO: Move into SOPS
+      requirePass = "hunter2";
+      bind = null;
+    };
   };
 
   services.postgresql = {
