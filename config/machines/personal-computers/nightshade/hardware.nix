@@ -48,7 +48,7 @@
   nix.settings = {
     build-cores = 2;
     max-jobs = lib.mkDefault 4;
-  }
+  };
 
   services.xserver.dpi = 130;
 }
