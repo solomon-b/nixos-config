@@ -53,7 +53,7 @@ in
     serviceConfig = {
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${pkgs.kmonad}/bin/kmonad ${config-file "/dev/input/event0"}";
+      ExecStart = "${pkgs.kmonad}/bin/kmonad ${config-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd"}";
     };
     wantedBy = [ "default.target" ];
   };
