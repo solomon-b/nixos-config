@@ -9,7 +9,13 @@
 {
   services.zfs = {
     autoScrub.enable = true;
-    autoSnapshot.enable = true;
+    autoSnapshot = {
+      enable = true;
+      frequent = 4;
+      hourly = 24;
+      weekly = 4;
+      monthly = 3;
+    };
     trim.enable = true;
   };
 
