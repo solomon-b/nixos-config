@@ -34,8 +34,6 @@ in
       environment = {
         ES_URL = "http://archivist-es:9200";
         REDIS_HOST = "archivist-redis";
-        HOST_UID = "1000";
-        HOST_GID = "1000";
         TA_HOST = "tubearchivist.service localhost";
         TA_USERNAME = "solomon";
         TA_PASSWORD = "hunter2";
