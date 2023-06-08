@@ -24,7 +24,7 @@
   ];
 
   system.stateVersion = "22.05";
-  nix.trustedUsers = [ "@wheel" ];
+  nix.settings.trusted-users = [ "@wheel" ];
   environment.shells = [pkgs.zsh pkgs.bashInteractive];
 
   environment.systemPackages = with pkgs; [

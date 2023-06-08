@@ -38,6 +38,8 @@ in
       uid = lib.mkDefault 1000;
     };
 
-    nix.trustedUsers = [ cfg.name ];
+    programs.zsh.enable = true;
+
+    nix.settings.trusted-users = [ cfg.name ];
   };
 }

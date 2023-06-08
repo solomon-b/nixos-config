@@ -45,9 +45,10 @@
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
-  nix.buildCores = 2;
-  nix.maxJobs = lib.mkDefault 4;
+  nix.settings = {
+    build-cores = 2;
+    max-jobs = lib.mkDefault 4;
+  }
 
-  hardware.video.hidpi.enable = lib.mkDefault true;
   services.xserver.dpi = 130;
 }
