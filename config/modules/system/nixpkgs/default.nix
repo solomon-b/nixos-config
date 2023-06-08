@@ -35,7 +35,7 @@
       "nixpkgs=${inputs.nixpkgs}"
     ];
 
-    autoOptimiseStore = true;
+    settings.auto-optimise-store = true;
 
     registry = {
       unstable = {
