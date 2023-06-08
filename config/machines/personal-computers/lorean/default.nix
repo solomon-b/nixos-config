@@ -4,6 +4,7 @@
   imports = [
     ./hardware.nix
     ./kmonad.nix
+    ./zfs.nix
 
     ../../../profiles/pc
     ../../../modules/services/virtualisation/libvirt
@@ -21,6 +22,11 @@
   ];
 
   primary-user.name = "solomon";
+
+  sops.secrets.syncoid-ssh-key = {
+    owner = "syncoid";
+    mode = "600";
+  };
 
   networking = {
     hostName = "lorean";
