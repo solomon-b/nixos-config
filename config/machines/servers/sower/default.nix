@@ -9,7 +9,6 @@
     ./navidrome.nix
     ./nfs.nix
     ./tubearchivist.nix
-    #./youtube-dl.nix
 
     ../../../profiles/physical-machine
     ../../../modules/services/docker
