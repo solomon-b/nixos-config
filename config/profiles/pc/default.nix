@@ -72,7 +72,7 @@
     # Pandoc Related
     pandoc
     texlive.combined.scheme-full
-    pythonPackages.pygments
+    #pythonPackages.pygments
     poppler_utils
 
     # Web Browsers
