@@ -110,16 +110,16 @@
         ];
       };
       
-      mkMachine = tag: path: local: targetHost: {config, ...}: {
+      mkServer = targetHost: {config, ...}: {
         deployment = {
           inherit targetHost;
           #targetUser = config.primary-user.name;
-          tags = [ tag ];
-          allowLocalDeployment = local;
+          tags = [ "server" ];
+          allowLocalDeployment = false;
         };
         
         imports = [
-          "${toString path}/${targetHost}"
+          "${toString config/machines/servers}/${targetHost}"
           nixpkgs.nixosModules.notDetected
           home-manager.nixosModules.home-manager
           sops-nix.nixosModules.sops
@@ -130,9 +130,6 @@
           secrets.primary-user-password = { };
         };
       };
-
-      mkServer = mkMachine "server" ./config/machines/servers false;
-      mkPersonalComputer = mkMachine "pc" ./config/machines/personal-computers true;
     in {
       devShell."${system}" = pkgs.mkShell {
         nativeBuildInputs = [ pkgs.colmena pkgs.nixfmt ];
