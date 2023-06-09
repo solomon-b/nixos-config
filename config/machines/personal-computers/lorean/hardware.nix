@@ -5,7 +5,24 @@
     [(modulesPath + "/installer/scan/not-detected.nix")];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules = [ "dm-snapshot" "vfat" "nls_cp437" "nls_iso8859-1" "usbhid" ];
+  boot.initrd.luks = {
+    yubikeySupport = true;
+    devices = {
+      crypt = {
+        device = "/dev/sda2";
+        preLVM = true;
+        yubikey = {
+          slot = 2;
+          twoFactor = false;
+          storage = {
+            device = "/dev/sda1";
+          };
+        };
+      };
+    };
+  };
+  
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
