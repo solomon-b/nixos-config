@@ -86,7 +86,29 @@
   }:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs { inherit system; };
+      pkgs = import nixpkgs {
+        inherit system;
+
+        config = {
+          allowUnfree = true;
+        };
+
+        overlays = with inputs; [
+          brightness-bar.overlay
+          graphqurl.overlay
+          kmonad.overlay
+          podcast-dl.overlay
+          volume-bar.overlay
+          xmobar-solomon.overlay
+          xmonad-solomon.overlays.default
+          xmonad-solomon.overlays.xmonad
+          xmonad-solomon.overlays.xmonad-contrib
+          gum.overlays.default
+          fonts.overlays.default
+          (final: prev: { eww = eww.packages.${final.system}.default; })
+          #(self: super: { nix-direnv = super.nix-direnv.override { enableFlakes = true; }; } )
+        ];
+      };
       
       mkMachine = tag: path: local: targetHost: {config, ...}: {
         deployment = {
@@ -116,12 +138,64 @@
         nativeBuildInputs = [ pkgs.colmena pkgs.nixfmt ];
       };
 
-      colmena = {
-        meta.nixpkgs = pkgs;
-        meta.specialArgs = {
-          inherit inputs;
+      nixosConfigurations = {
+        lorean = nixpkgs.lib.nixosSystem {
+          inherit pkgs system;
+          modules = [
+            ./config/machines/personal-computers/lorean
+            ( { ... }: {
+              sops = {
+                defaultSopsFile = ./secrets.yaml;
+                secrets.primary-user-password = { };
+              };
+            })
+            nixpkgs.nixosModules.notDetected
+            home-manager.nixosModules.home-manager
+            sops-nix.nixosModules.sops
+          ];
+
+          specialArgs = { inherit inputs; };
         };
+
+        nightshade = nixpkgs.lib.nixosSystem {
+          inherit pkgs system;
+          modules = [
+            ./config/machines/personal-computers/nightshade
+            ( { ... }: {
+              sops = {
+                defaultSopsFile = ./secrets.yaml;
+                secrets.primary-user-password = { };
+              };
+            })
+            nixpkgs.nixosModules.notDetected
+            home-manager.nixosModules.home-manager
+            sops-nix.nixosModules.sops
+          ];
+
+          specialArgs = { inherit inputs; };
+        };
+      };
+
+      colmena =
+        let
+          configs = self.nixosConfigurations;
+        in {
+          meta = {
+            nixpkgs = pkgs;
+            specialArgs = {
+              inherit inputs;
+            };
+            nodeNixpkgs = builtins.mapAttrs (name: value: value.pkgs) configs;
+            nodeSpecialArgs = builtins.mapAttrs (name: value: value._module.specialArgs) configs; 
+          };
       } // builtins.mapAttrs (machine: _: mkServer machine) (builtins.readDir ./config/machines/servers)
-        // builtins.mapAttrs (machine: _: mkPersonalComputer machine) (builtins.readDir ./config/machines/personal-computers);
+        // builtins.mapAttrs (name: value: {
+          deployment = {
+            targetHost = name;
+            tags = [ "pc" ];
+            allowLocalDeployment = true;
+          };
+          imports = value._module.args.modules;
+        }) configs;
     };
 }

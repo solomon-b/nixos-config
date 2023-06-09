@@ -5,22 +5,6 @@
     config = {
       allowUnfree = true;
     };
-
-    overlays = with inputs; [
-      brightness-bar.overlay
-      graphqurl.overlay
-      kmonad.overlay
-      podcast-dl.overlay
-      volume-bar.overlay
-      xmobar-solomon.overlay
-      xmonad-solomon.overlays.default
-      xmonad-solomon.overlays.xmonad
-      xmonad-solomon.overlays.xmonad-contrib
-      gum.overlays.default
-      fonts.overlays.default
-      (final: prev: { eww = eww.packages.${final.system}.default; })
-      #(self: super: { nix-direnv = super.nix-direnv.override { enableFlakes = true; }; } )
-    ];
   };
 
   nix = {
