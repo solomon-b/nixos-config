@@ -57,6 +57,10 @@ setup_partitions () {
     EFI_PART=/dev/sda1
     LUKS_PART=/dev/sda2
 
+    parted /dev/sda -- mkpart ESP fat32 1MiB 512MiB
+    parted /dev/sda -- set 1 boot on
+    parted /dev/sda -- mkpart primary 512MiB 100%
+
     # Create the necessary filesystem on the efi system partition, which will store the current salt for the PBA, and mount it.
     EFI_MNT=/root/boot
     mkdir "$EFI_MNT"
@@ -161,6 +165,26 @@ setup_datasets () {
     echo "..done"
 }
 
+setup_filesystem () {
+    echo "Constructing the filesystem.."
+
+    mount -t zfs tank/root /mnt
+    
+    mkdir -p /mnt/boot
+    mount -t vfat "$EFI_PART" /mnt/boot
+    
+    mkdir -p /mnt/{home,nix,var/log}
+    mount -t zfs tank/nix /mnt/nix
+    mount -t zfs tank/home /mnt/home
+    mount -t zfs tank/systemd-logs /mnt/var/log
+
+    echo "..done"
+}   
+
+generate_config () {
+    nixos-generate-config --no-filesystems --show-hardware-config
+}
+
 main () {
     #nix-shell https://github.com/sgillespie/nixos-yubikey-luks/archive/master.tar.gz
     setup_yubikey
@@ -168,6 +192,8 @@ main () {
     setup_lvm
     setup_zpool
     setup_datasets
+    setup_filesystem
+    generate_config
 }
 
 main

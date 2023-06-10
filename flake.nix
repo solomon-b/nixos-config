@@ -17,6 +17,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     kmonad = {
       url = github:pnotequalnp/kmonad/flake?dir=nix;
       inputs.nixpkgs.follows = "nixpkgs";
@@ -74,6 +79,7 @@
       unstable,
       flake-utils,
       sops-nix,
+      nixos-generators,
       home-manager,
       kmonad,
       brightness-bar,
@@ -134,6 +140,17 @@
     in {
       devShell."${system}" = pkgs.mkShell {
         nativeBuildInputs = [ pkgs.colmena pkgs.nixfmt ];
+      };
+
+      packages.x86_64-linux = {
+        nixos-iso = nixos-generators.nixosGenerate {
+          inherit system;
+          format = "install-iso";
+          modules = [
+            ./installer
+            home-manager.nixosModules.home-manager
+          ];
+        };
       };
 
       nixosConfigurations = {

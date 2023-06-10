@@ -23,27 +23,20 @@ setup_partitions () {
     echo "..done"
 }
 
-setup_config () {
+install () {
     echo "Setting up initial nixos config.."
     
     nixos-generate-config --root /mnt
 
     cp /etc/configuration.nix /mnt/etc/nixos/configuration.nix
-
-    mkdir /mnt/secrets
-
-    cp /etc/primary-user-password /mnt/secrets/primary-user-password
-    cp /etc/id_ed25519.pub /mnt/secrets/id_ed25519.pub
-    cp /etc/id_ed25519 /mnt/secrets/id_ed25519
+    nixos-install
 
     echo "..done"
 }
 
-
 main () {
     setup_partitions
-    setup_config
-    nixos-install
+    install
     reboot
 }
 

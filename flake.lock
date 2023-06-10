@@ -192,6 +192,42 @@
         "type": "github"
       }
     },
+    "nixlib": {
+      "locked": {
+        "lastModified": 1685840432,
+        "narHash": "sha256-VJIbiKsY7Xy4E4WcgwUt/UiwYDmN5BAk8tngAjcWsqY=",
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "rev": "961e99baaaa57f5f7042fe7ce089a88786c839f4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
+    "nixos-generators": {
+      "inputs": {
+        "nixlib": "nixlib",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1685943944,
+        "narHash": "sha256-GpaQwOkvwkmSWxvWaZqbMKyyOSaBAwgdEcHCqLW/240=",
+        "owner": "nix-community",
+        "repo": "nixos-generators",
+        "rev": "122dcc32cadf14c5015aa021fae8882c5058263a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixos-generators",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1691252436,
@@ -250,6 +286,7 @@
         "gum": "gum",
         "home-manager": "home-manager",
         "kmonad": "kmonad",
+        "nixos-generators": "nixos-generators",
         "nixpkgs": "nixpkgs",
         "podcast-dl": "podcast-dl",
         "sops-nix": "sops-nix",
