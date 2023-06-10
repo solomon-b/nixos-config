@@ -24,13 +24,13 @@
   };
 
   environment.etc = {
-    "install.sh" = {
-      source = ./install.sh;
+    "install-server.sh" = {
+      source = ./install-server.sh;
       mode = "0700";
     };
 
-    "install-desktop.sh" = {
-      source = ./install-desktop.sh;
+    "install-pc.sh" = {
+      source = ./install-pc.sh;
       mode = "0700";
     };
 
@@ -52,6 +52,11 @@
     "id_ed25519.pub" = {
       source = ./id_ed25519.pub;
       mode = "0600";
+    };
+
+    "syncoid-ssh-key" = {
+      source = ./syncoid-ssh-key;
+      mode = "060";
     };
   };
 }
