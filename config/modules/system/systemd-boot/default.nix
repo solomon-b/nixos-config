@@ -2,7 +2,7 @@
 
 {
   boot.loader = {
-    timeout = 1;
+    timeout = 10;
     systemd-boot = {
       enable = true;
       editor = false;

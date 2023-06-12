@@ -4,57 +4,77 @@
   imports =
     [(modulesPath + "/installer/scan/not-detected.nix")];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ "dm-snapshot" "vfat" "nls_cp437" "nls_iso8859-1" "usbhid" ];
-  boot.initrd.luks = {
-    yubikeySupport = true;
-    devices = {
-      crypt = {
-        device = "/dev/sda2";
-        preLVM = true;
-        yubikey = {
-          slot = 2;
-          twoFactor = false;
-          storage = {
-            device = "/dev/sda1";
+  boot = {
+    initrd = {
+      availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
+      kernelModules = [ "dm-snapshot" "vfat" "nls_cp437" "nls_iso8859-1" "usbhid" ];
+      luks = {
+        yubikeySupport = true;
+        devices = {
+          crypt = {
+            device = "/dev/sda2";
+            preLVM = true;
+            yubikey = {
+              slot = 2;
+              twoFactor = false;
+              storage = {
+                device = "/dev/sda1";
+              };
+            };
           };
         };
       };
     };
+    kernelModules = [ ];
+    extraModulePackages = [ ];
   };
-  
-  boot.kernelModules = [ ];
-  boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "tank/root";
+  fileSystems = {
+    "/" = {
+      device = "none";
+      fsType = "tmpfs";
+      options = [ "defaults" "size=4G" "mode=755" ];
+    };
+
+    "/boot" =
+      { device = "/dev/disk/by-label/BOOT";
+        fsType = "vfat";
+      };
+
+    "/nix" =
+      { device = "tank/nix";
+        fsType = "zfs";
+      };
+
+    # Persistent user state.
+    "/home" =
+      { device = "tank/persist/home";
+        fsType = "zfs";
+      };
+
+    # Persistent global state.
+    "/persist" = {
+      device = "tank/persist/root";
       fsType = "zfs";
       neededForBoot = true;
     };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/9BA4-655D";
-      fsType = "vfat";
-    };
-
-  fileSystems."/home" =
-    { device = "tank/user";
+    "/var/log" = {
+      device = "tank/persist/systemd-logs";
       fsType = "zfs";
+      neededForBoot = true;
     };
 
-  fileSystems."/nix" =
-    { device = "tank/nix";
-      fsType = "zfs";
-    };
-
-  fileSystems."/mnt/nas" = {
-    device = "server:/nas";
-    fsType = "nfs";
-    options = [ "x-systemd.automount" "noauto" ];
+    # TODO:
+    # "/persist/docker/containers" = {
+    #   device = "tank/persist/docker-containers";
+    #   fsType = "zfs";
+    # };
   };
 
+
   swapDevices =
-    [{ device = "/dev/disk/by-uuid/06bd230c-8ee7-4ae9-8280-f8da4eff22c9"; }];
+    [{ device = "/dev/mapper/system-swap"; }];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 

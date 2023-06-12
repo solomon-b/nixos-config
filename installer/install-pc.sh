@@ -54,17 +54,19 @@ setup_partitions () {
     # Create a GPT partition table and two partitions on the target disk.
     # Partition 1: This will be the EFI system partition: 100MB-300MB
     # Partition 2: This will be the Luks-encrypted partition, aka the "luks device": Rest of your disk
+    #BLOCK_DEVICE=$(lsblk -I 8 -I 259 -dnlp | awk '{ print $1 }' | fzf --header="Choose a block device")
+
     EFI_PART=/dev/sda1
     LUKS_PART=/dev/sda2
 
     parted /dev/sda -- mkpart ESP fat32 1MiB 512MiB
-    parted /dev/sda -- set 1 boot on
+    parted /dev/sda -- set 1 esp on
     parted /dev/sda -- mkpart primary 512MiB 100%
 
     # Create the necessary filesystem on the efi system partition, which will store the current salt for the PBA, and mount it.
     EFI_MNT=/root/boot
     mkdir "$EFI_MNT"
-    mkfs.vfat -F 32 -n uefi "$EFI_PART"
+    mkfs.fat -F 32 -n BOOT "$EFI_PART"
     mount "$EFI_PART" "$EFI_MNT"
 
     # Decide where on the efi system partition to store the salt and prepare the directory layout accordingly.
@@ -130,29 +132,37 @@ setup_zpool () {
 setup_datasets () {
     echo "Creating ZFS datasets.."
 
+    echo "Creating a ZFS dataset for the Nix store"
     zfs create -p -v \
         -o relatime=off \
         -o mountpoint=legacy \
         -o com.sun:auto-snapshot=false \
         tank/nix
 
+    echo "Creating ZFS datasets for stateful user/system data"
     zfs create -p -v \
-        -o mountpoint=legacy \
-        -o secondarycache=none \
-	-o com.sun:auto-snapshot=true \
-        tank/root
+	-o mountpoint=none \
+	-o secondarycache=none \
+        -o com.sun:auto-snapshot=false \
+	tank/persist
 
     zfs create -p -v \
         -o mountpoint=legacy \
         -o secondarycache=none \
 	-o com.sun:auto-snapshot=true \
-        tank/home
+        tank/persist/root
+
+    zfs create -p -v \
+        -o mountpoint=legacy \
+        -o secondarycache=none \
+	-o com.sun:auto-snapshot=true \
+        tank/persist/home
 
     zfs create -p -v \
         -o mountpoint=legacy \
         -o secondarycache=none \
         -o com.sun:auto-snapshot=false \
-        tank/systemd-logs
+        tank/persist/systemd-logs
 
     zfs create \
         -o refreservation=2G \
@@ -167,22 +177,33 @@ setup_datasets () {
 
 setup_filesystem () {
     echo "Constructing the filesystem.."
-
-    mount -t zfs tank/root /mnt
     
+    mount -t tmpfs none /mnt
+
     mkdir -p /mnt/boot
     mount -t vfat "$EFI_PART" /mnt/boot
-    
-    mkdir -p /mnt/{home,nix,var/log}
+
+    mkdir -p /mnt/{home,nix,persist}
     mount -t zfs tank/nix /mnt/nix
-    mount -t zfs tank/home /mnt/home
-    mount -t zfs tank/systemd-logs /mnt/var/log
+    mount -t zfs tank/persist/root /mnt/persist
+    mount -t zfs tank/persist/home /mnt/home
+    
+    mkdir -p /mnt/{persist/etc/nixos,var/log}
+    mount -t zfs tank/persist/systemd-logs /mnt/var/log
 
     echo "..done"
 }   
 
+setup_persistant_data () {
+    mkdir -p /mnt/persist/etc/ssh
+    mkdir -p /mnt/persist/etc/NetworkManager/system-connections
+    mkdir -p /mnt/persist/docker-containers
+    touch /mnt/persist/machine-id
+}
+
 generate_config () {
     nixos-generate-config --no-filesystems --show-hardware-config
+    git clone https://github.com/solomon-b/nixos-config.git /mnt/persist/nixos-config
 }
 
 main () {
@@ -193,6 +214,7 @@ main () {
     setup_zpool
     setup_datasets
     setup_filesystem
+    setup_persistant_data
     generate_config
 }
 
