@@ -124,4 +124,8 @@ in
   services.nginx.virtualHosts."tubearchivist.service" = {
     locations."/".proxyPass = "http://localhost:8000";
   };
+
+  services.nginx.virtualHosts."tubearchivist.local" = {
+    locations."/".proxyPass = "http://localhost:8000";
+  };
 }
