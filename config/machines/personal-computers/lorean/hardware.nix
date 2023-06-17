@@ -29,6 +29,7 @@
   fileSystems."/" =
     { device = "tank/root";
       fsType = "zfs";
+      neededForBoot = true;
     };
 
   fileSystems."/boot" =
