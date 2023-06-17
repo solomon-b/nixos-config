@@ -2,8 +2,7 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+    [(modulesPath + "/installer/scan/not-detected.nix")];
 
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "zfs" ];
@@ -13,30 +12,42 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "tank/root";
+  fileSystems = {
+    "/" = {
+      device = "tank/root";
       fsType = "zfs";
     };
 
-  fileSystems."/home" =
-    { device = "tank/user";
+    "/home" = {
+      device = "tank/user";
       fsType = "zfs";
     };
 
-  fileSystems."/nix" =
-    { device = "tank/nix";
+    "/nix" = {
+      device = "tank/nix";
       fsType = "zfs";
     };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/37BC-35DA";
+    "/boot" = {
+      device = "/dev/disk/by-uuid/37BC-35DA";
       fsType = "vfat";
     };
 
-  fileSystems."/srv/NAS" =
-    { device = "rpool/data";
+    "/srv/NAS" = {
+      device = "rpool/data";
       fsType = "zfs";
     };
+
+    "/mnt/media" = {
+      device = "192.168.5.6:/mnt/tank/Media ";
+      fsType = "nfs";
+    };
+
+    "/mnt/storage" = {
+      device = "192.168.5.6:/mnt/tank/solomon";
+      fsType = "nfs";
+    };
+  };
 
   swapDevices = [ ];
 

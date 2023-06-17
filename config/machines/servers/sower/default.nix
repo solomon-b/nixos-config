@@ -7,7 +7,6 @@
     ./immich.nix
     ./podgrab.nix
     ./navidrome.nix
-    ./nfs.nix
     ./tubearchivist.nix
 
     ../../../profiles/physical-machine
