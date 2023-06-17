@@ -4,6 +4,7 @@
   imports = [
     ./hardware.nix
     #./hoogle.nix
+    #./home-assistant.nix
     ./immich.nix
     ./podgrab.nix
     ./navidrome.nix
