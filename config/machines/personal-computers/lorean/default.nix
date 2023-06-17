@@ -40,29 +40,18 @@
 
   services.clamav.daemon.enable = true;
 
-  # Persist Machine ID
-  environment.etc = {
-    "machine-id".source = "/nix/persist/etc/machine-id";
+  environment.persistence."/persist" = {
+    hideMounts = true;
+    directories = [
+      "/etc/NetworkManager/system-connections"
+    ];
 
-    # Persist Network Manager Connections
-    "NetworkManager/system-connections" = {
-      source = "/persist/etc/NetworkManager/system-connections/";
-    };
-  };
-
-  # Persist SSH Host Keys
-  services.openssh = {
-    enable = true;
-    hostKeys = [
-      {
-        path = "/persist/ssh/ssh_host_ed25519_key";
-        type = "ed25519";
-      }
-      {
-        path = "/persist/ssh/ssh_host_rsa_key";
-        type = "rsa";
-        bits = 4096;
-      }
+    files = [
+      "/etc/machine-id"
+      "/etc/ssh/ssh_host_ed25519_key"
+      "/etc/ssh/ssh_host_ed25519_key.pub"
+      "/etc/ssh/ssh_host_rsa_key"
+      "/etc/ssh/ssh_host_rsa_key.pub"
     ];
   };
 }

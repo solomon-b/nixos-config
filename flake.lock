@@ -166,6 +166,21 @@
         "type": "github"
       }
     },
+    "impermanence": {
+      "locked": {
+        "lastModified": 1690797372,
+        "narHash": "sha256-GImz19e33SeVcIvBB7NnhbJSbTpFFmNtWLh7Z85Y188=",
+        "owner": "nix-community",
+        "repo": "impermanence",
+        "rev": "e3a7acd113903269a1b5c8b527e84ce7ee859851",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "impermanence",
+        "type": "github"
+      }
+    },
     "kmonad": {
       "inputs": {
         "flake-utils": [
@@ -285,6 +300,7 @@
         "graphqurl": "graphqurl",
         "gum": "gum",
         "home-manager": "home-manager",
+        "impermanence": "impermanence",
         "kmonad": "kmonad",
         "nixos-generators": "nixos-generators",
         "nixpkgs": "nixpkgs",

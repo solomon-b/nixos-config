@@ -17,8 +17,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    impermanence = {
+      url = github:nix-community/impermanence;
+    };
+
     nixos-generators = {
-      url = "github:nix-community/nixos-generators";
+      url = github:nix-community/nixos-generators;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -81,6 +85,7 @@
       sops-nix,
       nixos-generators,
       home-manager,
+      impermanence,
       kmonad,
       brightness-bar,
       volume-bar,
@@ -112,8 +117,6 @@
           xmonad-solomon.overlays.xmonad-contrib
           gum.overlays.default
           fonts.overlays.default
-          (final: prev: { eww = eww.packages.${final.system}.default; })
-          #(self: super: { nix-direnv = super.nix-direnv.override { enableFlakes = true; }; } )
         ];
       };
       
@@ -167,6 +170,7 @@
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
             sops-nix.nixosModules.sops
+            impermanence.nixosModules.impermanence
           ];
 
           specialArgs = { inherit inputs; };
