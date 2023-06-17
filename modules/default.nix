@@ -6,7 +6,6 @@
     ./nixos/primary-user.nix
     ./nixos/qbittorrent.nix
     ./nixos/s3fs.nix
-    ./nixos/youtube-dl.nix
 
     # ./nixos/powerpanel.nix # Ask Connor
     # ./nixos/preLVMTempMount.nix # Is this temp fs related?
