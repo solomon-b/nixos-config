@@ -8,6 +8,11 @@
   DNS Server
 - sower
   media streaming
+  - immich
+  - jellyfin
+  - podgrab
+  - tubearchivist
+  - navidrome
 - storm-bird
   Prometheus/Grafana Monitoring
 - transfigured-night
