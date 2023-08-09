@@ -6,6 +6,7 @@
     #./hoogle.nix
     #./home-assistant.nix
     ./immich.nix
+    ./planka.nix
     ./podgrab.nix
     ./navidrome.nix
     ./tubearchivist.nix

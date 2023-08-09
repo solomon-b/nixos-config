@@ -61,6 +61,8 @@
         "tubearchivist.service" = "100.80.98.4";
         "home-assistant.service" = "100.80.98.4";
         "home-assistant.local" = "192.168.5.7";
+        "planka.service" = "100.80.98.4";
+        "planka.local" = "192.168.5.7";
       };
 
       blocking = {

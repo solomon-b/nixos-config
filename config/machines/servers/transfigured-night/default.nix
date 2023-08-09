@@ -43,6 +43,7 @@
     ensureDatabases = [
       "tt_rss"
       "hasura"
+      "planka"
     ];
 
     ensureUsers = [
@@ -56,15 +57,26 @@
           "DATABASE hasura" = "ALL PRIVILEGES";
         };
       }
+      { name = "planka_admin";
+        ensurePermissions = {
+          "DATABASE hasura" = "ALL PRIVILEGES";
+        };
+      }
     ];
 
     authentication = ''
       host all all 100.100.33.33/32 md5
       host all all nightshade md5
+
       host tt_rss tt_rss accompaniment-of-shadows md5
+
       host immich immich 100.80.98.4/32 md5
       host immich immich 192.168.5.7/32 md5
       host immich immich sower md5
+
+      host planka planka_admin 100.80.98.4/32 md5
+      host planka planka_admin 192.168.5.7/32 md5
+      host planka planka_admin sower md5
     '';
   };
 
