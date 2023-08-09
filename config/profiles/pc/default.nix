@@ -67,6 +67,7 @@
     discord
     signal-desktop
     slack
+    telegram-desktop
     zoom-us
 
     # Pandoc Related
