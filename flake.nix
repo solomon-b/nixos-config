@@ -12,6 +12,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    disko = {
+      inputs.nixpkgs.follows = "unstable";
+      url = "github:nix-community/disko";
+    };
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -78,6 +83,7 @@
       nixpkgs,
       unstable,
       flake-utils,
+      disko,
       sops-nix,
       nixos-generators,
       home-manager,
@@ -182,6 +188,7 @@
             })
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
+            disko.nixosModules.disko
             sops-nix.nixosModules.sops
           ];
 
