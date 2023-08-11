@@ -43,15 +43,8 @@
     emacs
 
     # Desktop Environment
-    batsignal
     brightnessctl
-    brightness-bar
-    dunst
     libnotify
-    networkmanagerapplet
-    trayer
-    volume-bar
-    xbanish
     xlayoutdisplay
 
     # DB
@@ -61,7 +54,6 @@
     vlc
     scrot
     zathura
-    feh
 
     # Chat/Communication
     discord

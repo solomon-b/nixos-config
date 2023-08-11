@@ -22,7 +22,7 @@
       displayManager = {
         defaultSession = "none+xmonad";
         lightdm.enable = true;
-        lightdm.background = "/usr/share/backgrounds/Vaporwave.jpg";
+        lightdm.background = ./wallpapers/Yosemite-Color-Block.png;
       };
   };
 
@@ -33,14 +33,14 @@
 
   # https://mynixos.com/home-manager/option/xdg.configFile.%3Cname%3E.source
   primary-user.home-manager.xdg.configFile."startup.sh".text = ''
-    nm-applet
-    feh --bg-scale /home/solomon/Public/wallpapers/Yosemite-Color-Block.png
-    xbanish
-    trayer --edge top --width 3 --align right --height 17 --transparent true --alpha 0 --tint 0x2d2d2d
-    dunst
-    batsignal -b -W \"Warnings: Battery Low\"
-    volume-bar
-    brightness-bar
+    ${pkgs.networkmanagerapplet}/bin/nm-applet
+    ${pkgs.feh}/bin/feh --bg-scale ${./wallpapers/Yosemite-Color-Block.png}
+    ${pkgs.xbanish}/bin/xbanish
+    ${pkgs.trayer}/bin/trayer --edge top --width 3 --align right --height 17 --transparent true --alpha 0 --tint 0x2d2d2d
+    ${pkgs.dunst}/bin/dunst
+    ${pkgs.batsignal}/bin/batsignal -b -W \"Warnings: Battery Low\"
+    ${pkgs.volume-bar}/bin/volume-bar
+    ${pkgs.brightness-bar}/bin/brightness-bar
   '';
 
   primary-user.home-manager.xdg.dataFile."emoji".source = ./emoji;
