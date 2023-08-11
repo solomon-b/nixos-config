@@ -34,46 +34,45 @@
     };
 
     brightness-bar = {
-      url = path:/home/solomon/Development/Nix/nixos-config/flakes/brightness-bar;
+      url = path:/etc/nixos/flake/flakes/brightness-bar;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     volume-bar = {
-      url = path:/home/solomon/Development/Nix/nixos-config/flakes/volume-bar;
+      url = path:/etc/nixos/flake/flakes/volume-bar;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     xmobar-solomon = {
-      #url = path:./flakes/xmobar-solomon;
-      url = path:/home/solomon/Development/Nix/nixos-config/flakes/xmobar-solomon;
+      url = path:/etc/nixos/flake/flakes/xmobar-solomon;
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
 
     xmonad-solomon = {
-      url = path:/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon;
+      url = path:/etc/nixos/flake/flakes/xmonad-solomon;
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.unstable.follows = "unstable";
       inputs.flake-utils.follows = "flake-utils";
     };
 
     graphqurl = {
-      url = path:/home/solomon/Development/Nix/nixos-config/flakes/graphqurl;
+      url = path:/etc/nixos/flake/flakes/graphqurl;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     podcast-dl = {
-      url = path:/home/solomon/Development/Nix/nixos-config/flakes/podcast-dl;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    fonts = {
-      url = path:/home/solomon/Development/Nix/nixos-config/flakes/fonts;
+      url = path:/etc/nixos/flake/flakes/podcast-dl;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     gum = {
       url = github:solomon-b/gum;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    fonts = {
+      url = path:/etc/nixos/flake/flakes/fonts;
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -83,10 +82,10 @@
       nixpkgs,
       unstable,
       flake-utils,
+      home-manager,
       disko,
       sops-nix,
       nixos-generators,
-      home-manager,
       kmonad,
       brightness-bar,
       volume-bar,
@@ -144,7 +143,7 @@
         };
       };
     in {
-      devShell."${system}" = pkgs.mkShell {
+      devShells."${system}".default = pkgs.mkShell {
         nativeBuildInputs = [ pkgs.colmena pkgs.nixfmt ];
       };
 
