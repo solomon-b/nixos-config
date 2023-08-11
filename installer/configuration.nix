@@ -1,5 +1,5 @@
 # Default system config for fresh machines.
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [ ./hardware-configuration.nix ];
@@ -33,7 +33,7 @@
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKK3kMxgeA9ivLG/A81PNKhRJx32r7dzFnl+SZNhBc9K solomon@sower"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMngowB0i16wwKP0j+L207+dr512n+rbfYsh/MAPD+PS solomon@apollyon"
       ];
-      passwordFile = "/secrets/primary-user-password";
+      passwordFile = "/etc/primary-user-password";
     };
     users.root.hashedPassword = "*";
   }; 
@@ -48,14 +48,13 @@
 
   networking = {
     hostName = "nixos";
-    interfaces.enp0s4.useDHCP = true;
-    #interfaces.enp1s0.useDHCP = true;
-    useDHCP = false;
+    wireless.enable = true;
+    useDHCP = lib.mkDefault true;
     # TODO: This should be generated in the install.sh script
     hostId = "997f3c8d";
   };
 
-  environment.systemPackages = [ pkgs.vim ];
+  environment.systemPackages = [ pkgs.vim pkgs.git ];
 
   system.stateVersion = "22.05";
 }

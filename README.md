@@ -11,6 +11,10 @@
 - [installer](https://github.com/solomon-b/nixos-config/tree/main/installer): Custom nixos installer iso I use to quickly provision new machines.
 ## Usage
 ### Adding A New Machine
+You can use [nixos-anywhere](https://github.com/numtide/nixos-anywhere) to provision a new phyiscal machine. Create a new machine under `machines/personal-computers` then boot your new machine with any linux boot disk that provides you ssh access to `root` and run `nix run '.#install-pc'`. The script will prompt for the machine name and IP address.
+
+For the moment virtual machines must be provisioned more manually (`nixos-anywhere` script comming soon).
+
 Provision a new machine by your usual methods. I use a custom nixos installer cribbed from [wagdav's homelab](https://github.com/wagdav/homelab). The ISO can be built with the following command:
 
 ```

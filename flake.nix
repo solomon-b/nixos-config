@@ -143,6 +143,7 @@
       };
 
       packages.x86_64-linux = {
+        # NixOS boot disk with my SSH Keys integrated
         nixos-iso = nixos-generators.nixosGenerate {
           inherit system;
           format = "install-iso";
@@ -151,6 +152,21 @@
             home-manager.nixosModules.home-manager
           ];
         };
+
+        # NixOS-Anywhere provisioning script for physical machines.
+        # nix run '.#install-pc'
+        install-pc =
+          let src = builtins.readFile ./installer/install-pc.sh;
+
+              script = (pkgs.writeScriptBin "install-pc" src).overrideAttrs(old: {
+                buildCommand = "${old.buildCommand}\n patchShebangs $out";
+              });
+          in pkgs.symlinkJoin {
+            name = "install-pc";
+            paths = [ pkgs.gum pkgs.jq pkgs.pass script ];
+            buildInputs = [ pkgs.makeWrapper ];
+            postBuild = "wrapProgram $out/bin/install-pc --prefix PATH : $out/bin";
+          };
       };
 
       nixosConfigurations = {
