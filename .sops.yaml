@@ -1,7 +1,7 @@
 # NOTE: use `sops updatekeys --yes secrets.yaml` to add/remove recipients.
 keys:
   - &solomon age1nq3ecxhfnr4j656gydwmedlrrwj0huuzel0lhu32hq02xwcjzajsfz4s96
-  - &solomon_lorean age1r3jckp4xe5v24c7nhu95swnc4h8rgewhyg20esus7m4eszd7dq7sxasmxt
+  - &solomon_lorean age1dx0vjma76vhq0qqvgufh6vcv30r3vvugr5stvgu25yhwjej2g5cstkqxtk
   - &server_accompaniment-of-shadows age1m34247m4q466wdxrg729ytss0n4jqwa29577m5u2w7rnytyep50s8wuusn
   - &server_apollyon age1rd3mdchrf5lnkcl55ve7jq30rptaw7g7qu9jn940uawqu2saadzspr3e7x
   - &server_madonna-of-the-wasps age1x0ky8x43artkyr2w47ca6muy7pqr9h57l5284aex6wftltj6u45q6kc6g4
@@ -10,7 +10,7 @@ keys:
   - &server_storm-bird age14qgly6gwzf0sc4sfchwkaesd6u4gl4mksjhx2reapnxz7p25kugshk0x2f
   - &server_transfigured-night age1cw04hz668dw2gxd8dkpyzk7yjwushtg9v77qzyhn9jgtfl4xm46s2jeexg
   - &pc_nightshade age1tectddc3anxgl6yj7k8x85udfht5n9vhk9p8ry8x8rlsawgwvfrq8fza4d
-  - &pc_lorean age1sq0wpzwsy9938vddz3773hxt8keg2297x34fuh7tcjfqzdzwlcaqz4jqv4
+  - &pc_lorean age1h9eclrfude5fkzvt0v7sjyhfsu5f839xw0wwh29lrptq70mfvgescqng6a
 creation_rules:
   - path_regex: secrets.yaml$
     key_groups:
