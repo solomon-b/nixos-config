@@ -9,12 +9,32 @@
       "locked": {
         "lastModified": 1691337463,
         "narHash": "sha256-ea3GoM8tP3E9eYVcgTXRX4YY5JI71kgjadSt6u6+X1c=",
-        "path": "/home/solomon/Development/Nix/nixos-config/flakes/brightness-bar",
+        "path": "/etc/nixos/flake/flakes/brightness-bar",
         "type": "path"
       },
       "original": {
-        "path": "/home/solomon/Development/Nix/nixos-config/flakes/brightness-bar",
+        "path": "/etc/nixos/flake/flakes/brightness-bar",
         "type": "path"
+      }
+    },
+    "disko": {
+      "inputs": {
+        "nixpkgs": [
+          "unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1691672939,
+        "narHash": "sha256-MvDfQ3PEDDLc5Pa46rmbH/ULrc7LztRxeVui5aOae4k=",
+        "owner": "nix-community",
+        "repo": "disko",
+        "rev": "32e7d56c080e1b07c5f3d3ed6063c3ec64c5a8f8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "disko",
+        "type": "github"
       }
     },
     "flake-utils": {
@@ -78,11 +98,11 @@
       "locked": {
         "lastModified": 1691337463,
         "narHash": "sha256-JNeIIdkeHcVfqDprsW8YlxtDNTxbwFnHI978DspO/iE=",
-        "path": "/home/solomon/Development/Nix/nixos-config/flakes/fonts",
+        "path": "/etc/nixos/flake/flakes/fonts",
         "type": "path"
       },
       "original": {
-        "path": "/home/solomon/Development/Nix/nixos-config/flakes/fonts",
+        "path": "/etc/nixos/flake/flakes/fonts",
         "type": "path"
       }
     },
@@ -116,11 +136,11 @@
       "locked": {
         "lastModified": 1691337463,
         "narHash": "sha256-daBTtKVfCaUuRC9O9VerpulclGt2EJjgcuE1uaaoZvE=",
-        "path": "/home/solomon/Development/Nix/nixos-config/flakes/graphqurl",
+        "path": "/etc/nixos/flake/flakes/graphqurl",
         "type": "path"
       },
       "original": {
-        "path": "/home/solomon/Development/Nix/nixos-config/flakes/graphqurl",
+        "path": "/etc/nixos/flake/flakes/graphqurl",
         "type": "path"
       }
     },
@@ -269,17 +289,18 @@
       "locked": {
         "lastModified": 1691337463,
         "narHash": "sha256-uhk4tyAFtMU4xbLXLOe8jKb7zmzxQNE0yQt7d7SQ5A0=",
-        "path": "/home/solomon/Development/Nix/nixos-config/flakes/podcast-dl",
+        "path": "/etc/nixos/flake/flakes/podcast-dl",
         "type": "path"
       },
       "original": {
-        "path": "/home/solomon/Development/Nix/nixos-config/flakes/podcast-dl",
+        "path": "/etc/nixos/flake/flakes/podcast-dl",
         "type": "path"
       }
     },
     "root": {
       "inputs": {
         "brightness-bar": "brightness-bar",
+        "disko": "disko",
         "flake-utils": "flake-utils",
         "fonts": "fonts",
         "graphqurl": "graphqurl",
@@ -371,11 +392,11 @@
       "locked": {
         "lastModified": 1691337463,
         "narHash": "sha256-tXKvrwrlRnuLpRjQIKk2oZhWgYB4Q5hLWV5TsSq+gYY=",
-        "path": "/home/solomon/Development/Nix/nixos-config/flakes/volume-bar",
+        "path": "/etc/nixos/flake/flakes/volume-bar",
         "type": "path"
       },
       "original": {
-        "path": "/home/solomon/Development/Nix/nixos-config/flakes/volume-bar",
+        "path": "/etc/nixos/flake/flakes/volume-bar",
         "type": "path"
       }
     },
@@ -391,11 +412,11 @@
       "locked": {
         "lastModified": 1691337463,
         "narHash": "sha256-4weXXywPXqJnhogLhEVq7rXXYDRY079cIQGYr0RycXk=",
-        "path": "/home/solomon/Development/Nix/nixos-config/flakes/xmobar-solomon",
+        "path": "/etc/nixos/flake/flakes/xmobar-solomon",
         "type": "path"
       },
       "original": {
-        "path": "/home/solomon/Development/Nix/nixos-config/flakes/xmobar-solomon",
+        "path": "/etc/nixos/flake/flakes/xmobar-solomon",
         "type": "path"
       }
     },
@@ -483,11 +504,11 @@
       "locked": {
         "lastModified": 1691337463,
         "narHash": "sha256-KiXTeYmdwZZmXyb8XjVXLSq6oY25bUeouwWPNQUFsK4=",
-        "path": "/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon",
+        "path": "/etc/nixos/flake/flakes/xmonad-solomon",
         "type": "path"
       },
       "original": {
-        "path": "/home/solomon/Development/Nix/nixos-config/flakes/xmonad-solomon",
+        "path": "/etc/nixos/flake/flakes/xmonad-solomon",
         "type": "path"
       }
     }
