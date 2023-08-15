@@ -13,17 +13,17 @@
     };
 
     disko = {
+      url = github:nix-community/disko;
       inputs.nixpkgs.follows = "unstable";
-      url = "github:nix-community/disko";
     };
 
     sops-nix = {
-      url = "github:Mic92/sops-nix";
+      url = github:Mic92/sops-nix;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixos-generators = {
-      url = "github:nix-community/nixos-generators";
+      url = github:nix-community/nixos-generators;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -61,16 +61,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    podcast-dl = {
-      url = path:/etc/nixos/flake/flakes/podcast-dl;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    gum = {
-      url = github:solomon-b/gum;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     fonts = {
       url = path:/etc/nixos/flake/flakes/fonts;
       inputs.nixpkgs.follows = "nixpkgs";
@@ -92,8 +82,6 @@
       xmobar-solomon,
       xmonad-solomon,
       graphqurl,
-      podcast-dl,
-      gum,
       fonts
   }:
     let
@@ -109,13 +97,11 @@
           brightness-bar.overlay
           graphqurl.overlay
           kmonad.overlay
-          podcast-dl.overlay
           volume-bar.overlay
           xmobar-solomon.overlay
           xmonad-solomon.overlays.default
           xmonad-solomon.overlays.xmonad
           xmonad-solomon.overlays.xmonad-contrib
-          gum.overlays.default
           fonts.overlays.default
           (final: prev: { eww = eww.packages.${final.system}.default; })
           #(self: super: { nix-direnv = super.nix-direnv.override { enableFlakes = true; }; } )
