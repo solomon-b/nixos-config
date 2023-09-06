@@ -9,6 +9,7 @@
     ./zfs.nix
 
     ../../../profiles/pc
+    ../../../modules/services/virtualisation/anbox
     ../../../modules/services/virtualisation/libvirt
     ../../../modules/system/devices/touchpad
     ../../../modules/system/powertop
