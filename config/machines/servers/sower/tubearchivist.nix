@@ -19,8 +19,8 @@ in
     tubearchivist = {
       imageFile = pkgs.dockerTools.pullImage {
         imageName =  "bbilly1/tubearchivist";
-        imageDigest =  "sha256:0653c43ef7ca887fd73a7d1b7b9fae4a6e0cfa32fdeac965179aee47c1c4ee83"; 
-        sha256 =  "sha256-SUucXy6wis2kONtdDHMVJL3MK1OZ6RxMfumK8rxGlXI=";
+        imageDigest =  "sha256:a87e4737d8b8a44fed7d76b10c8d500c930f0e7c50627b6e644daeb7dd15cdaf"; 
+        sha256 =  "sha256-tEawjfTthX9xAdwqE+J2IlHEFWNtHOweu04Vs5vNNhE=";
       };
       image = "bbilly1/tubearchivist:v0.3.6";
 
@@ -51,8 +51,8 @@ in
     archivist-es = {
       imageFile = pkgs.dockerTools.pullImage {
         imageName =  "bbilly1/tubearchivist-es";
-        imageDigest =  "sha256:861409a3479ce337308777570ea6caa179731c59e10181d2931a110766b0d2fb"; 
-        sha256 =  "sha256-Qd0I9q9pQF1EO41dWkwTpPCIEsMHgga0jWcq1VmKpnA=";
+        imageDigest =  "sha256:d84dcd18c9a35d63d6d92c3ee40b5a7e4caf2c3c7a931a587eba18ff8ecf5bc9"; 
+        sha256 =  "sha256-WwrHAJEQcjys3xZRRLx2lAwVKV5nKABjSAtV4MrZ4hQ=";
       };
       image = "bbilly1/tubearchivist-es:8.7.0";
 
