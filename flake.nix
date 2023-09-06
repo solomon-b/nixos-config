@@ -27,6 +27,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixos-hardware = {
+      url = github:NixOS/nixos-hardware/master;
+    };
+
     kmonad = {
       url = github:pnotequalnp/kmonad/flake?dir=nix;
       inputs.nixpkgs.follows = "nixpkgs";
@@ -75,6 +79,7 @@
       home-manager,
       disko,
       sops-nix,
+      nixos-hardware,
       nixos-generators,
       kmonad,
       brightness-bar,
@@ -208,6 +213,7 @@
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
             sops-nix.nixosModules.sops
+            nixos-hardware.nixosModules.framework
           ];
 
           specialArgs = { inherit inputs; };
