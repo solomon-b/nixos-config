@@ -28,21 +28,6 @@
   };
 
   environment = {
-    systemPackages = [
-      pkgs.gitMinimal
-      pkgs.vim
-    ];
-
-    etc = {
-      "install-server.sh" = {
-        source = ./install-server.sh;
-        mode = "0700";
-      };
-
-      "configuration.nix" = {
-        source = ./configuration.nix;
-        mode = "0600";
-      };
-    };
+    systemPackages = [ pkgs.vim ];
   };
 }

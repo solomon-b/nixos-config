@@ -14,7 +14,7 @@ cleanup() {
 
 main () {
     echo "Pick a machine:"
-    MACHINE=$(nix flake show --quiet --no-warn-dirty --json | jq -r '.nixosConfigurations | keys | join("\n")' | gum choose)
+    MACHINE=$(ls config/machines/personal-computers | gum choose)
     IP=$(gum input --placeholder "enter address..")
 
     # Create a temporary directory
@@ -24,14 +24,17 @@ main () {
     # Create the directory where sshd expects to find the host keys
     install -d -m755 "$temp/etc/ssh"
 
-    # Decrypt your private key from the password store and copy it to the temporary directory
+    # Decrypt your SSH host keys from the password store and copy it to the temporary directory
     pass "machine/${MACHINE}/ssh-host-key/ed25519/private" > "$temp/etc/ssh/ssh_host_ed25519_key"
     pass "machine/${MACHINE}/ssh-host-key/ed25519/public" > "$temp/etc/ssh/ssh_host_ed25519_key.pub"
     pass "machine/${MACHINE}/ssh-host-key/rsa/private" > "$temp/etc/ssh/ssh_host_rsa_key"
     pass "machine/${MACHINE}/ssh-host-key/rsa/public" > "$temp/etc/ssh/ssh_host_rsa_key.pub"
 
-    # Set the correct permissions so sshd will accept the key
+    # Set the correct permissions so sshd will accept the keys
     chmod 600 "$temp/etc/ssh/ssh_host_ed25519_key"
+    chmod 644 "$temp/etc/ssh/ssh_host_ed25519_key.pub"
+    chmod 600 "$temp/etc/ssh/ssh_host_rsa_key"
+    chmod 644 "$temp/etc/ssh/ssh_host_rsa_key.pub"
 
     # Install NixOS to the host system with our secrets
     nix run github:numtide/nixos-anywhere -- --extra-files "$temp" --flake ".#${MACHINE}" "root@${IP}" --no-reboot
@@ -55,7 +58,7 @@ EOF
     # Copy GPG
     rsync -a -essh /home/solomon/.gnupg "root@${IP}:/mnt/home/solomon/"
 
-    #ssh "root@${IP}" 'reboot now'
+    ssh "root@${IP}" 'reboot now'
 }
 
 main

@@ -158,6 +158,21 @@
             buildInputs = [ pkgs.makeWrapper ];
             postBuild = "wrapProgram $out/bin/install-pc --prefix PATH : $out/bin";
           };
+
+        # NixOS-Anywhere provisioning script for virtual machines and remote servers.
+        # nix run '.#install-server'
+        install-server =
+          let src = builtins.readFile ./installer/install-server.sh;
+
+              script = (pkgs.writeScriptBin "install-pc" src).overrideAttrs(old: {
+                buildCommand = "${old.buildCommand}\n patchShebangs $out";
+              });
+          in pkgs.symlinkJoin {
+            name = "install-server";
+            paths = [ pkgs.gum pkgs.jq pkgs.pass script ];
+            buildInputs = [ pkgs.makeWrapper ];
+            postBuild = "wrapProgram $out/bin/install-pc --prefix PATH : $out/bin";
+          };
       };
 
       nixosConfigurations = {

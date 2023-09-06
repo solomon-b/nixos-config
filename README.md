@@ -11,23 +11,15 @@
 - [installer](https://github.com/solomon-b/nixos-config/tree/main/installer): Custom nixos installer iso I use to quickly provision new machines.
 ## Usage
 ### Adding A New Machine
-You can use [nixos-anywhere](https://github.com/numtide/nixos-anywhere) to provision a new phyiscal machine. Create a new machine under `machines/personal-computers` then boot your new machine with any linux boot disk that provides you ssh access to `root` and run `nix run '.#install-pc'`. The script will prompt for the machine name and IP address.
+You can use [nixos-anywhere](https://github.com/numtide/nixos-anywhere) to provision a new phyiscal machine. Create a new machine under `machines/personal-computers` or `machines/servers` then boot your new machine with any linux boot disk that provides you ssh access to `root`. 
 
-For the moment virtual machines must be provisioned more manually (`nixos-anywhere` script comming soon).
+A custom nixos install disk can be build with `nix build '.#nixos-iso'`. This ISO will include SSH public keys from `config/modules/security/sshd/public-keys.nix` as authorizedKeys for `root`.
 
-Provision a new machine by your usual methods. I use a custom nixos installer cribbed from [wagdav's homelab](https://github.com/wagdav/homelab). The ISO can be built with the following command:
+Finally, run `nix run '.#install-pc'` or `nix run '.#install-server'` to provision the machine with `nixos-anywhere`. The script will prompt for the machine name and IP address.
 
-```
-$ nix-build '<nixpkgs/nixos>' -A config.system.build.isoImage -I nixos-config=iso.nix
-```
+NOTE: If you don't use the installer ISO and wish to deploy with `colmena` or provision with `nixos-anywhere` then be sure to provide your root user with an [authorized SSH key](https://github.com/solomon-b/nixos-config/blob/main/installer/configuration.nix#L48).
 
-`iso.nix` includes the provided `installer.sh` and `configuration.nix` in `/etc` on the ISO.
-
-Be sure to update the [authorizedKeys](https://github.com/solomon-b/nixos-config/blob/main/installer/configuration.nix#L30-L36) in `configuration.nix` and to create a [primary-user-password](https://github.com/solomon-b/nixos-config/blob/main/installer/iso.nix#L37) file with a hashed password in `installer/` before building an installer `ISO`.
-
-NOTE: If you don't use the installer ISO and wish to deploy with `colmena` then be sure to provide your root user with an [authorized SSH key](https://github.com/solomon-b/nixos-config/blob/main/installer/configuration.nix#L48).
-
-Once you have a machine provisioned, create a machine configuration in either `config/machines/servers` or `config/machines/personal-computers`. Be sure to use a `profile` or else the `primary-user` module will not work.
+Once you have your machine provisioned you can use `colmena apply --on $MACHINE` to deploy it.
 
 Lastly, if you are deploying with `colmena` then you will either need a DNS entry for your machine names or you will need to tweak the `mkMachine` function and set the IP with [deployment.targetHost](https://colmena.cli.rs/unstable/reference/deployment.html#deploymenttargethost).
 
