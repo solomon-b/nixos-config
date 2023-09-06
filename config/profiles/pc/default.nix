@@ -10,7 +10,6 @@
     ../../modules/system/nix-direnv
 
     ../../modules/services/docker
-    ../../modules/services/redis
 
     ../../modules/ui/audio
     ../../modules/ui/direnv
