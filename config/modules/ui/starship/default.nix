@@ -11,7 +11,6 @@
         success_symbol = "➜";
         error_symbol = "✗";
       };
-      line_break.disabled = true;
     };
   };
 }
