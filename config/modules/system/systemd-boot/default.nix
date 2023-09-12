@@ -1,10 +1,10 @@
-{ ... }:
+{ lib, ... }:
 
 {
   boot.loader = {
-    timeout = 1;
+    timeout = lib.mkDefault 1;
     systemd-boot = {
-      enable = true;
+      enable = lib.mkDefault true;
       editor = false;
     };
     efi.canTouchEfiVariables = true;
