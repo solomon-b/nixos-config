@@ -28,6 +28,7 @@
       httpPort = 4000;
 
       customDNS.mapping = {
+        # Physical Machines
         "nightshade" = "100.100.33.33";
         "nightshade.machine" = "100.100.33.33";
         "lorean" = "100.92.19.49";
@@ -37,6 +38,10 @@
         "sandra-voi" = "192.168.5.6";
         "sandra-voi.machine" = "192.168.5.6";
 
+        # Virtual Machines Digital Ocean
+        "gnostic-ascension" = "138.68.0.20";
+
+        # Virtual Machines on sandra-voi
         "accompaniment-of-shadows" = "100.123.147.26";
         "apollyon" = "192.168.5.104";
         "madonna-of-the-wasps" = "100.70.16.79";
@@ -44,6 +49,7 @@
         "storm-bird" = "100.97.232.9";
         "transfigured-night" = "100.96.251.72";
 
+        # Services on accompaniment-of-shadows
         "filebrowser.service" = "100.123.147.26";
         "heimdall.service" = "100.123.147.26";
         "homepage.service" = "100.123.147.26";
@@ -52,6 +58,7 @@
         "prowlarr.service" = "100.123.147.26";
         "sabnzbd.service" = "100.123.147.26";
 
+        # Services on sower
         "jellyfin.local" = "192.168.5.7";
         "jellyfin.service" = "100.80.98.4";
         "podgrab.service" = "100.80.98.4";
