@@ -135,7 +135,7 @@
       };
     in {
       devShells."${system}".default = pkgs.mkShell {
-        nativeBuildInputs = [ pkgs.colmena pkgs.nixfmt ];
+        nativeBuildInputs = [ pkgs.colmena pkgs.nixfmt pkgs.sops ];
       };
 
       packages.x86_64-linux = {
