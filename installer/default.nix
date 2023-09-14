@@ -29,5 +29,17 @@
 
   environment = {
     systemPackages = [ pkgs.vim ];
+
+    etc = {
+      "connect.sh" = {
+        source = ./connect.sh;
+        mode = "0777";
+      };
+
+      "configuration.nix" = {
+        source = ./configuration.nix;
+        mode = "0666";
+      };
+    };
   };
 }
