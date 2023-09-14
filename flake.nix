@@ -38,36 +38,26 @@
     };
 
     brightness-bar = {
-      url = path:/etc/nixos/flake/flakes/brightness-bar;
+      url = github:solomon-b/brightness-bar;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     volume-bar = {
-      url = path:/etc/nixos/flake/flakes/volume-bar;
+      url = github:solomon-b/volume-bar;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     xmobar-solomon = {
-      url = path:/etc/nixos/flake/flakes/xmobar-solomon;
+      url = github:solomon-b/xmobar-solomon;
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
 
     xmonad-solomon = {
-      url = path:/etc/nixos/flake/flakes/xmonad-solomon;
+      url = github:solomon-b/xmonad-solomon;
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.unstable.follows = "unstable";
       inputs.flake-utils.follows = "flake-utils";
-    };
-
-    graphqurl = {
-      url = path:/etc/nixos/flake/flakes/graphqurl;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    fonts = {
-      url = path:/etc/nixos/flake/flakes/fonts;
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -86,8 +76,6 @@
       volume-bar,
       xmobar-solomon,
       xmonad-solomon,
-      graphqurl,
-      fonts
   }:
     let
       system = "x86_64-linux";
@@ -99,15 +87,13 @@
         };
 
         overlays = with inputs; [
-          brightness-bar.overlay
-          graphqurl.overlay
+          brightness-bar.overlays.default
           kmonad.overlay
-          volume-bar.overlay
-          xmobar-solomon.overlay
+          volume-bar.overlays.default
+          xmobar-solomon.overlays.default
           xmonad-solomon.overlays.default
           xmonad-solomon.overlays.xmonad
           xmonad-solomon.overlays.xmonad-contrib
-          fonts.overlays.default
           (final: prev: { eww = eww.packages.${final.system}.default; })
           #(self: super: { nix-direnv = super.nix-direnv.override { enableFlakes = true; }; } )
         ];

@@ -1,10 +1,5 @@
 **/.projectile
 **/.direnv
-/flakes/xmonad/dist-newstyle/
-/flakes/xmobar-solomon/dist-newstyle/
-/flakes/xmonad-solomon/dist-newstyle/
-/flakes/taffybar-solomon/dist-newstyle/
-/flakes/taffybar-solomon/result
 /result
 /.direnv/
 /installer/result

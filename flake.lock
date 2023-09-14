@@ -2,19 +2,23 @@
   "nodes": {
     "brightness-bar": {
       "inputs": {
+        "flake-utils": "flake-utils",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1691337463,
-        "narHash": "sha256-ea3GoM8tP3E9eYVcgTXRX4YY5JI71kgjadSt6u6+X1c=",
-        "path": "/etc/nixos/flake/flakes/brightness-bar",
-        "type": "path"
+        "lastModified": 1694665953,
+        "narHash": "sha256-4tHQZM+Sp5qFUUoMYhkH/b3HDUuLT8FETvKC/4cjpxs=",
+        "owner": "solomon-b",
+        "repo": "brightness-bar",
+        "rev": "13acda32e68b148d76dd31a888ec841bc76d24fb",
+        "type": "github"
       },
       "original": {
-        "path": "/etc/nixos/flake/flakes/brightness-bar",
-        "type": "path"
+        "owner": "solomon-b",
+        "repo": "brightness-bar",
+        "type": "github"
       }
     },
     "disko": {
@@ -42,11 +46,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1692799911,
-        "narHash": "sha256-3eihraek4qL744EvQXsK1Ha6C3CR7nnT8X2qWap4RNk=",
+        "lastModified": 1694529238,
+        "narHash": "sha256-zsNZZGTGnMOf9YpHKJqMSsa0dXbfmxeoJ7xHlrt+xmY=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "f9e7cf818399d17d347f847525c5a5a8032e4e44",
+        "rev": "ff7b65b44d01cf9ba6a71320833626af21126384",
         "type": "github"
       },
       "original": {
@@ -73,22 +77,22 @@
         "type": "github"
       }
     },
-    "fonts": {
+    "flake-utils_3": {
       "inputs": {
-        "flake-utils": "flake-utils_2",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
+        "systems": "systems_3"
       },
       "locked": {
-        "lastModified": 1691337463,
-        "narHash": "sha256-JNeIIdkeHcVfqDprsW8YlxtDNTxbwFnHI978DspO/iE=",
-        "path": "/etc/nixos/flake/flakes/fonts",
-        "type": "path"
+        "lastModified": 1694529238,
+        "narHash": "sha256-zsNZZGTGnMOf9YpHKJqMSsa0dXbfmxeoJ7xHlrt+xmY=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "ff7b65b44d01cf9ba6a71320833626af21126384",
+        "type": "github"
       },
       "original": {
-        "path": "/etc/nixos/flake/flakes/fonts",
-        "type": "path"
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
       }
     },
     "git-ignore-nix": {
@@ -110,23 +114,6 @@
         "owner": "hercules-ci",
         "repo": "gitignore.nix",
         "type": "github"
-      }
-    },
-    "graphqurl": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1691337463,
-        "narHash": "sha256-daBTtKVfCaUuRC9O9VerpulclGt2EJjgcuE1uaaoZvE=",
-        "path": "/etc/nixos/flake/flakes/graphqurl",
-        "type": "path"
-      },
-      "original": {
-        "path": "/etc/nixos/flake/flakes/graphqurl",
-        "type": "path"
       }
     },
     "home-manager": {
@@ -264,9 +251,7 @@
       "inputs": {
         "brightness-bar": "brightness-bar",
         "disko": "disko",
-        "flake-utils": "flake-utils",
-        "fonts": "fonts",
-        "graphqurl": "graphqurl",
+        "flake-utils": "flake-utils_2",
         "home-manager": "home-manager",
         "kmonad": "kmonad",
         "nixos-generators": "nixos-generators",
@@ -330,6 +315,21 @@
         "type": "github"
       }
     },
+    "systems_3": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
     "unstable": {
       "locked": {
         "lastModified": 1693955182,
@@ -347,19 +347,23 @@
     },
     "volume-bar": {
       "inputs": {
+        "flake-utils": "flake-utils_3",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1691337463,
-        "narHash": "sha256-tXKvrwrlRnuLpRjQIKk2oZhWgYB4Q5hLWV5TsSq+gYY=",
-        "path": "/etc/nixos/flake/flakes/volume-bar",
-        "type": "path"
+        "lastModified": 1694666599,
+        "narHash": "sha256-ACt34TMpkrCNDQKDYeniTaeoIvuSRXbp+RpaBO9GkVs=",
+        "owner": "solomon-b",
+        "repo": "volume-bar",
+        "rev": "ee204813b76effb88ab913cd7564ebcf64c86cb0",
+        "type": "github"
       },
       "original": {
-        "path": "/etc/nixos/flake/flakes/volume-bar",
-        "type": "path"
+        "owner": "solomon-b",
+        "repo": "volume-bar",
+        "type": "github"
       }
     },
     "xmobar-solomon": {
@@ -372,14 +376,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1691337463,
-        "narHash": "sha256-4weXXywPXqJnhogLhEVq7rXXYDRY079cIQGYr0RycXk=",
-        "path": "/etc/nixos/flake/flakes/xmobar-solomon",
-        "type": "path"
+        "lastModified": 1694664961,
+        "narHash": "sha256-A9hPVHAKmuG9G4tU+cGMu4cRf0nVP8PWF1+6DWLwF1Y=",
+        "owner": "solomon-b",
+        "repo": "xmobar-solomon",
+        "rev": "cd2674be02d9403134875fb9420015153568ecb3",
+        "type": "github"
       },
       "original": {
-        "path": "/etc/nixos/flake/flakes/xmobar-solomon",
-        "type": "path"
+        "owner": "solomon-b",
+        "repo": "xmobar-solomon",
+        "type": "github"
       }
     },
     "xmonad": {
@@ -464,14 +471,17 @@
         "xmonad-contrib": "xmonad-contrib"
       },
       "locked": {
-        "lastModified": 1691337463,
-        "narHash": "sha256-KiXTeYmdwZZmXyb8XjVXLSq6oY25bUeouwWPNQUFsK4=",
-        "path": "/etc/nixos/flake/flakes/xmonad-solomon",
-        "type": "path"
+        "lastModified": 1694664874,
+        "narHash": "sha256-wZ2VdkTNvPO68p+UcqaHJVnxfjx2iJ0tiRh0hM8SDfU=",
+        "owner": "solomon-b",
+        "repo": "xmonad-solomon",
+        "rev": "a2cf1963adfcda4e2625e2351ceae6e068437e38",
+        "type": "github"
       },
       "original": {
-        "path": "/etc/nixos/flake/flakes/xmonad-solomon",
-        "type": "path"
+        "owner": "solomon-b",
+        "repo": "xmonad-solomon",
+        "type": "github"
       }
     }
   },
