@@ -52,11 +52,11 @@ EOF
 EOF
 
     # Copy flake repo
-    rsync -a -essh /etc/nixos/flake "root@${IP}:/mnt/etc/nixos/"
+    rsync -chavzP  /etc/nixos/flake "root@${IP}:/mnt/etc/nixos/"
     ssh "root@${IP}" 'chown -R 1000:100 /mnt/etc/nixos/flake'
 
     # Copy GPG
-    rsync -a -essh /home/solomon/.gnupg "root@${IP}:/mnt/home/solomon/"
+    rsync -chavzP /home/solomon/.gnupg "root@${IP}:/mnt/home/solomon/"
 
     ssh "root@${IP}" 'reboot now'
 }
