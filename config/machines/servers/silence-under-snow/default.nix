@@ -29,6 +29,7 @@
 
       customDNS.mapping = {
         # Physical Machines
+        "zodiacal-light" = "100.76.234.131";
         "nightshade" = "100.100.33.33";
         "nightshade.machine" = "100.100.33.33";
         "lorean" = "100.92.19.49";

@@ -6,14 +6,9 @@
     ./disk-config.nix
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ "dm-snapshot" "vfat" "nls_cp437" "nls_iso8859-1" "usbhid" ];
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-
-  boot.initrd.luks.devices.CRYPT = {
-    allowDiscards = true;
-    fallbackToPassword = true;
-  }; 
 
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
@@ -23,10 +18,7 @@
     "/var/log".neededForBoot = true;
   };
 
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-
-  # nix.settings = {
-  #   build-cores = 2;
-  #   max-jobs = lib.mkDefault 4;
-  # };
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
