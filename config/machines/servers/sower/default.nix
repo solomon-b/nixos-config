@@ -6,6 +6,7 @@
     #./hoogle.nix
     #./home-assistant.nix
     ./immich.nix
+    ./jellyfin.nix
     ./planka.nix
     ./podgrab.nix
     ./navidrome.nix
@@ -14,7 +15,6 @@
     ../../../profiles/physical-machine
     ../../../modules/services/docker
     ../../../modules/services/postgresql
-    ../../../modules/services/jellyfin
   ];
 
   nix.package = pkgs.nixUnstable;
