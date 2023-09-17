@@ -16,8 +16,8 @@ let
         tab  q    w    e    r    t    y    u    i    o    p     [    ]    \
         caps a    s    d    f    g    h    j    k    l    ;     '    ret
         lsft z    x    c    v    b    n    m    ,    .     /    rsft
-        lctl  lalt lmet           spc            ralt prnt rctl   pgup up   pgdn
-                                                                  left down rght
+        lctl  lmet lalt           spc            ralt  rctl        up       
+                                                             left down rght
       )
 
       (defalias
@@ -32,8 +32,8 @@ let
         @tmt q    w    e    r    t    y    u    i    o    p     [    ]    @\mt
         @xcp a    s    d    f    g    h    j    k    l    ;     '    ret
         lsft z    x    c    v    b    n    m    ,    .     /    rsft
-        lctl  lalt lmet           spc            ralt prnt rctl   pgup up   pgdn
-                                                                  left down rght
+        lctl  lmet lalt           spc            ralt  rctl        up       
+                                                             left down rght
       )
     '';
 in

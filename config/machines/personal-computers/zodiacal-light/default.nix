@@ -3,8 +3,8 @@
 {
   imports = [
     ./hardware.nix
-    #./kmonad.nix
     #./zfs.nix
+    ./kmonad.nix
 
     ../../../profiles/pc
     ../../../modules/services/virtualisation/libvirt
