@@ -5,6 +5,7 @@
     ./hardware.nix
     #./zfs.nix
     ./kmonad.nix
+    ./nfs.nix
 
     ../../../profiles/pc
     ../../../modules/services/virtualisation/libvirt
