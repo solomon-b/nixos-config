@@ -62,6 +62,8 @@
         # Services on sower
         "jellyfin.local" = "192.168.5.7";
         "jellyfin.service" = "100.80.98.4";
+        "jellyseerr.local" = "192.168.5.7";
+        "jellyseerr.service" = "100.80.98.4";
         "podgrab.service" = "100.80.98.4";
         "navidrome.service" = "100.80.98.4";
         "immich.service" = "100.80.98.4";

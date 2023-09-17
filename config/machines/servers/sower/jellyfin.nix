@@ -5,6 +5,10 @@
     enable = true;
   };
 
+  services.jellyseerr = {
+    enable = true;
+  };
+
   services.nginx.virtualHosts = {
     "jellyfin.local" = {
       locations."/".proxyPass = "http://localhost:8096";
@@ -12,6 +16,14 @@
 
     "jellyfin.service" = {
       locations."/".proxyPass = "http://localhost:8096";
+    };
+
+    "jellyseerr.local" = {
+      locations."/".proxyPass = "http://localhost:5055";
+    };
+
+    "jellyseerr.service" = {
+      locations."/".proxyPass = "http://localhost:5055";
     };
   };
 
