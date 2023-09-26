@@ -4,7 +4,7 @@
 # Required Target Permission:
 #   compression,create,destroy,hold,mount,mountpoint,receive,refreservation,release,rollback,send,snapshot
 #   https://github.com/jimsalterjrs/sanoid/issues/660
-{ config, ... }:
+{ config, options, ... }:
 
 {
   services.zfs = {
@@ -23,8 +23,8 @@
     enable = true;
     sshKey = config.sops.secrets.syncoid-ssh-key.path;
     commands = {
-      "tank/user" = {
-        target = "syncoid@sandra-voi:tank/system-snapshots/zodiacal-light/user";
+      "tank/home" = {
+        target = "syncoid@sandra-voi:tank/system-snapshots/zodiacal-light/home";
         recursive = true;
       };
       "tank/root" = {
@@ -32,6 +32,14 @@
         recursive = true;
       };
     };
+
+    localSourceAllow = options.services.syncoid.localSourceAllow.default ++ [
+      "mount"
+    ];
+
+    localTargetAllow = options.services.syncoid.localTargetAllow.default ++ [
+      "destroy"
+    ];
   };
 
   users.users.syncoid.extraGroups = [ "keys" ];
