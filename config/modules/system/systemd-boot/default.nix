@@ -7,6 +7,6 @@
       enable = lib.mkDefault true;
       editor = false;
     };
-    efi.canTouchEfiVariables = true;
+    efi.canTouchEfiVariables = lib.mkDefault true;
   };
 }
