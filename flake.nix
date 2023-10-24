@@ -94,7 +94,7 @@
           xmonad-solomon.overlays.default
           xmonad-solomon.overlays.xmonad
           xmonad-solomon.overlays.xmonad-contrib
-          (final: prev: { eww = eww.packages.${final.system}.default; })
+          # (final: prev: { eww = eww.packages.${final.system}.default; })
           #(self: super: { nix-direnv = super.nix-direnv.override { enableFlakes = true; }; } )
         ];
       };
@@ -112,6 +112,7 @@
           nixpkgs.nixosModules.notDetected
           home-manager.nixosModules.home-manager
           sops-nix.nixosModules.sops
+          disko.nixosModules.disko
         ];
 
         sops = {
@@ -155,14 +156,14 @@
         install-server =
           let src = builtins.readFile ./installer/install-server.sh;
 
-              script = (pkgs.writeScriptBin "install-pc" src).overrideAttrs(old: {
+              script = (pkgs.writeScriptBin "install-server" src).overrideAttrs(old: {
                 buildCommand = "${old.buildCommand}\n patchShebangs $out";
               });
           in pkgs.symlinkJoin {
             name = "install-server";
             paths = [ pkgs.gum pkgs.jq pkgs.pass script ];
             buildInputs = [ pkgs.makeWrapper ];
-            postBuild = "wrapProgram $out/bin/install-pc --prefix PATH : $out/bin";
+            postBuild = "wrapProgram $out/bin/install-server --prefix PATH : $out/bin";
           };
       };
 
@@ -205,7 +206,6 @@
           specialArgs = { inherit inputs; };
         };
 
-
         zodiacal-light = nixpkgs.lib.nixosSystem {
           inherit pkgs system;
           modules = [
@@ -221,6 +221,25 @@
             sops-nix.nixosModules.sops
             disko.nixosModules.disko
             nixos-hardware.nixosModules.dell-xps-15-9520-nvidia
+          ];
+
+          specialArgs = { inherit inputs; };
+        };
+
+        gnostic-ascension = nixpkgs.lib.nixosSystem {
+          inherit pkgs system;
+          modules = [
+            ./config/machines/servers/gnostic-ascension
+            ( { ... }: {
+              sops = {
+                defaultSopsFile = ./secrets.yaml;
+                secrets.primary-user-password = { };
+              };
+            })
+            nixpkgs.nixosModules.notDetected
+            home-manager.nixosModules.home-manager
+            sops-nix.nixosModules.sops
+            disko.nixosModules.disko
           ];
 
           specialArgs = { inherit inputs; };
