@@ -7,8 +7,14 @@
     userEmail = "ssbothwell@gmail.com";
     extraConfig = {
       safe = {
-        directory = "/home/solomon/Development/Nix/nixos-config";   
+        directory = "/etc/nixos/flake";   
       };
     };
+    includes = [
+      {
+        path = ./work-profile;
+        condition = "gitdir:~/Development/Co-Star/";
+      }
+    ];
   };
 }
