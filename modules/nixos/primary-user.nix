@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.primary-user;
-  hostname = config.networking.hostName;
 in
 {
   options.primary-user.name = lib.mkOption {
