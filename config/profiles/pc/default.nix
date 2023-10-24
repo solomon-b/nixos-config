@@ -43,13 +43,16 @@
 
     # Desktop Environment
     brightnessctl
+    eww
     libnotify
     xlayoutdisplay
+    wmctrl
 
     # DB
     postgresql_14
 
     # Media
+    pavucontrol
     vlc
     scrot
     zathura
