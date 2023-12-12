@@ -17,7 +17,7 @@ in
     (lib.mkAliasOptionModule [ "primary-user" "uid" ] [ "users" "users" cfg.name "uid" ])
     (lib.mkAliasOptionModule [ "primary-user" "openssh" ] [ "users" "users" cfg.name "openssh" ])
     (lib.mkAliasOptionModule [ "primary-user" "isNormalUser" ] [ "users" "users" cfg.name "isNormalUser" ])
-    (lib.mkAliasOptionModule [ "primary-user" "passwordFile" ] [ "users" "users" cfg.name "passwordFile" ])
+    (lib.mkAliasOptionModule [ "primary-user" "hashedPasswordFile" ] [ "users" "users" cfg.name "hashedPasswordFile" ])
   ];
 
   config = lib.mkIf (cfg.name != null) {
@@ -32,7 +32,7 @@ in
       };
 
       isNormalUser = true;
-      passwordFile = config.sops.secrets.primary-user-password.path;
+      hashedPasswordFile = config.sops.secrets.primary-user-password.path;
       shell = pkgs.zsh;
       uid = lib.mkDefault 1000;
     };

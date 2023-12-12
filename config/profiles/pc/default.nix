@@ -19,7 +19,8 @@
     ../../modules/ui/fonts
     ../../modules/ui/opengl
     ../../modules/ui/picom
-    ../../modules/ui/termonad
+    ../../modules/ui/kitty
+    # ../../modules/ui/termonad
     ../../modules/ui/xserver
 
     # TODO: Write Modules:
@@ -36,6 +37,7 @@
     udiskie
     sqlite # for org-roam, should I move to postgres? How would I sync between machines in that case?
     xclip
+    kitty
 
     filezilla
 
@@ -91,7 +93,7 @@
     #  pkgs.rofi-power-menu
     ];
 
-    terminal = "${pkgs.termonad}/bin/termonad";
+    terminal = "${pkgs.kitty}/bin/kitty";
 
   };
 }

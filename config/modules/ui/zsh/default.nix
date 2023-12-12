@@ -82,7 +82,6 @@ in
     '';
 
     shellAliases = {
-       ls = "exa";
        refresh = "exec $SHELL -l";
        g = "git-jump";
        gr = "jump-to-git-root";

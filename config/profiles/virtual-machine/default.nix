@@ -37,7 +37,6 @@
     # General CLI Tools
     cachix
     direnv
-    exa
     fzf
     git
     gnugrep

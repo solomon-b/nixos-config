@@ -1,12 +1,6 @@
 { config, lib, inputs, ... }:
 
 {
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-    };
-  };
-
   nix = {
     gc = {
       automatic = true;

@@ -42,7 +42,7 @@
     ${pkgs.batsignal}/bin/batsignal -b -W \"Warnings: Battery Low\"
     ${pkgs.volume-bar}/bin/volume-bar
     ${pkgs.brightness-bar}/bin/brightness-bar
-    ${pkgs.eww}/bin/eww open ewwbar
+    # ${pkgs.eww}/bin/eww open ewwbar
   '';
 
   primary-user.home-manager.xdg.dataFile."emoji".source = ./emoji;

@@ -5,7 +5,6 @@
     substituters = [
       "https://cache.nixos.org/"
       "https://nix-linter.cachix.org"
-      "https://hydra.iohk.io"
       "https://iohk.cachix.org"
     ];
     trusted-public-keys = [

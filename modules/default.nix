@@ -15,7 +15,7 @@
 
   primary-user.home-manager = _: {
     imports = [
-      ./home-manager/termonad.nix
+      # ./home-manager/termonad.nix
       ./home-manager/zshExtras.nix
     ];
   };
