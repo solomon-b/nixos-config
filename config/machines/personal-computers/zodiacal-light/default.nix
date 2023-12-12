@@ -8,7 +8,7 @@
     ./zfs.nix
 
     ../../../profiles/pc
-    ../../../modules/services/virtualisation/libvirt
+    ../../../modules/services/virtualisation/virtualbox
     ../../../modules/system/devices/touchpad
     ../../../modules/system/powertop
   ];
