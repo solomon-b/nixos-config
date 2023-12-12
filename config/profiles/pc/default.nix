@@ -7,6 +7,7 @@
     ../../modules/security/gpg
 
     ../../modules/system/devices/bluetooth
+    ../../modules/system/devices/udisk
     ../../modules/system/nix-direnv
 
     ../../modules/services/docker
