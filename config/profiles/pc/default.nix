@@ -53,6 +53,7 @@
 
     # Media
     pavucontrol
+    picard
     vlc
     scrot
     zathura
