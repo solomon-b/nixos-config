@@ -22,7 +22,7 @@
             type = "filesystem";
             format = "vfat";
             mountpoint = "/boot";
-            mountOptions = ["defaults"];
+            mountOptions = [ "defaults" ];
           };
         }
         # Partition the remainder of the disk as a LUKS container.

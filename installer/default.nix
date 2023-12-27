@@ -22,7 +22,7 @@
 
   nix = {
     settings = {
-      experimental-features = ["nix-command" "flakes" "repl-flake"];
+      experimental-features = [ "nix-command" "flakes" "repl-flake" ];
       auto-optimise-store = true;
     };
   };

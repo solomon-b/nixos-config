@@ -33,7 +33,7 @@
   #   virtualHosts."short-squeeze.info".root = ./public;
   # };
 
-  
+
   # networking.firewall.allowedTCPPorts = [ 80 443 ];
 
 }

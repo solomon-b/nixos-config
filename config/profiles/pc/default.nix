@@ -86,11 +86,11 @@
     enable = true;
     #location = "top";
     plugins = [
-    #  pkgs.rofi-mpd
+      #  pkgs.rofi-mpd
       pkgs.rofi-calc
       pkgs.rofi-emoji
-    #  pkgs.rofi-systemd
-    #  pkgs.rofi-power-menu
+      #  pkgs.rofi-systemd
+      #  pkgs.rofi-power-menu
     ];
 
     terminal = "${pkgs.kitty}/bin/kitty";

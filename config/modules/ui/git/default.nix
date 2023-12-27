@@ -7,7 +7,7 @@
     userEmail = "ssbothwell@gmail.com";
     extraConfig = {
       safe = {
-        directory = "/etc/nixos/flake";   
+        directory = "/etc/nixos/flake";
       };
     };
     includes = [

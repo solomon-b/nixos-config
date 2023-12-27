@@ -24,7 +24,7 @@ let
 
     REDIS_HOSTNAME = redisHostname;
     REDIS_PASSWORD = redisPassword;
-    
+
     UPLOAD_LOCATION = photosLocation;
 
     TYPESENSE_API_KEY = typesenseApiKey;
@@ -35,13 +35,13 @@ let
 
   };
 
-  wrapImage = { name, imageName, imageDigest, sha256, entrypoint}:
+  wrapImage = { name, imageName, imageDigest, sha256, entrypoint }:
     pkgs.dockerTools.buildImage ({
       name = name;
       tag = "release";
       fromImage = pkgs.dockerTools.pullImage {
         imageName = imageName;
-        imageDigest = imageDigest; 
+        imageDigest = imageDigest;
         sha256 = sha256;
       };
       created = "now";
@@ -49,9 +49,9 @@ let
         if builtins.length entrypoint == 0
         then null
         else {
-            Cmd = entrypoint;
-            WorkingDir = "/usr/src/app";
-          };
+          Cmd = entrypoint;
+          WorkingDir = "/usr/src/app";
+        };
     });
 in
 {
@@ -71,20 +71,20 @@ in
       };
       image = "immich_server:release";
       extraOptions = [ "--network=immich-bridge" ];
-  
+
       volumes = [
-        "${photosLocation}:/usr/src/app/upload" 
+        "${photosLocation}:/usr/src/app/upload"
       ];
-  
+
       environment = environment;
-  
+
       dependsOn = [
         "typesense"
       ];
-  
+
       autoStart = true;
     };
-  
+
     immich_microservices = {
       imageFile = wrapImage {
         name = "immich_microservices";
@@ -95,17 +95,17 @@ in
       };
       image = "immich_microservices:release";
       extraOptions = [ "--network=immich-bridge" ];
-  
+
       volumes = [
-        "${photosLocation}:/usr/src/app/upload" 
+        "${photosLocation}:/usr/src/app/upload"
       ];
-  
+
       environment = environment;
-  
+
       dependsOn = [
         "typesense"
       ];
-  
+
       autoStart = true;
     };
 
@@ -127,7 +127,7 @@ in
 
       autoStart = true;
     };
-  
+
     immich_web = {
       imageFile = pkgs.dockerTools.pullImage {
         imageName = "ghcr.io/immich-app/immich-web";
@@ -136,31 +136,31 @@ in
       };
       image = "ghcr.io/immich-app/immich-web";
       extraOptions = [ "--network=immich-bridge" ];
-  
+
       environment = environment;
-  
+
       autoStart = true;
     };
-  
-  
+
+
     typesense = {
       image = "typesense/typesense:0.24.0";
       extraOptions = [ "--network=immich-bridge" ];
-  
+
       environment = {
         TYPESENSE_API_KEY = typesenseApiKey;
         TYPESENSE_DATA_DIR = "/data";
       };
-      
+
       log-driver = "none";
-  
+
       volumes = [
         "tsdata:/data"
       ];
-  
+
       autoStart = true;
     };
-  
+
     immich_proxy = {
       imageFile = pkgs.dockerTools.pullImage {
         imageName = "ghcr.io/immich-app/immich-proxy";
@@ -169,21 +169,21 @@ in
       };
       image = "ghcr.io/immich-app/immich-proxy:release";
       extraOptions = [ "--network=immich-bridge" ];
-  
+
       environment = {
         IMMICH_SERVER_URL = immichServerUrl;
         IMMICH_WEB_URL = immichWebUrl;
         IMMICH_MACHINE_LEARNING_URL = immichMachineLearningUrl;
       };
-    
+
       log-driver = "none";
-  
+
       dependsOn = [
         "typesense"
       ];
-  
+
       ports = [ "8084:8080" ];
-  
+
       autoStart = true;
     };
   };
@@ -201,7 +201,7 @@ in
         then ${pkgs.docker}/bin/docker network create immich-bridge
         else echo "immich-bridge already exists in docker"
       fi
-      ''; 
+    '';
   };
 
 
@@ -209,8 +209,8 @@ in
     locations."/" = {
       proxyPass = "http://localhost:8084";
       extraConfig = ''
-      client_max_body_size 0;
-      proxy_max_temp_file_size 96384m;
+        client_max_body_size 0;
+        proxy_max_temp_file_size 96384m;
       '';
     };
   };

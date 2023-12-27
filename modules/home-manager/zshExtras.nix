@@ -4,14 +4,14 @@ with lib;
 
 let
   cfg = config.programs.zsh;
-  autoSuggestionsModule = types.submodule({config, ...}: {
+  autoSuggestionsModule = types.submodule ({ config, ... }: {
     options.highlightStyle = mkOption {
       type = types.str;
       default = "fg=8";
       description = "Configure the style that the suggestion is shown with.";
     };
   });
-  historySubStringModule = types.submodule({config, ...}: {
+  historySubStringModule = types.submodule ({ config, ... }: {
     options = {
       highlightFound = mkOption {
         type = types.str;
@@ -65,13 +65,13 @@ in
 
     historySubstring = mkOption {
       type = historySubStringModule;
-      default = {};
+      default = { };
       description = "Options related to History Substring Search";
     };
 
     autoSuggestions = mkOption {
       type = autoSuggestionsModule;
-      default = {};
+      default = { };
       description = "Options related to Autosuggestions";
     };
 

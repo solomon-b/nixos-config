@@ -26,12 +26,12 @@
 
   nix.package = pkgs.nixUnstable;
   nix.extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
+    experimental-features = nix-command flakes
+  '';
 
   system.stateVersion = "22.05";
   nix.settings.trusted-users = [ "@wheel" ];
-  environment.shells = [pkgs.zsh pkgs.bashInteractive];
+  environment.shells = [ pkgs.zsh pkgs.bashInteractive ];
 
   environment.systemPackages = with pkgs; [
     # General CLI Tools

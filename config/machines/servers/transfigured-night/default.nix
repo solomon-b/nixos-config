@@ -47,17 +47,20 @@
     ];
 
     ensureUsers = [
-      { name = "tt_rss";
+      {
+        name = "tt_rss";
         ensurePermissions = {
           "DATABASE tt_rss" = "ALL PRIVILEGES";
         };
       }
-      { name = "hasura_admin";
+      {
+        name = "hasura_admin";
         ensurePermissions = {
           "DATABASE hasura" = "ALL PRIVILEGES";
         };
       }
-      { name = "planka_admin";
+      {
+        name = "planka_admin";
         ensurePermissions = {
           "DATABASE hasura" = "ALL PRIVILEGES";
         };

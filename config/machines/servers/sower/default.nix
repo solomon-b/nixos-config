@@ -19,8 +19,8 @@
 
   nix.package = pkgs.nixUnstable;
   nix.extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
+    experimental-features = nix-command flakes
+  '';
 
   environment.systemPackages = [
     pkgs.libva
@@ -34,7 +34,7 @@
     interfaces.eno1.useDHCP = true;
     useDHCP = false;
   };
-  
+
   services.nginx = {
     enable = true;
 

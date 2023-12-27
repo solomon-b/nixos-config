@@ -18,9 +18,9 @@ in
   virtualisation.oci-containers.containers = {
     tubearchivist = {
       imageFile = pkgs.dockerTools.pullImage {
-        imageName =  "bbilly1/tubearchivist";
-        imageDigest =  "sha256:a87e4737d8b8a44fed7d76b10c8d500c930f0e7c50627b6e644daeb7dd15cdaf"; 
-        sha256 =  "sha256-tEawjfTthX9xAdwqE+J2IlHEFWNtHOweu04Vs5vNNhE=";
+        imageName = "bbilly1/tubearchivist";
+        imageDigest = "sha256:a87e4737d8b8a44fed7d76b10c8d500c930f0e7c50627b6e644daeb7dd15cdaf";
+        sha256 = "sha256-tEawjfTthX9xAdwqE+J2IlHEFWNtHOweu04Vs5vNNhE=";
       };
       image = "bbilly1/tubearchivist:v0.3.6";
 
@@ -28,7 +28,7 @@ in
 
       volumes = [
         "${media}:/youtube"
-        "${cache}:/cache" 
+        "${cache}:/cache"
       ];
 
       environment = {
@@ -50,9 +50,9 @@ in
 
     archivist-es = {
       imageFile = pkgs.dockerTools.pullImage {
-        imageName =  "bbilly1/tubearchivist-es";
-        imageDigest =  "sha256:d84dcd18c9a35d63d6d92c3ee40b5a7e4caf2c3c7a931a587eba18ff8ecf5bc9"; 
-        sha256 =  "sha256-WwrHAJEQcjys3xZRRLx2lAwVKV5nKABjSAtV4MrZ4hQ=";
+        imageName = "bbilly1/tubearchivist-es";
+        imageDigest = "sha256:d84dcd18c9a35d63d6d92c3ee40b5a7e4caf2c3c7a931a587eba18ff8ecf5bc9";
+        sha256 = "sha256-WwrHAJEQcjys3xZRRLx2lAwVKV5nKABjSAtV4MrZ4hQ=";
       };
       image = "bbilly1/tubearchivist-es:8.7.0";
 
@@ -79,9 +79,9 @@ in
 
     archivist-redis = {
       imageFile = pkgs.dockerTools.pullImage {
-        imageName =  "redis/redis-stack-server";
-        imageDigest = "sha256:e2a73d78daf3fb2053e0d1555c0b041ffc8d7cd0fcfa5a045679fad3245a4260"; 
-        sha256 =  "sha256-S8Z7kTEOa0bosGcLoYmyvopz3z/Tis9ZzBAUn2o2Rkk=";
+        imageName = "redis/redis-stack-server";
+        imageDigest = "sha256:e2a73d78daf3fb2053e0d1555c0b041ffc8d7cd0fcfa5a045679fad3245a4260";
+        sha256 = "sha256-S8Z7kTEOa0bosGcLoYmyvopz3z/Tis9ZzBAUn2o2Rkk=";
       };
       image = "redis/redis-stack-server:latest";
 
@@ -120,7 +120,7 @@ in
         fi
       '';
   };
-  
+
   services.nginx.virtualHosts."tubearchivist.service" = {
     locations."/".proxyPass = "http://localhost:8000";
   };

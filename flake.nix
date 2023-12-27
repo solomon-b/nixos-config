@@ -2,7 +2,7 @@
   inputs = {
     nixpkgs.url = github:nixos/nixpkgs/nixos-23.11;
     unstable.url = github:nixos/nixpkgs;
-    
+
     flake-utils = {
       url = github:numtide/flake-utils;
     };
@@ -61,22 +61,23 @@
     };
   };
 
-  outputs = inputs@{
-      self,
-      nixpkgs,
-      unstable,
-      flake-utils,
-      home-manager,
-      disko,
-      sops-nix,
-      nixos-hardware,
-      nixos-generators,
-      kmonad,
-      brightness-bar,
-      volume-bar,
-      xmobar-solomon,
-      xmonad-solomon,
-  }:
+  outputs =
+    inputs@{ self
+    , nixpkgs
+    , unstable
+    , flake-utils
+    , home-manager
+    , disko
+    , sops-nix
+    , nixos-hardware
+    , nixos-generators
+    , kmonad
+    , brightness-bar
+    , volume-bar
+    , xmobar-solomon
+    , xmonad-solomon
+    ,
+    }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -98,15 +99,15 @@
           #(self: super: { nix-direnv = super.nix-direnv.override { enableFlakes = true; }; } )
         ];
       };
-      
-      mkServer = targetHost: {config, ...}: {
+
+      mkServer = targetHost: { config, ... }: {
         deployment = {
           inherit targetHost;
           #targetUser = config.primary-user.name;
           tags = [ "server" ];
           allowLocalDeployment = false;
         };
-        
+
         imports = [
           "${toString config/machines/servers}/${targetHost}"
           nixpkgs.nixosModules.notDetected
@@ -120,7 +121,9 @@
           secrets.primary-user-password = { };
         };
       };
-    in {
+    in
+    {
+      formatter."${system}" = pkgs.nixpkgs-fmt;
       devShells."${system}".default = pkgs.mkShell {
         nativeBuildInputs = [ pkgs.colmena pkgs.nixfmt pkgs.sops ];
       };
@@ -139,12 +142,14 @@
         # NixOS-Anywhere provisioning script for physical machines.
         # nix run '.#install-pc'
         install-pc =
-          let src = builtins.readFile ./installer/install-pc.sh;
+          let
+            src = builtins.readFile ./installer/install-pc.sh;
 
-              script = (pkgs.writeScriptBin "install-pc" src).overrideAttrs(old: {
-                buildCommand = "${old.buildCommand}\n patchShebangs $out";
-              });
-          in pkgs.symlinkJoin {
+            script = (pkgs.writeScriptBin "install-pc" src).overrideAttrs (old: {
+              buildCommand = "${old.buildCommand}\n patchShebangs $out";
+            });
+          in
+          pkgs.symlinkJoin {
             name = "install-pc";
             paths = [ pkgs.gum pkgs.jq pkgs.pass script ];
             buildInputs = [ pkgs.makeWrapper ];
@@ -154,12 +159,14 @@
         # NixOS-Anywhere provisioning script for virtual machines and remote servers.
         # nix run '.#install-server'
         install-server =
-          let src = builtins.readFile ./installer/install-server.sh;
+          let
+            src = builtins.readFile ./installer/install-server.sh;
 
-              script = (pkgs.writeScriptBin "install-server" src).overrideAttrs(old: {
-                buildCommand = "${old.buildCommand}\n patchShebangs $out";
-              });
-          in pkgs.symlinkJoin {
+            script = (pkgs.writeScriptBin "install-server" src).overrideAttrs (old: {
+              buildCommand = "${old.buildCommand}\n patchShebangs $out";
+            });
+          in
+          pkgs.symlinkJoin {
             name = "install-server";
             paths = [ pkgs.gum pkgs.jq pkgs.pass script ];
             buildInputs = [ pkgs.makeWrapper ];
@@ -172,7 +179,7 @@
           inherit pkgs system;
           modules = [
             ./config/machines/personal-computers/lorean
-            ( { ... }: {
+            ({ ... }: {
               sops = {
                 defaultSopsFile = ./secrets.yaml;
                 secrets.primary-user-password = { };
@@ -191,7 +198,7 @@
           inherit pkgs system;
           modules = [
             ./config/machines/personal-computers/nightshade
-            ( { ... }: {
+            ({ ... }: {
               sops = {
                 defaultSopsFile = ./secrets.yaml;
                 secrets.primary-user-password = { };
@@ -210,7 +217,7 @@
           inherit pkgs system;
           modules = [
             ./config/machines/personal-computers/zodiacal-light
-            ( { ... }: {
+            ({ ... }: {
               sops = {
                 defaultSopsFile = ./secrets.yaml;
                 secrets.primary-user-password = { };
@@ -230,7 +237,7 @@
           inherit pkgs system;
           modules = [
             ./config/machines/servers/gnostic-ascension
-            ( { ... }: {
+            ({ ... }: {
               sops = {
                 defaultSopsFile = ./secrets.yaml;
                 secrets.primary-user-password = { };
@@ -249,23 +256,26 @@
       colmena =
         let
           configs = self.nixosConfigurations;
-        in {
+        in
+        {
           meta = {
             nixpkgs = pkgs;
             specialArgs = {
               inherit inputs;
             };
             nodeNixpkgs = builtins.mapAttrs (name: value: value.pkgs) configs;
-            nodeSpecialArgs = builtins.mapAttrs (name: value: value._module.specialArgs) configs; 
+            nodeSpecialArgs = builtins.mapAttrs (name: value: value._module.specialArgs) configs;
           };
-      } // builtins.mapAttrs (machine: _: mkServer machine) (builtins.readDir ./config/machines/servers)
-        // builtins.mapAttrs (name: value: {
-          deployment = {
-            targetHost = name;
-            tags = [ "pc" ];
-            allowLocalDeployment = true;
-          };
-          imports = value._module.args.modules;
-        }) configs;
+        } // builtins.mapAttrs (machine: _: mkServer machine) (builtins.readDir ./config/machines/servers)
+        // builtins.mapAttrs
+          (name: value: {
+            deployment = {
+              targetHost = name;
+              tags = [ "pc" ];
+              allowLocalDeployment = true;
+            };
+            imports = value._module.args.modules;
+          })
+          configs;
     };
 }

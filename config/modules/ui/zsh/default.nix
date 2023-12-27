@@ -82,12 +82,12 @@ in
     '';
 
     shellAliases = {
-       refresh = "exec $SHELL -l";
-       g = "git-jump";
-       gr = "jump-to-git-root";
-       gp = "git pull";
-       gf = "git fetch";
-       gc = "git-checkout-branch";
-     };
+      refresh = "exec $SHELL -l";
+      g = "git-jump";
+      gr = "jump-to-git-root";
+      gp = "git pull";
+      gf = "git fetch";
+      gc = "git-checkout-branch";
+    };
   };
 }

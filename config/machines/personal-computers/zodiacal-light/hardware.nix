@@ -4,10 +4,10 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     ./disk-config.nix
-    ];
+  ];
 
   boot.initrd.systemd.enable = true;
-  boot.initrd.luks.devices.CRYPT.crypttabExtraOpts = ["fido2-device=auto"];
+  boot.initrd.luks.devices.CRYPT.crypttabExtraOpts = [ "fido2-device=auto" ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ "dm-snapshot" "vfat" "nls_cp437" "nls_iso8859-1" "usbhid" ];

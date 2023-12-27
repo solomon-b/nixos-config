@@ -17,8 +17,8 @@
 
   nix.package = pkgs.nixUnstable;
   nix.extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
+    experimental-features = nix-command flakes
+  '';
 
   environment.systemPackages = [
     pkgs.acpi

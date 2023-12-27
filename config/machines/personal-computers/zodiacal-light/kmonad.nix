@@ -40,7 +40,7 @@ in
 {
   primary-user.extraGroups = [ "uinput" "input" ];
 
-  users.groups = { uinput = {}; };
+  users.groups = { uinput = { }; };
   boot.kernelModules = [ "uinput" ];
   services.udev.extraRules = ''
     # KMonad user access to /dev/uinput

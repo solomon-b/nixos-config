@@ -20,8 +20,8 @@ in
 
       volumes = [
         "${userAvatars}:/app/public/user-avatars"
-        "${projectBackgroundImages}:/app/public/project-background-images" 
-        "${attachaments}:/app/private/attachements" 
+        "${projectBackgroundImages}:/app/public/project-background-images"
+        "${attachaments}:/app/private/attachements"
       ];
 
       environment = {
@@ -49,7 +49,7 @@ in
         then ${pkgs.docker}/bin/docker network create planka-bridge
         else echo "planka-bridge already exists in docker"
       fi
-      ''; 
+    '';
   };
 
   services.nginx.virtualHosts."planka.service" = {

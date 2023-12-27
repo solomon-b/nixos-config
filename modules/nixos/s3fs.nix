@@ -43,7 +43,7 @@ in
     systemd.user.services.detect-online =
       {
         description = "Detects if we have internet access";
-        wantedBy = [ "default.target"];
+        wantedBy = [ "default.target" ];
         script =
           ''
             PATH="/run/wrappers/bin:$PATH"

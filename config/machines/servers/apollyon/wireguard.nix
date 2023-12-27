@@ -21,12 +21,12 @@
       preDown = ''
         ip route delete 192.168.1.0/24
       '';
-      
-      peers = [(import ./mullvad.nix).us-lax-wg-303];
+
+      peers = [ (import ./mullvad.nix).us-lax-wg-303 ];
     };
   };
 
- sops.secrets.primary-user-wireguard-private-key = { };
+  sops.secrets.primary-user-wireguard-private-key = { };
 
   # We must enforce the order for service launch of tailscale and
   # wireguard to set the correct IP rule prioritization.

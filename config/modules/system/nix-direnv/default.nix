@@ -14,6 +14,6 @@
   };
 
   nixpkgs.overlays = [
-    (self: super: { nix-direnv = super.nix-direnv.override { }; } )
+    (self: super: { nix-direnv = super.nix-direnv.override { }; })
   ];
 }

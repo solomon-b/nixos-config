@@ -4,11 +4,11 @@
 {
   virtualisation.oci-containers.containers.podgrab = {
     image = "akhilrex/podgrab:latest";
-    ports = [ "8081:8080"];
+    ports = [ "8081:8080" ];
     volumes = [
       "/mnt/media/Podcasts:/assets"
     ];
-    environment =  {
+    environment = {
       CHECK_FREQUENCY = "240";
     };
   };

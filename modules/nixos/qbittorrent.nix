@@ -51,7 +51,7 @@ in
 
     webUIAddress = mkOption {
       type = webUIAddressSubmodule;
-      default = {};
+      default = { };
       description = "The IP and port to which the webui will bind.";
     };
 
@@ -127,7 +127,7 @@ in
       '';
     };
   };
-  
+
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts =
       mkIf cfg.openFirewall [ cfg.webUIAddress.port ];
@@ -136,8 +136,9 @@ in
 
     users.users = mkIf (cfg.systemService && cfg.user == defaultUser) {
       ${defaultUser} =
-        { group = cfg.group;
-          home  = cfg.dataDir;
+        {
+          group = cfg.group;
+          home = cfg.dataDir;
           createHome = true;
           uid = 999;
           isSystemUser = true;
@@ -157,7 +158,7 @@ in
         wants = [ "multi-user.target" ];
         after = [ "network-online.target" "nss-lookup.target" ];
         serviceConfig = {
-          Type= "exec";
+          Type = "exec";
           User = cfg.user;
           Group = cfg.group;
           ExecStart = initializeAndRun;

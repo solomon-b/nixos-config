@@ -26,7 +26,7 @@
     mutableUsers = false;
     users.solomon = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "networkmanager" "keys"];
+      extraGroups = [ "wheel" "networkmanager" "keys" ];
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHedhPWMgsGFQS7niiFlgkCty/0yS68tVP0pm4x4PQLp solomon@nightshade"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILVTeNwDsHZX06k+o+fz1wmI8h3q2ks+5C7Mv5ADXo+o solomon@lorean"
@@ -36,7 +36,7 @@
       passwordFile = "/etc/primary-user-password";
     };
     users.root.hashedPassword = "*";
-  }; 
+  };
 
   nix.settings.trusted-users = [ "root" "solomon" ];
   nix.package = pkgs.nixUnstable;

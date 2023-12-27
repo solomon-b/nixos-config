@@ -2,7 +2,8 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.loader.efi.canTouchEfiVariables = true;
@@ -13,33 +14,37 @@
   boot.kernelModules = [ "kvm-intel" ];
 
   fileSystems."/" =
-    { device = "tank/root";
+    {
+      device = "tank/root";
       fsType = "zfs";
     };
 
   fileSystems."/home" =
-    { device = "tank/home";
+    {
+      device = "tank/home";
       fsType = "zfs";
     };
 
   fileSystems."/nix" =
-    { device = "tank/nix";
+    {
+      device = "tank/nix";
       fsType = "zfs";
     };
 
   fileSystems."/var/log" =
-    { device = "tank/systemd-logs";
+    {
+      device = "tank/systemd-logs";
       fsType = "zfs";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-label/BOOT"; 
+    {
+      device = "/dev/disk/by-label/BOOT";
       fsType = "vfat";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-label/swap"; }
-    ];
+    [{ device = "/dev/disk/by-label/swap"; }];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 

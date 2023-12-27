@@ -89,7 +89,7 @@
 
       prometheus = {
         enable = true;
-        path =  "/metrics";
+        path = "/metrics";
       };
     };
   };

@@ -50,7 +50,7 @@ in
         "syncthing-key-key.service"
       ];
     };
-    
+
     syncthing-init.serviceConfig.ExecStartPost = pkgs.writeShellScript "rm-sync-dir" ''
       if [ -d "$HOME/Sync" ]
       then
