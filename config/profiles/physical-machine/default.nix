@@ -41,6 +41,7 @@
     jq
     pass
     ripgrep
+    sysz
     tmux
     tree
     unzip
