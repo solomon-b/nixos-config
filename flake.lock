@@ -332,11 +332,11 @@
     },
     "unstable": {
       "locked": {
-        "lastModified": 1702361977,
-        "narHash": "sha256-BUqcD4Z/w9hiE+gK/ss3h4uQMsoaMIHn2uKhH5GUMmA=",
+        "lastModified": 1702374490,
+        "narHash": "sha256-rxF6lTo6jjtODH0+JyZz6qrbRUlgwE9GKkAzwR4oTEY=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "5d43a8764fa6b933eb01b8bb0f4bd253226bf261",
+        "rev": "d92daec27ee4662c8a4a10206d9bfc3d7e557f90",
         "type": "github"
       },
       "original": {
@@ -471,11 +471,11 @@
         "xmonad-contrib": "xmonad-contrib"
       },
       "locked": {
-        "lastModified": 1696266863,
-        "narHash": "sha256-3SS5Ik7kr2LChq52nkBuyi4FQgc1JHKIP4dOpDDuDBo=",
+        "lastModified": 1702374951,
+        "narHash": "sha256-1Ng3D9jgpLPPi1j/nHBc6g0khlKVR8GLHSE2M/C19tY=",
         "owner": "solomon-b",
         "repo": "xmonad-solomon",
-        "rev": "982c37a85d84e32ef69b1d3ed0740dd4470fb763",
+        "rev": "4e78c3dcaaf57d26cc33cf878d6434f70ab958d7",
         "type": "github"
       },
       "original": {
