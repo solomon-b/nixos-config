@@ -44,6 +44,7 @@
     inetutils
     jq
     ripgrep
+    sysz
     tmux
     tree
     unzip

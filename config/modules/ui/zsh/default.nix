@@ -88,6 +88,7 @@ in
       gp = "git pull";
       gf = "git fetch";
       gc = "git-checkout-branch";
+      s = "sysz";
     };
   };
 }
