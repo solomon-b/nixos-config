@@ -10,8 +10,6 @@
     ../../modules/system/devices/udisk
     ../../modules/system/nix-direnv
 
-    ../../modules/services/docker
-
     ../../modules/ui/audio
     ../../modules/ui/direnv
     ../../modules/ui/dunst
@@ -80,7 +78,6 @@
     surf
   ];
 
-  primary-user.extraGroups = [ "networkmanager" ];
 
   primary-user.home-manager.programs.rofi = {
     enable = true;
@@ -96,4 +93,18 @@
     terminal = "${pkgs.kitty}/bin/kitty";
 
   };
+
+  virtualisation = {
+    containers = {
+      enable = true;
+    };
+
+    docker = {
+      enable = true;
+      storageDriver = "devicemapper";
+    };
+    oci-containers.backend = "docker";
+  };
+
+  primary-user.extraGroups = [ "networkmanager" "docker" ];
 }

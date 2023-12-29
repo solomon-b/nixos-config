@@ -13,7 +13,6 @@
     ./tubearchivist.nix
 
     ../../../profiles/physical-machine
-    ../../../modules/services/docker
     ../../../modules/services/postgresql
   ];
 
@@ -57,4 +56,18 @@
       port = 9002;
     };
   };
+
+  virtualisation = {
+    containers = {
+      enable = true;
+    };
+
+    docker = {
+      enable = true;
+      storageDriver = "devicemapper";
+    };
+    oci-containers.backend = "docker";
+  };
+
+  primary-user.extraGroups = [ "docker" ];
 }

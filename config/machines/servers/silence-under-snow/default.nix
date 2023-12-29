@@ -5,7 +5,6 @@
   imports = [
     ./hardware.nix
     ../../../profiles/virtual-machine
-    ../../../modules/services/docker
   ];
 
   networking = {

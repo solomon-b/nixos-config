@@ -11,7 +11,6 @@
     ./servarr.nix
 
     ../../../profiles/virtual-machine
-    ../../../modules/services/docker
   ];
 
   networking.hostName = "accompaniment-of-shadows";
@@ -51,4 +50,18 @@
       };
     };
   };
+
+  virtualisation = {
+    containers = {
+      enable = true;
+    };
+
+    docker = {
+      enable = true;
+      storageDriver = "devicemapper";
+    };
+    oci-containers.backend = "docker";
+  };
+
+  primary-user.extraGroups = [ "docker" ];
 }
