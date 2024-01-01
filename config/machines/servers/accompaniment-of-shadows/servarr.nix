@@ -1,14 +1,21 @@
 { ... }:
 
 {
-  services.lidarr = {
-    enable = true;
-    openFirewall = true;
-  };
+  services = {
+    lidarr = {
+      enable = true;
+      openFirewall = true;
+    };
 
-  services.prowlarr = {
-    enable = true;
-    openFirewall = true;
+    prowlarr = {
+      enable = true;
+      openFirewall = true;
+    };
+
+    radarr = {
+      enable = true;
+      openFirewall = true;
+    };
   };
 
   fileSystems."/mnt/media" = {

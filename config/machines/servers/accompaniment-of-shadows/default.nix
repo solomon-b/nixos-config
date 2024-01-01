@@ -44,6 +44,12 @@
       };
     };
 
+    "radarr.service" = {
+      locations."/" = {
+        proxyPass = "http://localhost:7878";
+      };
+    };
+
     "sabnzbd.service" = {
       locations."/" = {
         proxyPass = "http://localhost:8080";

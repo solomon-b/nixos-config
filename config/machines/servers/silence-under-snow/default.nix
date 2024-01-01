@@ -56,6 +56,7 @@
         "qbittorrent.service" = "100.123.147.26";
         "lidarr.service" = "100.123.147.26";
         "prowlarr.service" = "100.123.147.26";
+        "radarr.service" = "100.123.147.26";
         "sabnzbd.service" = "100.123.147.26";
 
         # Services on sower
