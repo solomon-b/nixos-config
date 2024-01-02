@@ -19,10 +19,10 @@ in
     tubearchivist = {
       imageFile = pkgs.dockerTools.pullImage {
         imageName = "bbilly1/tubearchivist";
-        imageDigest = "sha256:a87e4737d8b8a44fed7d76b10c8d500c930f0e7c50627b6e644daeb7dd15cdaf";
-        sha256 = "sha256-tEawjfTthX9xAdwqE+J2IlHEFWNtHOweu04Vs5vNNhE=";
+        imageDigest = "sha256:589dbfcd7ba36e608294cc586b80820a6651eaa80cc22eba871aa9980cdc85fd";
+        sha256 = "sha256-kREVFRdayfeSgVaxaBKBRmUTXdkFA2ddI06MTBlaChY=";
       };
-      image = "bbilly1/tubearchivist:v0.3.6";
+      image = "bbilly1/tubearchivist:v0.4.5";
 
       ports = [ "8000:8000" ];
 
@@ -51,10 +51,10 @@ in
     archivist-es = {
       imageFile = pkgs.dockerTools.pullImage {
         imageName = "bbilly1/tubearchivist-es";
-        imageDigest = "sha256:d84dcd18c9a35d63d6d92c3ee40b5a7e4caf2c3c7a931a587eba18ff8ecf5bc9";
-        sha256 = "sha256-WwrHAJEQcjys3xZRRLx2lAwVKV5nKABjSAtV4MrZ4hQ=";
+        imageDigest = "sha256:2ed1d6881b5b846cb02559ba35ea4351b45ac8809bfb00681151a92cedf24cf0";
+        sha256 = "sha256-5r5iXMXsAUYRXPQyrqDPj9gor/MRF7G0iYo62QXw3KM=";
       };
-      image = "bbilly1/tubearchivist-es:8.7.0";
+      image = "bbilly1/tubearchivist-es:8.11.0";
 
       environment = {
         ELASTIC_PASSWORD = "hunter2";
@@ -80,8 +80,8 @@ in
     archivist-redis = {
       imageFile = pkgs.dockerTools.pullImage {
         imageName = "redis/redis-stack-server";
-        imageDigest = "sha256:e2a73d78daf3fb2053e0d1555c0b041ffc8d7cd0fcfa5a045679fad3245a4260";
-        sha256 = "sha256-S8Z7kTEOa0bosGcLoYmyvopz3z/Tis9ZzBAUn2o2Rkk=";
+        imageDigest = "sha256:7df84d4e2f0e1d3d5d85f6ee96f1a42effe851527a72170933f8822341f83b74";
+        sha256 = "sha256-yeT9lhX1ArzVUyRG50a01PJn8Kifv7HPORzEf7DtT5c=";
       };
       image = "redis/redis-stack-server:latest";
 
