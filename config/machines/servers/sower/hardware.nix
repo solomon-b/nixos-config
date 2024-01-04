@@ -43,6 +43,12 @@
       fsType = "nfs";
     };
 
+    "/mnt/media-ro" = {
+      device = "192.168.5.6:/mnt/tank/Media ";
+      fsType = "nfs";
+      options = [ "ro" ];
+    };
+
     "/mnt/storage" = {
       device = "192.168.5.6:/mnt/tank/solomon";
       fsType = "nfs";
