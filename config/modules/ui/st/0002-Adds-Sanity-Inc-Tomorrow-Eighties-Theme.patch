@@ -1,0 +1,94 @@
+From 023acb4d77de17a7ad954e2911de174bc7b63358 Mon Sep 17 00:00:00 2001
+From: solomon <ssbothwell@gmail.com>
+Date: Thu, 4 Jan 2024 12:57:10 -0800
+Subject: [PATCH 2/3] Adds Sanity Inc Tomorrow Eighties Theme
+
+https://github.com/chriskempson/tomorrow-theme/blob/master/Xdefaults/XresourceTomorrowNightEighties
+---
+ config.def.h | 51 +++++++++++++++++++++++++--------------------------
+ 1 file changed, 25 insertions(+), 26 deletions(-)
+
+diff --git a/config.def.h b/config.def.h
+index 52b2ec3..962f78c 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -96,43 +96,42 @@ unsigned int tabspaces = 8;
+ /* Terminal colors (16 first used in escape sequence) */
+ static const char *colorname[] = {
+ 	/* 8 normal colors */
+-	"black",
+-	"red3",
+-	"green3",
+-	"yellow3",
+-	"blue2",
+-	"magenta3",
+-	"cyan3",
+-	"gray90",
++	[0] = "#000000",
++	[1] = "#f2777a",
++	[2] = "#99cc99",
++	[3] = "#f99157",
++	[4] = "#6699cc",
++	[5] = "#cc99cc",
++	[6] = "#66cccc",
++	[7] = "#515151",
+ 
+ 	/* 8 bright colors */
+-	"gray50",
+-	"red",
+-	"green",
+-	"yellow",
+-	"#5c5cff",
+-	"magenta",
+-	"cyan",
+-	"white",
++	[8] = "#666666",
++	[9] = "#FF3334",
++	[10] = "#9ec400",
++	[11] = "#ffcc66",
++	[12] = "#6699cc",
++	[13] = "#b777e0",
++	[14] = "#54ced6",
++	[15] = "#393939",
+ 
+ 	[255] = 0,
+ 
+ 	/* more colors can be added after 255 to use with DefaultXX */
+-	"#cccccc",
+-	"#555555",
+-	"gray90", /* default foreground colour */
+-	"black", /* default background colour */
++	[256] = "#cccccc", // foreground
++	[257] = "#2d2d2d", // background
++	[258] = "#aeafad", // cursor
+ };
+ 
+ 
+ /*
+  * Default colors (colorname index)
+- * foreground, background, cursor, reverse cursor
++ * foreground, background, cursor
+  */
+-unsigned int defaultfg = 258;
+-unsigned int defaultbg = 259;
+-unsigned int defaultcs = 256;
+-static unsigned int defaultrcs = 257;
++unsigned int defaultfg = 256;
++unsigned int defaultbg = 257;
++unsigned int defaultcs = 258;
++static unsigned int defaultrcs = 258;
+ 
+ /*
+  * Default shape of cursor
+@@ -154,7 +153,7 @@ static unsigned int rows = 24;
+  * Default colour and shape of the mouse cursor
+  */
+ static unsigned int mouseshape = XC_xterm;
+-static unsigned int mousefg = 7;
++static unsigned int mousefg = 256;
+ static unsigned int mousebg = 0;
+ 
+ /*
+-- 
+2.42.0
+

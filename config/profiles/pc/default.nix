@@ -18,6 +18,7 @@
     ../../modules/ui/opengl
     ../../modules/ui/picom
     ../../modules/ui/kitty
+    ../../modules/ui/st
     # ../../modules/ui/termonad
     ../../modules/ui/xserver
 

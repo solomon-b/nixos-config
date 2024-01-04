@@ -1,0 +1,29 @@
+From 5e0ce42bd8be5fcac042f64575cc9041a5fae143 Mon Sep 17 00:00:00 2001
+From: solomon <ssbothwell@gmail.com>
+Date: Thu, 4 Jan 2024 13:36:51 -0800
+Subject: [PATCH 3/3] Use +,-,0 for font size.
+
+---
+ config.def.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/config.def.h b/config.def.h
+index fb828ff..f899f33 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -192,9 +192,9 @@ static Shortcut shortcuts[] = {
+ 	{ ControlMask,          XK_Print,       toggleprinter,  {.i =  0} },
+ 	{ ShiftMask,            XK_Print,       printscreen,    {.i =  0} },
+ 	{ XK_ANY_MOD,           XK_Print,       printsel,       {.i =  0} },
+-	{ TERMMOD,              XK_Prior,       zoom,           {.f = +1} },
+-	{ TERMMOD,              XK_Next,        zoom,           {.f = -1} },
+-	{ TERMMOD,              XK_Home,        zoomreset,      {.f =  0} },
++	{ TERMMOD,              XK_plus,        zoom,           {.f = +1} },
++	{ ControlMask,          XK_minus,       zoom,           {.f = -1} },
++	{ ControlMask,          XK_0,           zoomreset,      {.f =  0} },
+ 	{ TERMMOD,              XK_C,           clipcopy,       {.i =  0} },
+ 	{ TERMMOD,              XK_V,           clippaste,      {.i =  0} },
+ 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
+-- 
+2.42.0
+
