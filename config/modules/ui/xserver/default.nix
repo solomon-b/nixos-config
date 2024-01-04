@@ -29,7 +29,6 @@
 
   environment.systemPackages = [
     pkgs.haskellPackages.xmonad-solomon
-    pkgs.haskellPackages.xmobar-solomon
   ];
 
   # https://mynixos.com/home-manager/option/xdg.configFile.%3Cname%3E.source

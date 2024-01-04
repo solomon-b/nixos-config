@@ -260,7 +260,6 @@
         "sops-nix": "sops-nix",
         "unstable": "unstable",
         "volume-bar": "volume-bar",
-        "xmobar-solomon": "xmobar-solomon",
         "xmonad-solomon": "xmonad-solomon"
       }
     },
@@ -363,29 +362,6 @@
       "original": {
         "owner": "solomon-b",
         "repo": "volume-bar",
-        "type": "github"
-      }
-    },
-    "xmobar-solomon": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1704405196,
-        "narHash": "sha256-TI5FwaIQRsiU3VTSkVaUKSUnhsyTEaEd3EuzsbXZdB4=",
-        "owner": "solomon-b",
-        "repo": "xmobar-solomon",
-        "rev": "36a760ea2dc4ec0a239b438340d53abab5564d71",
-        "type": "github"
-      },
-      "original": {
-        "owner": "solomon-b",
-        "repo": "xmobar-solomon",
         "type": "github"
       }
     },

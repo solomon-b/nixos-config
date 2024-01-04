@@ -47,12 +47,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    xmobar-solomon = {
-      url = github:solomon-b/xmobar-solomon;
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-
     xmonad-solomon = {
       url = github:solomon-b/xmonad-solomon;
       inputs.nixpkgs.follows = "nixpkgs";
@@ -74,7 +68,6 @@
     , kmonad
     , brightness-bar
     , volume-bar
-    , xmobar-solomon
     , xmonad-solomon
     ,
     }:
@@ -91,7 +84,6 @@
           brightness-bar.overlays.default
           kmonad.overlay
           volume-bar.overlays.default
-          xmobar-solomon.overlays.default
           xmonad-solomon.overlays.default
           xmonad-solomon.overlays.xmonad
           xmonad-solomon.overlays.xmonad-contrib
