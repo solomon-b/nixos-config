@@ -18,7 +18,6 @@
     ../../modules/services/tailscale
 
     ../../modules/ui/git
-    ../../modules/ui/lorri
     ../../modules/ui/starship
     ../../modules/ui/zsh
   ];
