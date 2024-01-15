@@ -5,10 +5,9 @@ let
 in
 {
   primary-user.home-manager.programs.zsh = {
+    dotDir = ".config/zsh";
     enable = true;
     enableAutosuggestions = true;
-    enableHistorySubstringSearch = true;
-    autoSuggestions.highlightStyle = "fg=3";
 
     history = {
       expireDuplicatesFirst = true;
@@ -20,12 +19,7 @@ in
       size = 50000;
     };
 
-    saveNoDups = true; # This should be in the history submodule but I dont own it.
-
-    historySubstring = {
-      highlightFound = "fg=green";
-      highlightNotFound = "fg=red";
-    };
+    historySubstringSearch.enable = true;
 
     plugins = [
       {
@@ -51,8 +45,8 @@ in
       bindkey “^x^e” edit-command-line
 
       # Load Functions
-      if [ -f ${config.primary-user.home-manager.home.sessionVariables.SCRIPTS}/functions ]; then
-          source ${config.primary-user.home-manager.home.sessionVariables.SCRIPTS}/functions
+      if [ -f ${config.primary-user.home-manager.home.sessionVariables.XDG_BIN_HOME}/functions ]; then
+          source ${config.primary-user.home-manager.home.sessionVariables.XDG_BIN_HOME}/functions
       fi
 
       [ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
