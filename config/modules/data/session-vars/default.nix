@@ -14,13 +14,13 @@ in
       VISUAL = "vim";
       EDITOR = "vim";
 
-      XDG_CACHE_HOME  = "${homeDir}/.cache";
+      XDG_CACHE_HOME = "${homeDir}/.cache";
       XDG_CONFIG_HOME = "${homeDir}/.config";
-      XDG_DATA_HOME   = "${homeDir}/.local/share";
-      XDG_STATE_HOME  = "${homeDir}/.local/state";
-      
+      XDG_DATA_HOME = "${homeDir}/.local/share";
+      XDG_STATE_HOME = "${homeDir}/.local/state";
+
       # Not officially in the specification
-      XDG_BIN_HOME    = "${homeDir}/.local/bin";
+      XDG_BIN_HOME = "${homeDir}/.local/bin";
     };
   };
 }
