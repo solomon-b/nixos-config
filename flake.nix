@@ -88,7 +88,6 @@
           xmonad-solomon.overlays.xmonad
           xmonad-solomon.overlays.xmonad-contrib
           # (final: prev: { eww = eww.packages.${final.system}.default; })
-          #(self: super: { nix-direnv = super.nix-direnv.override { enableFlakes = true; }; } )
         ];
       };
 
