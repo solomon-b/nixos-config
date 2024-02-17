@@ -60,6 +60,9 @@
     scrot
     zathura
 
+    # Secrets
+    yubioath-flutter
+
     # Chat/Communication
     discord
     signal-desktop
