@@ -52,7 +52,7 @@ in
       [ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
 
       function git-jump {
-        REPO=$(find ${home}/Development/ -maxdepth 3 -type d -exec test -e '{}/.git' ';' -print -prune | sed -E 's|^${home}/Development/||g' | fzf)
+        REPO=$(fd -t d -d 3 . ${home}/Development | sed -E 's|^${home}/Development/||g' | fzf)
         [[ -n $REPO ]] && cd "${home}/Development/''${REPO}"
       }
 
@@ -83,6 +83,7 @@ in
       gf = "git fetch";
       gc = "git-checkout-branch";
       s = "sysz";
+      t = "sudo tailscale";
     };
   };
 }
