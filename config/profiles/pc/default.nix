@@ -32,6 +32,7 @@
 
   environment.systemPackages = with pkgs; [
     # CLI Tools
+    fd
     ispell
     udiskie
     sqlite # for org-roam, should I move to postgres? How would I sync between machines in that case?
@@ -42,6 +43,7 @@
 
     # Editors
     emacs
+    vscodium
 
     # Desktop Environment
     brightnessctl
@@ -80,6 +82,11 @@
     firefox
     google-chrome
     surf
+
+    # Misc Graphical Tools
+    zotero
+
+    #(pkgs.ollama.override { acceleration = "cuda"; })
   ];
 
 
