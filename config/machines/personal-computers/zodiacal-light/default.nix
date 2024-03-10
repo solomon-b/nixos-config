@@ -20,6 +20,7 @@
 
   environment.systemPackages = [
     pkgs.acpi
+    pkgs.elan
   ];
 
   primary-user.name = "solomon";
