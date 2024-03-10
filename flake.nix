@@ -198,7 +198,7 @@
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
             sops-nix.nixosModules.sops
-            nixos-hardware.nixosModules.framework
+            nixos-hardware.nixosModules.framework-11th-gen-intel
           ];
 
           specialArgs = { inherit inputs; };
