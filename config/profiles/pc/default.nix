@@ -85,8 +85,6 @@
 
     # Misc Graphical Tools
     zotero
-
-    #(pkgs.ollama.override { acceleration = "cuda"; })
   ];
 
 

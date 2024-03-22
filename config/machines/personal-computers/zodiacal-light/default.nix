@@ -21,6 +21,8 @@
   environment.systemPackages = [
     pkgs.acpi
     pkgs.elan
+
+    (pkgs.ollama.override { acceleration = "cuda"; })
   ];
 
   primary-user.name = "solomon";
