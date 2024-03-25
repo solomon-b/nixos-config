@@ -29,7 +29,9 @@
   };
 
   environment.systemPackages = [
-    pkgs.ffmpeg
+    pkgs.jellyfin
+    pkgs.jellyfin-web
+    pkgs.jellyfin-ffmpeg
   ];
 
   users.groups.nas.gid = 998;
@@ -44,7 +46,8 @@
       pkgs.vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but can work better for some applications)
       pkgs.vaapiVdpau
       # HDR tone mapping.
-      pkgs.beignet
+      pkgs.intel-ocl
+      #pkgs.beignet
       pkgs.intel-compute-runtime
       pkgs.ocl-icd
     ];
@@ -58,7 +61,8 @@
       pkgs.vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but can work better for some applications)
       pkgs.vaapiVdpau
       # HDR tone mapping.
-      pkgs.beignet
+      pkgs.intel-ocl
+      #pkgs.beignet
       pkgs.intel-compute-runtime
       pkgs.ocl-icd
     ];
