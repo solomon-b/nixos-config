@@ -42,28 +42,20 @@
 
     ensureDatabases = [
       "tt_rss"
-      "hasura"
       "planka"
     ];
 
     ensureUsers = [
       {
         name = "tt_rss";
-        ensurePermissions = {
-          "DATABASE tt_rss" = "ALL PRIVILEGES";
-        };
-      }
-      {
-        name = "hasura_admin";
-        ensurePermissions = {
-          "DATABASE hasura" = "ALL PRIVILEGES";
-        };
+        ensureDBOwnership = true;
       }
       {
         name = "planka_admin";
-        ensurePermissions = {
-          "DATABASE hasura" = "ALL PRIVILEGES";
-        };
+      }
+      {
+        name = "immich";
+        ensureDBOwnership = true;
       }
     ];
 
