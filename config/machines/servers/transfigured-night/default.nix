@@ -68,6 +68,10 @@
     ];
 
     authentication = ''
+      host all all 100.76.234.131/32 md5
+      host all all zodiacal-light md5
+      host all all 192.168.5.7/32 md5
+
       host all all 100.100.33.33/32 md5
       host all all nightshade md5
 
