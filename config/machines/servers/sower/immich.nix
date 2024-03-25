@@ -1,6 +1,18 @@
 { pkgs, ... }:
 
 let
+  immichServer = {
+    imageName = "ghcr.io/immich-app/immich-server";
+    imageDigest = "sha256:ad7a9828eb25e4f42ad17631bc81408b3fe464c4eec2300742af2e37acb4e8d6";
+    sha256 = "sha256-6hJkYK9Km8XmyWfl3MNydQVd8mnWNOta2WrLV+YUNho=";
+  };
+
+  immichMachineLearning = {
+    imageName = "ghcr.io/immich-app/immich-machine-learning";
+    imageDigest = "sha256:615e8208f48130aad83b9c47ac33627e0f080987885a3b9bc92dadaca8505735";
+    sha256 = "sha256-0QaqS/VVSz6QqrUmMaHjo6NwuWbmSrwUz5QlxhEKJI0=";
+  };
+
   dbHostname = "192.168.5.101"; # transfigured-night
   dbUsername = "immich";
   dbPassword = "immich";
@@ -26,8 +38,6 @@ let
     REDIS_PASSWORD = redisPassword;
 
     UPLOAD_LOCATION = photosLocation;
-
-    TYPESENSE_API_KEY = typesenseApiKey;
 
     IMMICH_WEB_URL = immichWebUrl;
     IMMICH_SERVER_URL = immichServerUrl;
@@ -63,10 +73,9 @@ in
   virtualisation.oci-containers.containers = {
     immich_server = {
       imageFile = wrapImage {
+        inherit (immichServer) imageName imageDigest sha256;
+
         name = "immich_server";
-        imageName = "ghcr.io/immich-app/immich-server";
-        imageDigest = "sha256:4fb6dfdef9a7595c1b8219fab9eb95caadf8f74dfd18094bb638aed09a7637c4";
-        sha256 = "sha256-ItqBFSf81Tp93UwNfYp+EcNECCDO4K15cBxeudlkfqg=";
         entrypoint = [ "/bin/sh" "start-server.sh" ];
       };
       image = "immich_server:release";
@@ -78,19 +87,16 @@ in
 
       environment = environment;
 
-      dependsOn = [
-        "typesense"
-      ];
+      ports = [ "8084:3001" ];
 
       autoStart = true;
     };
 
     immich_microservices = {
       imageFile = wrapImage {
+        inherit (immichServer) imageName imageDigest sha256;
+
         name = "immich_microservices";
-        imageName = "ghcr.io/immich-app/immich-server";
-        imageDigest = "sha256:4fb6dfdef9a7595c1b8219fab9eb95caadf8f74dfd18094bb638aed09a7637c4";
-        sha256 = "sha256-ItqBFSf81Tp93UwNfYp+EcNECCDO4K15cBxeudlkfqg=";
         entrypoint = [ "/bin/sh" "start-microservices.sh" ];
       };
       image = "immich_microservices:release";
@@ -102,19 +108,11 @@ in
 
       environment = environment;
 
-      dependsOn = [
-        "typesense"
-      ];
-
       autoStart = true;
     };
 
     immich_machine_learning = {
-      imageFile = pkgs.dockerTools.pullImage {
-        imageName = "ghcr.io/immich-app/immich-machine-learning";
-        imageDigest = "sha256:9106bc706227bd6d1f7d20a68ebda1fcf5573097051ff908402976b998d52c5c";
-        sha256 = "sha256-iwxMRvzCYi3yAEXqa8Duj05o7GoPSJZ6oeZ78Fq9xpQ=";
-      };
+      imageFile = pkgs.dockerTools.pullImage immichMachineLearning;
       image = "ghcr.io/immich-app/immich-machine-learning";
       extraOptions = [ "--network=immich-bridge" ];
 
@@ -124,65 +122,6 @@ in
         "${photosLocation}:/usr/src/app/upload"
         "model-cache:/cache"
       ];
-
-      autoStart = true;
-    };
-
-    immich_web = {
-      imageFile = pkgs.dockerTools.pullImage {
-        imageName = "ghcr.io/immich-app/immich-web";
-        imageDigest = "sha256:e13fb6c45f0e15b7fffed28772b5cbb627fdd07bbef4e7029acac1b3bdd29168";
-        sha256 = "sha256-GL02/jI2P5pNsBEsWmIRrEhH6Hartc6sZTw9wQe1InE=";
-      };
-      image = "ghcr.io/immich-app/immich-web";
-      extraOptions = [ "--network=immich-bridge" ];
-
-      environment = environment;
-
-      autoStart = true;
-    };
-
-
-    typesense = {
-      image = "typesense/typesense:0.24.0";
-      extraOptions = [ "--network=immich-bridge" ];
-
-      environment = {
-        TYPESENSE_API_KEY = typesenseApiKey;
-        TYPESENSE_DATA_DIR = "/data";
-      };
-
-      log-driver = "none";
-
-      volumes = [
-        "tsdata:/data"
-      ];
-
-      autoStart = true;
-    };
-
-    immich_proxy = {
-      imageFile = pkgs.dockerTools.pullImage {
-        imageName = "ghcr.io/immich-app/immich-proxy";
-        imageDigest = "sha256:ada30fb2d4fd5840f0d28b0a5ae211658b639478cd089b0bb98df1e865c82d27";
-        sha256 = "sha256-SQUVCT6CNynNQ1eIAXSHToBvjfB8NvnYFp19Bfyfo8c=";
-      };
-      image = "ghcr.io/immich-app/immich-proxy:release";
-      extraOptions = [ "--network=immich-bridge" ];
-
-      environment = {
-        IMMICH_SERVER_URL = immichServerUrl;
-        IMMICH_WEB_URL = immichWebUrl;
-        IMMICH_MACHINE_LEARNING_URL = immichMachineLearningUrl;
-      };
-
-      log-driver = "none";
-
-      dependsOn = [
-        "typesense"
-      ];
-
-      ports = [ "8084:8080" ];
 
       autoStart = true;
     };

@@ -38,11 +38,17 @@
     enable = true;
     dataDir = "/mnt/postgresql";
     enableTCPIP = true;
+    extraPlugins = with pkgs.postgresql_14.pkgs; [ pgvecto-rs ];
     package = pkgs.postgresql_14;
+
+    settings = {
+      shared_preload_libraries = "vectors.so";
+    };
 
     ensureDatabases = [
       "tt_rss"
       "planka"
+      "immich"
     ];
 
     ensureUsers = [
