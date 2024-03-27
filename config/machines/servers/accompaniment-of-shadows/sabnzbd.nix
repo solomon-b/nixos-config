@@ -10,4 +10,12 @@
   ##
   ## Create the group for downloads.
   #users.groups.downloads.gid = 1010;
+
+  services.nginx.virtualHosts = {
+    "sabnzbd.service" = {
+      locations."/" = {
+        proxyPass = "http://localhost:8080";
+      };
+    };
+  };
 }

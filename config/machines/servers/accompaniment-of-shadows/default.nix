@@ -31,30 +31,6 @@
         proxyPass = "http://192.168.5.104:8081";
       };
     };
-
-    "lidarr.service" = {
-      locations."/" = {
-        proxyPass = "http://localhost:8686";
-      };
-    };
-
-    "prowlarr.service" = {
-      locations."/" = {
-        proxyPass = "http://localhost:9696";
-      };
-    };
-
-    "radarr.service" = {
-      locations."/" = {
-        proxyPass = "http://localhost:7878";
-      };
-    };
-
-    "sabnzbd.service" = {
-      locations."/" = {
-        proxyPass = "http://localhost:8080";
-      };
-    };
   };
 
   virtualisation = {
