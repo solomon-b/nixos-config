@@ -5,6 +5,16 @@
     enable = true;
     listenPort = 3000;
     environmentFile = "/etc/homepage.env";
+
+    settings = {
+      layout = {
+        Organization = {
+          style = "row";
+          columns = 2;  
+        };
+      };
+    };
+
     bookmarks = [
       {
         Work = [
@@ -128,13 +138,35 @@
           {
             "Listen Brainz" = [{
               abbr = "LB";
-              href = "https://listenbrainz.org/user/solomon-b/";
+              href = "https://listenbrainz.org/user/solomon-b";
             }];
           }
         ];
       }
     ];
+
     services = [
+      {
+        Organization = [
+          {
+            Planka = {
+              href = "http://planka.service";
+            };
+          }
+          {
+            Homebox = {
+              href = "http://homebox.service";
+              icon = "homebox";
+              widget = {
+                type = "homebox";
+                url = "http://homebox.service";
+                username = "ssbothwell@gmail.com";
+                password = "{{HOMEPAGE_FILE_HOMEBOX_PASSWORD}}";
+              };
+            };
+          }
+        ];
+      }
       {
         Media = [
           {
@@ -198,11 +230,6 @@
                 url = "http://tubearchivist.service";
                 key = "{{HOMEPAGE_FILE_TUBEARCHIVIST_KEY}}";
               };
-            };
-          }
-          {
-            Planka = {
-              href = "http://planka.service/";
             };
           }
         ];
@@ -332,6 +359,9 @@
   };
 
   environment.etc."homepage.env".text = ''
+    # Organization
+    HOMEPAGE_FILE_HOMEBOX_PASSWORD=${config.sops.secrets.homebox-password.path}
+
     # Media
     HOMEPAGE_FILE_JELLYSEER_KEY=${config.sops.secrets.jellyseer-key.path}
     HOMEPAGE_FILE_JELLYFIN_KEY=${config.sops.secrets.jellyfin-key.path}
@@ -352,6 +382,8 @@
   '';
 
   sops.secrets = {
+    homebox-password = {};
+    
     jellyseer-key = {};
     jellyfin-key = {};
     navidrome-token = {};
