@@ -6,6 +6,7 @@
     ./hardware.nix
 
     ./filebrowser.nix
+    ./homebox.nix
     ./homepage.nix
     ./sabnzbd.nix
     ./servarr.nix

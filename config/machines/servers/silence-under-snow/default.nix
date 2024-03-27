@@ -51,7 +51,7 @@
 
         # Services on accompaniment-of-shadows
         "filebrowser.service" = "100.123.147.26";
-        "heimdall.service" = "100.123.147.26";
+        "homebox.service" = "100.123.147.26";
         "homepage.service" = "100.123.147.26";
         "qbittorrent.service" = "100.123.147.26";
         "lidarr.service" = "100.123.147.26";
