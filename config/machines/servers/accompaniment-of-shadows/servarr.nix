@@ -16,6 +16,11 @@
       enable = true;
       openFirewall = true;
     };
+
+    sonarr = {
+      enable = true;
+      openFirewall = true;
+    };
   };
 
   fileSystems."/mnt/media" = {
@@ -39,6 +44,12 @@
     "radarr.service" = {
       locations."/" = {
         proxyPass = "http://localhost:7878";
+      };
+    };
+
+    "sonarr.service" = {
+      locations."/" = {
+        proxyPass = "http://localhost:8989";
       };
     };
   };
