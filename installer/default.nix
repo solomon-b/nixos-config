@@ -3,8 +3,7 @@
 
 {
   imports = [
-    "${modulesPath}/profiles/minimal.nix"
-    "${modulesPath}/installer/cd-dvd/installation-cd-base.nix"
+    "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
   ];
 
   systemd.services.sshd.wantedBy = pkgs.lib.mkForce [ "multi-user.target" ];
@@ -16,7 +15,7 @@
   };
 
   isoImage = {
-    edition = lib.mkForce "custom";
+    edition = lib.mkForce "solomon-min";
     isoName = lib.mkForce "NixOS.iso";
   };
 
@@ -28,7 +27,7 @@
   };
 
   environment = {
-    systemPackages = [ pkgs.vim ];
+    systemPackages = [ pkgs.vim pkgs.rsync ];
 
     etc = {
       "connect.sh" = {

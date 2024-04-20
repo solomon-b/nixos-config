@@ -17,6 +17,10 @@ main () {
     MACHINE=$(ls config/machines/servers | gum choose)
     IP=$(gum input --placeholder "enter address..")
 
+    # Generate hardware config
+    ssh "root@${IP}" nixos-generate-config --no-filesystems --show-hardware-config > "config/machines/servers/${MACHINE}/hardware.nix"
+    git add "config/machines/servers/${MACHINE}/hardware.nix"
+
     # Create a temporary directory
     temp=$(mktemp -d)
     trap cleanup EXIT
@@ -24,11 +28,17 @@ main () {
     # Create the directory where sshd expects to find the host keys
     install -d -m755 "$temp/etc/ssh"
 
-    # Decrypt your SSH host keys from the password store and copy it to the temporary directory
-    pass "machine/${MACHINE}/ssh-host-key/ed25519/private" > "$temp/etc/ssh/ssh_host_ed25519_key"
-    pass "machine/${MACHINE}/ssh-host-key/ed25519/public" > "$temp/etc/ssh/ssh_host_ed25519_key.pub"
-    pass "machine/${MACHINE}/ssh-host-key/rsa/private" > "$temp/etc/ssh/ssh_host_rsa_key"
-    pass "machine/${MACHINE}/ssh-host-key/rsa/public" > "$temp/etc/ssh/ssh_host_rsa_key.pub"
+    # Generate new ssh host keys for the machine
+    echo "Generating ssh keys for ${MACHINE}"
+    ssh-keygen -t ed25519 -C "solomon@${MACHINE}" -f "${temp}/etc/ssh/ssh_host_ed25519_key"
+    ssh-keygen -t rsa -C "solomon@${MACHINE}" -f "${temp}/etc/ssh/ssh_host_rsa_key"
+
+    # Insert new keys into `pass`
+    cat "${temp}/etc/ssh/ssh_host_ed25519_key" | pass insert --echo "machine/${MACHINE}/ssh-host-key/ed25519/private"
+    cat "${temp}/etc/ssh/ssh_host_ed25519_key.pub" | pass insert --echo "machine/${MACHINE}/ssh-host-key/ed25519/public"
+
+    cat "${temp}/etc/ssh/ssh_host_rsa_key" | pass insert --echo "machine/${MACHINE}/ssh-host-key/rsa/private"
+    cat "${temp}/etc/ssh/ssh_host_rsa_key.pub" | pass insert --echo "machine/${MACHINE}/ssh-host-key/rsa/public"
 
     # Set the correct permissions so sshd will accept the keys
     chmod 600 "$temp/etc/ssh/ssh_host_ed25519_key"
