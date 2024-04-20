@@ -8,7 +8,7 @@
     };
 
     home-manager = {
-      url = github:rycee/home-manager/release-23.11;
+      url = github:nix-community/home-manager;
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
