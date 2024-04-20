@@ -163,6 +163,24 @@
             buildInputs = [ pkgs.makeWrapper ];
             postBuild = "wrapProgram $out/bin/install-server --prefix PATH : $out/bin";
           };
+
+        deploy = pkgs.writeShellScriptBin "deploy" ''
+          servers=$(ls config/machines/servers)
+          all="servers"
+          machine=$(echo "$servers" | ${pkgs.gum}/bin/gum choose)
+          echo "Deploying '$machine'"
+          ${pkgs.colmena}/bin/colmena apply --on $machine
+        '';
+
+        deploy-all = pkgs.writeShellScriptBin "deploy-all" ''
+          ${pkgs.colmena}/bin/colmena apply --on @server
+        '';
+      };
+
+      apps = {
+        deploy = flake-utils.lib.mkApp { drv = self.packages.${system}.deploy; };
+        deploy-all = flake-utils.lib.mkApp { drv = self.packages.${system}.deploy-all; };
+        default = self.apps.${system}.deploy;
       };
 
       nixosConfigurations = {
