@@ -252,6 +252,25 @@
 
           specialArgs = { inherit inputs; };
         };
+
+        test-vm = nixpkgs.lib.nixosSystem {
+          inherit pkgs system;
+          modules = [
+            ./config/machines/servers/test-vm
+            ({ ... }: {
+              sops = {
+                defaultSopsFile = ./secrets.yaml;
+                secrets.primary-user-password = { };
+              };
+            })
+            nixpkgs.nixosModules.notDetected
+            home-manager.nixosModules.home-manager
+            sops-nix.nixosModules.sops
+            disko.nixosModules.disko
+          ];
+
+          specialArgs = { inherit inputs; };
+        };
       };
 
       colmena =
