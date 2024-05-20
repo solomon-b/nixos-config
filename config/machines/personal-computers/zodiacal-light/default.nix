@@ -18,6 +18,10 @@
     experimental-features = nix-command flakes
   '';
 
+  system.fsPackages = [ pkgs.nfs-utils ];
+  services.rpcbind.enable = true;
+  boot.supportedFilesystems = [ "nfs" ];
+
   environment.systemPackages = [
     pkgs.acpi
     pkgs.elan
