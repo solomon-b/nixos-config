@@ -7,7 +7,7 @@ in
   primary-user.home-manager.programs.zsh = {
     dotDir = ".config/zsh";
     enable = true;
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
 
     history = {
       expireDuplicatesFirst = true;

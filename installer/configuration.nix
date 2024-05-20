@@ -18,7 +18,7 @@
   services.sshd.enable = true;
 
   security.pam = {
-    enableSSHAgentAuth = true;
+    sshAgentAuth.enable = true;
     services.sudo.sshAgentAuth = true;
   };
 
@@ -39,7 +39,7 @@
   };
 
   nix.settings.trusted-users = [ "root" "solomon" ];
-  nix.package = pkgs.nixUnstable;
+  nix.package = pkgs.nixVersions.latest;
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';

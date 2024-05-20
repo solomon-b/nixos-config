@@ -1,16 +1,26 @@
 { pkgs, ... }:
 
 {
+  services.displayManager = {
+    defaultSession = "none+xmonad";
+  };
+  
   services.xserver = {
     enable = true;
-    layout = "us";
-    xkbOptions = "ctrl:nocaps";
+    xkb = {
+      layout = "us";
+      options = "ctrl:nocaps";
+    };
     xautolock = {
       time = 15;
       enable = true;
       locker = "${pkgs.betterlockscreen}/bin/betterlockscreen --lock";
     };
     desktopManager.xfce.enable = true;
+    displayManager = {
+      lightdm.enable = true;
+      lightdm.background = ./wallpapers/Yosemite-Color-Block.png;
+    };
     windowManager.session = [
       {
         name = "xmonad";
@@ -20,11 +30,6 @@
         '';
       }
     ];
-    displayManager = {
-      defaultSession = "none+xmonad";
-      lightdm.enable = true;
-      lightdm.background = ./wallpapers/Yosemite-Color-Block.png;
-    };
     videoDrivers = [ "nvidia" ];
   };
 

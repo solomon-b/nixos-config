@@ -31,12 +31,6 @@
       url = github:NixOS/nixos-hardware/master;
     };
 
-    kmonad = {
-      url = github:pnotequalnp/kmonad/flake?dir=nix;
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-
     brightness-bar = {
       url = github:solomon-b/brightness-bar;
       inputs.nixpkgs.follows = "nixpkgs";
@@ -65,7 +59,6 @@
     , sops-nix
     , nixos-hardware
     , nixos-generators
-    , kmonad
     , brightness-bar
     , volume-bar
     , xmonad-solomon
@@ -82,7 +75,6 @@
 
         overlays = with inputs; [
           brightness-bar.overlays.default
-          kmonad.overlay
           volume-bar.overlays.default
           xmonad-solomon.overlays.default
           xmonad-solomon.overlays.xmonad
