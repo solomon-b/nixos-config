@@ -1,13 +1,30 @@
 { pkgs, ... }:
 
+let
+  jellyseerData = "/mnt/jellyseerr";
+in
 {
   services.jellyfin = {
     enable = true;
     openFirewall = true;
   };
 
-  services.jellyseerr = {
-    enable = true;
+  virtualisation.oci-containers.containers = {
+    jellyseerr = {
+      image = "fallenbagel/jellyseerr:latest";
+      ports = [ "5055:5055" ];
+
+      volumes = [
+        "${jellyseerData}/config:/app/config"
+      ];
+
+      environment = {
+        LOG_LEVEL = "debug";
+        TZ = "America/Los_Angeles";
+      };
+
+      autoStart = true;
+    };
   };
 
   services.nginx.virtualHosts = {
@@ -45,9 +62,6 @@
       pkgs.libvdpau-va-gl
       pkgs.vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but can work better for some applications)
       pkgs.vaapiVdpau
-      # HDR tone mapping.
-      pkgs.intel-ocl
-      #pkgs.beignet
       pkgs.intel-compute-runtime
       pkgs.ocl-icd
     ];
@@ -60,9 +74,6 @@
       pkgs.libvdpau-va-gl
       pkgs.vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but can work better for some applications)
       pkgs.vaapiVdpau
-      # HDR tone mapping.
-      pkgs.intel-ocl
-      #pkgs.beignet
       pkgs.intel-compute-runtime
       pkgs.ocl-icd
     ];

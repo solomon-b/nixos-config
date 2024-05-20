@@ -53,6 +53,12 @@
       device = "192.168.5.6:/mnt/tank/solomon";
       fsType = "nfs";
     };
+
+    "/mnt/jellyseerr" = {
+      device = "192.168.5.6:/mnt/tank/app-data/jellyseerr";
+      fsType = "nfs";
+      options = ["auto" "defaults" "nfsvers=3"];
+    };
   };
 
   swapDevices = [ ];
