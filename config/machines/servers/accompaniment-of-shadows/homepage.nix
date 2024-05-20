@@ -17,6 +17,16 @@
 
     bookmarks = [
       {
+        KPBJ = [
+          {
+            "Mailcheap Portal" = [{
+              abbr = "MP";
+              href = "https://mail10.mymailcheap.com/web/login.html";
+            }];
+          }
+        ];
+      };
+      {
         Work = [
           {
             "Costar Roadmap" = [{
