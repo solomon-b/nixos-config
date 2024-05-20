@@ -54,6 +54,7 @@
         "homebox.service" = "100.123.147.26";
         "homepage.service" = "100.123.147.26";
         "qbittorrent.service" = "100.123.147.26";
+        "bazarr.service" = "100.123.147.26";
         "lidarr.service" = "100.123.147.26";
         "prowlarr.service" = "100.123.147.26";
         "radarr.service" = "100.123.147.26";
