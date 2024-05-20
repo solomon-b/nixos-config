@@ -11,6 +11,23 @@
 - [installer](https://github.com/solomon-b/nixos-config/tree/main/installer): Custom nixos installer iso I use to quickly provision new machines.
 ## Usage
 ### Adding A New Machine
+
+1. Create a machine profile in `config/machines`. Import a non-existent `./hardware.nix` file.
+2. Build a fresh boot disk:
+```
+nix build '.#nixos-iso'
+```
+3. Boot the new machine off the iso.
+4. Generate a hardware config for the new machine:
+```
+ssh "root@${IP}" nixos-generate-config --no-filesystems --show-hardware-config > "config/machines/servers/${MACHINE}/hardware.nix"
+```
+6. run the installer script:
+```
+./installer/install-server.sh
+```
+7. Detach the boot disk and reboot.
+
 You can use [nixos-anywhere](https://github.com/numtide/nixos-anywhere) to provision a new phyiscal machine. Create a new machine under `machines/personal-computers` or `machines/servers` then boot your new machine with any linux boot disk that provides you ssh access to `root`. 
 
 A custom nixos install disk can be build with `nix build '.#nixos-iso'`. This ISO will include SSH public keys from `config/modules/security/sshd/public-keys.nix` as authorizedKeys for `root`.
