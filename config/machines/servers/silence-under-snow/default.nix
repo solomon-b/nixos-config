@@ -60,6 +60,8 @@
         "radarr.service" = "100.123.147.26";
         "sonarr.service" = "100.123.147.26";
         "sabnzbd.service" = "100.123.147.26";
+        "planka.service" = "100.123.147.26";
+        "planka.local" = "192.168.5.105";
 
         # Services on sower
         "jellyfin.local" = "192.168.5.7";
@@ -73,8 +75,6 @@
         "tubearchivist.service" = "100.80.98.4";
         "home-assistant.service" = "100.80.98.4";
         "home-assistant.local" = "192.168.5.7";
-        "planka.service" = "100.80.98.4";
-        "planka.local" = "192.168.5.7";
       };
 
       blocking = {

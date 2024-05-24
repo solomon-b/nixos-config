@@ -79,9 +79,9 @@
       host immich immich 192.168.5.7/32 md5
       host immich immich sower md5
 
-      host planka planka_admin 100.80.98.4/32 md5
-      host planka planka_admin 192.168.5.7/32 md5
-      host planka planka_admin sower md5
+      host planka planka_admin 100.123.147.26/32 md5
+      host planka planka_admin 192.168.5.105/32 md5
+      host planka planka_admin accompaniment-of-shadows md5
     '';
   };
 

@@ -7,7 +7,6 @@
     #./home-assistant.nix
     ./immich.nix
     ./jellyfin.nix
-    ./planka.nix
     ./podgrab.nix
     ./navidrome.nix
     ./tubearchivist.nix

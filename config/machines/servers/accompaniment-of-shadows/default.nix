@@ -8,6 +8,7 @@
     ./filebrowser.nix
     ./homebox.nix
     ./homepage.nix
+    ./planka.nix
     ./sabnzbd.nix
     ./servarr.nix
 
