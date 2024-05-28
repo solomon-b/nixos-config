@@ -7,7 +7,7 @@
     #./home-assistant.nix
     ./immich.nix
     ./jellyfin.nix
-    ./podgrab.nix
+    #./podgrab.nix
     ./navidrome.nix
     ./tubearchivist.nix
 
