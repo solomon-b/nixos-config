@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./glances.nix
     ./hardware.nix
     ./kmonad.nix
     #./nfs.nix
