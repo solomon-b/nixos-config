@@ -281,6 +281,17 @@
             };
           }
           {
+            sonarr = {
+              href = "http://sonarr.service";
+              icon = "sonarr";
+              widget = {
+                type = "sonarr";
+                url = "http://sonarr.service";
+                key = "{{HOMEPAGE_FILE_SONARR_KEY}}";
+              };
+            };
+          }
+          {
             prowlarr = {
               href = "http://prowlarr.service";
               icon = "prowlarr";
@@ -384,6 +395,7 @@
     HOMEPAGE_FILE_QBITTORRENT_PASSWORD=${config.sops.secrets.qBittorrent-password.path}
     HOMEPAGE_FILE_LIDARR_KEY=${config.sops.secrets.lidarr-key.path}
     HOMEPAGE_FILE_RADARR_KEY=${config.sops.secrets.radarr-key.path}
+    HOMEPAGE_FILE_SONARR_KEY=${config.sops.secrets.sonarr-key.path}
     HOMEPAGE_FILE_PROWLARR_KEY=${config.sops.secrets.prowlarr-key.path}
     HOMEPAGE_FILE_SABNZBD_KEY=${config.sops.secrets.sabnzbd-key.path}
 
@@ -404,6 +416,7 @@
     qBittorrent-password = {};
     lidarr-key = {};
     radarr-key = {};
+    sonarr-key = {};
     prowlarr-key = {};
     sabnzbd-key = {};
     truenas-key = {};
