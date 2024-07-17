@@ -22,7 +22,7 @@
         ip route delete 192.168.1.0/24
       '';
 
-      peers = [ (import ./mullvad.nix).us-lax-wg-303 ];
+      peers = [ (import ./mullvad.nix).us-lax-wg-203 ];
     };
   };
 
