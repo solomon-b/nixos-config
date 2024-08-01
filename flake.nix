@@ -169,7 +169,7 @@
         '';
       };
 
-      apps = {
+      apps.x86_64-linux = {
         deploy = flake-utils.lib.mkApp { drv = self.packages.${system}.deploy; };
         deploy-all = flake-utils.lib.mkApp { drv = self.packages.${system}.deploy-all; };
         default = self.apps.${system}.deploy;
