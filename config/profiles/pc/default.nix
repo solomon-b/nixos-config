@@ -110,7 +110,7 @@
 
     docker = {
       enable = true;
-      storageDriver = "devicemapper";
+      storageDriver = "overlay2";
     };
     oci-containers.backend = "docker";
   };
