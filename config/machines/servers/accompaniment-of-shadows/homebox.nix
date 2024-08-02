@@ -5,7 +5,7 @@ let
 in
 {
   fileSystems."/mnt/homebox" = {
-    device = "192.168.5.6:/mnt/tank/homebox";
+    device = "192.168.5.6:/mnt/tank/app-data/homebox";
     fsType = "nfs";
   };
 
