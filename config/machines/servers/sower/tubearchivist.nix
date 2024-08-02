@@ -6,12 +6,12 @@ let
 in
 {
   fileSystems."/mnt/tubearchivist/media" = {
-    device = "192.168.5.6:/mnt/tank/tubearchivist/media";
+    device = "192.168.5.6:/mnt/tank/app-data/tube-archivist/media";
     fsType = "nfs";
   };
 
   fileSystems."/mnt/tubearchivist/cache" = {
-    device = "192.168.5.6:/mnt/tank/tubearchivist/cache";
+    device = "192.168.5.6:/mnt/tank/app-data/tube-archivist/cache";
     fsType = "nfs";
   };
 
