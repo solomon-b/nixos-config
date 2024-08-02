@@ -66,7 +66,7 @@ let
 in
 {
   fileSystems."/mnt/immich" = {
-    device = "192.168.5.6:/mnt/tank/immich";
+    device = "192.168.5.6:/mnt/tank/app-data/immich";
     fsType = "nfs";
   };
 
