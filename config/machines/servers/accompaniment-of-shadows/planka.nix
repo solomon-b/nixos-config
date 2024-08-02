@@ -8,7 +8,7 @@ let
 in
 {
   fileSystems."/mnt/planka" = {
-    device = "192.168.5.6:/mnt/tank/planka";
+    device = "192.168.5.6:/mnt/tank/app-data/planka";
     fsType = "nfs";
   };
 
