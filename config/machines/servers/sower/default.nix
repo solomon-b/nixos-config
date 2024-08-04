@@ -4,7 +4,7 @@
   imports = [
     ./hardware.nix
     #./hoogle.nix
-    #./home-assistant.nix
+    ./home-assistant.nix
     ./immich.nix
     ./jellyfin.nix
     #./podgrab.nix

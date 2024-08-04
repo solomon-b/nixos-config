@@ -1,25 +1,26 @@
 { config, pkgs, ... }:
 
-{
-  services.home-assistant = {
-    enable = true;
-    config = {
-      http = {
-        use_x_forwarded_for = true;
-        trusted_proxies = [ "127.0.0.1" "::1" ];
-      };
+let
+  homeAssistantPort = "8123";
+in {
+  virtualisation.oci-containers.containers.home-assistant = {
+    image = "ghcr.io/home-assistant/home-assistant:stable";
+    environment.TZ = "America/Los_Angeles";
+    ports = ["127.0.0.1:${homeAssistantPort}:${homeAssistantPort}"];
+    extraOptions =
+      [
+        "--device=/dev/ttyACM0:/dev/ttyACM0"
+      ]
+      ++ (
+        lib.mapAttrsToList
+        (host: node: "--add-host=${host}:${node.address}")
+        (builtins.removeAttrs network.home ["id" "prefixLength" "router"])
+      );
+    volumes = ["/var/lib/hass:/config"];
 
-      homeassistant = {
-        unit_system = "metric";
-        time_zone = config.time.timeZone;
-        temperature_unit = "C";
-        name = "home";
-        latitude = 34.225090;
-        longitude = -118.377007;
-      };
-      http.server_port = 8123;
-    };
+    autoStart = true;
   };
+
 
   services.nginx.virtualHosts."home-assistant.service" = {
     locations."/" = {
