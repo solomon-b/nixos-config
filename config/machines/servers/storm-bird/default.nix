@@ -27,6 +27,10 @@
     addr = "127.0.0.1";
   };
 
+  services.uptime-kuma = {
+    enable = true;
+  };
+
   services.nginx = {
     enable = true;
 
@@ -34,10 +38,18 @@
     recommendedOptimisation = true;
     recommendedProxySettings = true;
 
-    virtualHosts.${config.services.grafana.domain} = {
-      locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString config.services.grafana.port}";
-        proxyWebsockets = true;
+    virtualHosts = {
+      ${config.services.grafana.domain} = {
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:${toString config.services.grafana.port}";
+          proxyWebsockets = true;
+        };
+      };
+      "uptime.service" = {
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:3001";
+          proxyWebsockets = true;
+        };
       };
     };
   };
