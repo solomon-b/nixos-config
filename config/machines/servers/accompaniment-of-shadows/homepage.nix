@@ -181,6 +181,33 @@
               };
             };
           }
+          {
+            Home-Assistant = {
+              href = "http://home-assistant.service";
+              icon = "home-assistant";
+              widget = {
+                type = "homeassistant";
+                url = "http://home-assistant.service";
+                key = "{{HOMEPAGE_FILE_HOMEASSISTANT_KEY}}";
+                custom = [
+                  {
+                    state = "sensor.envoy_202202063519_current_power_production";
+                    label = "energy today";
+                  }
+                  {
+                    state = "weather.forecast_home";
+                    label = "wind speed";
+                    value = "{attributes.wind_speed} {attributes.wind_speed_unit}";
+                  }
+                ];
+              };
+            };
+          }
+          {
+            Planka = {
+              href = "http://planka.service";
+            };
+          }
         ];
       }
       {
@@ -388,6 +415,7 @@
   environment.etc."homepage.env".text = ''
     # Organization
     HOMEPAGE_FILE_HOMEBOX_PASSWORD=${config.sops.secrets.homebox-password.path}
+    HOMEPAGE_FILE_HOMEASSISTANT_KEY=${config.sops.secrets.home-assistant-access-token.path}
 
     # Media
     HOMEPAGE_FILE_JELLYSEER_KEY=${config.sops.secrets.jellyseer-key.path}
@@ -411,6 +439,7 @@
 
   sops.secrets = {
     homebox-password = {};
+    home-assistant-access-token = {};
     
     jellyseer-key = {};
     jellyfin-key = {};

@@ -49,6 +49,7 @@
       "tt_rss"
       "planka"
       "immich"
+      "hass"
     ];
 
     ensureUsers = [
@@ -61,6 +62,10 @@
       }
       {
         name = "immich";
+        ensureDBOwnership = true;
+      }
+      {
+        name = "hass";
         ensureDBOwnership = true;
       }
     ];
@@ -78,6 +83,10 @@
       host immich immich 100.80.98.4/32 md5
       host immich immich 192.168.5.7/32 md5
       host immich immich sower md5
+
+      host hass hass 100.80.98.4/32 md5
+      host hass hass 192.168.5.7/32 md5
+      host hass hass sower md5
 
       host planka planka_admin 100.123.147.26/32 md5
       host planka planka_admin 192.168.5.105/32 md5
