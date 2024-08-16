@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
-# https://github.com/numtide/nixos-anywhere/blob/main/docs/howtos.md#secrets-and-full-disk-encryption
+# https://github.com/nix-community/nixos-anywhere/blob/main/docs/howtos/secrets.md
 # https://gist.github.com/jkachmar/7305140b55ff1297703a2d2218964e54
 # https://github.com/jkachmar/termina/blob/main/hosts/tatl/disks.nix
 # https://nixos.wiki/wiki/Yubikey_based_Full_Disk_Encryption_(FDE)_on_NixOS#Partitioning
+# https://www.guyrutenberg.com/2022/02/17/unlock-luks-volume-with-a-yubikey/
 
 set -e
 

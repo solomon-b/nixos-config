@@ -1,49 +1,45 @@
 {
   # Construct the partition table for the system's primary disk.
-  disko.devices.disk.sda = {
+  disko.devices.disk.sdc = {
     type = "disk";
-    device = "/dev/sda";
+    device = "/dev/sdc";
     content = {
-      type = "table";
-      format = "gpt";
-      partitions = [
+      type = "gpt";
+      partitions = {
         # Create a large boot partition.
         #
         # NixOS creates a separate boot entry for each generation, which
         # can fill up the partition faster than other operating systems.
         #
         # Storage is cheap, so this can be more generous than necessary.
-        {
-          name = "ESP";
-          start = "1MiB";
-          end = "512MiB";
-          bootable = true;
+        ESP = {
+          size = "500M";
+          type = "EF00";
           content = {
             type = "filesystem";
             format = "vfat";
             mountpoint = "/boot";
             mountOptions = [ "defaults" ];
           };
-        }
+        };
         # Partition the remainder of the disk as a LUKS container.
         #
         # This system should be able to boot without manual intervention, so
         # the LUKS container will be set up to use a random segment data from
         # an external device constructed in a separate step.
-        {
-          name = "luks";
-          start = "512MiB";
-          end = "100%";
+        luks = {
+          size = "100%";
           content = {
             type = "luks";
             name = "CRYPT";
+            extraOpenArgs = [ ];
             content = {
               type = "zfs";
               pool = "tank";
             };
           };
-        }
-      ];
+        };
+      };
     };
   };
 
