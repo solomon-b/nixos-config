@@ -54,7 +54,7 @@ in
   users.groups.nas.gid = 998;
   users.users.jellyfin.extraGroups = [ "nas" ];
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     extraPackages = [
       # Hardware transcoding.
@@ -66,7 +66,7 @@ in
       pkgs.ocl-icd
     ];
 
-    driSupport32Bit = true;
+    enable32Bit = true;
 
     extraPackages32 = [
       # Hardware transcoding.
