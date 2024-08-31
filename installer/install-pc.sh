@@ -38,7 +38,11 @@ main () {
     chmod 644 "$temp/etc/ssh/ssh_host_rsa_key.pub"
 
     gum log --level info "Install NixOS to the host system with our secrets"
-    nix run github:numtide/nixos-anywhere -- --extra-files "$temp" --flake ".#${MACHINE}" "root@${IP}" --no-reboot
+    nix run github:numtide/nixos-anywhere -- \
+	--extra-files "$temp" \
+        --disk-encryption-keys /tmp/disk.key <(pass "machine/${MACHINE}/luks/password") \
+	--flake ".#${MACHINE}" "root@${IP}" \
+	--no-reboot
 
     gum log --level info "Mount ZFS datasets to /mnt"
     ssh "root@${IP}" <<EOF
