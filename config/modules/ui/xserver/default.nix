@@ -30,7 +30,15 @@
         '';
       }
     ];
-    videoDrivers = [ "nvidia" ];
+    # The names of the video drivers the configuration supports. They will be
+    # tried in order until one that supports your card is found. Don’t combine
+    # those with “incompatible” OpenGL implementations, e.g. free ones
+    # (mesa-based) with proprietary ones.
+    videoDrivers = [
+      "nvidia"
+      "modesetting"
+      "fbdev"
+    ];
   };
 
   systemd.services.nvidia-control-devices = {
