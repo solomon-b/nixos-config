@@ -56,6 +56,7 @@
     postgresql_14
 
     # Media
+    feh
     pavucontrol
     picard
     vlc
@@ -99,7 +100,7 @@
       #  pkgs.rofi-power-menu
     ];
 
-    terminal = "${pkgs.kitty}/bin/kitty";
+    # terminal = "${pkgs.kitty}/bin/kitty";
 
   };
 

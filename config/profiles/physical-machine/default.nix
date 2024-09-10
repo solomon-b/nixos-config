@@ -35,7 +35,7 @@
     gnugrep
     gnumake
     gum
-    htop
+    btop
     inetutils
     jq
     pass

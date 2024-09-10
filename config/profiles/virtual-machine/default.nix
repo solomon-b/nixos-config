@@ -38,7 +38,7 @@
     fzf
     git
     gnugrep
-    htop
+    btop
     inetutils
     jq
     ripgrep
