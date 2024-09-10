@@ -12,10 +12,4 @@
     # ./nixos/secure.nix # Is this for disk encryption?
     # ./nixos/sudo-cmds.nix
   ];
-
-  primary-user.home-manager = _: {
-    imports = [
-      # ./home-manager/termonad.nix
-    ];
-  };
 }
