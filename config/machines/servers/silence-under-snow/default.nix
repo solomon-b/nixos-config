@@ -62,6 +62,8 @@
         "sabnzbd.service" = "100.123.147.26";
         "planka.service" = "100.123.147.26";
         "planka.local" = "192.168.5.105";
+        "paperless.service" = "100.123.147.26";
+        "paperless.local" = "192.168.5.105";
 
         # Services on sower
         "jellyfin.local" = "192.168.5.7";

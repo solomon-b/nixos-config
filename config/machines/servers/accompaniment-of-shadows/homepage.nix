@@ -165,6 +165,18 @@
       {
         Organization = [
           {
+            Paperless = {
+              href = "http://paperless.service";
+              icon = "paperless";
+              widget = {
+                type = "paperless";
+                url = "http://paperless.service";
+                username = "admin";
+                password = "{{HOMEPAGE_FILE_PAPERLESS_PASSWORD}}";
+              };
+            };
+          }
+          {
             Planka = {
               href = "http://planka.service";
             };
@@ -414,6 +426,7 @@
 
   environment.etc."homepage.env".text = ''
     # Organization
+    HOMEPAGE_FILE_PAPERLESS_PASSWORD=${config.sops.secrets.paperless-password.path}
     HOMEPAGE_FILE_HOMEBOX_PASSWORD=${config.sops.secrets.homebox-password.path}
     HOMEPAGE_FILE_HOMEASSISTANT_KEY=${config.sops.secrets.home-assistant-access-token.path}
 
@@ -438,6 +451,7 @@
   '';
 
   sops.secrets = {
+    paperless-password = {};
     homebox-password = {};
     home-assistant-access-token = {};
     
