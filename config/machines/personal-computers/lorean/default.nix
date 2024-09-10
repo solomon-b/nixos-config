@@ -18,6 +18,7 @@
 
   environment.systemPackages = [
     pkgs.acpi
+    (pkgs.agda.withPackages (p: [ p._1lab p.standard-library ]))
   ];
 
   primary-user.name = "solomon";
