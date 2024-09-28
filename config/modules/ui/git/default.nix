@@ -5,6 +5,15 @@
     enable = true;
     userName = "solomon";
     userEmail = "ssbothwell@gmail.com";
+    aliases = {
+      # list files which have changed since REVIEW_BASE
+      # (REVIEW_BASE defaults to 'master' in zshrc)
+      files = "!git diff --name-only $(git merge-base HEAD \"$REVIEW_BASE\")";
+
+      # Same as above, but with a diff stat instead of just names
+      # (better for interactive use)
+      stat = "!git diff --stat $(git merge-base HEAD \"$REVIEW_BASE\")";
+    };
     extraConfig = {
       branch = {
         sort = "-committerdate";
