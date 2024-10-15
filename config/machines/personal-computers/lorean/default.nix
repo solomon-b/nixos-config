@@ -31,6 +31,14 @@
   # "...run the OOM killer earlier, but paradoxically that can help clean up wasteful resources and avoid a situation where you end up swamped at the limit" --jkachmar
   services.earlyoom.enable = true;
 
+  services.printing.enable = true;
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
   networking = {
     hostName = "lorean";
     hostId = "960855f8";
