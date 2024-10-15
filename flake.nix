@@ -52,6 +52,11 @@
       inputs.unstable.follows = "unstable";
       inputs.flake-utils.follows = "flake-utils";
     };
+
+    immich-sd-card-sync = {
+      url = github:solomon-b/Immich-SD-Card-Upload-Service;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -68,7 +73,8 @@
     , brightness-bar
     , volume-bar
     , xmonad-solomon
-    ,
+    , immich-sd-card-sync
+    , 
     }:
     let
       system = "x86_64-linux";
@@ -198,6 +204,7 @@
             disko.nixosModules.disko
             sops-nix.nixosModules.sops
             lix-module.nixosModules.default
+            immich-sd-card-sync.nixosModules.immichSdCardSync
           ];
 
           specialArgs = { inherit inputs; };
