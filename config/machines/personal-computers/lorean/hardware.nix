@@ -8,7 +8,6 @@
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ "dm-snapshot" "vfat" "nls_cp437" "nls_iso8859-1" "usbhid" ];
-  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
 
   boot.initrd.luks.devices.CRYPT = {
     allowDiscards = true;
