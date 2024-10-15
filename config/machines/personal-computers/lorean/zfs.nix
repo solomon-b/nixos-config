@@ -23,8 +23,8 @@
     enable = true;
     sshKey = config.sops.secrets.syncoid-ssh-key.path;
     commands = {
-      "tank/user" = {
-        target = "syncoid@sandra-voi:tank/system-snapshots/lorean/user";
+      "tank/home" = {
+        target = "syncoid@sandra-voi:tank/system-snapshots/lorean/home";
         recursive = true;
       };
       "tank/root" = {
