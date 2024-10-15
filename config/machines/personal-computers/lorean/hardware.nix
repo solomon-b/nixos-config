@@ -25,6 +25,8 @@
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
+
+  zramSwap.enable = true;
   nix.settings = {
     build-cores = 2;
     max-jobs = lib.mkDefault 4;
