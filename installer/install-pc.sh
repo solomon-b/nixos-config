@@ -47,7 +47,8 @@ main () {
     gum log --level info "Mount ZFS datasets to /mnt"
     ssh "root@${IP}" <<EOF
       mount.zfs tank/root /mnt
-      mount.zfs tank/systemd-logs /var/log
+      mkdir -p /mnt/var/log
+      mount.zfs tank/systemd-logs /mnt/var/log
       mount.zfs tank/nix /mnt/nix
       mount.zfs tank/home /mnt/home
       mkdir -p /mnt/home/solomon/.ssh
