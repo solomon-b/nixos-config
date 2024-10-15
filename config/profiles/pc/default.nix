@@ -36,7 +36,7 @@
     udiskie
     sqlite # for org-roam, should I move to postgres? How would I sync between machines in that case?
     xclip
-    kitty
+    ranger
 
     filezilla
 
