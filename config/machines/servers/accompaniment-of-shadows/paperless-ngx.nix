@@ -14,6 +14,8 @@
     port = 9000;
     settings = {
       PAPERLESS_CONSUMER_POLLING = 30;
+      PAPERLESS_CONVERT_TMPDIR = "/var/tmp/paperless";
+      PAPERLESS_SCRATCH_DIR = "/var/tmp/paperless-scratch";
     };
   };
 
