@@ -15,7 +15,10 @@ in
   virtualisation.oci-containers.containers = {
     planka = {
       image = "ghcr.io/plankanban/planka:latest";
-      ports = [ "8085:1337" ];
+
+      extraOptions = [
+        "--network=host"
+      ];
 
       volumes = [
         "${userAvatars}:/app/public/user-avatars"
@@ -37,7 +40,7 @@ in
 
   services.nginx.virtualHosts."planka.service" = {
     locations."/" = {
-      proxyPass = "http://localhost:8085";
+      proxyPass = "http://localhost:1337";
       proxyWebsockets = true;
     };
   };
