@@ -24,8 +24,7 @@ This ISO will include SSH public keys from `config/modules/security/sshd/public-
 ```
 ssh "root@${IP}" nixos-generate-config --no-filesystems --show-hardware-config > "config/machines/servers/${MACHINE}/hardware.nix"
 ```
-4. Add ssh keys to `pass`:
-Host Keys
+4. Add ssh host keys to `pass`:
 ```
 ssh "root@${IP}" cat /etc/ssh/ssh_host_ed25519_key.pub | pass insert -m "machine/${MACHINE}/ssh-host-key/ed25519/public"
 ssh "root@${IP}" cat /etc/ssh/ssh_host_ed25519_key | pass insert -m "machine/${MACHINE}/ssh-host-key/ed25519/private"
