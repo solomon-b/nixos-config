@@ -230,6 +230,26 @@
           specialArgs = { inherit inputs; };
         };
 
+        voice-of-evening = nixpkgs.lib.nixosSystem {
+          inherit pkgs system;
+          modules = [
+            ./config/machines/personal-computers/voice-of-evening
+            ({ ... }: {
+              sops = {
+                defaultSopsFile = ./secrets.yaml;
+                secrets.primary-user-password = { };
+              };
+            })
+            nixpkgs.nixosModules.notDetected
+            home-manager.nixosModules.home-manager
+            sops-nix.nixosModules.sops
+            disko.nixosModules.disko
+            lix-module.nixosModules.default
+          ];
+
+          specialArgs = { inherit inputs; };
+        };
+
         zodiacal-light = nixpkgs.lib.nixosSystem {
           inherit pkgs system;
           modules = [
