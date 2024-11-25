@@ -23,10 +23,6 @@
           };
         };
         # Partition the remainder of the disk as a LUKS container.
-        #
-        # This system should be able to boot without manual intervention, so
-        # the LUKS container will be set up to use a random segment data from
-        # an external device constructed in a separate step.
         luks = {
           size = "100%";
           content = {
