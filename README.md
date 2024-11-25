@@ -13,43 +13,59 @@
 ### Adding A New Machine
 
 1. Create a machine profile in `config/machines`. Import a non-existent `./hardware.nix` file.
-2. Build a fresh boot disk:
+2. Boot the new machine off a linux boot disk where you have authorizedKeys for `root`.
+
+You can build one with:
 ```
 nix build '.#nixos-iso'
 ```
-3. Boot the new machine off the iso.
-4. Generate a hardware config for the new machine:
+This ISO will include SSH public keys from `config/modules/security/sshd/public-keys.nix` as authorizedKeys for `root`.
+3. Generate a hardware config for the new machine:
 ```
 ssh "root@${IP}" nixos-generate-config --no-filesystems --show-hardware-config > "config/machines/servers/${MACHINE}/hardware.nix"
 ```
-5. Add ssh host keys to `pass`:
+4. Add ssh keys to `pass`:
+Host Keys
 ```
 ssh "root@${IP}" cat /etc/ssh/ssh_host_ed25519_key.pub | pass insert -m "machine/${MACHINE}/ssh-host-key/ed25519/public"
 ssh "root@${IP}" cat /etc/ssh/ssh_host_ed25519_key | pass insert -m "machine/${MACHINE}/ssh-host-key/ed25519/private"
 ssh "root@${IP}" cat /etc/ssh/ssh_host_rsa_key.pub | pass insert -m "machine/${MACHINE}/ssh-host-key/rsa/public"
 ssh "root@${IP}" cat /etc/ssh/ssh_host_rsa_key | pass insert -m "machine/${MACHINE}/ssh-host-key/rsa/private"
 ```
-6. run the installer script:
+
+User Keys
 ```
-./installer/install-server.sh
+ssh-keygen -t ed25519 -C "solomon@${MACHINE}"
+cat /tmp/ed25519_key | pass insert -m "machine/${MACHINE}/solomon/ssh/private-key"
+cat /tmp/ed25519_key.pub | pass insert -m "machine/${MACHINE}/solomon/ssh/public-key"
 ```
+5. Generate an `age` key for the new machine and add it to `.sops.yaml`.
+```
+pass machine/${MACHINE}/ssh-host-key/ed25519/public | ssh-to-age
+vim .sops.yaml
+sops updatekeys --yes secrets.yaml
+```
+6. Run the installer script
+
+For physical machines:
+```
+nix run '.#install-pc'
+```
+
+For Virtual Machines:
+```
+nix run '.#install-server'
+```
+
+The scripts use [nixos-anywhere](https://github.com/numtide/nixos-anywhere) to provision a new phyiscal machine.
 7. Detach the boot disk and reboot.
 
-You can use [nixos-anywhere](https://github.com/numtide/nixos-anywhere) to provision a new phyiscal machine. Create a new machine under `machines/personal-computers` or `machines/servers` then boot your new machine with any linux boot disk that provides you ssh access to `root`. 
-
-A custom nixos install disk can be build with `nix build '.#nixos-iso'`. This ISO will include SSH public keys from `config/modules/security/sshd/public-keys.nix` as authorizedKeys for `root`.
-
-Finally, run `nix run '.#install-pc'` or `nix run '.#install-server'` to provision the machine with `nixos-anywhere`. The script will prompt for the machine name and IP address.
-
-NOTE: If you don't use the installer ISO and wish to deploy with `colmena` or provision with `nixos-anywhere` then be sure to provide your root user with an [authorized SSH key](https://github.com/solomon-b/nixos-config/blob/main/installer/configuration.nix#L48).
-
+### Post install
 Once you have your machine provisioned you can use `colmena apply --on $MACHINE` to deploy it.
 
-Lastly, if you are deploying with `colmena` then you will either need a DNS entry for your machine names or you will need to tweak the `mkMachine` function and set the IP with [deployment.targetHost](https://colmena.cli.rs/unstable/reference/deployment.html#deploymenttargethost).
+If you are deploying with [colmena](https://colmena.cli.rs/unstable/reference/deployment.html#deploymenttargethost) then you will either need a DNS entry for your machine names or you will need to tweak the `mkMachine` function and set the IP with [deployment.targetHost](https://colmena.cli.rs/unstable/reference/deployment.html#deploymenttargethost).
 
 ### Deployment
-Deployments are done with [colmena](https://colmena.cli.rs/unstable/reference/deployment.html#deploymenttargethost):
-
 Build all servers:
 ```
 $ colmena apply --on @server
