@@ -31,7 +31,7 @@
             extraOpenArgs = [ ];
             passwordFile = "/tmp/disk.key";
             settings = {
-              #keyFile = "/tmp/disk.key";
+              keyFile = "/tmp/disk.key";
               allowDiscards = true;
             };
             content = {
