@@ -40,7 +40,7 @@ main () {
     gum log --level info "Install NixOS to the host system with our secrets"
     nix run github:numtide/nixos-anywhere -- \
 	--extra-files "$temp" \
-        --disk-encryption-keys /tmp/disk.key <(pass "machine/${MACHINE}/luks/password") \
+        --disk-encryption-keys /tmp/disk.key <(pass "machine/${MACHINE}/luks/key/0") \
 	--flake ".#${MACHINE}" "root@${IP}" \
 	--no-reboot
 
