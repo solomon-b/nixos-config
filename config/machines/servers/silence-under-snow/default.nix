@@ -37,6 +37,7 @@
         "sower.machine" = "100.80.98.4";
         "sandra-voi" = "192.168.5.6";
         "sandra-voi.machine" = "192.168.5.6";
+        "voice-of-evening" = "100.110.60.76";
 
         # Virtual Machines Digital Ocean
         "gnostic-ascension" = "138.68.0.20";
