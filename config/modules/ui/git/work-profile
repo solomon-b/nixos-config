@@ -1,3 +1,4 @@
 [user]
-	name = solomon
-	email = solomon@costarastrology.com
+	name = "Solomon Bothwell"
+	email = "solomon.bothwell@bitnomial.com"
+        signingKey = "~/.ssh/id_ed25519_bitnomial.pub";

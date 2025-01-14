@@ -21,22 +21,29 @@
       column = {
         ui = "auto";
       };
+      # https://blog.dbrgn.ch/2021/11/16/git-ssh-signatures/
+      commit = {
+        gpgsign = true;
+      };
       gpg = {
         format = "ssh";
+        ssh = {
+          allowedSignersFile = "~/.config/git/allowed_signers";
+        };
       };
       init = {
         defaultBranch = "main";
       };
+      # https://jvns.ca/blog/2024/02/16/popular-git-config-options/#merge-conflictstyle-zdiff3
       merge = {
-        # https://jvns.ca/blog/2024/02/16/popular-git-config-options/#merge-conflictstyle-zdiff3
         conflictstyle = "zdiff3";
       };
+      # https://jvns.ca/blog/2024/02/16/popular-git-config-options/#pull-ff-only-or-pull-rebase-true
       pull = {
-        # https://jvns.ca/blog/2024/02/16/popular-git-config-options/#pull-ff-only-or-pull-rebase-true
         rebase = true;
       };
+      # https://jvns.ca/blog/2024/02/16/popular-git-config-options/#push-default-simple-push-default-current
       push = {
-        # https://jvns.ca/blog/2024/02/16/popular-git-config-options/#push-default-simple-push-default-current
         autoSetupRemote = true;
       };
       # https://jvns.ca/blog/2024/02/16/popular-git-config-options/#rerere-enabled-true
@@ -46,6 +53,10 @@
       safe = {
         directory = "/etc/nixos/flake";
       };
+      # https://blog.dbrgn.ch/2021/11/16/git-ssh-signatures/
+      tag = {
+        gpgsign = true;
+      };
       user = {
         signingKey = "~/.ssh/id_ed25519.pub";
       };
@@ -53,7 +64,7 @@
     includes = [
       {
         path = ./work-profile;
-        condition = "gitdir:~/Development/Co-Star/";
+        condition = "gitdir:~/Development/Bitnomial/";
       }
     ];
   };
