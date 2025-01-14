@@ -52,7 +52,7 @@
     wmctrl
 
     # DB
-    postgresql_14
+    postgresql
 
     # Media
     feh
