@@ -3,7 +3,7 @@
 {
   imports = [
     ./hardware.nix
-    #./immich-sdcard-sync.nix
+    ./immich-sdcard-sync.nix
     ./kmonad.nix
     ./zfs.nix
 
