@@ -29,10 +29,10 @@
       customDNS.mapping = {
         # Physical Machines
         "zodiacal-light" = "100.76.234.131";
-        "nightshade" = "100.100.33.33";
-        "nightshade.machine" = "100.100.33.33";
-        "lorean" = "100.92.19.49";
-        "lorean.machine" = "100.92.19.49";
+        "nightshade" = "100.72.120.112";
+        "nightshade.machine" = "100.72.120.112";
+        "lorean" = "100.126.171.15";
+        "lorean.machine" = "100.126.171.15";
         "sower" = "100.80.98.4";
         "sower.machine" = "100.80.98.4";
         "sandra-voi" = "192.168.5.6";
