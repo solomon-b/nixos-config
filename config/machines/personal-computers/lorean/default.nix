@@ -29,6 +29,8 @@
     mode = "600";
   };
 
+  systemd.services.nvidia-control-devices.enable = false;
+
   # "...run the OOM killer earlier, but paradoxically that can help clean up wasteful resources and avoid a situation where you end up swamped at the limit" --jkachmar
   services.earlyoom.enable = true;
 

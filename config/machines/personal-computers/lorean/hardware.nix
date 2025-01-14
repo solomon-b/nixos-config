@@ -24,9 +24,9 @@
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
-  hardware.nvidia.open = false;
-
   zramSwap.enable = true;
+
+  hardware.nvidia.open = lib.mkForce false;
 
   nix.settings = {
     build-cores = 2;
