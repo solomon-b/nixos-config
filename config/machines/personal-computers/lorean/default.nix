@@ -9,6 +9,7 @@
 
     ../../../profiles/pc
     #../../../modules/services/virtualisation/libvirt
+    ../../../modules/services/virtualisation/virtualbox
     ../../../modules/system/devices/touchpad
     ../../../modules/system/powertop
   ];
@@ -20,6 +21,7 @@
   environment.systemPackages = [
     pkgs.acpi
     (pkgs.agda.withPackages (p: [ p._1lab p.standard-library ]))
+    pkgs.nfs-utils
   ];
 
   primary-user.name = "solomon";
@@ -35,6 +37,8 @@
   services.earlyoom.enable = true;
 
   services.printing.enable = true;
+
+  services.rpcbind.enable = true;
 
   services.avahi = {
     enable = true;

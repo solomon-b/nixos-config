@@ -14,7 +14,8 @@
     fallbackToPassword = true;
   };
 
-  boot.kernelModules = [ ];
+  boot.kernelModules = [ "nfs" ];
+  boot.supportedFilesystems = [ "nfs" ];
   boot.extraModulePackages = [ ];
 
   fileSystems = {
