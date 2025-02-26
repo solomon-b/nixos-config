@@ -217,26 +217,6 @@
           specialArgs = { inherit inputs; };
         };
 
-        nightshade = nixpkgs.lib.nixosSystem {
-          inherit pkgs system;
-          modules = [
-            ./config/machines/personal-computers/nightshade
-            ({ ... }: {
-              sops = {
-                defaultSopsFile = ./secrets.yaml;
-                secrets.primary-user-password = { };
-              };
-            })
-            nixpkgs.nixosModules.notDetected
-            home-manager.nixosModules.home-manager
-            sops-nix.nixosModules.sops
-            nixos-hardware.nixosModules.framework-11th-gen-intel
-            lix-module.nixosModules.default
-          ];
-
-          specialArgs = { inherit inputs; };
-        };
-
         voice-of-evening = nixpkgs.lib.nixosSystem {
           inherit pkgs system;
           modules = [
