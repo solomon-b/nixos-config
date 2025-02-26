@@ -21,42 +21,56 @@
       column = {
         ui = "auto";
       };
+
       # https://blog.dbrgn.ch/2021/11/16/git-ssh-signatures/
       commit = {
         gpgsign = true;
       };
+
+      core = {
+        fscache = false;
+      };
+
       gpg = {
         format = "ssh";
         ssh = {
           allowedSignersFile = "~/.config/git/allowed_signers";
         };
       };
+
       init = {
         defaultBranch = "main";
       };
+
       # https://jvns.ca/blog/2024/02/16/popular-git-config-options/#merge-conflictstyle-zdiff3
       merge = {
         conflictstyle = "zdiff3";
       };
+
       # https://jvns.ca/blog/2024/02/16/popular-git-config-options/#pull-ff-only-or-pull-rebase-true
       pull = {
         rebase = true;
       };
+
       # https://jvns.ca/blog/2024/02/16/popular-git-config-options/#push-default-simple-push-default-current
       push = {
         autoSetupRemote = true;
       };
+
       # https://jvns.ca/blog/2024/02/16/popular-git-config-options/#rerere-enabled-true
       rerere = {
         enabled = true;
       };
+
       safe = {
         directory = "/etc/nixos/flake";
       };
+
       # https://blog.dbrgn.ch/2021/11/16/git-ssh-signatures/
       tag = {
         gpgsign = true;
       };
+
       user = {
         signingKey = "~/.ssh/id_ed25519.pub";
       };
