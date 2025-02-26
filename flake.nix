@@ -188,6 +188,13 @@
         default = self.apps.${system}.deploy;
       };
 
+      homeConfigurations.nightshade = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [
+          ./config/machines/personal-computers/nightshade/home.nix
+        ];
+      };
+
       nixosConfigurations = {
         lorean = nixpkgs.lib.nixosSystem {
           inherit pkgs system;
