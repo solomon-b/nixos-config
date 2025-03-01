@@ -22,7 +22,7 @@
   environment.systemPackages = [
     pkgs.acpi
     pkgs.elan
-
+    (pkgs.clementine.override { withIpod = true;})
     # (pkgs.ollama.override { acceleration = "cuda"; })
   ];
 
