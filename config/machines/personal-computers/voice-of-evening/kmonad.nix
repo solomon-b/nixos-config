@@ -5,7 +5,7 @@ let
     ''
       (defcfg
         input (device-file "${device}")
-        output (uinput-sink "internal-keyboard")
+        output (uinput-sink "external-keyboard")
         allow-cmd true
         fallthrough true
       )
@@ -47,13 +47,13 @@ in
     KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"
   '';
 
-  systemd.services.kmonad-internal = {
+  systemd.services.kmonad-external = {
     enable = true;
-    description = "kmonad internal keyboard config";
+    description = "kmonad external keyboard config";
     serviceConfig = {
       Restart = "always";
       RestartSec = "3";
-      ExecStart = "${pkgs.kmonad}/bin/kmonad ${config-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd"}";
+      ExecStart = "${pkgs.kmonad}/bin/kmonad ${config-file "/dev/input/by-id/usb-HID_Keyboard_HID_Keyboard-event-kbd"}";
     };
     wantedBy = [ "default.target" ];
   };
