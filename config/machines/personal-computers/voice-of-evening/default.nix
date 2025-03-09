@@ -19,10 +19,12 @@
   services.rpcbind.enable = true;
   boot.supportedFilesystems = [ "nfs" ];
 
+  systemd.services.nvidia-control-devices.enable = false;
+
   environment.systemPackages = [
     pkgs.acpi
     pkgs.elan
-    (pkgs.clementine.override { withIpod = true;})
+    #(pkgs.clementine.override { withIpod = true;})
     # (pkgs.ollama.override { acceleration = "cuda"; })
   ];
 
