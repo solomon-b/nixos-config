@@ -22,6 +22,7 @@
     pkgs.acpi
     (pkgs.agda.withPackages (p: [ p._1lab p.standard-library ]))
     pkgs.nfs-utils
+    pkgs.ntfs3g
   ];
 
   primary-user.name = "solomon";
