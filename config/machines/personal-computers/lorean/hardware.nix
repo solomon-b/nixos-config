@@ -15,7 +15,7 @@
   };
 
   boot.kernelModules = [ "nfs" ];
-  boot.supportedFilesystems = [ "nfs" ];
+  boot.supportedFilesystems = [ "nfs" "ntfs" ];
   boot.extraModulePackages = [ ];
 
   fileSystems = {
