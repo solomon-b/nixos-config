@@ -2,6 +2,12 @@
 
 set -euo pipefail
 
+# Only handle the AlbumDownload event
+if [[ "${lidarr_eventtype:-}" != "AlbumDownload" ]]; then
+  echo "Skipping event '${lidarr_eventtype:-<none>}': only 'AlbumDownload' is handled."
+  exit 0
+fi
+
 # --- CONFIGURABLE ---
 DEST_ROOT="/mnt/media/Ipod"
 # --------------------
