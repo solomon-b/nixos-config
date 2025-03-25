@@ -1,6 +1,10 @@
 { pkgs, ... }:
 
 {
+  imports = [
+    ./ipod-processing.nix
+  ];
+
   services = {
     bazarr = {
       enable = true;
@@ -31,17 +35,17 @@
 
   environment.systemPackages = [
       pkgs.ffmpeg
-      (let src = builtins.readFile ./postprocess-ipod.sh;
-           script = (pkgs.writeScriptBin "postproces-ipod" src).overrideAttrs (old: {
-              buildCommand = "${old.buildCommand}\n patchShebangs $out";
-           });
-        in
-        pkgs.symlinkJoin {
-          name = "postproces-ipod";
-          paths = [ pkgs.ffmpeg pkgs.iconv script  ];
-          buildInputs = [ pkgs.makeWrapper ];
-          postBuild = "wrapProgram $out/bin/postprocess-ipod --prefix PATH : $out/bin";
-        })
+      # (let src = builtins.readFile ./postprocess-ipod.sh;
+      #      script = (pkgs.writeScriptBin "postproces-ipod" src).overrideAttrs (old: {
+      #         buildCommand = "${old.buildCommand}\n patchShebangs $out";
+      #      });
+      #   in
+      #   pkgs.symlinkJoin {
+      #     name = "postprocess-ipod";
+      #     paths = [ pkgs.ffmpeg pkgs.iconv script  ];
+      #     buildInputs = [ pkgs.makeWrapper ];
+      #     postBuild = "wrapProgram $out/bin/postprocess-ipod --prefix PATH : $out/bin";
+      #   })
     ];
 
   # https://github.com/NixOS/nixpkgs/issues/155475#issuecomment-1093940244
