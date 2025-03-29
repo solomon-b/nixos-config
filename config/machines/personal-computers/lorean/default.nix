@@ -4,6 +4,7 @@
   imports = [
     ./hardware.nix
     ./immich-sdcard-sync.nix
+    ./arduino.nix
     ./kmonad.nix
     ./zfs.nix
 
