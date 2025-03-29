@@ -1,6 +1,4 @@
-############################################################################
-# OS-agnostic home config options for the system's primary account holder. #
-############################################################################
+# OS-agnostic home config options for the system's primary account holder.
 {
   config,
   lib,

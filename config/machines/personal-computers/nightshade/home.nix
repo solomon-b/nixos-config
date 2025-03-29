@@ -3,13 +3,13 @@
 {
   imports = [
     ../../../../modules/home-manager/primary-user.nix
-    ../../../../modules/home-manager/direnv.nix
-    ../../../../modules/home-manager/dunst.nix
-    ../../../../modules/home-manager/emacs.nix
-    ../../../../modules/home-manager/st
-    ../../../../modules/home-manager/starship.nix
-    ../../../../modules/home-manager/zsh.nix
-    (import ../../../modules/ui/git {}).primary-user.home-manager
+    ../../../modules/ui/emacs/home.nix
+    ../../../modules/ui/direnv/home.nix
+    ../../../modules/ui/dunst/home.nix
+    ../../../modules/ui/st/home.nix
+    ../../../modules/ui/starship/home.nix
+    ../../../modules/ui/zsh/home.nix
+    ../../../modules/ui/git/home.nix
     ./kmonad.nix
   ];
 
