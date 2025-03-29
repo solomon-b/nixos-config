@@ -6,6 +6,7 @@
     ../../../../modules/home-manager/direnv.nix
     ../../../../modules/home-manager/dunst.nix
     ../../../../modules/home-manager/emacs.nix
+    ../../../../modules/home-manager/st
     ../../../../modules/home-manager/starship.nix
     ../../../../modules/home-manager/zsh.nix
     (import ../../../modules/ui/git {}).primary-user.home-manager
@@ -17,6 +18,7 @@
 
   home.packages = with pkgs; [
     # General CLI Tools
+    acpi
     cachix
     curl
     direnv
@@ -94,4 +96,3 @@
     EDITOR = "vim";
   };
 }
-

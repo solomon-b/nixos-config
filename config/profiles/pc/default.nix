@@ -18,7 +18,7 @@
     ../../modules/ui/opengl
     ../../modules/ui/picom
     ../../modules/ui/kitty
-    ../../modules/ui/st
+    ../../../modules/home-manager/st
     ../../modules/ui/xserver
 
     # TODO: Write Modules:
