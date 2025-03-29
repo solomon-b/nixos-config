@@ -17,7 +17,7 @@
     ../../modules/ui/fonts
     ../../modules/ui/opengl
     ../../modules/ui/picom
-    ../../../modules/home-manager/st
+    ../../modules/ui/st
     ../../modules/ui/xserver
 
     # TODO: Write Modules:
