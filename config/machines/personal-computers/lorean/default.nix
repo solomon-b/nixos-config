@@ -3,8 +3,8 @@
 {
   imports = [
     ./hardware.nix
-    ./immich-sdcard-sync.nix
     ./arduino.nix
+    #./immich-sdcard-sync.nix
     ./kmonad.nix
     ./zfs.nix
 
