@@ -17,7 +17,6 @@
     ../../modules/ui/fonts
     ../../modules/ui/opengl
     ../../modules/ui/picom
-    ../../modules/ui/kitty
     ../../../modules/home-manager/st
     ../../modules/ui/xserver
 
@@ -99,9 +98,6 @@
       #  pkgs.rofi-systemd
       #  pkgs.rofi-power-menu
     ];
-
-    # terminal = "${pkgs.kitty}/bin/kitty";
-
   };
 
   virtualisation = {
