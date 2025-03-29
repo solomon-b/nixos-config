@@ -44,9 +44,9 @@ in
     };
 
     Install = {
-      wantedBy = [ "graphical.target" ];
+      WantedBy = [ "default.target" ];
     };
-    
+
     Service = {
       Restart = "always";
       RestartSec = "3";
@@ -54,4 +54,3 @@ in
     };
   };
 }
-
