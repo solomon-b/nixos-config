@@ -3,14 +3,14 @@
 let
   immichServer = {
     imageName = "ghcr.io/immich-app/immich-server";
-    imageDigest = "sha256:61d965d477e720679b0746796ca245d8f5a38d10738a38bd8dca187dc5a0a6ac";
-    sha256 = "sha256-rDgje7mcee/DZX1tE0HJNsswV1TCPdzvAzY16OLD5NY=";
+    imageDigest = "sha256:e36c27ba1e3cd20bf6038d0b6b330e35a9a5b7ce9ee57db70a97bc49ca41ea6b";
+    sha256 = "sha256-phvsGAlPoh0RQQfkT9w3x+XYhTLp/U7JofETkJONrrM=";
   };
 
   immichMachineLearning = {
     imageName = "ghcr.io/immich-app/immich-machine-learning";
-    imageDigest = "sha256:22fed1390a76262c582f42f81f4ac44f7c1e6ad525a013e526bf4b95534d5e93";
-    sha256 = "sha256-TlQMq74y/pNh8/QBVnsiwphSlc+WJf/m1EmE5ba/dWw=";
+    imageDigest = "sha256:e00799ab188850df8d467723017610133c9e7e87fae454a3b015b8896093efa5";
+    sha256 = "sha256-zObsW6cR/5OT3XndOG0uoJDT3cJlGhpYavYbNZIRv/U=";
   };
 
   dbHostname = "192.168.5.101"; # transfigured-night
