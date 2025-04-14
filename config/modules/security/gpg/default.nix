@@ -15,7 +15,7 @@
     pkgs.age-plugin-yubikey
     pkgs.rage
     pkgs.yubikey-manager
-    pkgs.yubikey-manager-qt
+    #pkgs.yubikey-manager-qt
   ];
 
   environment.variables = {
