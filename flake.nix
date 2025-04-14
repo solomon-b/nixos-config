@@ -57,6 +57,11 @@
       url = github:solomon-b/Immich-SD-Card-Upload-Service;
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    music-archiver = {
+      url = github:solomon-b/music-archiver;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -74,7 +79,7 @@
     , volume-bar
     , xmonad-solomon
     , immich-sd-card-sync
-    , 
+    , music-archiver
     }:
     let
       system = "x86_64-linux";
@@ -97,6 +102,7 @@
           xmonad-solomon.overlays.default
           xmonad-solomon.overlays.xmonad
           xmonad-solomon.overlays.xmonad-contrib
+          #music-archiver.overlay
           # (final: prev: { eww = eww.packages.${final.system}.default; })
         ];
       };
