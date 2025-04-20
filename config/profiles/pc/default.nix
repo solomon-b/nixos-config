@@ -20,6 +20,8 @@
     ../../modules/ui/st
     ../../modules/ui/xserver
 
+    ./openai-codex.nix
+
     # TODO: Write Modules:
     # ../../modules/ui/emacs
     # ../../../modules/nixos/lightlocker.nix
