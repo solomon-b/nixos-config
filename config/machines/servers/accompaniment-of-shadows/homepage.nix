@@ -4,6 +4,7 @@
   services.homepage-dashboard = {
     enable = true;
     listenPort = 3000;
+    allowedHosts = "*";
     environmentFile = "/etc/homepage.env";
 
     settings = {
@@ -28,22 +29,9 @@
       }
       {
         Work = [
-          {
-            "Costar Roadmap" = [{
-              abbr = "CR";
-              href = "https://docs.google.com/spreadsheets/d/1mCP0w0zg3kb0nCwqh3YWOyi1FB1_JchSgunaTvrHAyA/edit?pli=1#gid=1841117339";
-            }];
-          }
-          {
-            "Costar Editor" = [{
-              abbr = "CE";
-              href = "https://editor.costarastrology.com";
-            }];
-          }
-          {
-            Notion = [{
-              abbr = "N";
-              href = "https://www.notion.so/costarastrology";
+          { Gusto = [{
+             abbr = "G";
+             href = "https://app.gusto.com/";
             }];
           }
           {
@@ -53,39 +41,36 @@
             }];
           }
           {
+            # Bitnomial 401k
+            Guideline = [{
+              abbr = "GL";
+              href = "https://my.guideline.com";
+            }];
+          }
+          {
+            # Co-Star 401k
             Empower-Retirement = [{
               abbr = "ER";
               href = "https://justworks.empower-retirement.com";
             }];
           }
           {
-            Shortcut = [{
-              abbr = "PM";
-              href = "https://app.shortcut.com/costar/stories/space/19436/everything?team_scope_id=v2%3At%3A5c9028e7-7d7e-4f75-9493-0b4713c07024%3A605b9746-1668-4eaa-b97b-adae162227c7";
+            # CJ 401k
+            Fidelity = [{
+              abbr = "FI";
+              href = "https://digital.fidelity.com/ftgw/digital/portfolio/summary#08063";
             }];
           }
           {
-            "One Medical" = [{
-              abbr = "OM";
-              href = "https://app.onemedical.com/";
-            }];
-          }
-          {
-            Postman = [{
-              abbr = "PM";
-              href = "https://bold-flare-71897.postman.co/workspace/Team-Workspace~49cdf21f-57eb-447c-8e17-448c708e0a8a/collection/18108977-494b3f7f-5aef-4501-85dd-124dddcde9c0?tab=overview";
-            }];
-          }
-          {
-            "Merge Requests" = [{
-              abbr = "MR";
-              href = "https://gitlab.com/costar-astrology/horrorscope-backend/-/merge_requests?scope=all&state=all&author_username=solomon2300635";
-            }];
-          }
-          {
-            "Hasura Rippling" = [{
+            Hasura-Rippling = [{
               abbr = "RP";
               href = "https://app.rippling.com/dashboard";
+            }];
+          }
+          {
+            Mortgage-Capital-Partners = [{
+              abbr = "MCP";
+              href = "https://www.yourmortgageonline.com/payments";
             }];
           }
         ];
