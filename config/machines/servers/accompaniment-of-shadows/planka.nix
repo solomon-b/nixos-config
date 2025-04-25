@@ -38,7 +38,7 @@ in
     };
   };
 
-  services.nginx.virtualHosts."planka.service" = {
+  services.nginx.virtualHosts."planka.service.home.arpa" = {
     locations."/" = {
       proxyPass = "http://localhost:1337";
       proxyWebsockets = true;

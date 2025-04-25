@@ -12,7 +12,7 @@
   #users.groups.downloads.gid = 1010;
 
   services.nginx.virtualHosts = {
-    "sabnzbd.service" = {
+    "sabnzbd.service.home.arpa" = {
       locations."/" = {
         proxyPass = "http://localhost:8080";
       };

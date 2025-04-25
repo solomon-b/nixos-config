@@ -11,7 +11,7 @@
       };
   };
 
-  services.nginx.virtualHosts."navidrome.service" = {
+  services.nginx.virtualHosts."navidrome.service.home.arpa" = {
     locations."/".proxyPass = "http://localhost:4533";
   };
 }

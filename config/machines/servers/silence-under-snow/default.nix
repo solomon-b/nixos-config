@@ -28,59 +28,52 @@
 
       customDNS.mapping = {
         # Physical Machines
-        "zodiacal-light" = "100.76.234.131";
-        "nightshade" = "100.72.120.112";
-        "nightshade.machine" = "100.72.120.112";
-        "lorean" = "100.126.171.15";
-        "lorean.machine" = "100.126.171.15";
-        "sower" = "100.80.98.4";
-        "sower.machine" = "100.80.98.4";
-        "sandra-voi" = "192.168.5.6";
-        "sandra-voi.machine" = "192.168.5.6";
-        "voice-of-evening" = "100.110.60.76";
-
-        # Virtual Machines Digital Ocean
-        "gnostic-ascension" = "138.68.0.20";
+        "zodiacal-light.home.arpa" = "100.76.234.131";
+        "nightshade.home.arpa" = "100.72.120.112";
+        "lorean.home.arpa" = "100.126.171.15";
+        "sower.home.arpa" = "100.80.98.4";
+        "sandra-voi.home.arpa" = "192.168.5.6";
+        "voice-of-evening.home.arpa" = "100.110.60.76";
 
         # Virtual Machines on sandra-voi
-        "accompaniment-of-shadows" = "100.123.147.26";
-        "apollyon" = "192.168.5.104";
-        "madonna-of-the-wasps" = "100.70.16.79";
-        "silence-under-snow" = "100.117.45.47";
-        "storm-bird" = "100.97.232.9";
-        "transfigured-night" = "100.96.251.72";
+        "accompaniment-of-shadows.home.arpa" = "100.123.147.26";
+        "apollyon.home.arpa" = "192.168.5.104";
+        "madonna-of-the-wasps.home.arpa" = "100.70.16.79";
+        "silence-under-snow.home.arpa" = "100.117.45.47";
+        "storm-bird.home.arpa" = "100.97.232.9";
+        "transfigured-night.home.arpa" = "100.96.251.72";
 
         # Services on accompaniment-of-shadows
-        "filebrowser.service" = "100.123.147.26";
-        "homebox.service" = "100.123.147.26";
-        "homepage.service" = "100.123.147.26";
-        "qbittorrent.service" = "100.123.147.26";
-        "bazarr.service" = "100.123.147.26";
-        "lidarr.service" = "100.123.147.26";
-        "prowlarr.service" = "100.123.147.26";
-        "radarr.service" = "100.123.147.26";
-        "sonarr.service" = "100.123.147.26";
-        "sabnzbd.service" = "100.123.147.26";
-        "planka.service" = "100.123.147.26";
-        "planka.local" = "192.168.5.105";
-        "paperless.service" = "100.123.147.26";
-        "paperless.local" = "192.168.5.105";
+        "filebrowser.service.home.arpa" = "100.123.147.26";
+        "homebox.service.home.arpa" = "100.123.147.26";
+        "homepage.service.home.arpa" = "100.123.147.26";
+        "qbittorrent.service.home.arpa" = "100.123.147.26";
+        "bazarr.service.home.arpa" = "100.123.147.26";
+        "lidarr.service.home.arpa" = "100.123.147.26";
+        "prowlarr.service.home.arpa" = "100.123.147.26";
+        "radarr.service.home.arpa" = "100.123.147.26";
+        "sonarr.service.home.arpa" = "100.123.147.26";
+        "sabnzbd.service.home.arpa" = "100.123.147.26";
+        "planka.service.home.arpa" = "100.123.147.26";
+        "paperless.service.home.arpa" = "100.123.147.26";
+        "planka.local.home.arpa" = "192.168.5.105";
+        "paperless.local.home.arpa" = "192.168.5.105";
 
         # Services on sower
-        "jellyfin.local" = "192.168.5.7";
-        "jellyfin.service" = "100.80.98.4";
-        "jellyseerr.local" = "192.168.5.7";
-        "jellyseerr.service" = "100.80.98.4";
-        "podgrab.service" = "100.80.98.4";
-        "navidrome.service" = "100.80.98.4";
-        "immich.service" = "100.80.98.4";
-        "tubearchivist.local" = "192.168.5.7";
-        "tubearchivist.service" = "100.80.98.4";
-        "home-assistant.service" = "100.80.98.4";
-        "home-assistant.local" = "192.168.5.7";
+        "jellyfin.local.home.arpa" = "192.168.5.7";
+        "jellyfin.service.home.arpa" = "100.80.98.4";
+        "jellyseerr.local.home.arpa" = "192.168.5.7";
+        "jellyseerr.service.home.arpa" = "100.80.98.4";
+        "podgrab.service.home.arpa" = "100.80.98.4";
+        "navidrome.service.home.arpa" = "100.80.98.4";
+        "immich.service.home.arpa" = "100.80.98.4";
+        "tubearchivist.local.home.arpa" = "192.168.5.7";
+        "tubearchivist.service.home.arpa" = "100.80.98.4";
+        "home-assistant.service.home.arpa" = "100.80.98.4";
+        "home-assistant.local.home.arpa" = "192.168.5.7";
 
         # Services on storm-bird
-        "uptime.service" = "100.97.232.9";
+        "uptime.service.home.arpa" = "100.97.232.9";
       };
 
       blocking = {

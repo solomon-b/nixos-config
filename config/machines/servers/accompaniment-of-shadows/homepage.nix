@@ -80,7 +80,7 @@
           {
             Tailscale = [{
               abbr = "TS";
-              href = "https://login.tailscale.com/admin/machines";
+              href = "https://login.tailscale.com/admin.home.arpas";
             }];
           }
 
@@ -151,11 +151,11 @@
         Organization = [
           {
             Paperless = {
-              href = "http://paperless.service";
+              href = "http://paperless.service.home.arpa";
               icon = "paperless";
               widget = {
                 type = "paperless";
-                url = "http://paperless.service";
+                url = "http://paperless.service.home.arpa";
                 username = "admin";
                 password = "{{HOMEPAGE_FILE_PAPERLESS_PASSWORD}}";
               };
@@ -163,16 +163,16 @@
           }
           {
             Planka = {
-              href = "http://planka.service";
+              href = "http://planka.service.home.arpa";
             };
           }
           {
             Homebox = {
-              href = "http://homebox.service";
+              href = "http://homebox.service.home.arpa";
               icon = "homebox";
               widget = {
                 type = "homebox";
-                url = "http://homebox.service";
+                url = "http://homebox.service.home.arpa";
                 username = "ssbothwell@gmail.com";
                 password = "{{HOMEPAGE_FILE_HOMEBOX_PASSWORD}}";
               };
@@ -180,11 +180,11 @@
           }
           {
             Home-Assistant = {
-              href = "http://home-assistant.service";
+              href = "http://home-assistant.service.home.arpa";
               icon = "home-assistant";
               widget = {
                 type = "homeassistant";
-                url = "http://home-assistant.service";
+                url = "http://home-assistant.service.home.arpa";
                 key = "{{HOMEPAGE_FILE_HOMEASSISTANT_KEY}}";
                 custom = [
                   {
@@ -202,7 +202,7 @@
           }
           {
             Planka = {
-              href = "http://planka.service";
+              href = "http://planka.service.home.arpa";
             };
           }
         ];
@@ -211,33 +211,33 @@
         Media = [
           {
             Jellyseerr = {
-              href = "http://jellyseerr.service";
+              href = "http://jellyseerr.service.home.arpa";
               icon = "jellyseerr";
               widget = {
                 type = "jellyseerr";
-                url = "http://jellyseerr.service";
+                url = "http://jellyseerr.service.home.arpa";
                 key = "{{HOMEPAGE_FILE_JELLYSEER_KEY}}";
               };
             };
           }
           {
             Jellyfin = {
-              href = "http://jellyfin.service";
+              href = "http://jellyfin.service.home.arpa";
               icon = "jellyfin";
               widget = {
                 type = "jellyfin";
-                url = "http://jellyfin.service";
+                url = "http://jellyfin.service.home.arpa";
                 key = "{{HOMEPAGE_FILE_JELLYFIN_KEY}}";
               };
             };
           }
           {
             navidrome = {
-              href = "http://navidrome.service";
+              href = "http://navidrome.service.home.arpa";
               icon = "navidrome";
               widget = {
                 type = "navidrome";
-                url = "http://navidrome.service";
+                url = "http://navidrome.service.home.arpa";
                 user = "admin";
                 token = "{{HOMEPAGE_FILE_NAVIDROME_TOKEN}}";
                 salt = "{{HOMEPAGE_FILE_NAVIDROME_SALT}}";
@@ -246,28 +246,28 @@
           }
           {
             Podgrab = {
-              href = "http://podgrab.service";
+              href = "http://podgrab.service.home.arpa";
               description = "Podcast Management";
             };
           }
           {
             immich = {
-              href = "http://immich.service";
+              href = "http://immich.service.home.arpa";
               icon = "immich";
               widget = {
                 type = "immich";
-                url = "http://immich.service";
+                url = "http://immich.service.home.arpa";
                 key = "{{HOMEPAGE_FILE_IMMICH_KEY}}";
               };
             };
           }
           {
             TubeArchivist = {
-              href = "http://tubearchivist.service";
+              href = "http://tubearchivist.service.home.arpa";
               icon = "tubearchivist";
               widget = {
                 type = "tubearchivist";
-                url = "http://tubearchivist.service";
+                url = "http://tubearchivist.service.home.arpa";
                 key = "{{HOMEPAGE_FILE_TUBEARCHIVIST_KEY}}";
               };
             };
@@ -278,11 +278,11 @@
         "File Mangement" = [
           {
             qBittorrent = {
-              href = "http://qbittorrent.service";
+              href = "http://qbittorrent.service.home.arpa";
               icon = "qbittorrent";
               widget = {
                 type = "qbittorrent";
-                url = "http://qbittorrent.service";
+                url = "http://qbittorrent.service.home.arpa";
                 username = "solomon";
                 password = "{{HOMEPAGE_FILE_QBITTORRENT_PASSWORD}}";
               };
@@ -290,54 +290,54 @@
           }
           {
             lidarr = {
-              href = "http://lidarr.service";
+              href = "http://lidarr.service.home.arpa";
               icon = "lidarr";
               widget = {
                 type = "lidarr";
-                url = "http://lidarr.service";
+                url = "http://lidarr.service.home.arpa";
                 key = "{{HOMEPAGE_FILE_LIDARR_KEY}}";
               };
             };
           }
           {
             radarr = {
-              href = "http://radarr.service";
+              href = "http://radarr.service.home.arpa";
               icon = "radarr";
               widget = {
                 type = "radarr";
-                url = "http://radarr.service";
+                url = "http://radarr.service.home.arpa";
                 key = "{{HOMEPAGE_FILE_RADARR_KEY}}";
               };
             };
           }
           {
             sonarr = {
-              href = "http://sonarr.service";
+              href = "http://sonarr.service.home.arpa";
               icon = "sonarr";
               widget = {
                 type = "sonarr";
-                url = "http://sonarr.service";
+                url = "http://sonarr.service.home.arpa";
                 key = "{{HOMEPAGE_FILE_SONARR_KEY}}";
               };
             };
           }
           {
             prowlarr = {
-              href = "http://prowlarr.service";
+              href = "http://prowlarr.service.home.arpa";
               icon = "prowlarr";
               widget = {
                 type = "prowlarr";
-                url = "http://prowlarr.service";
+                url = "http://prowlarr.service.home.arpa";
                 key = "{{HOMEPAGE_FILE_PROWLARR_KEY}}";
               };
             };
           }
           {
             sabnzbd = {
-              href = "http://sabnzbd.service";
+              href = "http://sabnzbd.service.home.arpa";
               widget = {
                 type = "sabnzbd";
-                url = "http://sabnzbd.service";
+                url = "http://sabnzbd.service.home.arpa";
                 key = "{{HOMEPAGE_FILE_SABNZBD_KEY}}";
               };
             };
@@ -348,7 +348,7 @@
         Infrastructure = [
           {
             Grafana = {
-              href = "http://storm-bird/d/rYdddlPWk/node-exporter-full?orgId=1&refresh=1m";
+              href = "http://storm-bird.home.arpa/d/rYdddlPWk/node-exporter-full?orgId=1&refresh=1m";
               icon = "grafana";
               description = "System statistics and graphs";
               server = "docker2";
@@ -356,7 +356,7 @@
           }
           {
             truenas = {
-              href = "http://sandra-voi.machine";
+              href = "http://sandra-voi.home.arpa";
               icon = "truenas";
               widget = {
                 type = "truenas";
@@ -456,7 +456,7 @@
     truenas-key = {};
   };
 
-  services.nginx.virtualHosts."homepage.service" = {
+  services.nginx.virtualHosts."homepage.service.home.arpa" = {
     locations."/".proxyPass = "http://localhost:3000";
   };
 }

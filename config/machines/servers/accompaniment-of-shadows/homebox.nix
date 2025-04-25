@@ -28,7 +28,7 @@ in
     };
   };
 
-  services.nginx.virtualHosts."homebox.service" = {
+  services.nginx.virtualHosts."homebox.service.home.arpa" = {
     locations."/" = {
       proxyPass = "http://localhost:3100";
       proxyWebsockets = true;

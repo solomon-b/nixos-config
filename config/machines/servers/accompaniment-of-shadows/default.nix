@@ -29,7 +29,7 @@
   networking.firewall.allowedTCPPorts = [ 80 8080 ];
 
   services.nginx.virtualHosts = {
-    "qbittorrent.service" = {
+    "qbittorrent.service.home.arpa" = {
       locations."/" = {
         proxyPass = "http://192.168.5.104:8081";
       };

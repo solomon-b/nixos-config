@@ -57,31 +57,31 @@
   };
 
   services.nginx.virtualHosts = {
-    "bazarr.service" = {
+    "bazarr.service.home.arpa" = {
       locations."/" = {
         proxyPass = "http://localhost:6767";
       };
     };
 
-    "lidarr.service" = {
+    "lidarr.service.home.arpa" = {
       locations."/" = {
         proxyPass = "http://localhost:8686";
       };
     };
 
-    "prowlarr.service" = {
+    "prowlarr.service.home.arpa" = {
       locations."/" = {
         proxyPass = "http://localhost:9696";
       };
     };
 
-    "radarr.service" = {
+    "radarr.service.home.arpa" = {
       locations."/" = {
         proxyPass = "http://localhost:7878";
       };
     };
 
-    "sonarr.service" = {
+    "sonarr.service.home.arpa" = {
       locations."/" = {
         proxyPass = "http://localhost:8989";
       };
