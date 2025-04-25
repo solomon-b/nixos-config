@@ -27,7 +27,7 @@ in
       ];
 
       environment = {
-        BASE_URL = "http://planka.service";
+        BASE_URL = "http://planka.service.home.arpa";
         TRUST_PROXY = "1";
         # TODO: SOPS-Nix:
         DATABASE_URL = "postgresql://planka_admin:hunter2@transfigured-night/planka";
@@ -38,7 +38,7 @@ in
     };
   };
 
-  services.nginx.virtualHosts."planka.service" = {
+  services.nginx.virtualHosts."planka.service.home.arpa" = {
     locations."/" = {
       proxyPass = "http://localhost:1337";
       proxyWebsockets = true;

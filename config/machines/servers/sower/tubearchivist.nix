@@ -122,11 +122,11 @@ in
       '';
   };
 
-  services.nginx.virtualHosts."tubearchivist.service" = {
+  services.nginx.virtualHosts."tubearchivist.service.home.service" = {
     locations."/".proxyPass = "http://localhost:8000";
   };
 
-  services.nginx.virtualHosts."tubearchivist.local" = {
+  services.nginx.virtualHosts."tubearchivist.local.home.service" = {
     locations."/".proxyPass = "http://localhost:8000";
   };
 }

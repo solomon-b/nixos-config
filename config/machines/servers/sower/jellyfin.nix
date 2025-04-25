@@ -28,19 +28,19 @@ in
   };
 
   services.nginx.virtualHosts = {
-    "jellyfin.local" = {
+    "jellyfin.local.home.arpa" = {
       locations."/".proxyPass = "http://localhost:8096";
     };
 
-    "jellyfin.service" = {
+    "jellyfin.service.home.arpa" = {
       locations."/".proxyPass = "http://localhost:8096";
     };
 
-    "jellyseerr.local" = {
+    "jellyseerr.local.home.arpa" = {
       locations."/".proxyPass = "http://localhost:5055";
     };
 
-    "jellyseerr.service" = {
+    "jellyseerr.service.home.arpa" = {
       locations."/".proxyPass = "http://localhost:5055";
     };
   };
