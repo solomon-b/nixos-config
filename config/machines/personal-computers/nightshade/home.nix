@@ -18,6 +18,7 @@
 
   home.packages = with pkgs; [
     # General CLI Tools
+    aider-chat
     acpi
     cachix
     curl

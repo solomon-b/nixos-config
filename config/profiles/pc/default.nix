@@ -30,8 +30,10 @@
 
   #nixpkgs.overlays = [ (import ../../../overlays/graphqurl.nix) ];
 
+  # TODO: Move user packages into home-manager:
   environment.systemPackages = with pkgs; [
     # CLI Tools
+    aider-chat
     fd
     ispell
     udiskie
