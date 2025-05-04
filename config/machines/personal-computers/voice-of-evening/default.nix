@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware.nix
+    ./arduino.nix
     ./kmonad.nix
     #./nfs.nix
     ./zfs.nix
