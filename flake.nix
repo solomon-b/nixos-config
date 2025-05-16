@@ -290,6 +290,26 @@
           specialArgs = { inherit inputs; };
         };
 
+        sower = nixpkgs.lib.nixosSystem {
+          inherit pkgs system;
+          modules = [
+            ./config/machines/servers/sower
+            ({ ... }: {
+              sops = {
+                defaultSopsFile = ./secrets.yaml;
+                secrets.primary-user-password = { };
+              };
+            })
+            nixpkgs.nixosModules.notDetected
+            home-manager.nixosModules.home-manager
+            sops-nix.nixosModules.sops
+            disko.nixosModules.disko
+            lix-module.nixosModules.default
+          ];
+
+          specialArgs = { inherit inputs; };
+        };
+
         test-vm = nixpkgs.lib.nixosSystem {
           inherit pkgs system;
           modules = [
