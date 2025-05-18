@@ -156,7 +156,7 @@ in
   };
 
 
-  services.nginx.virtualHosts."immich.service.home.service" = {
+  services.nginx.virtualHosts."immich.service.home.arpa" = {
     locations."/" = {
       proxyPass = "http://localhost:8084";
       extraConfig = ''
