@@ -29,7 +29,7 @@
     };
 
     "/boot" = {
-      device = "/dev/disk/by-uuid/37BC-35DA";
+      device = "/dev/disk/by-uuid/2F36-F75A";
       fsType = "vfat";
     };
 
