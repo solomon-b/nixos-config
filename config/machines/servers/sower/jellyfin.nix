@@ -9,6 +9,13 @@ in
     openFirewall = true;
   };
 
+  systemd.services.jellyfin = {
+    serviceConfig = {
+      RequiresMountsFor = [ "/mnt/media" ];
+      After = [ "mnt-media.automount" ];
+    };
+  };
+
   virtualisation.oci-containers.containers = {
     jellyseerr = {
       image = "fallenbagel/jellyseerr:latest";
