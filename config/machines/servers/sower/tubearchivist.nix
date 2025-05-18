@@ -58,7 +58,7 @@ in
       environment = {
         ES_URL = "http://archivist-es:9200";
         REDIS_HOST = "archivist-redis";
-        TA_HOST = "tubearchivist.service localhost";
+        TA_HOST = "tubearchivist.service.home.arpa localhost";
         TA_USERNAME = "solomon";
         TA_PASSWORD = "hunter2";
         ELASTIC_PASSWORD = "hunter2";
@@ -146,11 +146,11 @@ in
       '';
   };
 
-  services.nginx.virtualHosts."tubearchivist.service.home.service" = {
+  services.nginx.virtualHosts."tubearchivist.service.home.arpa" = {
     locations."/".proxyPass = "http://localhost:8000";
   };
 
-  services.nginx.virtualHosts."tubearchivist.local.home.service" = {
+  services.nginx.virtualHosts."tubearchivist.local.home.arpa" = {
     locations."/".proxyPass = "http://localhost:8000";
   };
 }

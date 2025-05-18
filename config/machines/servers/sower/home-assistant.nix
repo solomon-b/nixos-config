@@ -24,7 +24,7 @@ in {
     autoStart = true;
   };
 
-  services.nginx.virtualHosts."home-assistant.service" = {
+  services.nginx.virtualHosts."home-assistant.service.home.arpa" = {
     extraConfig = "proxy_buffering off;";
     locations."/" = {
       proxyPass = "http://localhost:8123";
@@ -32,7 +32,7 @@ in {
     };
   };
 
-  services.nginx.virtualHosts."home-assistant.local" = {
+  services.nginx.virtualHosts."home-assistant.local.home.arpa" = {
     extraConfig = "proxy_buffering off;";
     locations."/" = {
       proxyPass = "http://localhost:8123";
