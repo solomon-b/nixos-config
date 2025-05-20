@@ -37,6 +37,7 @@
 
         # Virtual Machines on sandra-voi
         "accompaniment-of-shadows.home.arpa" = "100.123.147.26";
+        "apollyon" = "192.168.5.104";
         "apollyon.home.arpa" = "192.168.5.104";
         "madonna-of-the-wasps.home.arpa" = "100.70.16.79";
         "silence-under-snow.home.arpa" = "100.117.45.47";
