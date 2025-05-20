@@ -1,18 +1,6 @@
 { pkgs, ... }:
 
 let
-  immichServer = {
-    imageName = "ghcr.io/immich-app/immich-server";
-    imageDigest = "sha256:e36c27ba1e3cd20bf6038d0b6b330e35a9a5b7ce9ee57db70a97bc49ca41ea6b";
-    sha256 = "sha256-phvsGAlPoh0RQQfkT9w3x+XYhTLp/U7JofETkJONrrM=";
-  };
-
-  immichMachineLearning = {
-    imageName = "ghcr.io/immich-app/immich-machine-learning";
-    imageDigest = "sha256:e00799ab188850df8d467723017610133c9e7e87fae454a3b015b8896093efa5";
-    sha256 = "sha256-zObsW6cR/5OT3XndOG0uoJDT3cJlGhpYavYbNZIRv/U=";
-  };
-
   dbHostname = "192.168.5.101"; # transfigured-night
   dbUsername = "immich";
   dbPassword = "immich";
@@ -44,25 +32,6 @@ let
     IMMICH_MACHINE_LEARNING_URL = immichMachineLearningUrl;
 
   };
-
-  wrapImage = { name, imageName, imageDigest, sha256, entrypoint }:
-    pkgs.dockerTools.buildImage ({
-      name = name;
-      tag = "release";
-      fromImage = pkgs.dockerTools.pullImage {
-        imageName = imageName;
-        imageDigest = imageDigest;
-        sha256 = sha256;
-      };
-      created = "now";
-      config =
-        if builtins.length entrypoint == 0
-        then null
-        else {
-          Cmd = entrypoint;
-          WorkingDir = "/usr/src/app";
-        };
-    });
 in
 {
   fileSystems."/mnt/immich" = {
@@ -84,47 +53,40 @@ in
 
   virtualisation.oci-containers.containers = {
     immich_server = {
-      imageFile = wrapImage {
-        inherit (immichServer) imageName imageDigest sha256;
-
-        name = "immich_server";
-        entrypoint = [ "/bin/sh" "start-server.sh" ];
+      imageFile = pkgs.dockerTools.pullImage {
+        imageName = "ghcr.io/immich-app/immich-server";
+        imageDigest = "sha256:e36c27ba1e3cd20bf6038d0b6b330e35a9a5b7ce9ee57db70a97bc49ca41ea6b";
+        sha256 = "sha256-phvsGAlPoh0RQQfkT9w3x+XYhTLp/U7JofETkJONrrM=";
       };
-      image = "immich_server:release";
-      extraOptions = [ "--network=immich-bridge" ];
+      image = "ghcr.io/immich-app/immich-server";
+
+      ports = [ "8084:2283" ];
+
 
       volumes = [
         "${photosLocation}:/usr/src/app/upload"
+        "/etc/localtime:/etc/localtime:ro"
       ];
 
       environment = environment;
 
-      ports = [ "8084:3001" ];
-
-      autoStart = true;
-    };
-
-    immich_microservices = {
-      imageFile = wrapImage {
-        inherit (immichServer) imageName imageDigest sha256;
-
-        name = "immich_microservices";
-        entrypoint = [ "/bin/sh" "start-microservices.sh" ];
-      };
-      image = "immich_microservices:release";
       extraOptions = [ "--network=immich-bridge" ];
 
-      volumes = [
-        "${photosLocation}:/usr/src/app/upload"
-      ];
-
-      environment = environment;
+      # config = {
+      #   WorkingDir = "/usr/src/app";
+      #   Entrypoint = [ "tini" "--" "/bin/bash" ];
+      #   Cmd = [ "start.sh" ];
+      # };
 
       autoStart = true;
     };
 
     immich_machine_learning = {
-      imageFile = pkgs.dockerTools.pullImage immichMachineLearning;
+      imageFile = pkgs.dockerTools.pullImage {
+        imageName = "ghcr.io/immich-app/immich-machine-learning";
+        imageDigest = "sha256:e00799ab188850df8d467723017610133c9e7e87fae454a3b015b8896093efa5";
+        sha256 = "sha256-zObsW6cR/5OT3XndOG0uoJDT3cJlGhpYavYbNZIRv/U=";
+      };
       image = "ghcr.io/immich-app/immich-machine-learning";
       extraOptions = [ "--network=immich-bridge" ];
 
