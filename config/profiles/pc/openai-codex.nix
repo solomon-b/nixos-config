@@ -1,4 +1,4 @@
-{ pkgs, ...}:
+{ pkgs, ... }:
 
 let
   codexRepo = pkgs.fetchFromGitHub {
@@ -44,7 +44,8 @@ let
       runHook postInstall
     '';
   });
-in {
+in
+{
   environment.systemPackages = [
     codex-cli
   ];

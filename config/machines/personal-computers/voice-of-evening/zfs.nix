@@ -52,7 +52,7 @@
 
   # Ditto for the group:
   # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/services/backup/syncoid.nix#L309
-  users.groups.syncoid = {};
+  users.groups.syncoid = { };
 
   # Allow syncoid user to access SOPS secrets.
   users.users.syncoid.extraGroups = [ "keys" ];

@@ -1,10 +1,9 @@
 # OS-agnostic home config options for the system's primary account holder.
-{
-  config,
-  lib,
-  options,
-  pkgs,
-  ...
+{ config
+, lib
+, options
+, pkgs
+, ...
 }:
 let
   inherit (lib)
