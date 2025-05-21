@@ -11,7 +11,7 @@
       layout = {
         Organization = {
           style = "row";
-          columns = 2;  
+          columns = 2;
         };
       };
     };
@@ -29,9 +29,10 @@
       }
       {
         Work = [
-          { Gusto = [{
-             abbr = "G";
-             href = "https://app.gusto.com/";
+          {
+            Gusto = [{
+              abbr = "G";
+              href = "https://app.gusto.com/";
             }];
           }
           {
@@ -438,24 +439,24 @@
   '';
 
   sops.secrets = {
-    paperless-password = {};
-    homebox-password = {};
-    home-assistant-access-token = {};
-    
-    jellyseer-key = {};
-    jellyfin-key = {};
-    navidrome-token = {};
-    navidrome-salt = {};
-    immich-key = {};
-    TubeArchivist-key = {};
-    
-    qBittorrent-password = {};
-    lidarr-key = {};
-    radarr-key = {};
-    sonarr-key = {};
-    prowlarr-key = {};
-    sabnzbd-key = {};
-    truenas-key = {};
+    paperless-password = { };
+    homebox-password = { };
+    home-assistant-access-token = { };
+
+    jellyseer-key = { };
+    jellyfin-key = { };
+    navidrome-token = { };
+    navidrome-salt = { };
+    immich-key = { };
+    TubeArchivist-key = { };
+
+    qBittorrent-password = { };
+    lidarr-key = { };
+    radarr-key = { };
+    sonarr-key = { };
+    prowlarr-key = { };
+    sabnzbd-key = { };
+    truenas-key = { };
   };
 
   services.nginx.virtualHosts."homepage.service.home.arpa" = {

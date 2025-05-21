@@ -1,10 +1,10 @@
-{config, ...}:
+{ config, ... }:
 
 {
   sops.secrets = {
-    immich-server-url-file = {};
-    immich-server-username-file = {};
-    immich-server-password-file = {};
+    immich-server-url-file = { };
+    immich-server-username-file = { };
+    immich-server-password-file = { };
   };
   immich-sdcard-sync = {
     enable = true;

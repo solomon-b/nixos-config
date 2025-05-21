@@ -20,7 +20,8 @@ let
     ignoreCollisions = true;
     pathsToLink = [ "/bin" ];
   };
-in {
+in
+{
   environment.systemPackages = [
     ipod-tools
   ];

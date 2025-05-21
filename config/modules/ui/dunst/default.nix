@@ -2,6 +2,6 @@
 
 {
   primary-user = {
-    home-manager.imports = [./home.nix];
+    home-manager.imports = [ ./home.nix ];
   };
 }

@@ -4,7 +4,7 @@
   services.displayManager = {
     defaultSession = "none+xmonad";
   };
-  
+
   services.xserver = {
     enable = true;
     xkb = {
