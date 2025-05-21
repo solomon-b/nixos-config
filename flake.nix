@@ -249,27 +249,6 @@
           specialArgs = { inherit inputs; };
         };
 
-        zodiacal-light = nixpkgs.lib.nixosSystem {
-          inherit pkgs system;
-          modules = [
-            ./config/machines/personal-computers/zodiacal-light
-            ({ ... }: {
-              sops = {
-                defaultSopsFile = ./secrets.yaml;
-                secrets.primary-user-password = { };
-              };
-            })
-            nixpkgs.nixosModules.notDetected
-            home-manager.nixosModules.home-manager
-            sops-nix.nixosModules.sops
-            disko.nixosModules.disko
-            nixos-hardware.nixosModules.dell-xps-15-9520-nvidia
-            lix-module.nixosModules.default
-          ];
-
-          specialArgs = { inherit inputs; };
-        };
-
         gnostic-ascension = nixpkgs.lib.nixosSystem {
           inherit pkgs system;
           modules = [
