@@ -258,6 +258,7 @@
                 type = "immich";
                 url = "http://immich.service.home.arpa";
                 key = "{{HOMEPAGE_FILE_IMMICH_KEY}}";
+                version = 2;
               };
             };
           }
@@ -360,8 +361,9 @@
               icon = "truenas";
               widget = {
                 type = "truenas";
-                url = "http://sandra-voi";
+                url = "http://sandra-voi.home.arpa";
                 key = "{{HOMEPAGE_FILE_TRUENAS_KEY}}";
+                version = 2;
               };
             };
           }
