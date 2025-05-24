@@ -31,7 +31,7 @@
       }
     ];
 
-    initExtra = ''
+    initContent = ''
              function git-jump() {
                local REPO
                REPO=$(fd -H -t d '.git' ${config.home.homeDirectory}/Development -d 5 -E '.github' | sed 's|/\.git/$||' | awk '{ print; system("dirname \"" $0 "\"") }' | sed 's|^${config.home.homeDirectory}/Development/||' | sort -u | fzf --height 25)
