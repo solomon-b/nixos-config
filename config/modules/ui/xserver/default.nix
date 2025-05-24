@@ -5,6 +5,9 @@
     defaultSession = "none+xmonad";
   };
 
+  services.displayManager = {
+    ly.enable = true;
+  };
   services.xserver = {
     enable = true;
     xkb = {
@@ -17,10 +20,6 @@
       locker = "${pkgs.betterlockscreen}/bin/betterlockscreen --lock";
     };
     desktopManager.xfce.enable = true;
-    displayManager = {
-      lightdm.enable = true;
-      lightdm.background = ./wallpapers/Yosemite-Color-Block.png;
-    };
     windowManager.session = [
       {
         name = "xmonad";
