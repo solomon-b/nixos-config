@@ -13,7 +13,7 @@
     };
     xautolock = {
       time = 15;
-      enable = true;
+      enable = false;
       locker = "${pkgs.betterlockscreen}/bin/betterlockscreen --lock";
     };
     desktopManager.xfce.enable = true;

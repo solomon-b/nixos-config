@@ -1,5 +1,5 @@
 # Postgres and Redis Service
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [
@@ -28,8 +28,7 @@
       enable = true;
       openFirewall = true;
       port = 6379;
-      # TODO: Move into SOPS
-      requirePass = "hunter2";
+      requirePassFile = config.sops.secrets.redis-immich-password.path;
       bind = null;
     };
 
@@ -37,8 +36,7 @@
       enable = true;
       openFirewall = true;
       port = 6380;
-      # TODO: Move into SOPS
-      requirePass = "hunter2";
+      requirePassFile = config.sops.secrets.redis-tubearchivist-password.path;
       bind = null;
     };
   };
@@ -105,4 +103,9 @@
   };
 
   networking.firewall.allowedTCPPorts = [ 5432 6379 ];
+
+  sops.secrets = {
+    redis-immich-password = { };
+    redis-tubearchivist-password = { };
+  };
 }
