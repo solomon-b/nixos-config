@@ -13,7 +13,7 @@
     ../../modules/ui/audio
     ../../modules/ui/direnv
     ../../modules/ui/dunst
-    # ../../modules/ui/eww
+    ../../modules/ui/dmenu
     ../../modules/ui/fonts
     ../../modules/ui/opengl
     ../../modules/ui/picom
@@ -39,6 +39,8 @@
     udiskie
     sqlite # for org-roam, should I move to postgres? How would I sync between machines in that case?
     xclip
+    xdotool
+    xorg.xkill
     ranger
     nix-search
 
@@ -50,7 +52,6 @@
 
     # Desktop Environment
     brightnessctl
-    eww
     libnotify
     xlayoutdisplay
     wmctrl
@@ -68,6 +69,7 @@
 
     # Secrets
     yubioath-flutter
+    pinentry-gtk2
 
     # Chat/Communication
     discord
@@ -90,19 +92,6 @@
     # Misc Graphical Tools
     zotero
   ];
-
-
-  primary-user.home-manager.programs.rofi = {
-    enable = true;
-    #location = "top";
-    plugins = [
-      #  pkgs.rofi-mpd
-      pkgs.rofi-calc
-      pkgs.rofi-emoji
-      #  pkgs.rofi-systemd
-      #  pkgs.rofi-power-menu
-    ];
-  };
 
   virtualisation = {
     containers = {
