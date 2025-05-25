@@ -61,6 +61,4 @@
     ${pkgs.brightness-bar}/bin/brightness-bar
     # ${pkgs.eww}/bin/eww open ewwbar
   '';
-
-  primary-user.home-manager.xdg.dataFile."emoji".source = ./emoji;
 }
