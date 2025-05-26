@@ -65,7 +65,6 @@
     eww
     kmonad
     libnotify
-    trayer
     wmctrl
     xlayoutdisplay
 

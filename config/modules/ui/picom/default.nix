@@ -17,7 +17,6 @@
     shadowExclude = [
       "_NET_WM_STATE@:32a *= '_NET_WM_STATE_HIDDEN'"
       "class_g = 'eww-ewwbar'"
-      "class_g = 'trayer'"
       "class_g = 'xmonad-decoration'"
     ];
   };
