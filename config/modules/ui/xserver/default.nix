@@ -54,11 +54,9 @@
     ${pkgs.networkmanagerapplet}/bin/nm-applet
     ${pkgs.feh}/bin/feh --bg-scale ${./wallpapers/Yosemite-Color-Block.png}
     ${pkgs.xbanish}/bin/xbanish
-    ${pkgs.trayer}/bin/trayer --edge top --align right --widthtype percent --width 5 --height 17 --transparent true --alpha 0 --tint 0x2d2d2d
     ${pkgs.dunst}/bin/dunst
     ${pkgs.batsignal}/bin/batsignal -b -W \"Warnings: Battery Low\"
     ${pkgs.volume-bar}/bin/volume-bar
     ${pkgs.brightness-bar}/bin/brightness-bar
-    # ${pkgs.eww}/bin/eww open ewwbar
   '';
 }
