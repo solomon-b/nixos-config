@@ -35,6 +35,7 @@
     # General CLI Tools
     cachix
     direnv
+    dysk
     fzf
     git
     gnugrep
