@@ -32,13 +32,7 @@ in
     machine-learning.enable = true;
 
     database = {
-      # NOTE: This enable flag is for setting up postgres on the local system.
-      # The other fields of this attrset are still used for connected to an
-      # external postgres instance when `enable = false`.
       enable = false;
-      user = dbUsername;
-      name = dbDatabaseName;
-      host = dbHostname;
     };
 
     redis = {
