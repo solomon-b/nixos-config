@@ -12,7 +12,6 @@
     ./tubearchivist.nix
 
     ../../../profiles/physical-machine
-    ../../../modules/services/postgresql
   ];
 
   nix.extraOptions = ''
@@ -21,6 +20,7 @@
 
   environment.systemPackages = [
     pkgs.libva
+    pkgs.postgresql
   ];
 
   primary-user.name = "solomon";
