@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
@@ -45,7 +45,7 @@
   # 8083 == Hoogle
   # 8096 == Jellyfin
 
-  networking.firewall.allowedTCPPorts = [ 80 9002 ];
+  networking.firewall.allowedTCPPorts = [ 80 9002 3000];
 
   services.prometheus.exporters = {
     node = {
@@ -68,4 +68,40 @@
   };
 
   primary-user.extraGroups = [ "docker" ];
+
+  services.irrigation-web-server = {
+    enable = true;
+
+    environment = "Production";
+    hostname = "localhost";
+
+    postgres = {
+      db = "irrigation";
+      host = "transfigured-night";
+      passwordFile = config.sops.secrets.immich-postgres-password.path;
+      port = 5432;
+      user = "irrigation";
+    };
+
+    warp = {
+      port = 3000;
+      serverName = "localhost";
+      timeout = "100";
+    };
+
+    observability = {
+      exporter = "StdOut";
+    };
+
+    otel = {
+      sampler = "always_on";
+      serviceName = "irriation-web-server";
+      endpoint = "http://localhost:4318";
+      protocol = "http/protobuf";
+    };
+  };
+
+  sops.secrets = {
+    irrigation-postgres-password = { };
+  };
 }
