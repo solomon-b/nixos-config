@@ -45,7 +45,7 @@
   # 8083 == Hoogle
   # 8096 == Jellyfin
 
-  networking.firewall.allowedTCPPorts = [ 80 9002 ];
+  networking.firewall.allowedTCPPorts = [ 80 9002 3000];
 
   services.prometheus.exporters = {
     node = {
