@@ -62,6 +62,11 @@
       url = github:solomon-b/music-archiver;
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    irrigation-system = {
+      url = github:solomon-b/irrigation-system;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -80,6 +85,7 @@
     , xmonad-solomon
     , immich-sd-card-sync
     , music-archiver
+    , irrigation-system
     }:
     let
       system = "x86_64-linux";
@@ -121,6 +127,7 @@
           home-manager.nixosModules.home-manager
           sops-nix.nixosModules.sops
           disko.nixosModules.disko
+          irrigation-system.nixosModules.irrigation-web-server
         ];
 
         sops = {
@@ -224,6 +231,7 @@
             sops-nix.nixosModules.sops
             lix-module.nixosModules.default
             immich-sd-card-sync.nixosModules.immichSdCardSync
+            irrigation-system.nixosModules.irrigation-web-server
           ];
 
           specialArgs = { inherit inputs; };
@@ -284,6 +292,7 @@
             sops-nix.nixosModules.sops
             disko.nixosModules.disko
             lix-module.nixosModules.default
+            irrigation-system.nixosModules.irrigation-web-server
           ];
 
           specialArgs = { inherit inputs; };

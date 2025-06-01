@@ -57,6 +57,7 @@
       "planka"
       "immich"
       "hass"
+      "irrigation"
     ];
 
     ensureUsers = [
@@ -75,6 +76,10 @@
         name = "hass";
         ensureDBOwnership = true;
       }
+      {
+        name = "irrigation";
+        ensureDBOwnership = true;
+      }
     ];
 
     authentication = ''
@@ -84,6 +89,9 @@
 
       host all all 100.100.33.33/32 md5
       host all all nightshade md5
+
+      host all all 100.126.171.15/32 md5
+      host all all lorean md5
 
       host tt_rss tt_rss accompaniment-of-shadows md5
 
@@ -95,6 +103,10 @@
       host hass hass 100.80.98.4/32 md5
       host hass hass 192.168.5.7/32 md5
       host hass hass sower md5
+
+      host irrigation irrigation 100.80.98.4/32 md5
+      host irrigation irrigation 192.168.5.7/32 md5
+      host irrigation irrigation sower md5
 
       host planka planka_admin 100.123.147.26/32 md5
       host planka planka_admin 192.168.5.105/32 md5
