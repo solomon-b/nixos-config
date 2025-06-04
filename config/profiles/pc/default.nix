@@ -33,7 +33,7 @@
   # TODO: Move user packages into home-manager:
   environment.systemPackages = with pkgs; [
     # CLI Tools
-    aider-chat
+    claude-code
     fd
     ispell
     udiskie
