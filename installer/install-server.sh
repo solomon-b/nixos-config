@@ -32,7 +32,7 @@ main () {
     # Generate hardware config
     gum log --level info "Generating hardware configuration..."
     ssh "root@${IP}" nixos-generate-config --no-filesystems --show-hardware-config > "config/machines/servers/${MACHINE}/hardware.nix"
-    
+
     # Validate hardware config was generated successfully
     if [ ! -f "config/machines/servers/${MACHINE}/hardware.nix" ]; then
         gum log --level error "CRITICAL: hardware.nix was not created"
@@ -44,7 +44,7 @@ main () {
         exit 1
     fi
     gum log --level info "Hardware configuration generated successfully"
-    
+
     # Add hardware config to git (required for Nix flakes)
     gum log --level info "Adding hardware configuration to git..."
     if ! git add "config/machines/servers/${MACHINE}/hardware.nix"; then
@@ -55,6 +55,36 @@ main () {
         exit 1
     fi
     gum log --level info "Hardware configuration added to git successfully"
+
+    # Generate default.nix if it doesn't exist
+    if [ ! -f "config/machines/servers/${MACHINE}/default.nix" ]; then
+        gum log --level info "Generating default.nix configuration from template..."
+        sed "s/{{MACHINE_NAME}}/${MACHINE}/g" installer/templates/server-default.nix > "config/machines/servers/${MACHINE}/default.nix"
+
+        # Add default.nix to git
+        if ! git add "config/machines/servers/${MACHINE}/default.nix"; then
+            gum log --level error "CRITICAL: Failed to add default.nix to git"
+            exit 1
+        fi
+        gum log --level info "Default configuration generated and added to git successfully"
+    else
+        gum log --level info "default.nix already exists, skipping generation"
+    fi
+
+    # Generate disk-config.nix if it doesn't exist
+    if [ ! -f "config/machines/servers/${MACHINE}/disk-config.nix" ]; then
+        gum log --level info "Generating disk-config.nix configuration from template..."
+        cp installer/templates/server-disk-config.nix "config/machines/servers/${MACHINE}/disk-config.nix"
+
+        # Add disk-config.nix to git
+        if ! git add "config/machines/servers/${MACHINE}/disk-config.nix"; then
+            gum log --level error "CRITICAL: Failed to add disk-config.nix to git"
+            exit 1
+        fi
+        gum log --level info "Disk configuration generated and added to git successfully"
+    else
+        gum log --level info "disk-config.nix already exists, skipping generation"
+    fi
 
     # Create a temporary directory
     temp=$(mktemp -d)
