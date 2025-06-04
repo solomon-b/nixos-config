@@ -166,7 +166,7 @@
           in
           pkgs.symlinkJoin {
             name = "install-pc";
-            paths = [ pkgs.gum pkgs.jq pkgs.pass script ];
+            paths = [ pkgs.gum pkgs.jq pkgs.pass pkgs.openssh script ];
             buildInputs = [ pkgs.makeWrapper ];
             postBuild = "wrapProgram $out/bin/install-pc --prefix PATH : $out/bin";
           };
@@ -183,7 +183,7 @@
           in
           pkgs.symlinkJoin {
             name = "install-server";
-            paths = [ pkgs.gum pkgs.jq pkgs.pass script ];
+            paths = [ pkgs.gum pkgs.jq pkgs.pass pkgs.openssh script ];
             buildInputs = [ pkgs.makeWrapper ];
             postBuild = "wrapProgram $out/bin/install-server --prefix PATH : $out/bin";
           };

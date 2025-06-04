@@ -13,13 +13,48 @@ cleanup() {
 }
 
 main () {
-    echo "Pick a machine:"
+    gum log --level info "Pick a machine:"
     MACHINE=$(ls config/machines/servers | gum choose)
     IP=$(gum input --placeholder "enter address..")
 
+    # Test SSH connectivity
+    gum log --level info "Testing SSH connectivity to ${IP}..."
+    if ! ssh -o ConnectTimeout=10 -o BatchMode=yes "root@${IP}" true; then
+        gum log --level error "Cannot connect to root@${IP}"
+        gum log --level error "Please ensure:"
+        gum log --level error "  - The machine is booted from the NixOS ISO"
+        gum log --level error "  - SSH is running and accessible"
+        gum log --level error "  - Your SSH keys are authorized for root"
+        exit 1
+    fi
+    gum log --level info "SSH connectivity confirmed"
+
     # Generate hardware config
+    gum log --level info "Generating hardware configuration..."
     ssh "root@${IP}" nixos-generate-config --no-filesystems --show-hardware-config > "config/machines/servers/${MACHINE}/hardware.nix"
-    git add "config/machines/servers/${MACHINE}/hardware.nix"
+    
+    # Validate hardware config was generated successfully
+    if [ ! -f "config/machines/servers/${MACHINE}/hardware.nix" ]; then
+        gum log --level error "CRITICAL: hardware.nix was not created"
+        gum log --level error "SSH command may have failed"
+        exit 1
+    elif [ ! -s "config/machines/servers/${MACHINE}/hardware.nix" ]; then
+        gum log --level error "CRITICAL: hardware.nix is empty"
+        gum log --level error "Hardware detection may have failed on the target machine"
+        exit 1
+    fi
+    gum log --level info "Hardware configuration generated successfully"
+    
+    # Add hardware config to git (required for Nix flakes)
+    gum log --level info "Adding hardware configuration to git..."
+    if ! git add "config/machines/servers/${MACHINE}/hardware.nix"; then
+        gum log --level error "CRITICAL: Failed to add hardware.nix to git"
+        gum log --level error "Nix flakes require all files to be git-tracked"
+        gum log --level error "Without this, the installation will fail"
+        gum log --level error "Please ensure you're in a clean git repository and try again"
+        exit 1
+    fi
+    gum log --level info "Hardware configuration added to git successfully"
 
     # Create a temporary directory
     temp=$(mktemp -d)
@@ -28,17 +63,27 @@ main () {
     # Create the directory where sshd expects to find the host keys
     install -d -m755 "$temp/etc/ssh"
 
-    # Generate new ssh host keys for the machine
-    echo "Generating ssh keys for ${MACHINE}"
-    ssh-keygen -t ed25519 -C "solomon@${MACHINE}" -f "${temp}/etc/ssh/ssh_host_ed25519_key"
-    ssh-keygen -t rsa -C "solomon@${MACHINE}" -f "${temp}/etc/ssh/ssh_host_rsa_key"
+    # Check if SSH keys already exist in pass
+    if pass show "machine/${MACHINE}/ssh-host-key/ed25519/private" >/dev/null 2>&1; then
+        gum log --level info "SSH keys already exist for ${MACHINE}, using existing keys"
+    else
+        gum log --level info "Generating new ssh keys for ${MACHINE}"
+        ssh-keygen -t ed25519 -C "solomon@${MACHINE}" -f "${temp}/etc/ssh/ssh_host_ed25519_key" -N ""
+        ssh-keygen -t rsa -C "solomon@${MACHINE}" -f "${temp}/etc/ssh/ssh_host_rsa_key" -N ""
 
-    # Insert new keys into `pass`
-    cat "${temp}/etc/ssh/ssh_host_ed25519_key" | pass insert --echo "machine/${MACHINE}/ssh-host-key/ed25519/private"
-    cat "${temp}/etc/ssh/ssh_host_ed25519_key.pub" | pass insert --echo "machine/${MACHINE}/ssh-host-key/ed25519/public"
+        # Store new keys in pass
+        cat "${temp}/etc/ssh/ssh_host_ed25519_key" | pass insert --echo "machine/${MACHINE}/ssh-host-key/ed25519/private"
+        cat "${temp}/etc/ssh/ssh_host_ed25519_key.pub" | pass insert --echo "machine/${MACHINE}/ssh-host-key/ed25519/public"
+        cat "${temp}/etc/ssh/ssh_host_rsa_key" | pass insert --echo "machine/${MACHINE}/ssh-host-key/rsa/private"
+        cat "${temp}/etc/ssh/ssh_host_rsa_key.pub" | pass insert --echo "machine/${MACHINE}/ssh-host-key/rsa/public"
+    fi
 
-    cat "${temp}/etc/ssh/ssh_host_rsa_key" | pass insert --echo "machine/${MACHINE}/ssh-host-key/rsa/private"
-    cat "${temp}/etc/ssh/ssh_host_rsa_key.pub" | pass insert --echo "machine/${MACHINE}/ssh-host-key/rsa/public"
+    # Retrieve keys from pass for deployment (whether new or existing)
+    gum log --level info "Retrieving SSH keys from pass for deployment"
+    pass "machine/${MACHINE}/ssh-host-key/ed25519/private" > "$temp/etc/ssh/ssh_host_ed25519_key"
+    pass "machine/${MACHINE}/ssh-host-key/ed25519/public" > "$temp/etc/ssh/ssh_host_ed25519_key.pub"
+    pass "machine/${MACHINE}/ssh-host-key/rsa/private" > "$temp/etc/ssh/ssh_host_rsa_key"
+    pass "machine/${MACHINE}/ssh-host-key/rsa/public" > "$temp/etc/ssh/ssh_host_rsa_key.pub"
 
     # Set the correct permissions so sshd will accept the keys
     chmod 600 "$temp/etc/ssh/ssh_host_ed25519_key"
