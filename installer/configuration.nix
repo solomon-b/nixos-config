@@ -49,7 +49,7 @@
     hostName = "nixos";
     wireless.enable = true;
     useDHCP = lib.mkDefault true;
-    # TODO: This should be generated in the install.sh script
+    # This gets replaced with a generated hostId in the install scripts
     hostId = "997f3c8d";
   };
 
