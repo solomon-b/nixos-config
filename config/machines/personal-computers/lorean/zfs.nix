@@ -24,11 +24,11 @@
     sshKey = config.sops.secrets.syncoid-ssh-key.path;
     commands = {
       "tank/home" = {
-        target = "syncoid@sandra-voi:tank/system-snapshots/lorean/home";
+        target = "syncoid@sandra-voi.home.arpa:tank/system-snapshots/lorean/home";
         recursive = true;
       };
       "tank/root" = {
-        target = "syncoid@sandra-voi:tank/system-snapshots/lorean/root";
+        target = "syncoid@sandra-voi.home.arpa:tank/system-snapshots/lorean/root";
         recursive = true;
       };
     };
