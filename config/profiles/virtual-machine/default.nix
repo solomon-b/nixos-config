@@ -27,33 +27,26 @@
     experimental-features = nix-command flakes
   '';
 
+  primary-user.home-manager = {
+    imports = [
+      ../../modules/packages/cli-tools.nix
+    ];
+  };
+
   system.stateVersion = "22.05";
   nix.settings.trusted-users = [ "@wheel" ];
   environment.shells = [ pkgs.zsh pkgs.bashInteractive ];
 
   environment.systemPackages = with pkgs; [
-    # General CLI Tools
+    # System-level tools needed for NixOS functionality
     cachix
     direnv
-    dysk
-    fzf
     git
     gnugrep
-    btop
     inetutils
-    jq
-    ripgrep
-    sysz
-    tmux
-    tree
-    unzip
-    wget
     zlib
     zsh
     zsh-syntax-highlighting
-
-    # Editors
-    vimHugeX
   ];
 
   home-manager.useGlobalPkgs = true;

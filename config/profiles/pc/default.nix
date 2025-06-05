@@ -25,68 +25,13 @@
 
   #nixpkgs.overlays = [ (import ../../../overlays/graphqurl.nix) ];
 
-  # TODO: Move user packages into home-manager:
-  environment.systemPackages = with pkgs; [
-    # CLI Tools
-    claude-code
-    fd
-    ispell
-    udiskie
-    sqlite # for org-roam, should I move to postgres? How would I sync between machines in that case?
-    xclip
-    xdotool
-    xorg.xkill
-    ranger
-    nix-search
-
-    filezilla
-
-    # Editors
-    emacs
-    vscodium
-
-    # Desktop Environment
-    brightnessctl
-    libnotify
-    xlayoutdisplay
-    wmctrl
-
-    # DB
-    postgresql
-
-    # Media
-    feh
-    pavucontrol
-    picard
-    vlc
-    scrot
-    zathura
-
-    # Secrets
-    yubioath-flutter
-    pinentry-gtk2
-
-    # Chat/Communication
-    discord
-    signal-desktop
-    slack
-    telegram-desktop
-    zoom-us
-
-    # Pandoc Related
-    pandoc
-    texlive.combined.scheme-full
-    #pythonPackages.pygments
-    poppler_utils
-
-    # Web Browsers
-    firefox
-    google-chrome
-    surf
-
-    # Misc Graphical Tools
-    zotero
-  ];
+  primary-user.home-manager = {
+    imports = [
+      ../../modules/packages/cli-tools.nix
+      ../../modules/packages/gui-applications.nix
+      ../../modules/packages/development.nix
+    ];
+  };
 
   virtualisation = {
     containers = {

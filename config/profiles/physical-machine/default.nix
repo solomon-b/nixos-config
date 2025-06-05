@@ -26,32 +26,24 @@
   nix.settings.trusted-users = [ "@wheel" ];
   environment.shells = [ pkgs.zsh pkgs.bashInteractive ];
 
+  primary-user.home-manager = {
+    imports = [
+      ../../modules/packages/cli-tools.nix
+    ];
+  };
+
   environment.systemPackages = with pkgs; [
-    # General CLI Tools
+    # System-level tools needed for NixOS functionality
     cachix
     direnv
-    dysk
-    fzf
     git
     gnugrep
     gnumake
-    gum
-    btop
     inetutils
-    jq
     pass
-    ripgrep
-    sysz
-    tmux
-    tree
-    unzip
-    wget
     zlib
     zsh
     zsh-syntax-highlighting
-
-    # Editors
-    vimHugeX
   ];
 
   home-manager.useGlobalPkgs = true;
