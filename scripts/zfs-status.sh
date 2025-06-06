@@ -122,6 +122,20 @@ print_info() {
     fi
 }
 
+print_subinfo() {
+    local message="$1"
+    if [[ "$JSON_OUTPUT" != true ]]; then
+        gum style --foreground 159 "    $message"
+    fi
+}
+
+print_subheading() {
+    local title="$1"
+    if [[ "$JSON_OUTPUT" != true ]]; then
+        gum style --foreground 117 --bold "  $title"
+    fi
+}
+
 print_status_summary() {
     local type="$1"
     local message="$2"
@@ -282,7 +296,8 @@ for dataset in $DATASETS; do
     
     # Check if local dataset exists
     if zfs list "$dataset" >/dev/null 2>&1; then
-        local_snapshot_name=$(zfs list -t snapshot -H -o name "$dataset" 2>/dev/null | tail -1 || echo "none")
+        local_snapshot_name=$(zfs list -t snapshot -H -o name "$dataset" 2>/dev/null | tail -1)
+        [[ -z "$local_snapshot_name" ]] && local_snapshot_name="none"
         
         if [[ "$local_snapshot_name" != "none" ]]; then
             # Get creation time for just this snapshot
@@ -358,7 +373,15 @@ for dataset in $DATASETS; do
 
             if [[ "$JSON_OUTPUT" == true ]]; then
                 # Collect JSON data
-                dataset_json="{\"name\":\"$(json_escape "$dataset")\",\"used\":\"$(json_escape "$used")\",\"available\":\"$(json_escape "$available")\",\"compression_ratio\":\"$(json_escape "$compressratio")\",\"read_errors\":\"$read_errors\",\"write_errors\":\"$write_errors\",\"local_latest_snapshot\":\"$(json_escape "$local_snapshot_name")\",\"local_snapshot_time\":\"$(json_escape "$local_snapshot_time")\",\"has_syncoid_service\":$([[ "$has_syncoid_service" == true ]] && echo "true" || echo "false"),\"sync_status\":\"$sync_status\""
+                if [[ "$local_snapshot_name" == "none" ]]; then
+                    json_snapshot_name="null"
+                    json_snapshot_time="null"
+                else
+                    json_snapshot_name="\"$(json_escape "$local_snapshot_name")\""
+                    json_snapshot_time="\"$(json_escape "$local_snapshot_time")\""
+                fi
+                
+                dataset_json="{\"name\":\"$(json_escape "$dataset")\",\"used\":\"$(json_escape "$used")\",\"available\":\"$(json_escape "$available")\",\"compression_ratio\":\"$(json_escape "$compressratio")\",\"read_errors\":\"$read_errors\",\"write_errors\":\"$write_errors\",\"local_latest_snapshot\":$json_snapshot_name,\"local_snapshot_time\":$json_snapshot_time,\"has_syncoid_service\":$([[ "$has_syncoid_service" == true ]] && echo "true" || echo "false"),\"sync_status\":\"$sync_status\""
                 
                 if [[ "$has_syncoid_service" == true && -n "$remote_latest" ]]; then
                     dataset_json="${dataset_json},\"remote_latest_snapshot\":\"$(json_escape "$remote_latest")\",\"remote_snapshot_time\":\"$(json_escape "$remote_snap_time")\""
@@ -380,40 +403,65 @@ for dataset in $DATASETS; do
                     print_info "I/O errors: ${read_errors} read, ${write_errors} write"
                 fi
 
-                print_info "Local latest:  $local_snapshot_name ($local_snapshot_time)"
+                print_subheading "Snapshots"
+                if [[ "$local_snapshot_name" != "none" ]]; then
+                    print_subinfo "Local latest:  $local_snapshot_name ($local_snapshot_time)"
+                else
+                    print_subinfo "Local latest:  None"
+                fi
                 
                 # Show remote status based on configuration
                 if [[ "$has_syncoid_service" == true ]]; then
                     if [[ "$REMOTE_CHECKING" == true ]]; then
                         if [[ -n "$remote_latest" ]]; then
-                            print_info "Remote latest: $remote_latest ($remote_snap_time)"
+                            print_subinfo "Remote latest: $remote_latest ($remote_snap_time)"
 
                             if [[ "$local_snap_name" == "$remote_snap_name" ]]; then
-                                gum style --foreground 46 "  ✓ In sync"
+                                gum style --foreground 46 "      ✓ In sync"
                             else
-                                gum style --foreground 214 "  ⚠ Out of sync"
+                                gum style --foreground 214 "      ⚠ Out of sync"
 
                                 if [[ $lag_hours -gt 0 || $lag_minutes -gt 0 ]]; then
-                                    print_info "Lag: ${lag_hours}h ${lag_minutes}m behind"
+                                    print_subinfo "Lag: ${lag_hours}h ${lag_minutes}m behind"
                                 fi
                             fi
                         else
-                            print_info "Remote latest: Cannot connect or no snapshots found"
+                            print_subinfo "Remote latest: Cannot connect or no snapshots found"
                         fi
                     else
-                        print_info "Remote sync: Configured but not checked (use --dest-* flags)"
+                        print_subinfo "Remote sync: Configured but not checked (use --dest-* flags)"
                     fi
                 else
-                    print_info "Remote sync: Not configured"
+                    print_subinfo "Remote sync: Not configured"
                 fi
             fi
         else
+            # Dataset with no snapshots - still show the structure
             if [[ "$JSON_OUTPUT" == true ]]; then
-                # Dataset with no snapshots
-                dataset_json="{\"name\":\"$(json_escape "$dataset")\",\"status\":\"no_snapshots\",\"has_syncoid_service\":$([[ "$has_syncoid_service" == true ]] && echo "true" || echo "false")}"
+                # Collect JSON data for dataset with no snapshots
+                json_snapshot_name="null"
+                json_snapshot_time="null"
+                
+                dataset_json="{\"name\":\"$(json_escape "$dataset")\",\"used\":\"$(json_escape "$used")\",\"available\":\"$(json_escape "$available")\",\"compression_ratio\":\"$(json_escape "$compressratio")\",\"read_errors\":\"$read_errors\",\"write_errors\":\"$write_errors\",\"local_latest_snapshot\":$json_snapshot_name,\"local_snapshot_time\":$json_snapshot_time,\"has_syncoid_service\":$([[ "$has_syncoid_service" == true ]] && echo "true" || echo "false"),\"sync_status\":\"not_configured\"}"
                 JSON_DATASETS+=("$dataset_json")
             else
-                gum style --foreground 214 "💾 $dataset (no local snapshots found)"
+                # Terminal output for dataset with no snapshots
+                gum style --foreground 46 "💾 $dataset"
+
+                # Display dataset info
+                print_info "Used: $used | Available: $available | Compression: ${compressratio}x"
+                if [[ "$read_errors" != "0" || "$write_errors" != "0" ]]; then
+                    print_info "I/O errors: ${read_errors} read, ${write_errors} write"
+                fi
+
+                print_subheading "Snapshots"
+                print_subinfo "Local latest:  None"
+                
+                if [[ "$has_syncoid_service" == true ]]; then
+                    print_subinfo "Remote sync: Configured but not checked (use --dest-* flags)"
+                else
+                    print_subinfo "Remote sync: Not configured"
+                fi
             fi
         fi
     else
