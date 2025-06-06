@@ -52,6 +52,20 @@
 
     # Editors
     vimHugeX
+
+    # Custom scripts
+    (pkgs.writeShellApplication {
+      name = "zfs-status";
+      runtimeInputs = with pkgs; [ zfs openssh systemd coreutils gum ];
+      text = ''
+        # Set default environment variables
+        export ZFS_STATUS_DEST_HOST=''${ZFS_STATUS_DEST_HOST:-"sandra-voi.home.arpa"}
+        export ZFS_STATUS_DEST_USER=''${ZFS_STATUS_DEST_USER:-"solomon"}
+        export ZFS_STATUS_DEST_BASE=''${ZFS_STATUS_DEST_BASE:-"tank/system-snapshots"}
+        
+        ${builtins.readFile ../../../scripts/zfs-status.sh}
+      '';
+    })
   ];
 
   gui-applications = with pkgs; [
