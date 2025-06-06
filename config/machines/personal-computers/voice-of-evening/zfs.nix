@@ -32,28 +32,7 @@
         recursive = true;
       };
     };
-
-    localSourceAllow = options.services.syncoid.localSourceAllow.default ++ [
-      "mount"
-    ];
-
-    localTargetAllow = options.services.syncoid.localTargetAllow.default ++ [
-      "destroy"
-    ];
   };
 
-  # TODO: This is defined in the Nixos module but for some reason I'm getting an
-  # error about it being unset.
-  # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/services/backup/syncoid.nix#L117
-  users.users.syncoid.group = "syncoid";
-  # TODO: Same issue here.
-  # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/services/backup/syncoid.nix#L301
-  users.users.syncoid.isSystemUser = true;
-
-  # Ditto for the group:
-  # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/services/backup/syncoid.nix#L309
-  users.groups.syncoid = { };
-
-  # Allow syncoid user to access SOPS secrets.
   users.users.syncoid.extraGroups = [ "keys" ];
 }
