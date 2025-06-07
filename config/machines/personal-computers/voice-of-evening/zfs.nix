@@ -34,5 +34,12 @@
     };
   };
 
+  # "Exactly one of users.users.syncoid.isSystemUser and users.users.syncoid.isNormalUser must be set."
+  # WTF these should be defined already:
+  # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/nixos/modules/services/backup/syncoid.nix#L343
+  users.users.syncoid.group = "syncoid";
+  users.users.syncoid.isSystemUser = true;
+  users.groups.syncoid = {};
+
   users.users.syncoid.extraGroups = [ "keys" ];
 }
