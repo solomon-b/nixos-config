@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   dbHostname = "192.168.5.101"; # transfigured-night
@@ -33,6 +33,11 @@ in
 
     database = {
       enable = false;
+      createDB = false;
+      host = dbHostname;
+      port = 5432;
+      user = dbUsername;
+      name = dbDatabaseName;
     };
 
     redis = {
@@ -44,12 +49,7 @@ in
     secretsFile = config.sops.secrets.immich-postgres-password.path;
 
     environment = {
-      # PostgreSQL
-      DB_HOSTNAME = dbHostname;
-      DB_USERNAME = dbUsername;
-      DB_PASSWORD = dbPassword;
-      DB_DATABASE_NAME = dbDatabaseName;
-
+      IMMICH_LOG_LEVEL = "log";
       # Redis
       REDIS_HOSTNAME = redisHostname;
       REDIS_PASSWORD = redisPassword;
@@ -61,6 +61,31 @@ in
     mediaLocation = photosLocation;
     settings.server.externalDomain = "http://immich.service.home.arpa";
     settings.newVersionCheck.enabled = true;
+  };
+
+  systemd.services.immich-server = {
+    serviceConfig = {
+      ExecStart = lib.mkForce (
+        let
+          wrapper = pkgs.writeShellScript "immich-server-wrapper" ''
+            cd /mnt/immich
+            exec ${config.services.immich.package}/bin/server "$@"
+          '';
+        in "${wrapper}"
+      );
+
+      WorkingDirectory = lib.mkForce "/mnt/immich";
+      #ExecStartPre = "${pkgs.coreutils}/bin/cd /mnt/immich";
+      PrivateMounts = lib.mkForce false;
+      SupplementaryGroups = [ "1007" ];
+      ProtectHome = lib.mkForce false;
+      PrivateDevices = lib.mkForce false;
+      PrivateUsers = lib.mkForce false;
+    };
+  };
+
+  users.groups.immich-nfs = {
+    gid = 1007;
   };
 
   services.nginx.virtualHosts."immich.service.home.arpa" = {
