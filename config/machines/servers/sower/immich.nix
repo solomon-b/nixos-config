@@ -55,7 +55,7 @@ in
       REDIS_PASSWORD = redisPassword;
 
       # Upload path
-      UPLOAD_LOCATION = photosLocation;
+      # UPLOAD_LOCATION = photosLocation;
     };
 
     mediaLocation = photosLocation;
@@ -65,22 +65,7 @@ in
 
   systemd.services.immich-server = {
     serviceConfig = {
-      ExecStart = lib.mkForce (
-        let
-          wrapper = pkgs.writeShellScript "immich-server-wrapper" ''
-            cd /mnt/immich
-            exec ${config.services.immich.package}/bin/server "$@"
-          '';
-        in "${wrapper}"
-      );
-
-      WorkingDirectory = lib.mkForce "/mnt/immich";
-      #ExecStartPre = "${pkgs.coreutils}/bin/cd /mnt/immich";
-      PrivateMounts = lib.mkForce false;
-      SupplementaryGroups = [ "1007" ];
-      ProtectHome = lib.mkForce false;
-      PrivateDevices = lib.mkForce false;
-      PrivateUsers = lib.mkForce false;
+      SupplementaryGroups = [ "immich-nfs" ];
     };
   };
 
