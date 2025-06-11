@@ -67,6 +67,17 @@
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
+  systemd.services.zfs-zed = {
+    after = [ "zfs-import.target" "zfs-mount.service" ];
+    wants = [ "zfs-import.target" ];
+
+    # Add a delay to avoid race conditions
+    serviceConfig = {
+      ExecStartPre = "${pkgs.coreutils}/bin/sleep 2";
+      RestartSec = "5s";
+    };
+  };
+
   # nix.buildCores = ???
   # nix.maxJobs = lib.mkDefault ???
 }
