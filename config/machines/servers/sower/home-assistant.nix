@@ -31,6 +31,10 @@ in
 
     volumes = [ "/mnt/home-assistant:/config" ];
 
+    devices = [
+      "/dev/ttyUSB0:/dev/ttyUSB0"
+    ];
+
     autoStart = true;
   };
 
