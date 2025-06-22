@@ -7,11 +7,6 @@
       url = github:numtide/flake-utils;
     };
 
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.1-1.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     home-manager = {
       url = github:nix-community/home-manager;
       inputs.nixpkgs.follows = "nixpkgs";
@@ -74,7 +69,6 @@
     , nixpkgs
     , unstable
     , flake-utils
-    , lix-module
     , home-manager
     , disko
     , sops-nix
@@ -150,7 +144,6 @@
           modules = [
             ./installer
             home-manager.nixosModules.home-manager
-            lix-module.nixosModules.default
           ];
         };
 
@@ -229,7 +222,6 @@
             home-manager.nixosModules.home-manager
             disko.nixosModules.disko
             sops-nix.nixosModules.sops
-            lix-module.nixosModules.default
             immich-sd-card-sync.nixosModules.immichSdCardSync
             irrigation-system.nixosModules.irrigation-web-server
           ];
@@ -251,7 +243,6 @@
             home-manager.nixosModules.home-manager
             sops-nix.nixosModules.sops
             disko.nixosModules.disko
-            lix-module.nixosModules.default
           ];
 
           specialArgs = { inherit inputs; };
@@ -271,7 +262,6 @@
             home-manager.nixosModules.home-manager
             sops-nix.nixosModules.sops
             disko.nixosModules.disko
-            lix-module.nixosModules.default
           ];
 
           specialArgs = { inherit inputs; };
@@ -291,7 +281,6 @@
             home-manager.nixosModules.home-manager
             sops-nix.nixosModules.sops
             disko.nixosModules.disko
-            lix-module.nixosModules.default
             irrigation-system.nixosModules.irrigation-web-server
           ];
 
