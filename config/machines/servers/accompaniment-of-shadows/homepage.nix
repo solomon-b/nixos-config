@@ -97,6 +97,12 @@
               href = "https://dash.cloudflare.com";
             }];
           }
+          {
+            zigbee2mqtt = [{
+              abbr = "ZB";
+              href = "http://zigbee2mqtt.service.home.arpa";
+            }];
+          }
         ];
       }
       {
@@ -463,4 +469,3 @@
     locations."/".proxyPass = "http://localhost:3000";
   };
 }
-

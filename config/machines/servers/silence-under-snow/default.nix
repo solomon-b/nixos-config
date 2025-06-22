@@ -72,6 +72,7 @@
         "tubearchivist.service.home.arpa" = "100.80.98.4";
         "home-assistant.service.home.arpa" = "100.80.98.4";
         "home-assistant.local.home.arpa" = "192.168.5.7";
+        "zigbee2mqtt.service.home.arpa" = "100.80.98.4";
 
         # Services on storm-bird
         "uptime.service.home.arpa" = "100.97.232.9";
