@@ -27,7 +27,7 @@
 
   primary-user.home-manager = {
     imports = [
-      ../../modules/packages/cli-tools.nix
+      ../../modules/packages/pc-cli-tools.nix
       ../../modules/packages/gui-applications.nix
       ../../modules/packages/development.nix
     ];

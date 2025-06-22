@@ -29,7 +29,7 @@
 
   primary-user.home-manager = {
     imports = [
-      ../../modules/packages/cli-tools.nix
+      ../../modules/packages/server-cli-tools.nix
     ];
   };
 

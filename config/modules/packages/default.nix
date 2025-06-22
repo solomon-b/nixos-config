@@ -1,49 +1,15 @@
 { pkgs, ... }:
 
 {
-  cli-tools = with pkgs; [
-    # CLI Tools
-    claude-code
-    fd
-    ispell
-    udiskie
-    sqlite
-    xclip
-    xdotool
-    xorg.xkill
-    ranger
-    nix-search
-
-    # File Management
-    filezilla
-
-    # Database
-    postgresql
-
-    # Pandoc Related
-    pandoc
-    texlive.combined.scheme-full
-    poppler_utils
-
-    # Desktop Environment Utilities
-    brightnessctl
-    libnotify
-    xlayoutdisplay
-    wmctrl
-
-    # Media Tools
-    scrot
-
-    # Secrets
-    pinentry-gtk2
-
-    # General CLI Tools (moved from physical-machine profile)
+  server-cli-tools = with pkgs; [
+    btop
     dysk
+    fd
     fzf
     gum
-    btop
     jq
     ripgrep
+    sqlite
     sysz
     tmux
     tree
@@ -62,7 +28,72 @@
         export ZFS_STATUS_DEST_HOST=''${ZFS_STATUS_DEST_HOST:-"sandra-voi.home.arpa"}
         export ZFS_STATUS_DEST_USER=''${ZFS_STATUS_DEST_USER:-"solomon"}
         export ZFS_STATUS_DEST_BASE=''${ZFS_STATUS_DEST_BASE:-"tank/system-snapshots"}
-        
+
+        ${builtins.readFile ../../../scripts/zfs-status.sh}
+      '';
+    })
+  ];
+
+  pc-cli-tools = with pkgs; [
+    # General
+    btop
+    dysk
+    fd
+    fzf
+    gum
+    ispell
+    jq
+    nix-search
+    postgresql
+    ranger
+    ripgrep
+    sqlite
+    sysz
+    tmux
+    tree
+    udiskie
+    unzip
+    wget
+
+    # AI
+    claude-code
+
+    # Editors
+    vimHugeX
+
+    # File Management
+    filezilla
+
+    # Document Processing
+    pandoc
+    texlive.combined.scheme-full
+    poppler_utils
+
+    # Desktop Environment Utilities
+    xclip
+    xdotool
+    xorg.xkill
+    brightnessctl
+    libnotify
+    xlayoutdisplay
+    wmctrl
+
+    # Media Tools
+    scrot
+
+    # Desktop Secrets
+    pinentry-gtk2
+
+    # Custom scripts
+    (pkgs.writeShellApplication {
+      name = "zfs-status";
+      runtimeInputs = with pkgs; [ zfs openssh systemd coreutils gum ];
+      text = ''
+        # Set default environment variables
+        export ZFS_STATUS_DEST_HOST=''${ZFS_STATUS_DEST_HOST:-"sandra-voi.home.arpa"}
+        export ZFS_STATUS_DEST_USER=''${ZFS_STATUS_DEST_USER:-"solomon"}
+        export ZFS_STATUS_DEST_BASE=''${ZFS_STATUS_DEST_BASE:-"tank/system-snapshots"}
+
         ${builtins.readFile ../../../scripts/zfs-status.sh}
       '';
     })
