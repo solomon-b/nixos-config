@@ -99,5 +99,8 @@
     # Editors
     emacs
     vscodium
+
+    # CAD
+    kicad
   ];
 }
