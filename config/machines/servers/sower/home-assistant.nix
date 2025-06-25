@@ -97,7 +97,7 @@ in
         port = "/dev/ttyUSB0";
         baudrate = 115200;
         rtscts = false;
-        adapter = "ezsp";  # Add this line!
+        adapter = "ember";
       };
 
       mqtt = {
