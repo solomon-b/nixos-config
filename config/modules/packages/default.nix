@@ -75,7 +75,7 @@
     xorg.xkill
     brightnessctl
     libnotify
-    xlayoutdisplay
+    #xlayoutdisplay
     wmctrl
 
     # Media Tools
