@@ -8,6 +8,7 @@
     ./immich.nix
     ./jellyfin.nix
     #./podgrab.nix
+    ./soulseek.nix
     ./navidrome.nix
     ./tubearchivist.nix
 
