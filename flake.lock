@@ -1,67 +1,5 @@
 {
   "nodes": {
-    "arduino-index": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1749600094,
-        "narHash": "sha256-d+4XdK70rhrs17HJ7jzG6Nw1YlGGcwQJ1S6EFG6fFho=",
-        "owner": "bouk",
-        "repo": "arduino-indexes",
-        "rev": "6502c83a98c201485f5268663ce825162929f32a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "bouk",
-        "repo": "arduino-indexes",
-        "type": "github"
-      }
-    },
-    "arduino-index_2": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1742947298,
-        "narHash": "sha256-p6ynPwjIMOd1USNjlC1oRm5XeON8i31ssjhI0Lva6k8=",
-        "owner": "bouk",
-        "repo": "arduino-indexes",
-        "rev": "e5df6ba9f640c3ea4d8e817015f7b55f6c081494",
-        "type": "github"
-      },
-      "original": {
-        "owner": "bouk",
-        "repo": "arduino-indexes",
-        "type": "github"
-      }
-    },
-    "arduino-nix": {
-      "locked": {
-        "lastModified": 1735332078,
-        "narHash": "sha256-PGZVUTg8BQKL1QgTr3Fcia8RBYYqsbHbx9lIunqdmxQ=",
-        "owner": "bouk",
-        "repo": "arduino-nix",
-        "rev": "dd6c6f4de7d8d8bb460508de911c120dfc35b709",
-        "type": "github"
-      },
-      "original": {
-        "owner": "bouk",
-        "repo": "arduino-nix",
-        "type": "github"
-      }
-    },
-    "arduino-nix_2": {
-      "locked": {
-        "lastModified": 1735332078,
-        "narHash": "sha256-PGZVUTg8BQKL1QgTr3Fcia8RBYYqsbHbx9lIunqdmxQ=",
-        "owner": "bouk",
-        "repo": "arduino-nix",
-        "rev": "dd6c6f4de7d8d8bb460508de911c120dfc35b709",
-        "type": "github"
-      },
-      "original": {
-        "owner": "bouk",
-        "repo": "arduino-nix",
-        "type": "github"
-      }
-    },
     "brightness-bar": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -175,42 +113,6 @@
         "type": "github"
       }
     },
-    "flake-utils_5": {
-      "inputs": {
-        "systems": "systems_5"
-      },
-      "locked": {
-        "lastModified": 1731533236,
-        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "flake-utils_6": {
-      "inputs": {
-        "systems": "systems_6"
-      },
-      "locked": {
-        "lastModified": 1731533236,
-        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "git-ignore-nix": {
       "inputs": {
         "nixpkgs": [
@@ -229,39 +131,6 @@
       "original": {
         "owner": "hercules-ci",
         "repo": "gitignore.nix",
-        "type": "github"
-      }
-    },
-    "hasql-interpolate-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1742226962,
-        "narHash": "sha256-oANUeRbBoFJaJnOGFVZt5no3t46korNOQr9eFBPKTBU=",
-        "owner": "awkward-squad",
-        "repo": "hasql-interpolate",
-        "rev": "f1d04cea75868ba3051ad158e314ebbeccfbda80",
-        "type": "github"
-      },
-      "original": {
-        "owner": "awkward-squad",
-        "repo": "hasql-interpolate",
-        "type": "github"
-      }
-    },
-    "hasql-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1729181625,
-        "narHash": "sha256-1S3/Apisb1vGz49ljcYnfIye3J5ClzpEqPAtU00ocBc=",
-        "owner": "JonathanLorimer",
-        "repo": "hasql",
-        "rev": "3b993b2afbdf9619d3d74b0ea3caddb87b3e00d4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "JonathanLorimer",
-        "ref": "expose-hasql-encoders-params",
-        "repo": "hasql",
         "type": "github"
       }
     },
@@ -305,57 +174,9 @@
         "type": "github"
       }
     },
-    "irrigation-system": {
-      "inputs": {
-        "arduino-index": "arduino-index",
-        "arduino-nix": "arduino-nix",
-        "flake-utils": "flake-utils_3",
-        "hasql-interpolate-src": "hasql-interpolate-src",
-        "hasql-src": "hasql-src",
-        "moore-arduino": "moore-arduino",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "tmp-postgres-src": "tmp-postgres-src"
-      },
-      "locked": {
-        "lastModified": 1749848776,
-        "narHash": "sha256-n3oCdFZAIgFHtvLnax/p9v+PCb1FM+S1NpduLW/Gm80=",
-        "owner": "solomon-b",
-        "repo": "irrigation-system",
-        "rev": "0db598f2f81d9bc79b09f4c7cbe8bf4b80ed5b57",
-        "type": "github"
-      },
-      "original": {
-        "owner": "solomon-b",
-        "repo": "irrigation-system",
-        "type": "github"
-      }
-    },
-    "moore-arduino": {
-      "inputs": {
-        "arduino-index": "arduino-index_2",
-        "arduino-nix": "arduino-nix_2",
-        "flake-utils": "flake-utils_4",
-        "nixpkgs": "nixpkgs"
-      },
-      "locked": {
-        "lastModified": 1749614716,
-        "narHash": "sha256-4a6Ci3nfVHmDWIV53Vc3p7bjf26QACdWTjzfLITfVtE=",
-        "owner": "solomon-b",
-        "repo": "moore-arduino",
-        "rev": "d0279860d12622b5f36827913a02b99ca33cd04e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "solomon-b",
-        "repo": "moore-arduino",
-        "type": "github"
-      }
-    },
     "music-archiver": {
       "inputs": {
-        "flake-utils": "flake-utils_5",
+        "flake-utils": "flake-utils_3",
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -428,22 +249,6 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1742800061,
-        "narHash": "sha256-oDJGK1UMArK52vcW9S5S2apeec4rbfNELgc50LqiPNs=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "1750f3c1c89488e2ffdd47cab9d05454dddfb734",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
         "lastModified": 1752950548,
         "narHash": "sha256-NS6BLD0lxOrnCiEOcvQCDVPXafX1/ek1dfJHX1nUIzc=",
         "owner": "nixos",
@@ -465,11 +270,10 @@
         "flake-utils": "flake-utils_2",
         "home-manager": "home-manager",
         "immich-sd-card-sync": "immich-sd-card-sync",
-        "irrigation-system": "irrigation-system",
         "music-archiver": "music-archiver",
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs",
         "sops-nix": "sops-nix",
         "unstable": "unstable",
         "volume-bar": "volume-bar",
@@ -556,52 +360,6 @@
         "type": "github"
       }
     },
-    "systems_5": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
-      }
-    },
-    "systems_6": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
-      }
-    },
-    "tmp-postgres-src": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1691516008,
-        "narHash": "sha256-dE1OQN7I4Lxy6RBdLCvm75Z9D/Hu+9G4ejV2pEtvL1A=",
-        "owner": "jfischoff",
-        "repo": "tmp-postgres",
-        "rev": "7f2467a6d6d5f6db7eed59919a6773fe006cf22b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "jfischoff",
-        "repo": "tmp-postgres",
-        "type": "github"
-      }
-    },
     "unstable": {
       "locked": {
         "lastModified": 1753146864,
@@ -635,7 +393,7 @@
     },
     "volume-bar": {
       "inputs": {
-        "flake-utils": "flake-utils_6",
+        "flake-utils": "flake-utils_4",
         "nixpkgs": [
           "nixpkgs"
         ]
