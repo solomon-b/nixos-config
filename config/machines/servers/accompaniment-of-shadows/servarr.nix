@@ -11,11 +11,6 @@
       openFirewall = true;
     };
 
-    lidarr = {
-      enable = true;
-      openFirewall = true;
-    };
-
     prowlarr = {
       enable = true;
       openFirewall = true;
@@ -69,12 +64,6 @@
     "bazarr.service.home.arpa" = {
       locations."/" = {
         proxyPass = "http://localhost:6767";
-      };
-    };
-
-    "lidarr.service.home.arpa" = {
-      locations."/" = {
-        proxyPass = "http://localhost:8686";
       };
     };
 
