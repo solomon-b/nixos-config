@@ -38,7 +38,7 @@ in
       environment = {
         BASE_URL = "http://planka.service.home.arpa";
         TRUST_PROXY = "1";
-        DATABASE_URL = "postgresql://planka_admin:$${DATABASE_PASSWORD}@transfigured-night/planka";
+        DATABASE_URL = "postgresql://planka_admin:hunter2@transfigured-night/planka";
         SECRET_KEY__FILE = config.sops.secrets.planka-secret-key.path;
         DATABASE_PASSWORD__FILE = config.sops.secrets.planka-database-password.path;
       };
