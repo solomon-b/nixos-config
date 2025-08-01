@@ -33,14 +33,16 @@ in
         "${userAvatars}:/app/public/user-avatars"
         "${projectBackgroundImages}:/app/public/project-background-images"
         "${attachaments}:/app/private/attachements"
+        "${config.sops.secrets.planka-secret-key.path}:/run/secrets/planka-secret-key:ro"
+        "${config.sops.secrets.planka-database-password.path}:/run/secrets/planka-database-password:ro"
       ];
 
       environment = {
         BASE_URL = "http://planka.service.home.arpa";
         TRUST_PROXY = "1";
         DATABASE_URL = "postgresql://planka_admin:$${DATABASE_PASSWORD}@transfigured-night/planka";
-        SECRET_KEY__FILE = config.sops.secrets.planka-secret-key.path;
-        DATABASE_PASSWORD__FILE = config.sops.secrets.planka-database-password.path;
+        SECRET_KEY__FILE = "/run/secrets/planka-secret-key";
+        DATABASE_PASSWORD__FILE = "/run/secrets/planka-database-password";
       };
 
       autoStart = true;
@@ -54,6 +56,17 @@ in
     };
   };
 
-  sops.secrets.planka-secret-key = {};
-  sops.secrets.planka-database-password = {};
+  # The Planka application is:
+  #
+  #   UID: 1000
+  #   Username: node
+  #
+  # This means I can't create a matching user in the host system for assigning
+  # SOPS secret permissions.
+  sops.secrets.planka-secret-key = {
+    mode = "0444";
+  };
+  sops.secrets.planka-database-password = {
+    mode = "0444";
+  };
 }
