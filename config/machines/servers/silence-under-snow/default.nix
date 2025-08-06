@@ -16,6 +16,8 @@
   networking.firewall.allowedTCPPorts = [ 53 4000 ];
   networking.firewall.allowedUDPPorts = [ 53 ];
 
+  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
+
   services.blocky = {
     enable = true;
     settings = {
