@@ -77,6 +77,7 @@
     }:
     let
       system = "x86_64-linux";
+      unstable-pkgs = import unstable { inherit system; };
       pkgs = import nixpkgs {
         inherit system;
 
@@ -98,6 +99,7 @@
           xmonad-solomon.overlays.xmonad-contrib
           #music-archiver.overlay
           # (final: prev: { eww = eww.packages.${final.system}.default; })
+          (final: prev: { prowlarr = unstable-pkgs.prowlarr; })
         ];
       };
 
