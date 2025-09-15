@@ -103,7 +103,7 @@
     # Web Browsers
     firefox
     google-chrome
-    surf
+    # surf
 
     # Chat/Communication
     discord
