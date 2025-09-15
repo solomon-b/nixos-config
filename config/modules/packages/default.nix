@@ -128,7 +128,6 @@
 
   development = with pkgs; [
     # Editors
-    emacs
     vscodium
 
     # CAD
