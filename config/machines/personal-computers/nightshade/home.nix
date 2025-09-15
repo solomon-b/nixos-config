@@ -22,7 +22,6 @@
 
   home.packages = with pkgs; [
     # Machine-specific packages not in the shared modules
-    aider-chat
     acpi
     curl
     xterm
