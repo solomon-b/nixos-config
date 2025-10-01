@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # ZFS Dataset Status
-# Monitors ZFS dataset synchronization between local machine and sandra-voi
+# Monitors ZFS pools, datasets, snapshots, and syncoid synchronization status
 
 set -euo pipefail
 
@@ -9,9 +9,6 @@ set -euo pipefail
 VERBOSE=${ZFS_STATUS_VERBOSE:-false}
 SELECTED_POOLS=${ZFS_STATUS_POOLS:-""}
 JSON_OUTPUT=${ZFS_STATUS_JSON:-false}
-DESTINATION_HOST=${ZFS_STATUS_DEST_HOST:-""}
-DESTINATION_USER=${ZFS_STATUS_DEST_USER:-""}
-DESTINATION_BASE=${ZFS_STATUS_DEST_BASE:-""}
 
 # Convert string env vars to boolean
 [[ "$VERBOSE" =~ ^(true|1|yes)$ ]] && VERBOSE=true || VERBOSE=false
@@ -32,18 +29,6 @@ while [[ $# -gt 0 ]]; do
             JSON_OUTPUT=true
             shift
             ;;
-        --dest-host)
-            DESTINATION_HOST="$2"
-            shift 2
-            ;;
-        --dest-user)
-            DESTINATION_USER="$2"
-            shift 2
-            ;;
-        --dest-base)
-            DESTINATION_BASE="$2"
-            shift 2
-            ;;
         -h|--help)
             echo "Usage: $0 [OPTIONS]"
             echo ""
@@ -51,29 +36,21 @@ while [[ $# -gt 0 ]]; do
             echo "  -v, --verbose           Show detailed logs and output"
             echo "  -p, --pools POOLS       Comma-separated list of pools to scan (default: all pools)"
             echo "  -j, --json              Output in JSON format"
-            echo "  --dest-host HOST        Remote host for syncoid sync checking"
-            echo "  --dest-user USER        Remote user for syncoid sync checking"
-            echo "  --dest-base PATH        Remote base path for syncoid datasets"
             echo "  -h, --help              Show this help message"
             echo ""
             echo "Environment Variables (command line args take precedence):"
             echo "  ZFS_STATUS_VERBOSE      Set to 'true', '1', or 'yes' to enable verbose mode"
             echo "  ZFS_STATUS_POOLS        Comma-separated list of pools to scan"
             echo "  ZFS_STATUS_JSON         Set to 'true', '1', or 'yes' to enable JSON output"
-            echo "  ZFS_STATUS_DEST_HOST    Remote host for syncoid sync checking"
-            echo "  ZFS_STATUS_DEST_USER    Remote user for syncoid sync checking"
-            echo "  ZFS_STATUS_DEST_BASE    Remote base path for syncoid datasets"
             echo ""
             echo "Examples:"
-            echo "  $0                                              # Local ZFS status only"
+            echo "  $0                                              # Show ZFS status with syncoid info"
             echo "  $0 -p tank                                      # Scan only 'tank' pool"
-            echo "  $0 -j                                           # JSON output, local only"
-            echo "  $0 --dest-host backup.example.com --dest-user root --dest-base tank/backups"
-            echo "                                                  # Include remote sync checking"
-            echo "  ZFS_STATUS_JSON=true ZFS_STATUS_DEST_HOST=sandra-voi.home.arpa $0"
-            echo "                                                  # Using environment variables"
-            echo "  $0 -p tank,backup -j --dest-host sandra-voi.home.arpa --dest-user solomon --dest-base tank/system-snapshots"
-            echo "                                                  # Full featured scan with JSON"
+            echo "  $0 -j                                           # JSON output"
+            echo "  $0 -v                                           # Verbose output with scrub status"
+            echo "  ZFS_STATUS_JSON=true $0                         # Using environment variables"
+            echo ""
+            echo "Note: Remote syncoid sync status is automatically detected from syncoid service configurations."
             exit 0
             ;;
         *)
@@ -83,15 +60,6 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
-
-# Determine if remote checking should be enabled
-REMOTE_CHECKING=false
-if [[ -n "$DESTINATION_HOST" && -n "$DESTINATION_USER" && -n "$DESTINATION_BASE" ]]; then
-    REMOTE_CHECKING=true
-elif [[ -n "$DESTINATION_HOST" || -n "$DESTINATION_USER" || -n "$DESTINATION_BASE" ]]; then
-    echo "Error: If using remote checking, all three options must be provided: --dest-host, --dest-user, --dest-base" >&2
-    exit 1
-fi
 
 # Configuration - will discover all pools automatically
 
@@ -160,6 +128,43 @@ json_escape() {
     local input="$1"
     # Escape quotes and backslashes for JSON
     echo "$input" | sed 's/\\/\\\\/g' | sed 's/"/\\"/g'
+}
+
+# Parse syncoid service configuration
+# Returns: remote_user|remote_host|remote_dataset
+parse_syncoid_service() {
+    local service_name="$1"
+
+    # Get the ExecStart line from the service
+    local exec_start
+    exec_start=$(systemctl show "$service_name" --property=ExecStart --value 2>/dev/null || echo "")
+
+    if [[ -z "$exec_start" ]]; then
+        return 1
+    fi
+
+    # Extract the syncoid command arguments from argv[]
+    # Format: argv[]=/path/to/syncoid [options] source user@host:destination
+    # The destination pattern is: user@host:path (not at end of line due to metadata)
+    local destination
+    destination=$(echo "$exec_start" | grep -oE '[^[:space:]]+@[^[:space:]]+:[^[:space:];]+' || echo "")
+
+    if [[ -z "$destination" ]]; then
+        return 1
+    fi
+
+    # Parse destination: user@host:path
+    local remote_user
+    local host_and_path
+    local remote_host
+    local remote_dataset
+    remote_user=$(echo "$destination" | cut -d'@' -f1)
+    host_and_path=$(echo "$destination" | cut -d'@' -f2)
+    remote_host=$(echo "$host_and_path" | cut -d':' -f1)
+    remote_dataset=$(echo "$host_and_path" | cut -d':' -f2-)
+
+    echo "$remote_user|$remote_host|$remote_dataset"
+    return 0
 }
 
 # JSON data collectors
@@ -263,11 +268,6 @@ done
 # Check datasets and their sync status
 print_section "ZFS Datasets"
 
-# Establish SSH master connection for reuse (only if remote checking is enabled)
-if [[ "$REMOTE_CHECKING" == true ]]; then
-    ssh -o ConnectTimeout=5 -o BatchMode=yes -o ControlMaster=yes -o ControlPath="$SSH_CONTROL_PATH" -o ControlPersist=10s "$DESTINATION_USER@$DESTINATION_HOST" "true" 2>/dev/null &
-fi
-
 # Discover datasets from all pools
 DATASETS=""
 for pool in $ZPOOLS; do
@@ -276,38 +276,58 @@ for pool in $ZPOOLS; do
 done
 DATASETS=$(echo "$DATASETS" | tr ' ' '\n' | grep -v '^$' | sort)
 
-# Discover which datasets have syncoid services configured
-SYNCOID_DATASETS=$(systemctl list-unit-files --type=service 2>/dev/null | grep -E "^syncoid-.*\.service" | sed 's/syncoid-//' | sed 's/\.service.*//' | tr '\n' ' ')
+# Discover which datasets have syncoid services configured (handle case where none exist)
+SYNCOID_DATASETS=$(systemctl list-unit-files --type=service 2>/dev/null | grep -E "^syncoid-.*\.service" | sed 's/syncoid-//' | sed 's/\.service.*//' | tr '\n' ' ' || true)
 
 for dataset in $DATASETS; do
-    dataset_name=$(basename "$dataset")
-    remote_dataset="$DESTINATION_BASE/$HOSTNAME/$dataset_name"
-    
     # Check if this dataset has a syncoid service configured
     # Convert dataset path to service name format (replace / with -)
     dataset_service_name=$(echo "$dataset" | tr '/' '-')
     has_syncoid_service=false
+    remote_user=""
+    remote_host=""
+    remote_dataset=""
+
     for syncoid_dataset in $SYNCOID_DATASETS; do
         if [[ "$dataset_service_name" == "$syncoid_dataset" ]]; then
             has_syncoid_service=true
+            # Parse the syncoid service to get actual remote configuration
+            service_config=$(parse_syncoid_service "syncoid-${syncoid_dataset}.service")
+            if [[ $? -eq 0 && -n "$service_config" ]]; then
+                remote_user=$(echo "$service_config" | cut -d'|' -f1)
+                remote_host=$(echo "$service_config" | cut -d'|' -f2)
+                remote_dataset=$(echo "$service_config" | cut -d'|' -f3)
+            fi
             break
         fi
     done
-    
+
     # Check if local dataset exists
     if zfs list "$dataset" >/dev/null 2>&1; then
         local_snapshot_name=$(zfs list -t snapshot -H -o name "$dataset" 2>/dev/null | tail -1)
         [[ -z "$local_snapshot_name" ]] && local_snapshot_name="none"
         
+        # Get dataset health & usage info with single ZFS call (needed for both snapshot and no-snapshot cases)
+        dataset_props=$(zfs get used,available,compressratio -H -o property,value "$dataset" 2>/dev/null)
+        used=$(echo "$dataset_props" | grep "^used" | awk '{print $2}' || echo "unknown")
+        available=$(echo "$dataset_props" | grep "^available" | awk '{print $2}' || echo "unknown")
+        compressratio=$(echo "$dataset_props" | grep "^compressratio" | awk '{print $2}' | sed 's/x$//' || echo "unknown")
+
+        # Get performance & health info (needed for both snapshot and no-snapshot cases)
+        pool_name=$(echo "$dataset" | cut -d'/' -f1)
+        errors_line=$(zpool status "$pool_name" 2>/dev/null | grep -E "^\s*$pool_name\s+" | head -1)
+        read_errors=$(echo "$errors_line" | awk '{print $3}' | tr -d '\n' || echo "0")
+        write_errors=$(echo "$errors_line" | awk '{print $4}' | tr -d '\n' || echo "0")
+
         if [[ "$local_snapshot_name" != "none" ]]; then
             # Get creation time for just this snapshot
             local_snapshot_time=$(zfs get creation -H -o value "$local_snapshot_name" 2>/dev/null || echo "unknown")
 
-            # Only check remote status if this dataset has syncoid configured AND remote checking is enabled
+            # Only check remote status if this dataset has syncoid configured and we have remote config
             remote_latest=""
             remote_snap_time=""
-            if [[ "$has_syncoid_service" == true && "$REMOTE_CHECKING" == true ]]; then
-                # Get remote snapshot info with single SSH call using master connection
+            if [[ "$has_syncoid_service" == true && -n "$remote_host" && -n "$remote_user" && -n "$remote_dataset" ]]; then
+                # Get remote snapshot info with single SSH call
                 remote_script="
                     if zfs list '$remote_dataset' >/dev/null 2>&1; then
                         latest=\$(zfs list -t snapshot -H -o name '$remote_dataset' 2>/dev/null | tail -1)
@@ -317,36 +337,24 @@ for dataset in $DATASETS; do
                         fi
                     fi
                 "
-                remote_info=$(ssh -o ControlPath="$SSH_CONTROL_PATH" "$DESTINATION_USER@$DESTINATION_HOST" "$remote_script" 2>/dev/null || echo "")
+                remote_info=$(ssh -o ConnectTimeout=5 -o BatchMode=yes -o ControlMaster=auto -o ControlPath="$SSH_CONTROL_PATH" -o ControlPersist=10s "$remote_user@$remote_host" "$remote_script" 2>/dev/null || echo "")
 
                 if [[ -n "$remote_info" ]]; then
                     remote_latest=$(echo "$remote_info" | cut -d'|' -f1)
                     remote_snap_time=$(echo "$remote_info" | cut -d'|' -f2)
                 fi
             fi
-            
+
             # Determine sync status and display
             local_snap_name=$(basename "$local_snapshot_name")
             remote_snap_name=$(basename "$remote_latest")
-
-            # Get dataset health & usage info with single ZFS call
-            dataset_props=$(zfs get used,available,compressratio -H -o property,value "$dataset" 2>/dev/null)
-            used=$(echo "$dataset_props" | grep "^used" | awk '{print $2}' || echo "unknown")
-            available=$(echo "$dataset_props" | grep "^available" | awk '{print $2}' || echo "unknown")
-            compressratio=$(echo "$dataset_props" | grep "^compressratio" | awk '{print $2}' | sed 's/x$//' || echo "unknown")
-
-            # Get performance & health info
-            pool_name=$(echo "$dataset" | cut -d'/' -f1)
-            errors_line=$(zpool status "$pool_name" 2>/dev/null | grep -E "^\s*$pool_name\s+" | head -1)
-            read_errors=$(echo "$errors_line" | awk '{print $3}' | tr -d '\n' || echo "0")
-            write_errors=$(echo "$errors_line" | awk '{print $4}' | tr -d '\n' || echo "0")
 
             # Calculate sync status
             sync_status="not_configured"
             lag_hours=0
             lag_minutes=0
             if [[ "$has_syncoid_service" == true ]]; then
-                if [[ "$REMOTE_CHECKING" == true ]]; then
+                if [[ -n "$remote_host" && -n "$remote_user" && -n "$remote_dataset" ]]; then
                     if [[ -n "$remote_latest" ]]; then
                         if [[ "$local_snap_name" == "$remote_snap_name" ]]; then
                             sync_status="in_sync"
@@ -367,7 +375,7 @@ for dataset in $DATASETS; do
                         sync_status="remote_unavailable"
                     fi
                 else
-                    sync_status="remote_not_checked"
+                    sync_status="config_parse_error"
                 fi
             fi
 
@@ -412,9 +420,10 @@ for dataset in $DATASETS; do
                 
                 # Show remote status based on configuration
                 if [[ "$has_syncoid_service" == true ]]; then
-                    if [[ "$REMOTE_CHECKING" == true ]]; then
+                    if [[ -n "$remote_host" && -n "$remote_user" && -n "$remote_dataset" ]]; then
                         if [[ -n "$remote_latest" ]]; then
                             print_subinfo "Remote latest: $remote_latest ($remote_snap_time)"
+                            print_subinfo "Remote: $remote_user@$remote_host:$remote_dataset"
 
                             if [[ "$local_snap_name" == "$remote_snap_name" ]]; then
                                 gum style --foreground 46 "      ✓ In sync"
@@ -426,10 +435,11 @@ for dataset in $DATASETS; do
                                 fi
                             fi
                         else
+                            print_subinfo "Remote: $remote_user@$remote_host:$remote_dataset"
                             print_subinfo "Remote latest: Cannot connect or no snapshots found"
                         fi
                     else
-                        print_subinfo "Remote sync: Configured but not checked (use --dest-* flags)"
+                        print_subinfo "Remote sync: Configured but unable to parse service"
                     fi
                 else
                     print_subinfo "Remote sync: Not configured"
@@ -456,9 +466,14 @@ for dataset in $DATASETS; do
 
                 print_subheading "Snapshots"
                 print_subinfo "Local latest:  None"
-                
+
                 if [[ "$has_syncoid_service" == true ]]; then
-                    print_subinfo "Remote sync: Configured but not checked (use --dest-* flags)"
+                    if [[ -n "$remote_host" && -n "$remote_user" && -n "$remote_dataset" ]]; then
+                        print_subinfo "Remote: $remote_user@$remote_host:$remote_dataset"
+                        print_subinfo "Remote sync: Configured (no snapshots to check)"
+                    else
+                        print_subinfo "Remote sync: Configured but unable to parse service"
+                    fi
                 else
                     print_subinfo "Remote sync: Not configured"
                 fi
@@ -479,24 +494,11 @@ for dataset in $DATASETS; do
     fi
 done
 
-# Clean up SSH master connection (only if remote checking was enabled)
-if [[ "$REMOTE_CHECKING" == true ]]; then
-    ssh -o ControlPath="$SSH_CONTROL_PATH" -O exit "$DESTINATION_USER@$DESTINATION_HOST" 2>/dev/null || true
-fi
-
 # Output JSON if requested
 if [[ "$JSON_OUTPUT" == true ]]; then
     echo "{"
     echo "  \"hostname\": \"$(json_escape "$HOSTNAME")\","
     echo "  \"timestamp\": \"$(date -Iseconds)\","
-    echo "  \"remote_checking_enabled\": $([[ "$REMOTE_CHECKING" == true ]] && echo "true" || echo "false"),"
-    if [[ "$REMOTE_CHECKING" == true ]]; then
-        echo "  \"remote_destination\": {"
-        echo "    \"host\": \"$(json_escape "$DESTINATION_HOST")\","
-        echo "    \"user\": \"$(json_escape "$DESTINATION_USER")\","
-        echo "    \"base_path\": \"$(json_escape "$DESTINATION_BASE")\""
-        echo "  },"
-    fi
     echo "  \"pools\": ["
     
     # Output pools
