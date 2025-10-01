@@ -18,6 +18,11 @@
 
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 
+  systemd.services.coredns = {
+    after = [ "tailscaled.service" ];
+    wants = [ "tailscaled.service" ];
+  };
+
   services.coredns = {
     enable = true;
     config = ''
@@ -36,6 +41,10 @@
               expr incidr(client_ip(), '100.64.0.0/10')
           }
           hosts {
+              # Local IPs (default for non-Tailscale clients)
+              192.168.5.6  sandra-voi.home.arpa
+              192.168.5.104 apollyon
+
               # Tailscale IPs
               100.123.147.26 filebrowser.service.home.arpa
               100.123.147.26 homebox.service.home.arpa
