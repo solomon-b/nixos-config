@@ -207,11 +207,6 @@
               };
             };
           }
-          {
-            Planka = {
-              href = "http://planka.service.home.arpa";
-            };
-          }
         ];
       }
       {
@@ -283,7 +278,7 @@
         ];
       }
       {
-        "File Mangement" = [
+        "File Management" = [
           {
             qBittorrent = {
               href = "http://qbittorrent.service.home.arpa";
@@ -293,17 +288,6 @@
                 url = "http://qbittorrent.service.home.arpa";
                 username = "solomon";
                 password = "{{HOMEPAGE_FILE_QBITTORRENT_PASSWORD}}";
-              };
-            };
-          }
-          {
-            lidarr = {
-              href = "http://lidarr.service.home.arpa";
-              icon = "lidarr";
-              widget = {
-                type = "lidarr";
-                url = "http://lidarr.service.home.arpa";
-                key = "{{HOMEPAGE_FILE_LIDARR_KEY}}";
               };
             };
           }
@@ -350,16 +334,51 @@
               };
             };
           }
+          {
+            bazarr = {
+              href = "http://bazarr.service.home.arpa";
+              icon = "bazarr";
+              # widget = {
+              #   type = "bazarr";
+              #   url = "http://bazarr.service.home.arpa";
+              #   key = "{{HOMEPAGE_FILE_BAZARR_KEY}}";
+              # };
+            };
+          }
+          {
+            filebrowser = {
+              href = "http://filebrowser.service.home.arpa";
+              icon = "filebrowser";
+              description = "File Browser";
+            };
+          }
         ];
       }
       {
         Infrastructure = [
           {
             Grafana = {
-              href = "http://storm-bird.home.arpa/d/rYdddlPWk/node-exporter-full?orgId=1&refresh=1m";
+              href = "http://grafana.service.home.arpa";
               icon = "grafana";
               description = "System statistics and graphs";
-              server = "docker2";
+            };
+          }
+          {
+            "Uptime Kuma" = {
+              href = "http://uptime.service.home.arpa";
+              icon = "uptime-kuma";
+              widget = {
+                type = "uptimekuma";
+                url = "http://uptime.service.home.arpa";
+                slug = "default";
+              };
+            };
+          }
+          {
+            "tt-rss" = {
+              href = "http://tt-rss.service.home.arpa";
+              icon = "tiny-tiny-rss";
+              description = "Feed Reader";
             };
           }
           {
@@ -434,11 +453,11 @@
 
     # File Management
     HOMEPAGE_FILE_QBITTORRENT_PASSWORD=${config.sops.secrets.qBittorrent-password.path}
-    HOMEPAGE_FILE_LIDARR_KEY=${config.sops.secrets.lidarr-key.path}
     HOMEPAGE_FILE_RADARR_KEY=${config.sops.secrets.radarr-key.path}
     HOMEPAGE_FILE_SONARR_KEY=${config.sops.secrets.sonarr-key.path}
     HOMEPAGE_FILE_PROWLARR_KEY=${config.sops.secrets.prowlarr-key.path}
     HOMEPAGE_FILE_SABNZBD_KEY=${config.sops.secrets.sabnzbd-key.path}
+    # HOMEPAGE_FILE_BAZARR_KEY=${config.sops.secrets.radarr-key.path}
 
     # Infrastructure
     HOMEPAGE_FILE_TRUENAS_KEY=${config.sops.secrets.truenas-key.path}
@@ -457,11 +476,11 @@
     TubeArchivist-key = { };
 
     qBittorrent-password = { };
-    lidarr-key = { };
     radarr-key = { };
     sonarr-key = { };
     prowlarr-key = { };
     sabnzbd-key = { };
+    # bazarr-key = { };
     truenas-key = { };
   };
 
