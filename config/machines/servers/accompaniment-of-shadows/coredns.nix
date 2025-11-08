@@ -1,21 +1,6 @@
-# pi-hole vm
-{ pkgs, ... }:
+{ ... }:
 
 {
-  imports = [
-    ./hardware.nix
-    ../../../profiles/virtual-machine
-  ];
-
-  networking = {
-    hostName = "silence-under-snow";
-    interfaces.enp0s4.useDHCP = true;
-    useDHCP = false;
-  };
-
-  networking.firewall.allowedTCPPorts = [ 53 4000 ];
-  networking.firewall.allowedUDPPorts = [ 53 ];
-
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 
   systemd.services.coredns = {
@@ -26,9 +11,9 @@
   services.coredns = {
     enable = true;
     config = ''
-      # Block 1: Tailscale clients (queries to 100.117.45.47)
+      # Block 1: Tailscale clients (queries to 100.123.147.26)
       .:53 {
-          bind 100.117.45.47
+          bind 100.123.147.26
 
           cache 30
           errors
@@ -74,9 +59,9 @@
           }
       }
 
-      # Block 2: LAN clients (queries to 192.168.5.100)
+      # Block 2: LAN clients (queries to 192.168.5.105)
       .:53 {
-          bind 192.168.5.100
+          bind 192.168.5.105
 
           cache 30
           errors

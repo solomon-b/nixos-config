@@ -4,6 +4,7 @@
   imports = [
     ./hardware.nix
 
+    ./coredns.nix
     ./filebrowser.nix
     ./homebox.nix
     ./homepage.nix
@@ -18,7 +19,8 @@
 
   networking = {
     hostName = "accompaniment-of-shadows";
-    firewall.allowedTCPPorts = [ 80 8080 ];
+    firewall.allowedTCPPorts = [ 53 80 8080 ];
+    firewall.allowedUDPPorts = [ 53 ];
   };
 
   services = {

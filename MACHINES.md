@@ -1,11 +1,8 @@
 - accompaniment-of-shadows
-  nginx reverse proxy and docker orchestration
+  nginx reverse proxy, docker orchestration, and DNS server
 
 - apollyon
   qBittorent
-
-- silence-under-snow:
-  DNS Server
 
 - sower
   media streaming
