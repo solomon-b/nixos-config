@@ -58,6 +58,9 @@
               100.123.147.26 sabnzbd.service.home.arpa
               100.123.147.26 planka.service.home.arpa
               100.123.147.26 paperless.service.home.arpa
+              100.123.147.26 grafana.service.home.arpa
+              100.123.147.26 uptime.service.home.arpa
+
               100.80.98.4 jellyfin.service.home.arpa
               100.80.98.4 jellyseerr.service.home.arpa
               100.80.98.4 podgrab.service.home.arpa
@@ -67,7 +70,7 @@
               100.80.98.4 home-assistant.service.home.arpa
               100.80.98.4 zigbee2mqtt.service.home.arpa
               100.80.98.4 soulseek.service.home.arpa
-              100.97.232.9 uptime.service.home.arpa
+
               fallthrough
           }
       }

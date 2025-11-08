@@ -15,8 +15,5 @@
   - tubearchivist
   - navidrome
 
-- storm-bird
-  Prometheus/Grafana/Uptime Monitoring
-
 - transfigured-night
   Postgres Service
