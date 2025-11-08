@@ -4,7 +4,7 @@
   services.tailscale.enable = true;
   networking.firewall = {
     allowedUDPPorts = [ 41641 ];
-    #checkReversePath = "loose";
+    checkReversePath = "loose";
   };
   environment.systemPackages = [ pkgs.tailscale ];
 }

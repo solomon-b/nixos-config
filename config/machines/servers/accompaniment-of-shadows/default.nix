@@ -13,6 +13,7 @@
     ./planka.nix
     ./sabnzbd.nix
     ./servarr.nix
+    ./tailscale.nix
 
     ../../../profiles/virtual-machine
   ];
