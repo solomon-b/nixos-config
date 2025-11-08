@@ -1,5 +1,5 @@
 - accompaniment-of-shadows
-  nginx reverse proxy, docker orchestration, and DNS server
+  nginx reverse proxy, docker orchestration, postgres, redis and DNS server
 
 - apollyon
   qBittorent
@@ -11,6 +11,3 @@
   - podgrab
   - tubearchivist
   - navidrome
-
-- transfigured-night
-  Postgres Service

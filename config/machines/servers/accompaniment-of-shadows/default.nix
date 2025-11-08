@@ -12,6 +12,7 @@
     ./paperless-ngx.nix
     ./planka.nix
     ./postgresql.nix
+    ./redis.nix
     ./sabnzbd.nix
     ./servarr.nix
     ./tailscale.nix

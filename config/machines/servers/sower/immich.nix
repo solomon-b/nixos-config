@@ -6,7 +6,7 @@ let
   dbPassword = "immich";
   dbDatabaseName = "immich";
 
-  redisHostname = "192.168.5.101"; # transfigured-night (Redis not migrated yet)
+  redisHostname = "192.168.5.105"; # accompaniment-of-shadows
   redisPassword = "hunter2";
   photosLocation = "/mnt/immich";
 
