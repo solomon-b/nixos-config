@@ -26,8 +26,9 @@
   services.coredns = {
     enable = true;
     config = ''
-      . {
-          bind 192.168.5.100 100.117.45.47
+      # Block 1: Tailscale clients (queries to 100.117.45.47)
+      .:53 {
+          bind 100.117.45.47
 
           cache 30
           errors
@@ -37,15 +38,12 @@
               except home.arpa
           }
 
-          view tailscale {
-              expr incidr(client_ip(), '100.64.0.0/10')
-          }
           hosts {
-              # Local IPs (default for non-Tailscale clients)
-              192.168.5.6  sandra-voi.home.arpa
+              # Machines without Tailscale (accessed via subnet route)
+              192.168.5.6   sandra-voi.home.arpa
               192.168.5.104 apollyon
 
-              # Tailscale IPs
+              # Services on accompaniment-of-shadows (Tailscale IP)
               100.123.147.26 filebrowser.service.home.arpa
               100.123.147.26 homebox.service.home.arpa
               100.123.147.26 homepage.service.home.arpa
@@ -61,6 +59,7 @@
               100.123.147.26 grafana.service.home.arpa
               100.123.147.26 uptime.service.home.arpa
 
+              # Services on sower (Tailscale IP)
               100.80.98.4 jellyfin.service.home.arpa
               100.80.98.4 jellyseerr.service.home.arpa
               100.80.98.4 podgrab.service.home.arpa
@@ -75,8 +74,9 @@
           }
       }
 
-      . {
-          bind 192.168.5.100 100.117.45.47
+      # Block 2: LAN clients (queries to 192.168.5.100)
+      .:53 {
+          bind 192.168.5.100
 
           cache 30
           errors
@@ -87,9 +87,11 @@
           }
 
           hosts {
-              # Local IPs (default for non-Tailscale clients)
-              192.168.5.6  sandra-voi.home.arpa
+              # Machines on LAN
+              192.168.5.6   sandra-voi.home.arpa
               192.168.5.104 apollyon
+
+              # Services on accompaniment-of-shadows (local IP)
               192.168.5.105 filebrowser.service.home.arpa
               192.168.5.105 homebox.service.home.arpa
               192.168.5.105 homepage.service.home.arpa
@@ -102,6 +104,10 @@
               192.168.5.105 sabnzbd.service.home.arpa
               192.168.5.105 planka.service.home.arpa
               192.168.5.105 paperless.service.home.arpa
+              192.168.5.105 grafana.service.home.arpa
+              192.168.5.105 uptime.service.home.arpa
+
+              # Services on sower (local IP)
               192.168.5.7 jellyfin.service.home.arpa
               192.168.5.7 jellyseerr.service.home.arpa
               192.168.5.7 podgrab.service.home.arpa
@@ -111,7 +117,7 @@
               192.168.5.7 home-assistant.service.home.arpa
               192.168.5.7 zigbee2mqtt.service.home.arpa
               192.168.5.7 soulseek.service.home.arpa
-              192.168.5.103 uptime.service.home.arpa
+
               fallthrough
           }
       }
