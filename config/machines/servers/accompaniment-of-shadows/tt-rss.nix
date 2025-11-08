@@ -7,7 +7,7 @@
     enable = true;
     selfUrlPath = "http://tt-rss.service.home.arpa";
     database = {
-      host = "transfigured-night";
+      host = "localhost";
       port = 5432;
       passwordFile = config.sops.secrets.tt_rss-password.path;
     };

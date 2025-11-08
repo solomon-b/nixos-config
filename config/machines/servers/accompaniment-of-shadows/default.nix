@@ -11,6 +11,7 @@
     ./observability.nix
     ./paperless-ngx.nix
     ./planka.nix
+    ./postgresql.nix
     ./sabnzbd.nix
     ./servarr.nix
     ./tailscale.nix

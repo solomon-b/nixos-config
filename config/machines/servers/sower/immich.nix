@@ -1,12 +1,12 @@
 { config, pkgs, lib, ... }:
 
 let
-  dbHostname = "192.168.5.101"; # transfigured-night
+  dbHostname = "192.168.5.105"; # accompaniment-of-shadows
   dbUsername = "immich";
   dbPassword = "immich";
   dbDatabaseName = "immich";
 
-  redisHostname = "192.168.5.101"; # transfigured-night
+  redisHostname = "192.168.5.101"; # transfigured-night (Redis not migrated yet)
   redisPassword = "hunter2";
   photosLocation = "/mnt/immich";
 
