@@ -186,6 +186,12 @@
             };
           }
           {
+            LubeLogger = {
+              href = "http://lubelogger.service.home.arpa";
+              description = "Vehicle Maintenance Tracker";
+            };
+          }
+          {
             Home-Assistant = {
               href = "http://home-assistant.service.home.arpa";
               icon = "home-assistant";

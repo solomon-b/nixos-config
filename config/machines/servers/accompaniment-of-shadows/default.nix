@@ -8,6 +8,7 @@
     ./filebrowser.nix
     ./homebox.nix
     ./homepage.nix
+    ./lubelogger.nix
     ./observability.nix
     ./paperless-ngx.nix
     ./planka.nix

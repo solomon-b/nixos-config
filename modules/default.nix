@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./nixos/lubelogger.nix
     ./nixos/network-interfaces.nix
     ./nixos/primary-user.nix
     ./nixos/qbittorrent.nix
