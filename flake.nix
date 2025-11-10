@@ -199,6 +199,15 @@
         inherit pkgs;
         modules = [
           ./config/machines/personal-computers/nightshade/home.nix
+          sops-nix.homeManagerModules.sops
+          {
+            sops = {
+              defaultSopsFile = ./secrets.yaml;
+              age.keyFile = "/home/solomon/.config/sops/age/keys.txt";
+              defaultSymlinkPath = "/run/user/1000/secrets";
+              defaultSecretsMountPoint = "/run/user/1000/secrets.d";
+            };
+          }
         ];
       };
 
