@@ -221,6 +221,18 @@
                 defaultSopsFile = ./secrets.yaml;
                 secrets.primary-user-password = { };
               };
+
+              home-manager.sharedModules = [
+                sops-nix.homeManagerModules.sops
+                {
+                  sops = {
+                    defaultSopsFile = ./secrets.yaml;
+                    age.keyFile = "/home/solomon/.config/sops/age/keys.txt";
+                    defaultSymlinkPath = "/run/user/1000/secrets";
+                    defaultSecretsMountPoint = "/run/user/1000/secrets.d";
+                  };
+                }
+              ];
             })
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
@@ -241,6 +253,18 @@
                 defaultSopsFile = ./secrets.yaml;
                 secrets.primary-user-password = { };
               };
+
+              home-manager.sharedModules = [
+                sops-nix.homeManagerModules.sops
+                {
+                  sops = {
+                    defaultSopsFile = ./secrets.yaml;
+                    age.keyFile = "/home/solomon/.config/sops/age/keys.txt";
+                    defaultSymlinkPath = "/run/user/1000/secrets";
+                    defaultSecretsMountPoint = "/run/user/1000/secrets.d";
+                  };
+                }
+              ];
             })
             nixpkgs.nixosModules.notDetected
             home-manager.nixosModules.home-manager
