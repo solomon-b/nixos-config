@@ -37,6 +37,7 @@
               100.123.147.26 bazarr.service.home.arpa
               100.123.147.26 lidarr.service.home.arpa
               100.123.147.26 prowlarr.service.home.arpa
+              100.123.147.26 profilarr.service.home.arpa
               100.123.147.26 radarr.service.home.arpa
               100.123.147.26 sonarr.service.home.arpa
               100.123.147.26 sabnzbd.service.home.arpa
@@ -86,6 +87,7 @@
               192.168.5.105 bazarr.service.home.arpa
               192.168.5.105 lidarr.service.home.arpa
               192.168.5.105 prowlarr.service.home.arpa
+              192.168.5.105 profilarr.service.home.arpa
               192.168.5.105 radarr.service.home.arpa
               192.168.5.105 sonarr.service.home.arpa
               192.168.5.105 sabnzbd.service.home.arpa

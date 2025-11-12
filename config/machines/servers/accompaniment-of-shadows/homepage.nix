@@ -331,6 +331,12 @@
             };
           }
           {
+            profilarr = {
+              href = "http://profilarr.service.home.arpa";
+              icon = "profilarr";
+            };
+          }
+          {
             sabnzbd = {
               href = "http://sabnzbd.service.home.arpa";
               widget = {
