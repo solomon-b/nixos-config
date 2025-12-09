@@ -331,6 +331,29 @@
 
           specialArgs = { inherit inputs; };
         };
+
+        # void-warren = nixpkgs.lib.nixosSystem {
+        #   system = "aarch64-linux";
+        #   pkgs = import nixpkgs {
+        #     system = "aarch64-linux";
+        #     config.allowUnfree = true;
+        #   };
+        #   modules = [
+        #     ./config/machines/servers/void-warren
+        #     ({ ... }: {
+        #       sops = {
+        #         defaultSopsFile = ./secrets.yaml;
+        #         secrets.primary-user-password = { };
+        #       };
+        #     })
+        #     nixpkgs.nixosModules.notDetected
+        #     home-manager.nixosModules.home-manager
+        #     sops-nix.nixosModules.sops
+        #     disko.nixosModules.disko
+        #   ];
+
+        #   specialArgs = { inherit inputs; };
+        # };
       };
 
       colmena =
