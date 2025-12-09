@@ -7,6 +7,11 @@
       "/mnt/media/Music"
     ];
 
+    settings.global.upload = {
+      speed_limit = 2000;
+      slots = 5;
+    };
+
     settings.directories = {
       downloads = "/mnt/slskd/downloads";
       incomplete = "/mnt/slskd/incomplete";
