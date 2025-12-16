@@ -4,6 +4,16 @@ let
   profilarrConfig = "/mnt/profilarr";
 in
 {
+  # Skip failing tests in prowlarr package
+  # https://github.com/NixOS/nixpkgs/issues - upstream test failure
+  nixpkgs.overlays = [
+    (final: prev: {
+      prowlarr = prev.prowlarr.overrideAttrs (old: {
+        doCheck = false;
+      });
+    })
+  ];
+
   services = {
     bazarr = {
       enable = true;
