@@ -17,7 +17,7 @@
     wget
 
     # Editors
-    vimHugeX
+    vim-full
 
     # Custom scripts
     (pkgs.writeShellApplication {
@@ -59,7 +59,7 @@
     # claude-code
 
     # Editors
-    vimHugeX
+    vim-full
 
     # File Management
     filezilla
