@@ -21,6 +21,8 @@
   programs.bash.enable = true;
   targets.genericLinux.enable = true;
 
+  services.ssh-agent.enable = true;
+
   home.packages = with pkgs; [
     # Machine-specific packages not in the shared modules
     acpi
