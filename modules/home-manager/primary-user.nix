@@ -13,7 +13,7 @@ let
     mkOption
     types
     ;
-  inherit (pkgs.buildPlatform) isDarwin;
+  inherit (pkgs.stdenv.buildPlatform) isDarwin;
   cfg = config.primary-user;
 in
 {

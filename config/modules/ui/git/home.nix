@@ -3,18 +3,21 @@
 {
   programs.git = {
     enable = true;
-    userName = "solomon";
-    userEmail = "ssbothwell@gmail.com";
-    aliases = {
-      # list files which have changed since REVIEW_BASE
-      # (REVIEW_BASE defaults to 'master' in zshrc)
-      files = "!git diff --name-only $(git merge-base HEAD \"$REVIEW_BASE\")";
+    settings = {
+      user = {
+        name = "solomon";
+        email = "ssbothwell@gmail.com";
+        signingKey = "~/.ssh/id_ed25519.pub";
+      };
+      alias = {
+        # list files which have changed since REVIEW_BASE
+        # (REVIEW_BASE defaults to 'master' in zshrc)
+        files = "!git diff --name-only $(git merge-base HEAD \"$REVIEW_BASE\")";
 
-      # Same as above, but with a diff stat instead of just names
-      # (better for interactive use)
-      stat = "!git diff --stat $(git merge-base HEAD \"$REVIEW_BASE\")";
-    };
-    extraConfig = {
+        # Same as above, but with a diff stat instead of just names
+        # (better for interactive use)
+        stat = "!git diff --stat $(git merge-base HEAD \"$REVIEW_BASE\")";
+      };
       branch = {
         sort = "-committerdate";
       };
@@ -69,11 +72,6 @@
       # https://blog.dbrgn.ch/2021/11/16/git-ssh-signatures/
       tag = {
         gpgsign = true;
-      };
-
-      user = {
-        email = "ssbothwell@gmail.com";
-        signingKey = "~/.ssh/id_ed25519.pub";
       };
     };
     includes = [

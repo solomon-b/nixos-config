@@ -67,7 +67,7 @@
     # Document Processing
     pandoc
     texlive.combined.scheme-full
-    poppler_utils
+    poppler-utils
 
     # Desktop Environment Utilities
     xclip
