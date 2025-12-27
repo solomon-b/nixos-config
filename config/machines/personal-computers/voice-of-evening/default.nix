@@ -10,6 +10,7 @@
 
     ../../../profiles/pc
     ../../../modules/services/virtualisation/virtualbox
+    ../../../modules/services/x11vnc
   ];
 
   nix.extraOptions = ''
@@ -50,5 +51,12 @@
 
     useDHCP = false;
     interfaces.wlp4s0.useDHCP = true;
+  };
+
+  # x11vnc for remote desktop access
+  # Connect via: vncviewer localhost:5900 (through SSH tunnel or Tailscale)
+  services.x11vnc = {
+    enable = true;
+    localhost = true; # Only accessible via localhost - use SSH tunnel or Tailscale
   };
 }
