@@ -5,6 +5,6 @@
     fira-code
     iosevka
     material-design-icons
-    noto-fonts-emoji
+    noto-fonts-color-emoji
   ];
 }
