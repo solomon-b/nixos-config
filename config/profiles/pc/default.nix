@@ -19,8 +19,6 @@
     ../../modules/ui/picom
     ../../modules/ui/st
     ../../modules/ui/xserver
-
-    ./openai-codex.nix
   ];
 
   #nixpkgs.overlays = [ (import ../../../overlays/graphqurl.nix) ];
