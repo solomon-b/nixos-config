@@ -14,7 +14,7 @@ keys:
   - &pc_nightshade age1hm87e69thh5c4glk9w2gn2dn3mhexe7cen3c57upfg9zech9qe9sz0ha4j
   - &pc_lorean age1h9eclrfude5fkzvt0v7sjyhfsu5f839xw0wwh29lrptq70mfvgescqng6a
   - &pc_zodiacal-light age18ghrww7r6adve0aaeaj8gl2pz2hh3qpvc0l9w48nzw89yp4yngpscmqc3d
-  - &pc_voice-of-evening age132waq5jzd28psft4shwcr2kzq3s4ckmwvpgta6nxmf8t02j4kvaqe43ms4
+  - &pc_voice-of-evening age1esadyxrm9kjt25jlg9y0mmp8u75mh05pncxxd8csl7z6dsycy3pszhrh35
 
 creation_rules:
   - path_regex: secrets.yaml$
