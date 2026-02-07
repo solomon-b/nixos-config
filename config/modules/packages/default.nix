@@ -57,6 +57,7 @@
 
     # AI
     # claude-code
+    worktrunk
 
     # Editors
     vim-full

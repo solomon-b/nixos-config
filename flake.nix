@@ -57,6 +57,10 @@
       url = github:solomon-b/music-archiver;
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    worktrunk = {
+      url = github:max-sixty/worktrunk;
+    };
   };
 
   outputs =
@@ -74,6 +78,7 @@
     , xmonad-solomon
     , immich-sd-card-sync
     , music-archiver
+    , worktrunk
     }:
     let
       system = "x86_64-linux";
@@ -100,6 +105,7 @@
           #music-archiver.overlay
           # (final: prev: { eww = eww.packages.${final.system}.default; })
           (final: prev: { prowlarr = unstable-pkgs.prowlarr; })
+          (final: prev: { worktrunk = worktrunk.packages.${final.system}.default; })
         ];
       };
 
