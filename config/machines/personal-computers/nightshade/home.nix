@@ -30,6 +30,7 @@
     xterm
     eww
     kmonad
+    stix-two
     (agda.withPackages (p: [ p._1lab p.standard-library ]))
   ];
 

@@ -6,5 +6,6 @@
     iosevka
     material-design-icons
     noto-fonts-color-emoji
+    stix-two
   ];
 }
