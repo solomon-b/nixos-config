@@ -81,6 +81,9 @@
             if [ -f ${config.xdg.configHome}/functions ]; then
                 source ${config.xdg.configHome}/functions
             fi
+      # Worktrunk shell integration (enables `wt switch` to change directory)
+      if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+
       [ $TERM = "dumb" ] && unsetopt zle && PS1='$ '
     '';
 
