@@ -37,4 +37,8 @@
   home.sessionVariables = {
     EDITOR = "vim";
   };
+
+  xdg.configFile."startup.sh".text = ''
+    ${pkgs.feh}/bin/feh --bg-scale ${../../../modules/ui/xserver/wallpapers/Yosemite-Color-Block.png}
+  '';
 }
