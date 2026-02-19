@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, inputs, ... }:
 
 {
   imports = [
@@ -58,4 +58,10 @@
   };
 
   primary-user.extraGroups = [ "docker" ];
+
+  services.micasa = {
+    enable = true;
+    package = inputs.micasa.packages.${pkgs.system}.default;
+    authorizedKeys = config.users.users.root.openssh.authorizedKeys.keys;
+  };
 }

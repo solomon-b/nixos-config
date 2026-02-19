@@ -61,6 +61,10 @@
     worktrunk = {
       url = github:max-sixty/worktrunk;
     };
+
+    micasa = {
+      url = github:cpcloud/micasa;
+    };
   };
 
   outputs =
@@ -79,6 +83,7 @@
     , immich-sd-card-sync
     , music-archiver
     , worktrunk
+    , micasa
     }:
     let
       system = "x86_64-linux";
