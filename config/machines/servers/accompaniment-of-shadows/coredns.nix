@@ -56,6 +56,7 @@
               100.80.98.4 home-assistant.service.home.arpa
               100.80.98.4 zigbee2mqtt.service.home.arpa
               100.80.98.4 soulseek.service.home.arpa
+              100.80.98.4 wikipedia.service.home.arpa
 
               fallthrough
           }
@@ -106,6 +107,7 @@
               192.168.5.7 home-assistant.service.home.arpa
               192.168.5.7 zigbee2mqtt.service.home.arpa
               192.168.5.7 soulseek.service.home.arpa
+              192.168.5.7 wikipedia.service.home.arpa
 
               fallthrough
           }
