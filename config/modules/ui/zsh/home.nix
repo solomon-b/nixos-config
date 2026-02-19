@@ -106,8 +106,11 @@
       "....." = "cd ../../../..";
       "......" = "cd ../../../../..";
       "rmd" = "rm -r";
+      claude-work ="CLAUDE_CONFIG_DIR=~/.claude-work claude";
+      claude-personal = "CLAUDE_CONFIG_DIR=~/.claude-personal claude";
     };
   };
+
   programs.fzf = {
     enable = true;
     enableZshIntegration = true;
