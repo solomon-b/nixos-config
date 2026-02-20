@@ -67,8 +67,8 @@ in
       # Hardware transcoding.
       pkgs.intel-media-driver # LIBVA_DRIVER_NAME=iHD
       pkgs.libvdpau-va-gl
-      pkgs.vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but can work better for some applications)
-      pkgs.vaapiVdpau
+      pkgs.intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but can work better for some applications)
+      pkgs.libva-vdpau-driver
       pkgs.intel-compute-runtime
       pkgs.ocl-icd
     ];
@@ -79,8 +79,8 @@ in
       # Hardware transcoding.
       pkgs.intel-media-driver # LIBVA_DRIVER_NAME=iHD
       pkgs.libvdpau-va-gl
-      pkgs.vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but can work better for some applications)
-      pkgs.vaapiVdpau
+      pkgs.intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but can work better for some applications)
+      pkgs.libva-vdpau-driver
       pkgs.intel-compute-runtime
       pkgs.ocl-icd
     ];
