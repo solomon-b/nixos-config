@@ -52,12 +52,11 @@ Each server has a specific role:
 
 ### Machine Provisioning Workflow
 1. Create machine profile in `config/machines/`
-2. Boot from custom ISO with SSH keys
-3. Generate hardware config: `nixos-generate-config --show-hardware-config`
-4. Add SSH host keys to `pass`
-5. Generate age key and update `.sops.yaml`
-6. Run installer script (`install-pc` or `install-server`)
-7. Deploy with colmena
+2. For PCs: add LUKS key and user SSH keys to `pass`
+3. Boot from custom ISO with SSH keys
+4. Run installer script (`install-pc` or `install-server`) — handles hardware config, SSH host key generation, hostId, and `nixos-anywhere` install
+5. Derive age key from the new machine's SSH host key and add to `.sops.yaml`
+6. Deploy with colmena
 
 ### Secret Management
 - Secrets stored in `secrets.yaml` encrypted with SOPS

@@ -65,6 +65,10 @@
     micasa = {
       url = github:cpcloud/micasa;
     };
+
+    nixos-anywhere = {
+      url = github:numtide/nixos-anywhere;
+    };
   };
 
   outputs =
@@ -84,10 +88,12 @@
     , music-archiver
     , worktrunk
     , micasa
+    , nixos-anywhere
     }:
     let
       system = "x86_64-linux";
       unstable-pkgs = import unstable { inherit system; };
+      nixos-anywhere-pkg = nixos-anywhere.packages.${system}.default;
       pkgs = import nixpkgs {
         inherit system;
 
@@ -165,7 +171,7 @@
           in
           pkgs.symlinkJoin {
             name = "install-pc";
-            paths = [ pkgs.gum pkgs.jq pkgs.pass pkgs.openssh script ];
+            paths = [ pkgs.gum pkgs.jq pkgs.pass pkgs.openssh nixos-anywhere-pkg script ];
             buildInputs = [ pkgs.makeWrapper ];
             postBuild = "wrapProgram $out/bin/install-pc --prefix PATH : $out/bin";
           };
@@ -182,14 +188,13 @@
           in
           pkgs.symlinkJoin {
             name = "install-server";
-            paths = [ pkgs.gum pkgs.jq pkgs.pass pkgs.openssh script ];
+            paths = [ pkgs.gum pkgs.jq pkgs.pass pkgs.openssh nixos-anywhere-pkg script ];
             buildInputs = [ pkgs.makeWrapper ];
             postBuild = "wrapProgram $out/bin/install-server --prefix PATH : $out/bin";
           };
 
         deploy = pkgs.writeShellScriptBin "deploy" ''
-          servers=$(ls config/machines/servers)
-          all="servers"
+          servers=$(ls config/machines/servers | grep -vE '^(void-warren)$')
           machine=$(echo "$servers" | ${pkgs.gum}/bin/gum choose)
           echo "Deploying '$machine'"
           ${pkgs.colmena}/bin/colmena apply --on $machine

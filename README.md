@@ -20,44 +20,33 @@ You can build one with:
 nix build '.#nixos-iso'
 ```
 This ISO will include SSH public keys from `config/modules/security/sshd/public-keys.nix` as authorizedKeys for `root`.
-3. Generate a hardware config for the new machine:
-```
-ssh "root@${IP}" nixos-generate-config --no-filesystems --show-hardware-config > "config/machines/servers/${MACHINE}/hardware.nix"
-```
-4. Add ssh host keys to `pass`:
-```
-ssh "root@${IP}" cat /etc/ssh/ssh_host_ed25519_key.pub | pass insert -m "machine/${MACHINE}/ssh-host-key/ed25519/public"
-ssh "root@${IP}" cat /etc/ssh/ssh_host_ed25519_key | pass insert -m "machine/${MACHINE}/ssh-host-key/ed25519/private"
-ssh "root@${IP}" cat /etc/ssh/ssh_host_rsa_key.pub | pass insert -m "machine/${MACHINE}/ssh-host-key/rsa/public"
-ssh "root@${IP}" cat /etc/ssh/ssh_host_rsa_key | pass insert -m "machine/${MACHINE}/ssh-host-key/rsa/private"
-```
 
-User Keys
+3. For PCs, make sure the LUKS key and user SSH keys exist in `pass` before running the installer:
 ```
-ssh-keygen -t ed25519 -C "solomon@${MACHINE}"
+dd if=/dev/urandom bs=32 count=1 | pass insert -m "machine/${MACHINE}/luks/key/0"
+ssh-keygen -t ed25519 -C "solomon@${MACHINE}" -f /tmp/ed25519_key
 cat /tmp/ed25519_key | pass insert -m "machine/${MACHINE}/solomon/ssh/private-key"
 cat /tmp/ed25519_key.pub | pass insert -m "machine/${MACHINE}/solomon/ssh/public-key"
 ```
-5. Generate an `age` key for the new machine and add it to `.sops.yaml`.
-```
-pass machine/${MACHINE}/ssh-host-key/ed25519/public | ssh-to-age
-vim .sops.yaml
-sops updatekeys --yes secrets.yaml
-```
-6. Run the installer script
+
+4. Run the installer script. It handles hardware config generation, SSH host key creation, ZFS hostId generation, and runs [nixos-anywhere](https://github.com/numtide/nixos-anywhere) to provision the machine.
 
 For physical machines:
 ```
 nix run '.#install-pc'
 ```
 
-For Virtual Machines:
+For virtual machines:
 ```
 nix run '.#install-server'
 ```
 
-The scripts use [nixos-anywhere](https://github.com/numtide/nixos-anywhere) to provision a new phyiscal machine.
-7. Detach the boot disk and reboot.
+5. Derive an `age` key from the new machine's SSH host key and add it to `.sops.yaml`. Without this the machine can't decrypt secrets.
+```
+pass machine/${MACHINE}/ssh-host-key/ed25519/public | ssh-to-age
+vim .sops.yaml
+sops updatekeys --yes secrets.yaml
+```
 
 ### Post install
 Once you have your machine provisioned you can use `colmena apply --on $MACHINE` to deploy it.

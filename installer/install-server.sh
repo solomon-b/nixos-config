@@ -58,8 +58,9 @@ main () {
 
     # Generate default.nix if it doesn't exist
     if [ ! -f "config/machines/servers/${MACHINE}/default.nix" ]; then
-        gum log --level info "Generating default.nix configuration from template..."
-        sed "s/{{MACHINE_NAME}}/${MACHINE}/g" installer/templates/server-default.nix > "config/machines/servers/${MACHINE}/default.nix"
+        HOST_ID=$(head -c4 /dev/urandom | od -A none -t x4 | tr -d ' ')
+        gum log --level info "Generating default.nix with hostId ${HOST_ID}..."
+        sed -e "s/{{MACHINE_NAME}}/${MACHINE}/g" -e "s/{{HOST_ID}}/${HOST_ID}/g" installer/templates/server-default.nix > "config/machines/servers/${MACHINE}/default.nix"
 
         # Add default.nix to git
         if ! git add "config/machines/servers/${MACHINE}/default.nix"; then
@@ -122,7 +123,15 @@ main () {
     chmod 644 "$temp/etc/ssh/ssh_host_rsa_key.pub"
 
     # Install NixOS to the host system with our secrets
-    nix run github:numtide/nixos-anywhere -- --extra-files "$temp" --flake ".#${MACHINE}" "root@${IP}"
+    nixos-anywhere --extra-files "$temp" --flake ".#${MACHINE}" "root@${IP}"
+
+    gum log --level warn "========================================="
+    gum log --level warn "Don't forget to add ${MACHINE} to .sops.yaml:"
+    gum log --level warn "  pass machine/${MACHINE}/ssh-host-key/ed25519/public | ssh-to-age"
+    gum log --level warn "  # add the age key to .sops.yaml"
+    gum log --level warn "  sops updatekeys --yes secrets.yaml"
+    gum log --level warn "Without this the machine can't decrypt secrets."
+    gum log --level warn "========================================="
 }
 
 main

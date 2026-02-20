@@ -62,8 +62,9 @@ main () {
 
     # Generate default.nix if it doesn't exist
     if [ ! -f "config/machines/personal-computers/${MACHINE}/default.nix" ]; then
-        gum log --level info "Generating default.nix configuration from template..."
-        sed "s/{{MACHINE_NAME}}/${MACHINE}/g" installer/templates/pc-default.nix > "config/machines/personal-computers/${MACHINE}/default.nix"
+        HOST_ID=$(head -c4 /dev/urandom | od -A none -t x4 | tr -d ' ')
+        gum log --level info "Generating default.nix with hostId ${HOST_ID}..."
+        sed -e "s/{{MACHINE_NAME}}/${MACHINE}/g" -e "s/{{HOST_ID}}/${HOST_ID}/g" installer/templates/pc-default.nix > "config/machines/personal-computers/${MACHINE}/default.nix"
 
         # Add default.nix to git
         if ! git add "config/machines/personal-computers/${MACHINE}/default.nix"; then
@@ -125,8 +126,27 @@ main () {
     chmod 600 "$temp/etc/ssh/ssh_host_rsa_key"
     chmod 644 "$temp/etc/ssh/ssh_host_rsa_key.pub"
 
+    # Verify required pass entries exist before we wipe anything
+    missing=0
+    if ! pass show "machine/${MACHINE}/luks/key/0" >/dev/null 2>&1; then
+        gum log --level error "No LUKS key found at machine/${MACHINE}/luks/key/0 in pass"
+        gum log --level error "  dd if=/dev/urandom bs=32 count=1 | pass insert -m machine/${MACHINE}/luks/key/0"
+        missing=1
+    fi
+    if ! pass show "machine/${MACHINE}/solomon/ssh/private-key" >/dev/null 2>&1; then
+        gum log --level error "No user SSH key found at machine/${MACHINE}/solomon/ssh/private-key in pass"
+        gum log --level error "  ssh-keygen -t ed25519 -C \"solomon@${MACHINE}\" -f /tmp/ed25519_key"
+        gum log --level error "  cat /tmp/ed25519_key | pass insert -m machine/${MACHINE}/solomon/ssh/private-key"
+        gum log --level error "  cat /tmp/ed25519_key.pub | pass insert -m machine/${MACHINE}/solomon/ssh/public-key"
+        missing=1
+    fi
+    if [ "$missing" -eq 1 ]; then
+        gum log --level error "Create the missing pass entries above and re-run."
+        exit 1
+    fi
+
     gum log --level info "Install NixOS to the host system with our secrets"
-    nix run github:numtide/nixos-anywhere -- \
+    nixos-anywhere \
 	--extra-files "$temp" \
         --disk-encryption-keys /tmp/disk.key <(pass "machine/${MACHINE}/luks/key/0") \
 	--flake ".#${MACHINE}" "root@${IP}" \
@@ -150,11 +170,19 @@ EOF
 EOF
 
     gum log --level info "Copy flake repo"
-    rsync -chavzP  /etc/nixos/flake "root@${IP}:/mnt/etc/nixos/"
+    rsync -chavzP ./ "root@${IP}:/mnt/etc/nixos/flake/"
     ssh "root@${IP}" 'chown -R 1000:100 /mnt/etc/nixos/flake'
 
     gum log --level info "Copy GPG"
     rsync -chavzP /home/solomon/.gnupg "root@${IP}:/mnt/home/solomon/"
+
+    gum log --level warn "========================================="
+    gum log --level warn "Don't forget to add ${MACHINE} to .sops.yaml:"
+    gum log --level warn "  pass machine/${MACHINE}/ssh-host-key/ed25519/public | ssh-to-age"
+    gum log --level warn "  # add the age key to .sops.yaml"
+    gum log --level warn "  sops updatekeys --yes secrets.yaml"
+    gum log --level warn "Without this the machine can't decrypt secrets."
+    gum log --level warn "========================================="
 
     ssh "root@${IP}" 'reboot now'
 }

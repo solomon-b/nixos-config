@@ -9,4 +9,5 @@
   ];
 
   networking.hostName = "{{MACHINE_NAME}}";
+  networking.hostId = "{{HOST_ID}}";
 }
