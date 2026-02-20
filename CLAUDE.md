@@ -11,8 +11,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `colmena apply --on <machine-name>` - Deploy specific machine
 - `nix run '.#deploy'` - Interactive deployment selector
 - `nix run '.#deploy-all'` - Deploy all servers
-- `nix run '.#install-pc'` - Provision new physical machine
-- `nix run '.#install-server'` - Provision new virtual machine/server
+- `nix run '.#install'` - Provision new machine (PC, bare metal server, or VM)
 
 ### Development
 - `nix develop` - Enter development shell with colmena and sops
@@ -51,12 +50,9 @@ Each server has a specific role:
 - **transfigured-night**: PostgreSQL service
 
 ### Machine Provisioning Workflow
-1. Create machine profile in `config/machines/`
-2. For PCs: add LUKS key and user SSH keys to `pass`
-3. Boot from custom ISO with SSH keys
-4. Run installer script (`install-pc` or `install-server`) — handles hardware config, SSH host key generation, hostId, and `nixos-anywhere` install
-5. Derive age key from the new machine's SSH host key and add to `.sops.yaml`
-6. Deploy with colmena
+1. Boot from custom ISO with SSH keys
+2. Run installer script (`nix run '.#install'`) — interactive prompts to create/select machine, then handles config scaffolding, hardware detection, SSH host key generation, hostId, LUKS password + user SSH keys (PCs), SOPS registration, and `nixos-anywhere` install
+3. Deploy with colmena
 
 ### Secret Management
 - Secrets stored in `secrets.yaml` encrypted with SOPS

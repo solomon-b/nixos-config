@@ -68,6 +68,7 @@
 
     nixos-anywhere = {
       url = github:numtide/nixos-anywhere;
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -159,38 +160,21 @@
           ];
         };
 
-        # NixOS-Anywhere provisioning script for physical machines.
-        # nix run '.#install-pc'
-        install-pc =
+        # NixOS-Anywhere provisioning script
+        # nix run '.#install'
+        install =
           let
-            src = builtins.readFile ./installer/install-pc.sh;
+            src = builtins.readFile ./installer/install.sh;
 
-            script = (pkgs.writeScriptBin "install-pc" src).overrideAttrs (old: {
+            script = (pkgs.writeScriptBin "install" src).overrideAttrs (old: {
               buildCommand = "${old.buildCommand}\n patchShebangs $out";
             });
           in
           pkgs.symlinkJoin {
-            name = "install-pc";
-            paths = [ pkgs.gum pkgs.jq pkgs.pass pkgs.openssh nixos-anywhere-pkg script ];
+            name = "install";
+            paths = [ pkgs.gum pkgs.jq pkgs.pass pkgs.openssh pkgs.rsync pkgs.ssh-to-age pkgs.sops pkgs.yq-go nixos-anywhere-pkg script ];
             buildInputs = [ pkgs.makeWrapper ];
-            postBuild = "wrapProgram $out/bin/install-pc --prefix PATH : $out/bin";
-          };
-
-        # NixOS-Anywhere provisioning script for virtual machines and remote servers.
-        # nix run '.#install-server'
-        install-server =
-          let
-            src = builtins.readFile ./installer/install-server.sh;
-
-            script = (pkgs.writeScriptBin "install-server" src).overrideAttrs (old: {
-              buildCommand = "${old.buildCommand}\n patchShebangs $out";
-            });
-          in
-          pkgs.symlinkJoin {
-            name = "install-server";
-            paths = [ pkgs.gum pkgs.jq pkgs.pass pkgs.openssh nixos-anywhere-pkg script ];
-            buildInputs = [ pkgs.makeWrapper ];
-            postBuild = "wrapProgram $out/bin/install-server --prefix PATH : $out/bin";
+            postBuild = "wrapProgram $out/bin/install --prefix PATH : $out/bin";
           };
 
         deploy = pkgs.writeShellScriptBin "deploy" ''

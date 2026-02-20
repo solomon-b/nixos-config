@@ -10,42 +10,21 @@
 - [modules](https://github.com/solomon-b/nixos-config/tree/main/modules): Custom nixos and home-manager modules I use in my `config`.
 - [installer](https://github.com/solomon-b/nixos-config/tree/main/installer): Custom nixos installer iso I use to quickly provision new machines.
 ## Usage
-### Adding A New Machine
+### Custom Installer ISO
 
-1. Create a machine profile in `config/machines`. Import a non-existent `./hardware.nix` file.
-2. Boot the new machine off a linux boot disk where you have authorizedKeys for `root`.
-
-You can build one with:
+Build a custom NixOS installer ISO with your SSH keys pre-authorized for root:
 ```
 nix build '.#nixos-iso'
 ```
-This ISO will include SSH public keys from `config/modules/security/sshd/public-keys.nix` as authorizedKeys for `root`.
+This ISO includes SSH public keys from `config/modules/security/sshd/public-keys.nix`. Keep it on a USB stick for provisioning new machines.
 
-3. For PCs, make sure the LUKS key and user SSH keys exist in `pass` before running the installer:
-```
-dd if=/dev/urandom bs=32 count=1 | pass insert -m "machine/${MACHINE}/luks/key/0"
-ssh-keygen -t ed25519 -C "solomon@${MACHINE}" -f /tmp/ed25519_key
-cat /tmp/ed25519_key | pass insert -m "machine/${MACHINE}/solomon/ssh/private-key"
-cat /tmp/ed25519_key.pub | pass insert -m "machine/${MACHINE}/solomon/ssh/public-key"
-```
+### Adding A New Machine
 
-4. Run the installer script. It handles hardware config generation, SSH host key creation, ZFS hostId generation, and runs [nixos-anywhere](https://github.com/numtide/nixos-anywhere) to provision the machine.
+1. Boot the new machine from the custom ISO.
 
-For physical machines:
+2. Run the installer script. It will prompt you to select or create a machine, choose machine type (personal computer, bare metal server, or VM), and enter the target IP. It handles everything: directory creation, config scaffolding, hardware detection, SSH host key generation, hostId generation, SOPS registration, and [nixos-anywhere](https://github.com/numtide/nixos-anywhere) installation. For PCs, it also prompts for a LUKS password and generates user SSH keys.
 ```
-nix run '.#install-pc'
-```
-
-For virtual machines:
-```
-nix run '.#install-server'
-```
-
-5. Derive an `age` key from the new machine's SSH host key and add it to `.sops.yaml`. Without this the machine can't decrypt secrets.
-```
-pass machine/${MACHINE}/ssh-host-key/ed25519/public | ssh-to-age
-vim .sops.yaml
-sops updatekeys --yes secrets.yaml
+nix run '.#install'
 ```
 
 ### Post install

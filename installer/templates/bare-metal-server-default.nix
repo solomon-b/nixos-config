@@ -5,7 +5,7 @@
     ./hardware.nix
     ./disk-config.nix
 
-    ../../../profiles/pc
+    ../../../profiles/physical-machine
   ];
 
   networking.hostName = "{{MACHINE_NAME}}";
