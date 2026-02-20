@@ -53,10 +53,12 @@
     interfaces.wlp4s0.useDHCP = true;
   };
 
-  # x11vnc for remote desktop access
-  # Connect via: vncviewer localhost:5900 (through SSH tunnel or Tailscale)
+  # x11vnc for remote desktop access via Tailscale
   services.x11vnc = {
     enable = true;
-    localhost = true; # Only accessible via localhost - use SSH tunnel or Tailscale
+    localhost = false;
   };
+
+  # Only allow VNC connections over Tailscale
+  networking.firewall.interfaces.tailscale0.allowedTCPPorts = [ 5900 ];
 }

@@ -123,6 +123,9 @@
     # Secrets
     yubioath-flutter
 
+    # Remote Desktop
+    tigervnc
+
     # Misc Graphical Tools
     zotero
   ];

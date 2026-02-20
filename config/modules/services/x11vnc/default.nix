@@ -41,10 +41,11 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [ pkgs.x11vnc ];
 
-    systemd.services.x11vnc = {
+    systemd.user.services.x11vnc = {
       description = "x11vnc VNC server";
-      after = [ "display-manager.service" ];
-      wantedBy = [ "graphical.target" ];
+      after = [ "graphical-session.target" ];
+      partOf = [ "graphical-session.target" ];
+      wantedBy = [ "graphical-session.target" ];
 
       serviceConfig = {
         Type = "simple";
@@ -55,6 +56,7 @@ in
           "-forever"
           "-shared"
           "-noxdamage"
+          "-nopw"
         ]
         ++ lib.optional cfg.viewOnly "-viewonly"
         ++ lib.optional cfg.localhost "-localhost"
@@ -64,7 +66,7 @@ in
       };
     };
 
-    # Open firewall port only if not localhost-only
-    networking.firewall.allowedTCPPorts = lib.mkIf (!cfg.localhost) [ cfg.port ];
+    # Firewall is managed per-machine (e.g. Tailscale-only access)
+    # rather than opened globally here.
   };
 }
