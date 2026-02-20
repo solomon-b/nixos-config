@@ -37,10 +37,10 @@ in
     tubearchivist = {
       imageFile = pkgs.dockerTools.pullImage {
         imageName = "bbilly1/tubearchivist";
-        imageDigest = "sha256:589dbfcd7ba36e608294cc586b80820a6651eaa80cc22eba871aa9980cdc85fd";
-        sha256 = "sha256-kREVFRdayfeSgVaxaBKBRmUTXdkFA2ddI06MTBlaChY=";
+        imageDigest = "sha256:b827a713f55b2b1933f8b130f36dc8b38cec3dd56998c389b7c9694a7238f3df";
+        sha256 = "sha256-RGcPXK9DmByxxjcq5Um7UeEbRuLW6x02r9MAc+ZVciU=";
       };
-      image = "bbilly1/tubearchivist:v0.4.5";
+      image = "bbilly1/tubearchivist:v0.5.9";
 
       ports = [ "8000:8000" ];
 
@@ -51,8 +51,8 @@ in
 
       environment = {
         ES_URL = "http://archivist-es:9200";
-        REDIS_HOST = "archivist-redis";
-        TA_HOST = "tubearchivist.service.home.arpa localhost";
+        REDIS_CON = "redis://archivist-redis:6379";
+        TA_HOST = "http://tubearchivist.service.home.arpa";
         TA_USERNAME = "solomon";
         TA_PASSWORD = "hunter2";
         ELASTIC_PASSWORD = "hunter2";
@@ -98,11 +98,11 @@ in
 
     archivist-redis = {
       imageFile = pkgs.dockerTools.pullImage {
-        imageName = "redis/redis-stack-server";
-        imageDigest = "sha256:7df84d4e2f0e1d3d5d85f6ee96f1a42effe851527a72170933f8822341f83b74";
-        sha256 = "sha256-yeT9lhX1ArzVUyRG50a01PJn8Kifv7HPORzEf7DtT5c=";
+        imageName = "redis";
+        imageDigest = "sha256:7b6fb55d8b0adcd77269dc52b3cfffe5f59ca5d43dec3c90dbe18aacce7942e1";
+        sha256 = "sha256-yb2pRkQVgb7uI26rUYDz7e4Nekp3dj+RFAODG55XbeU=";
       };
-      image = "redis/redis-stack-server:latest";
+      image = "redis:latest";
 
       ports = [ "6379:6379" ];
 
@@ -133,7 +133,7 @@ in
         # crash the whole service.
         check=$(${dockercli} network ls | grep "tubearchivist-br" || true)
         if [ -z "$check" ]; then
-          ${dockercli} network create tubearchivist-br 
+          ${dockercli} network create tubearchivist-br
         else
           echo "tubearchivist-br already exists in docker"
         fi
@@ -141,10 +141,6 @@ in
   };
 
   services.nginx.virtualHosts."tubearchivist.service.home.arpa" = {
-    locations."/".proxyPass = "http://localhost:8000";
-  };
-
-  services.nginx.virtualHosts."tubearchivist.local.home.arpa" = {
     locations."/".proxyPass = "http://localhost:8000";
   };
 }
