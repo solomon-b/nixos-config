@@ -380,7 +380,8 @@
             nodeNixpkgs = builtins.mapAttrs (name: value: value.pkgs) configs;
             nodeSpecialArgs = builtins.mapAttrs (name: value: value._module.specialArgs) configs;
           };
-        } // builtins.mapAttrs (machine: _: mkServer machine) (builtins.readDir ./config/machines/servers)
+        } // builtins.mapAttrs (machine: _: mkServer machine)
+          (builtins.removeAttrs (builtins.readDir ./config/machines/servers) [ "void-warren" "gnostic-ascension" ])
         // builtins.mapAttrs
           (name: value: {
             deployment = {
