@@ -3,6 +3,7 @@ keys:
   - &solomon age1nq3ecxhfnr4j656gydwmedlrrwj0huuzel0lhu32hq02xwcjzajsfz4s96
   - &solomon_lorean age1dx0vjma76vhq0qqvgufh6vcv30r3vvugr5stvgu25yhwjej2g5cstkqxtk
   - &solomon_zodiacal-light age16z6z5squmky3vtttnk42fmrufj55hz0kmqnxncg4yswqj788y34sywedrq
+  - &solomon_voice-of-evening age132waq5jzd28psft4shwcr2kzq3s4ckmwvpgta6nxmf8t02j4kvaqe43ms4
   - &server_accompaniment-of-shadows age1m34247m4q466wdxrg729ytss0n4jqwa29577m5u2w7rnytyep50s8wuusn
   - &server_apollyon age1rd3mdchrf5lnkcl55ve7jq30rptaw7g7qu9jn940uawqu2saadzspr3e7x
   - &server_madonna-of-the-wasps age1x0ky8x43artkyr2w47ca6muy7pqr9h57l5284aex6wftltj6u45q6kc6g4
@@ -23,6 +24,7 @@ creation_rules:
       - *solomon
       - *solomon_lorean
       - *solomon_zodiacal-light
+      - *solomon_voice-of-evening
       - *server_accompaniment-of-shadows
       - *server_apollyon
       - *server_madonna-of-the-wasps
