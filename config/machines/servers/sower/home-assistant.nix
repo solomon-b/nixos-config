@@ -90,7 +90,7 @@ in
     enable = true;
     dataDir = "/mnt/zigbee2mqtt";
     settings = {
-      homeassistant = config.services.home-assistant.enable;
+      homeassistant.enabled = config.services.home-assistant.enable;
       permit_join = true;
 
       serial = {
