@@ -897,11 +897,11 @@
         "xmonad-contrib": "xmonad-contrib"
       },
       "locked": {
-        "lastModified": 1768165696,
-        "narHash": "sha256-+xBTfG99Q0GXQaPJis+rI1BoqLDGxWxBI4q/zaPDJ+Q=",
+        "lastModified": 1771965713,
+        "narHash": "sha256-BDoQRlARyzMTxsnau4MVg0HijZNWl6rFskUwfrWUPNk=",
         "owner": "solomon-b",
         "repo": "xmonad-solomon",
-        "rev": "3df4a043a8f4b4f7a9bd4b87a86cff0b5b74501f",
+        "rev": "3de7a2469e64fdc88e2f2e33c6238ab3b4ee78f7",
         "type": "github"
       },
       "original": {
