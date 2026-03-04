@@ -128,6 +128,15 @@
 
     # Misc Graphical Tools
     zotero
+
+    # Emulation
+    wineWowPackages.stable
+    winetricks
+
+    # Electronics
+        (pkgs.writeShellScriptBin "ltspice" ''
+      wine ~/.wine/drive_c/Program\ Files/LTspice/LTspice.exe "$@"
+    '')
   ];
 
   development = with pkgs; [
