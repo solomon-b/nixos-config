@@ -66,6 +66,14 @@
       url = github:cpcloud/micasa;
     };
 
+    claude-code = {
+      url = github:sadjow/claude-code-nix;
+    };
+
+    claude-env = {
+      url = github:solomon-b/claude-env;
+    };
+
     nixos-anywhere = {
       url = github:numtide/nixos-anywhere;
       inputs.nixpkgs.follows = "nixpkgs";
@@ -89,6 +97,8 @@
     , music-archiver
     , worktrunk
     , micasa
+    , claude-code
+    , claude-env
     , nixos-anywhere
     }:
     let
@@ -117,6 +127,7 @@
           #music-archiver.overlay
           # (final: prev: { eww = eww.packages.${final.system}.default; })
           (final: prev: { prowlarr = unstable-pkgs.prowlarr; })
+          claude-code.overlays.default
           (final: prev: { worktrunk = worktrunk.packages.${final.system}.default; })
         ];
       };
@@ -199,6 +210,8 @@
         inherit pkgs;
         modules = [
           ./config/machines/personal-computers/nightshade/home.nix
+          claude-env.homeManagerModules.default
+          { programs.claude-env.enable = true; }
           sops-nix.homeManagerModules.sops
           {
             sops = {

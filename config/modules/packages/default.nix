@@ -56,7 +56,7 @@
     wget
 
     # AI
-    # claude-code
+    claude-code
     worktrunk
 
     # Editors

@@ -25,12 +25,15 @@
 
   primary-user.home-manager = {
     imports = [
+      inputs.claude-env.homeManagerModules.default
       ../../modules/packages/pc-cli-tools.nix
       ../../modules/packages/gui-applications.nix
       ../../modules/packages/development.nix
       ../../modules/ui/emacs/home.nix
       ../../modules/ui/ntfy/home.nix
     ];
+
+    programs.claude-env.enable = true;
   };
 
   virtualisation = {
