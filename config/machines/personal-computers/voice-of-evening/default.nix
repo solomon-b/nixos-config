@@ -11,6 +11,7 @@
     ../../../profiles/pc
     ../../../modules/services/virtualisation/virtualbox
     ../../../modules/services/x11vnc
+    ../../../modules/ui/emacs
   ];
 
   nix.extraOptions = ''
