@@ -74,6 +74,11 @@
       url = github:solomon-b/claude-env;
     };
 
+    friendly-ghost = {
+      url = github:solomon-b/friendly-ghost;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixos-anywhere = {
       url = github:numtide/nixos-anywhere;
       inputs.nixpkgs.follows = "nixpkgs";
@@ -99,6 +104,7 @@
     , micasa
     , claude-code
     , claude-env
+    , friendly-ghost
     , nixos-anywhere
     }:
     let
@@ -146,6 +152,7 @@
           home-manager.nixosModules.home-manager
           sops-nix.nixosModules.sops
           disko.nixosModules.disko
+          friendly-ghost.nixosModules.default
         ];
 
         sops = {
@@ -321,6 +328,7 @@
             home-manager.nixosModules.home-manager
             sops-nix.nixosModules.sops
             disko.nixosModules.disko
+            friendly-ghost.nixosModules.default
           ];
 
           specialArgs = { inherit inputs; };

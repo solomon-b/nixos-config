@@ -59,6 +59,26 @@
 
   primary-user.extraGroups = [ "docker" ];
 
+  services.friendly-ghost = {
+    enable = true;
+    journal = {
+      units = [ "nginx" "postgresql" "redis" "coredns" ];
+      priority = "warning";
+    };
+    email = {
+      smtpHost = "smtp.gmail.com";
+      smtpPort = 587;
+      username = "ssbothwell@gmail.com";
+      from = "ssbothwell@gmail.com";
+      to = [ "ssbothwell@gmail.com" ];
+      passwordFile = config.sops.secrets.friendly-ghost-smtp-password.path;
+    };
+  };
+
+  sops.secrets.friendly-ghost-smtp-password = {
+    mode = "0444";
+  };
+
   services.micasa = {
     enable = true;
     package = inputs.micasa.packages.${pkgs.system}.default;

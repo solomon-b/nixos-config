@@ -68,5 +68,25 @@
     oci-containers.backend = "docker";
   };
 
+  services.friendly-ghost = {
+    enable = true;
+    journal = {
+      units = [ "nginx" "immich-server" "immich-machine-learning" "jellyfin" "navidrome" "docker-home-assistant" ];
+      priority = "warning";
+    };
+    email = {
+      smtpHost = "smtp.gmail.com";
+      smtpPort = 587;
+      username = "ssbothwell@gmail.com";
+      from = "ssbothwell@gmail.com";
+      to = [ "ssbothwell@gmail.com" ];
+      passwordFile = config.sops.secrets.friendly-ghost-smtp-password.path;
+    };
+  };
+
+  sops.secrets.friendly-ghost-smtp-password = {
+    mode = "0444";
+  };
+
   primary-user.extraGroups = [ "docker" ];
 }
