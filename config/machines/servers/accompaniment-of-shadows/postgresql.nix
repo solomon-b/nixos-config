@@ -64,6 +64,8 @@
       host tt_rss tt_rss localhost md5
       host planka planka_admin 127.0.0.1/32 md5
       host planka planka_admin localhost md5
+      host hass hass 127.0.0.1/32 md5
+      host hass hass localhost md5
 
       # Remote connections from sower (Immich, Home Assistant)
       host immich immich 100.80.98.4/32 md5

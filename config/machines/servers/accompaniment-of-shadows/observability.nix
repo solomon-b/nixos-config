@@ -7,6 +7,27 @@
       domain = "grafana.service.home.arpa";
       port = 2342;
       addr = "127.0.0.1";
+
+      provision.datasources.settings.datasources = [
+        {
+          name = "Prometheus";
+          type = "prometheus";
+          url = "http://localhost:9090";
+          isDefault = true;
+        }
+        {
+          name = "Home Assistant";
+          type = "postgres";
+          url = "localhost:5432";
+          user = "hass";
+          jsonData = {
+            database = "hass";
+            sslmode = "disable";
+            postgresVersion = 1500;
+          };
+          secureJsonData.password = "hass";
+        }
+      ];
     };
 
     prometheus = {
