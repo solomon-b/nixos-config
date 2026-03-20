@@ -12,6 +12,7 @@
     ../../../modules/ui/zsh/home.nix
     ../../../modules/ui/git/home.nix
     ../../../modules/ui/ntfy/home.nix
+    ../../../modules/ui/xmonad/home.nix
     ../../../modules/packages/pc-cli-tools.nix
     ../../../modules/packages/gui-applications.nix
     ../../../modules/packages/development.nix

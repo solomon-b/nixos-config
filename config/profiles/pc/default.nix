@@ -18,6 +18,7 @@
     ../../modules/ui/opengl
     ../../modules/ui/picom
     ../../modules/ui/st
+    ../../modules/ui/xmonad
     ../../modules/ui/xserver
   ];
 
