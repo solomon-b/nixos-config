@@ -120,9 +120,6 @@
     vlc
     zathura
 
-    # Secrets
-    yubioath-flutter
-
     # Remote Desktop
     tigervnc
 

@@ -36,6 +36,8 @@
     ];
 
     programs.claude-env.enable = true;
+
+    home.packages = [ pkgs.yubioath-flutter ];
   };
 
   virtualisation = {
