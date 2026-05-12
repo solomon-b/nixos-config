@@ -3,8 +3,10 @@
 let
   plankaLocation = "/mnt/planka";
   userAvatars = "${plankaLocation}/user-avatars";
-  projectBackgroundImages = "${plankaLocation}/project-background-images";
-  attachaments = "${plankaLocation}/attachaments";
+  backgroundImages = "${plankaLocation}/background-images";
+  attachments = "${plankaLocation}/attachments";
+  favicons = "${plankaLocation}/favicons";
+  data = "${plankaLocation}/data";
 in
 {
   fileSystems."/mnt/planka" = {
@@ -31,15 +33,17 @@ in
 
       volumes = [
         "${userAvatars}:/app/public/user-avatars"
-        "${projectBackgroundImages}:/app/public/project-background-images"
-        "${attachaments}:/app/private/attachements"
+        "${backgroundImages}:/app/public/background-images"
+        "${attachments}:/app/private/attachments"
+        "${favicons}:/app/public/favicons"
+        "${data}:/app/data"
         "${config.sops.secrets.planka-secret-key.path}:/run/secrets/planka-secret-key:ro"
         "${config.sops.secrets.planka-database-password.path}:/run/secrets/planka-database-password:ro"
       ];
 
       environment = {
         BASE_URL = "http://planka.service.home.arpa";
-        TRUST_PROXY = "1";
+        TRUST_PROXY = "true";
         DATABASE_URL = "postgresql://planka_admin:hunter2@localhost/planka";
         SECRET_KEY__FILE = "/run/secrets/planka-secret-key";
         DATABASE_PASSWORD__FILE = "/run/secrets/planka-database-password";
