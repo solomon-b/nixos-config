@@ -342,11 +342,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1776108121,
-        "narHash": "sha256-4ZIxtDuozlbWeS8Nm/wUxEMzP1bs1BMSQNwYUkNZbDc=",
+        "lastModified": 1779132011,
+        "narHash": "sha256-/+trfIG/zrGZ91ny+BMkePtmPTCo7C8FPujXlxinivo=",
         "owner": "solomon-b",
         "repo": "friendly-ghost",
-        "rev": "f9009713ab164d310eac5d5366fe6a45f6dbab13",
+        "rev": "8490548e85240937f9145d2812dc350a231de7e8",
         "type": "github"
       },
       "original": {

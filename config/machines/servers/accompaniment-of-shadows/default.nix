@@ -62,10 +62,25 @@
 
   services.friendly-ghost = {
     enable = true;
-    journal = {
-      units = [ "nginx" "postgresql" "redis" "coredns" ];
-      priority = "warning";
+    source = "loki";
+
+    loki = {
+      url = "http://127.0.0.1:3101";
+      auth = "none";
+      query = ''{service_name!=""}'';
     };
+
+    filter = {
+      units = [ ''.*\.service'' ];
+      priority = "warning";
+      ignorePatterns = [
+        # alloy and loki are the monitoring substrate itself; their own warnings
+        # about pushing/querying logs would create a feedback loop.
+        "alloy"
+        "loki"
+      ];
+    };
+
     email = {
       smtpHost = "smtp.gmail.com";
       smtpPort = 587;

@@ -328,7 +328,6 @@
             home-manager.nixosModules.home-manager
             sops-nix.nixosModules.sops
             disko.nixosModules.disko
-            friendly-ghost.nixosModules.default
           ];
 
           specialArgs = { inherit inputs; };
