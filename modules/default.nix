@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./nixos/log-shipper.nix
     ./nixos/micasa.nix
     ./nixos/network-interfaces.nix
     ./nixos/primary-user.nix

@@ -23,7 +23,7 @@
 
   networking = {
     hostName = "accompaniment-of-shadows";
-    firewall.allowedTCPPorts = [ 53 80 8080 ];
+    firewall.allowedTCPPorts = [ 53 80 3101 8080 ];
     firewall.allowedUDPPorts = [ 53 ];
   };
 
@@ -53,6 +53,7 @@
     docker = {
       enable = true;
       storageDriver = "overlay2";
+      daemon.settings.log-driver = "journald";
     };
     oci-containers.backend = "docker";
   };

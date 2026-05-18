@@ -56,6 +56,11 @@
     };
   };
 
+  services.log-shipper = {
+    enable = true;
+    lokiUrl = "http://192.168.5.105:3101";
+  };
+
   virtualisation = {
     containers = {
       enable = true;
@@ -64,6 +69,7 @@
     docker = {
       enable = true;
       storageDriver = "overlay2";
+      daemon.settings.log-driver = "journald";
     };
     oci-containers.backend = "docker";
   };

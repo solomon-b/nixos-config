@@ -6,6 +6,11 @@
     mode = "0400";
   };
 
+  services.log-shipper = {
+    enable = true;
+    lokiUrl = "http://127.0.0.1:3101";
+  };
+
   services = {
     grafana = {
       enable = true;
