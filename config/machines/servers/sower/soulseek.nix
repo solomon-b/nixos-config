@@ -8,8 +8,8 @@
     ];
 
     settings.global.upload = {
-      speed_limit = 2000;
-      slots = 5;
+      speed_limit = 1000;
+      slots = 3;
     };
 
     settings.directories = {
