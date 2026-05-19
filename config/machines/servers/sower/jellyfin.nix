@@ -1,9 +1,11 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
-let
-  jellyseerData = "/mnt/jellyseerr";
-in
 {
+  # 25.11's nixpkgs still ships the pre-rename jellyseerr 2.7.3 module.
+  # Pull unstable's renamed seerr (3.2+) module + package instead.
+  disabledModules = [ "services/misc/jellyseerr.nix" ];
+  imports = [ "${inputs.unstable}/nixos/modules/services/misc/seerr.nix" ];
+
   services.jellyfin = {
     enable = true;
     openFirewall = true;
@@ -16,22 +18,19 @@ in
     };
   };
 
-  virtualisation.oci-containers.containers = {
-    jellyseerr = {
-      image = "fallenbagel/jellyseerr:latest";
-      ports = [ "5055:5055" ];
+  services.seerr = {
+    enable = true;
+    package = inputs.unstable.legacyPackages.${pkgs.system}.seerr;
+    port = 5055;
+    configDir = "/mnt/jellyseerr/config";
+  };
 
-      volumes = [
-        "${jellyseerData}/config:/app/config"
-      ];
-
-      environment = {
-        LOG_LEVEL = "debug";
-        TZ = "America/Los_Angeles";
-      };
-
-      autoStart = true;
-    };
+  # The seerr module uses ProtectSystem=strict (no writes outside StateDirectory)
+  # and DynamicUser=true (UID changes each restart). Allow writes to the NFS
+  # config dir, and ensure the mount is up before the service starts.
+  systemd.services.seerr = {
+    serviceConfig.ReadWritePaths = [ "/mnt/jellyseerr/config" ];
+    unitConfig.RequiresMountsFor = [ "/mnt/jellyseerr" ];
   };
 
   services.nginx.virtualHosts = {
