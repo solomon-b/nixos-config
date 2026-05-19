@@ -78,6 +78,17 @@
         # about pushing/querying logs would create a feedback loop.
         "alloy"
         "loki"
+        # HA bluetooth subsystem runs a permission check every restart even
+        # though no integration uses it; the warning is benign.
+        "Missing required permissions for Bluetooth"
+        # HA emits this for every custom integration on every startup.
+        "custom integration .* which has not been tested by Home Assistant"
+        # irrigation_unlimited compares switches against Zigbee devices that
+        # report "unknown" briefly during HA boot before re-reporting state.
+        "irrigation_unlimited.*SYNCHRONISATION.*found: unknown"
+        # Some container's locale init writes to stderr, which Docker's
+        # journald driver mislabels as priority=err regardless of content.
+        "^Language set to .+$"
       ];
     };
 
