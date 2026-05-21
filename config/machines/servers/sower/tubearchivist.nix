@@ -37,10 +37,11 @@ in
     tubearchivist = {
       imageFile = pkgs.dockerTools.pullImage {
         imageName = "bbilly1/tubearchivist";
-        imageDigest = "sha256:b827a713f55b2b1933f8b130f36dc8b38cec3dd56998c389b7c9694a7238f3df";
-        sha256 = "sha256-RGcPXK9DmByxxjcq5Um7UeEbRuLW6x02r9MAc+ZVciU=";
+        imageDigest = "sha256:dfe723cf008520e1758ecc3e59e6ea8761dd10d5bb099cd87289e80f5bd66567";
+        sha256 = "sha256-VXvBggbz6vEFXW/CYtunG74wHMZzDGrrHNnoQyqGtDY=";
+        finalImageTag = "v0.5.10";
       };
-      image = "bbilly1/tubearchivist:v0.5.9";
+      image = "bbilly1/tubearchivist:v0.5.10";
 
       ports = [ "8000:8000" ];
 
