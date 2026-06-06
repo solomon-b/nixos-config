@@ -61,6 +61,8 @@ in
     extraOptions = [
       "--pull=always"
       "--network=host"
+      "--cap-add=NET_ADMIN"
+      "--cap-add=NET_RAW"
     ];
 
     volumes = [ "/mnt/home-assistant:/config" ];
