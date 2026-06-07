@@ -223,11 +223,18 @@
         deploy-all = pkgs.writeShellScriptBin "deploy-all" ''
           ${pkgs.colmena}/bin/colmena apply --on @server
         '';
+
+        check-pins = pkgs.writeShellApplication {
+          name = "check-pins";
+          runtimeInputs = with pkgs; [ skopeo gum jq gnused gawk gnugrep coreutils git ];
+          text = builtins.readFile ./tools/check-pins/check-pins.sh;
+        };
       };
 
       apps.x86_64-linux = {
         deploy = flake-utils.lib.mkApp { drv = self.packages.${system}.deploy; };
         deploy-all = flake-utils.lib.mkApp { drv = self.packages.${system}.deploy-all; };
+        check-pins = flake-utils.lib.mkApp { drv = self.packages.${system}.check-pins; };
         default = self.apps.${system}.deploy;
       };
 
