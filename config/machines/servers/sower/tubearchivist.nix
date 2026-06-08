@@ -72,7 +72,7 @@ in
       imageFile = pkgs.dockerTools.pullImage {
         imageName = "bbilly1/tubearchivist-es";
         imageDigest = "sha256:152ed8f62d80725ef0d2338765b3b5d8c87f5e6f9b70d864980059616eb4a2ff";
-        sha256 = "sha256-XpnbnUl75If/gXqSGznhTZTUaBZF4PoQimt6qIcNUxI=";
+        sha256 = "sha256-RResQgmZDXVJFPLJnzmOAevY7GY+PhcjSijxLrg/tIM=";
         finalImageTag = "8.13.2";
       };
       image = "bbilly1/tubearchivist-es:8.13.2";
