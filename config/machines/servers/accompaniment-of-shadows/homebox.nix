@@ -20,9 +20,9 @@ in
 
   virtualisation.oci-containers.containers = {
     homebox = mkPin {
-      image = "ghcr.io/hay-kot/homebox:v0.10.0";
-      imageDigest = "sha256:ee71fcc67d94dcf2e3e3372c890708cd24ad051905aaaba1dcd982072bee1e2c";
-      sha256 = "sha256-F0Vfz4nrSgXf8lNzQ8LUizqdbPqF+qwS/o9UTsVKVlk=";
+      image = "ghcr.io/hay-kot/homebox:v0.10.3";
+      imageDigest = "sha256:b1fbca6fc1ad2bd3634d13056d1bc0242cf92e9bad4ca21ce57589be3fe4987e";
+      sha256 = "sha256-/CPkQBmQb/PJgVkhhmSat5waRf/jJHhcIx5Cnz65K0s=";
       ports = [ "3100:7745" ];
 
       volumes = [
