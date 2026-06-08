@@ -357,13 +357,6 @@
               # };
             };
           }
-          {
-            filebrowser = {
-              href = "http://filebrowser.service.home.arpa";
-              icon = "filebrowser";
-              description = "File Browser";
-            };
-          }
         ];
       }
       {

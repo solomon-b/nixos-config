@@ -5,7 +5,6 @@
     ./hardware.nix
 
     ./coredns.nix
-    ./filebrowser.nix
     ./homebox.nix
     ./homepage.nix
     ./lubelogger.nix
