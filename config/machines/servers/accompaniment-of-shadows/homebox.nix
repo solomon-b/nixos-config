@@ -20,12 +20,12 @@ in
 
   virtualisation.oci-containers.containers = {
     homebox = {
-      image = "ghcr.io/hay-kot/homebox:latest";
+      image = "ghcr.io/hay-kot/homebox:v0.10.0";
       imageFile = pkgs.dockerTools.pullImage {
         imageName = "ghcr.io/hay-kot/homebox";
-        imageDigest = "sha256:b1fbca6fc1ad2bd3634d13056d1bc0242cf92e9bad4ca21ce57589be3fe4987e";
-        sha256 = "sha256-+tERH/ypzGnTQKMcmN0gsc5/toe99iWJThZxmyMIIbs=";
-        finalImageTag = "latest";
+        imageDigest = "sha256:ee71fcc67d94dcf2e3e3372c890708cd24ad051905aaaba1dcd982072bee1e2c";
+        sha256 = "sha256-F0Vfz4nrSgXf8lNzQ8LUizqdbPqF+qwS/o9UTsVKVlk=";
+        finalImageTag = "v0.10.0";
       };
       ports = [ "3100:7745" ];
 

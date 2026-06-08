@@ -73,6 +73,7 @@ in
         imageName = "bbilly1/tubearchivist-es";
         imageDigest = "sha256:152ed8f62d80725ef0d2338765b3b5d8c87f5e6f9b70d864980059616eb4a2ff";
         sha256 = "sha256-XpnbnUl75If/gXqSGznhTZTUaBZF4PoQimt6qIcNUxI=";
+        finalImageTag = "8.13.2";
       };
       image = "bbilly1/tubearchivist-es:8.13.2";
 
@@ -100,10 +101,11 @@ in
     archivist-redis = {
       imageFile = pkgs.dockerTools.pullImage {
         imageName = "redis";
-        imageDigest = "sha256:7b6fb55d8b0adcd77269dc52b3cfffe5f59ca5d43dec3c90dbe18aacce7942e1";
-        sha256 = "sha256-yb2pRkQVgb7uI26rUYDz7e4Nekp3dj+RFAODG55XbeU=";
+        imageDigest = "sha256:90e7a336d044f1abc9e9dbc05d65566850896d11453bbd1dd0fb7e5059f0e8fb";
+        sha256 = "sha256-VzKTNJljHX+4STxu4niTvRcxxW4H9YQHk1Ilvx+NjiE=";
+        finalImageTag = "7.4.5";
       };
-      image = "redis:latest";
+      image = "redis:7.4.5";
 
       ports = [ "6379:6379" ];
 
