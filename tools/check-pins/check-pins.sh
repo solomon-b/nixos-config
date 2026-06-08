@@ -118,11 +118,16 @@ for line in "${pins[@]}"; do
 
   icon_styled=$(gum style --foreground "$color" "$icon")
   status_styled=$(gum style --foreground "$color" --bold "$status")
+  short_digest="${digest:7:12}"
+  [[ -z "$short_digest" ]] && short_digest="-"
+  [[ -z "$tag" ]] && tag="-"
 
   if [[ "$status" == "CURRENT" ]]; then
-    printf '%s %-26s %s\n' "$icon_styled" "$short_name" "$status_styled"
+    printf '%s %-26s %-12s %s  %s\n' \
+      "$icon_styled" "$short_name" "$tag" "$short_digest" "$status_styled"
   else
-    printf '%s %-26s %s — %s\n' "$icon_styled" "$short_name" "$status_styled" "$detail"
+    printf '%s %-26s %-12s %s  %s — %s\n' \
+      "$icon_styled" "$short_name" "$tag" "$short_digest" "$status_styled" "$detail"
   fi
 done
 
