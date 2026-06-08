@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, mkPin, ... }:
 
 let
   media = "/mnt/tubearchivist/media";
@@ -34,14 +34,10 @@ in
   };
 
   virtualisation.oci-containers.containers = {
-    tubearchivist = {
-      imageFile = pkgs.dockerTools.pullImage {
-        imageName = "bbilly1/tubearchivist";
-        imageDigest = "sha256:dfe723cf008520e1758ecc3e59e6ea8761dd10d5bb099cd87289e80f5bd66567";
-        sha256 = "sha256-VXvBggbz6vEFXW/CYtunG74wHMZzDGrrHNnoQyqGtDY=";
-        finalImageTag = "v0.5.10";
-      };
+    tubearchivist = mkPin {
       image = "bbilly1/tubearchivist:v0.5.10";
+      imageDigest = "sha256:dfe723cf008520e1758ecc3e59e6ea8761dd10d5bb099cd87289e80f5bd66567";
+      sha256 = "sha256-VXvBggbz6vEFXW/CYtunG74wHMZzDGrrHNnoQyqGtDY=";
 
       ports = [ "8000:8000" ];
 
@@ -68,14 +64,10 @@ in
       autoStart = true;
     };
 
-    archivist-es = {
-      imageFile = pkgs.dockerTools.pullImage {
-        imageName = "bbilly1/tubearchivist-es";
-        imageDigest = "sha256:152ed8f62d80725ef0d2338765b3b5d8c87f5e6f9b70d864980059616eb4a2ff";
-        sha256 = "sha256-RResQgmZDXVJFPLJnzmOAevY7GY+PhcjSijxLrg/tIM=";
-        finalImageTag = "8.13.2";
-      };
+    archivist-es = mkPin {
       image = "bbilly1/tubearchivist-es:8.13.2";
+      imageDigest = "sha256:152ed8f62d80725ef0d2338765b3b5d8c87f5e6f9b70d864980059616eb4a2ff";
+      sha256 = "sha256-RResQgmZDXVJFPLJnzmOAevY7GY+PhcjSijxLrg/tIM=";
 
       environment = {
         ELASTIC_PASSWORD = "hunter2";
@@ -98,14 +90,10 @@ in
       autoStart = true;
     };
 
-    archivist-redis = {
-      imageFile = pkgs.dockerTools.pullImage {
-        imageName = "redis";
-        imageDigest = "sha256:90e7a336d044f1abc9e9dbc05d65566850896d11453bbd1dd0fb7e5059f0e8fb";
-        sha256 = "sha256-VzKTNJljHX+4STxu4niTvRcxxW4H9YQHk1Ilvx+NjiE=";
-        finalImageTag = "7.4.5";
-      };
+    archivist-redis = mkPin {
       image = "redis:7.4.5";
+      imageDigest = "sha256:90e7a336d044f1abc9e9dbc05d65566850896d11453bbd1dd0fb7e5059f0e8fb";
+      sha256 = "sha256-VzKTNJljHX+4STxu4niTvRcxxW4H9YQHk1Ilvx+NjiE=";
 
       ports = [ "6379:6379" ];
 

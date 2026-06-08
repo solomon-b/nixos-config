@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ mkPin, ... }:
 
 let
   homeboxData = "/mnt/homebox";
@@ -19,14 +19,10 @@ in
   };
 
   virtualisation.oci-containers.containers = {
-    homebox = {
+    homebox = mkPin {
       image = "ghcr.io/hay-kot/homebox:v0.10.0";
-      imageFile = pkgs.dockerTools.pullImage {
-        imageName = "ghcr.io/hay-kot/homebox";
-        imageDigest = "sha256:ee71fcc67d94dcf2e3e3372c890708cd24ad051905aaaba1dcd982072bee1e2c";
-        sha256 = "sha256-F0Vfz4nrSgXf8lNzQ8LUizqdbPqF+qwS/o9UTsVKVlk=";
-        finalImageTag = "v0.10.0";
-      };
+      imageDigest = "sha256:ee71fcc67d94dcf2e3e3372c890708cd24ad051905aaaba1dcd982072bee1e2c";
+      sha256 = "sha256-F0Vfz4nrSgXf8lNzQ8LUizqdbPqF+qwS/o9UTsVKVlk=";
       ports = [ "3100:7745" ];
 
       volumes = [

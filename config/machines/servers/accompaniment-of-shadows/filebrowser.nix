@@ -1,14 +1,10 @@
-{ config, pkgs, ... }:
+{ config, mkPin, ... }:
 
 {
-  virtualisation.oci-containers.containers.filebrowser = {
+  virtualisation.oci-containers.containers.filebrowser = mkPin {
     image = "filebrowser/filebrowser:v2.25.0";
-    imageFile = pkgs.dockerTools.pullImage {
-      imageName = "filebrowser/filebrowser";
-      imageDigest = "sha256:b06f6146754a44a492334947b0caa9ad93509ca1b04da8dacd3a76cdd4a2f471";
-      sha256 = "sha256-sHfgPSlm2cdxSJ+euBqRgcGVqxMu0xauIM5yuYmcrBg=";
-      finalImageTag = "v2.25.0";
-    };
+    imageDigest = "sha256:b06f6146754a44a492334947b0caa9ad93509ca1b04da8dacd3a76cdd4a2f471";
+    sha256 = "sha256-sHfgPSlm2cdxSJ+euBqRgcGVqxMu0xauIM5yuYmcrBg=";
     ports = [ "8081:80" ];
     volumes = [
       "/mnt/storage:/srv"

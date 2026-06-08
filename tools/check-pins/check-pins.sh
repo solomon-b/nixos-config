@@ -19,23 +19,41 @@ FLOATING_TAGS_RE='^(latest|stable|beta|master|main|edge|nightly)$'
 SEMVER_TAGS_RE='^v?[0-9]+(\.[0-9]+){1,3}$'
 
 parse_pins() {
+  # Parses mkPin { image = "name:tag"; imageDigest = "sha256:..."; ... } blocks.
+  # Brace-depth tracked so that nested attrs (environment, etc.) inside the
+  # mkPin call don't close the outer block prematurely. The tag is taken as
+  # everything after the LAST `:` in the image string, so registry-with-port
+  # references parse correctly.
   find config -name '*.nix' -type f | while read -r f; do
     awk '
-      /pkgs\.dockerTools\.pullImage[[:space:]]*\{/ {
-        in_block = 1; name = ""; digest = ""; tag = ""; next
+      function emit(    _n, _i, _ci) {
+        if (image == "") return
+        _n = length(image)
+        _ci = 0
+        for (_i = _n; _i >= 1; _i--) {
+          if (substr(image, _i, 1) == ":") { _ci = _i; break }
+        }
+        if (_ci > 0) {
+          print FILENAME "\t" substr(image, 1, _ci - 1) "\t" digest "\t" substr(image, _ci + 1)
+        } else {
+          print FILENAME "\t" image "\t" digest "\t"
+        }
       }
-      in_block && /imageName[[:space:]]*=/ {
-        if (match($0, /"[^"]+"/)) name = substr($0, RSTART + 1, RLENGTH - 2)
+      BEGIN { in_block = 0 }
+      /mkPin[[:space:]]*\{/ && !in_block {
+        in_block = 1; depth = 0; image = ""; digest = ""
       }
-      in_block && /imageDigest[[:space:]]*=/ {
+      in_block {
+        depth += (split($0, _arr, "{") - 1) - (split($0, _arr, "}") - 1)
+      }
+      in_block && /^[[:space:]]*imageDigest[[:space:]]*=/ {
         if (match($0, /"[^"]+"/)) digest = substr($0, RSTART + 1, RLENGTH - 2)
       }
-      in_block && /finalImageTag[[:space:]]*=/ {
-        if (match($0, /"[^"]+"/)) tag = substr($0, RSTART + 1, RLENGTH - 2)
+      in_block && /^[[:space:]]*image[[:space:]]*=/ {
+        if (match($0, /"[^"]+"/)) image = substr($0, RSTART + 1, RLENGTH - 2)
       }
-      in_block && /\};/ {
-        if (name != "") print FILENAME "\t" name "\t" digest "\t" tag
-        in_block = 0
+      in_block && depth == 0 {
+        emit(); in_block = 0
       }
     ' "$f"
   done

@@ -5,6 +5,7 @@
     ./nixos/log-shipper.nix
     ./nixos/micasa.nix
     ./nixos/network-interfaces.nix
+    ./nixos/oci-helpers.nix
     ./nixos/primary-user.nix
     ./nixos/qbittorrent.nix
     ./nixos/s3fs.nix

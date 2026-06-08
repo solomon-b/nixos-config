@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, mkPin, ... }:
 
 let
   profilarrConfig = "/mnt/profilarr";
@@ -52,14 +52,10 @@ in
   };
 
   virtualisation.oci-containers.containers = {
-    profilarr = {
+    profilarr = mkPin {
       image = "santiagosayshey/profilarr:v1.1.4";
-      imageFile = pkgs.dockerTools.pullImage {
-        imageName = "santiagosayshey/profilarr";
-        imageDigest = "sha256:8a514f8429cd33885166facc9eb6504fa9ded056c737609e5e8ef32ae0afb350";
-        sha256 = "sha256-q7y7cw4dP98Gn0A307NgaXw8J7OVrVKslS7ylqfgp2k=";
-        finalImageTag = "v1.1.4";
-      };
+      imageDigest = "sha256:8a514f8429cd33885166facc9eb6504fa9ded056c737609e5e8ef32ae0afb350";
+      sha256 = "sha256-q7y7cw4dP98Gn0A307NgaXw8J7OVrVKslS7ylqfgp2k=";
 
       extraOptions = [
         "--network=host"

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, mkPin, ... }:
 
 let
   plankaLocation = "/mnt/planka";
@@ -24,14 +24,10 @@ in
   };
 
   virtualisation.oci-containers.containers = {
-    planka = {
+    planka = mkPin {
       image = "ghcr.io/plankanban/planka:2.1.1";
-      imageFile = pkgs.dockerTools.pullImage {
-        imageName = "ghcr.io/plankanban/planka";
-        imageDigest = "sha256:19b507ae3ab5cb1855c3f6984249e4a4881ed0b912febdfd492139c29bf10f39";
-        sha256 = "sha256-QonM7MmBmx/nvGymd4+Hh0pDa3a0E6UuDETRURqALg8=";
-        finalImageTag = "2.1.1";
-      };
+      imageDigest = "sha256:19b507ae3ab5cb1855c3f6984249e4a4881ed0b912febdfd492139c29bf10f39";
+      sha256 = "sha256-QonM7MmBmx/nvGymd4+Hh0pDa3a0E6UuDETRURqALg8=";
 
       extraOptions = [
         "--network=host"

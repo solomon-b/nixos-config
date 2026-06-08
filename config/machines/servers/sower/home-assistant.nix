@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, mkPin, ... }:
 
 let
   home-assistant-port = "8123";
@@ -52,14 +52,10 @@ in
     allowedTCPPorts = [ 1883 ];
   };
 
-  virtualisation.oci-containers.containers.home-assistant = {
+  virtualisation.oci-containers.containers.home-assistant = mkPin {
     image = "ghcr.io/home-assistant/home-assistant:2026.6.1";
-    imageFile = pkgs.dockerTools.pullImage {
-      imageName = "ghcr.io/home-assistant/home-assistant";
-      imageDigest = "sha256:59aa8824955c9db491b75d2eebe42bd68494f80c2ec69ec0d66d9dae37d37514";
-      sha256 = "sha256-dAbiV/GlD/Q/59wZKcygYv6o4U8e0HXKWdsTdF5mjt8=";
-      finalImageTag = "2026.6.1";
-    };
+    imageDigest = "sha256:59aa8824955c9db491b75d2eebe42bd68494f80c2ec69ec0d66d9dae37d37514";
+    sha256 = "sha256-dAbiV/GlD/Q/59wZKcygYv6o4U8e0HXKWdsTdF5mjt8=";
     environment.TZ = "America/Los_Angeles";
     ports = [ "${home-assistant-port}:${home-assistant-port}" ];
 
