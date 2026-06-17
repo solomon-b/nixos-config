@@ -83,6 +83,11 @@
       url = github:numtide/nixos-anywhere;
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-darwin = {
+      url = github:nix-darwin/nix-darwin/nix-darwin-25.11;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -106,6 +111,7 @@
     , claude-env
     , friendly-ghost
     , nixos-anywhere
+    , nix-darwin
     }:
     let
       system = "x86_64-linux";
@@ -133,6 +139,18 @@
           #music-archiver.overlay
           # (final: prev: { eww = eww.packages.${final.system}.default; })
           (final: prev: { prowlarr = unstable-pkgs.prowlarr; })
+          claude-code.overlays.default
+          (final: prev: { worktrunk = worktrunk.packages.${final.system}.default; })
+        ];
+      };
+
+      # Apple Silicon work machine. Kept separate from the Linux `pkgs` above
+      # because the xmonad/brightness-bar/etc. overlays are Linux-only.
+      darwinSystem = "aarch64-darwin";
+      darwinPkgs = import nixpkgs {
+        system = darwinSystem;
+        config.allowUnfree = true;
+        overlays = [
           claude-code.overlays.default
           (final: prev: { worktrunk = worktrunk.packages.${final.system}.default; })
         ];
@@ -227,6 +245,22 @@
               defaultSymlinkPath = "/run/user/1000/secrets";
               defaultSecretsMountPoint = "/run/user/1000/secrets.d";
             };
+          }
+        ];
+      };
+
+      # Work MacBook (Apple Silicon). Apply with:
+      #   darwin-rebuild switch --flake .#work-macbook
+      darwinConfigurations.work-macbook = nix-darwin.lib.darwinSystem {
+        pkgs = darwinPkgs;
+        modules = [
+          ./config/machines/personal-computers/work-macbook
+          home-manager.darwinModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.solomon =
+              import ./config/machines/personal-computers/work-macbook/home.nix;
           }
         ];
       };
