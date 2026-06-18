@@ -9,6 +9,7 @@
     ../../../modules/ui/zsh/home.nix
     ../../../modules/ui/git/home.nix
     ../../../modules/ui/starship/home.nix
+    ../../../modules/ui/ghostty/home.nix
     # NOTE: direnv is intentionally NOT imported here. Its prompt hook spawns a
     # `direnv export zsh` subprocess on every prompt, and this corp Mac's
     # endpoint-security stack (Santa + SentinelOne) taxes every exec ~270ms.
@@ -57,7 +58,10 @@
     force = true;
   };
 
-  home.sessionPath = [ "/opt/homebrew/bin" "/opt/homebrew/sbin" ];
+  # ~/.local/bin was added to PATH by the corp ~/.zprofile / ~/.zshrc, but
+  # home-manager relocated ZDOTDIR to ~/.config/zsh so those files are no longer
+  # sourced (same reason the brew line broke). Re-declare it here.
+  home.sessionPath = [ "$HOME/.local/bin" "/opt/homebrew/bin" "/opt/homebrew/sbin" ];
   home.sessionVariables = {
     EDITOR = "vim";
     HOMEBREW_PREFIX = "/opt/homebrew";

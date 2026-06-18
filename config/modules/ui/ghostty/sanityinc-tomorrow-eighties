@@ -1,0 +1,31 @@
+# Sanity Inc Tomorrow Night Eighties — Ghostty theme.
+# Palette mirrors the st theme defined in
+# config/modules/ui/st/0002-Adds-Sanity-Inc-Tomorrow-Eighties-Theme.patch
+# Source: https://github.com/chriskempson/tomorrow-theme
+
+# Normal colors
+palette = 0=#000000
+palette = 1=#f2777a
+palette = 2=#99cc99
+palette = 3=#f99157
+palette = 4=#6699cc
+palette = 5=#cc99cc
+palette = 6=#66cccc
+palette = 7=#515151
+
+# Bright colors
+palette = 8=#666666
+palette = 9=#ff3334
+palette = 10=#9ec400
+palette = 11=#ffcc66
+palette = 12=#6699cc
+palette = 13=#b777e0
+palette = 14=#54ced6
+palette = 15=#393939
+
+background = #2d2d2d
+foreground = #cccccc
+cursor-color = #aeafad
+cursor-text = #2d2d2d
+selection-background = #515151
+selection-foreground = #cccccc
