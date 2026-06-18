@@ -40,8 +40,9 @@
                  local DEST="${config.home.homeDirectory}/Development/''${REPO}"
 
                cd "$DEST" || return
-               # Refresh prompt after changing directory
-               zle reset-prompt
+               # Refresh prompt after changing directory, but only when invoked
+               # as a ZLE widget (via ^g); the `g` alias runs it without ZLE.
+               [[ -n $WIDGET ]] && zle reset-prompt
 
                fi
              }
