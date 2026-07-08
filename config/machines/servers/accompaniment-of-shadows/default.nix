@@ -99,9 +99,21 @@
       to = [ "ssbothwell@gmail.com" ];
       passwordFile = config.sops.secrets.friendly-ghost-smtp-password.path;
     };
+
+    llm = {
+      enable = true;
+      apiUrl = "https://api.deepseek.com/chat/completions";
+      model = "deepseek-chat";
+      apiKeyFile = config.sops.secrets.friendly-ghost-llm-api-key.path;
+      systemPromptFile = ./friendly-ghost-prompt.txt;
+    };
   };
 
   sops.secrets.friendly-ghost-smtp-password = {
+    mode = "0444";
+  };
+
+  sops.secrets.friendly-ghost-llm-api-key = {
     mode = "0444";
   };
 
