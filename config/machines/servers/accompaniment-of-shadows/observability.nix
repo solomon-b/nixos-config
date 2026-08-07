@@ -6,6 +6,11 @@
     mode = "0400";
   };
 
+  sops.secrets.grafana-secret-key = {
+    owner = "grafana";
+    mode = "0400";
+  };
+
   services.log-shipper = {
     enable = true;
     lokiUrl = "http://127.0.0.1:3101";
@@ -17,6 +22,8 @@
       domain = "grafana.service.home.arpa";
       port = 2342;
       addr = "127.0.0.1";
+
+      settings.security.secret_key = "$__file{${config.sops.secrets.grafana-secret-key.path}}";
 
       provision.datasources.settings.datasources = [
         {
