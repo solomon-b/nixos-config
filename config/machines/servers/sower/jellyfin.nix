@@ -1,10 +1,8 @@
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 
 {
-  # 25.11's nixpkgs still ships the pre-rename jellyseerr 2.7.3 module.
-  # Pull unstable's renamed seerr (3.2+) module + package instead.
-  disabledModules = [ "services/misc/jellyseerr.nix" ];
-  imports = [ "${inputs.unstable}/nixos/modules/services/misc/seerr.nix" ];
+  # Stable nixpkgs now ships the renamed seerr module and seerr 3.3.0.
+  # The old unstable pin is gone. Use the stable services.seerr module.
 
   services.jellyfin = {
     enable = true;
@@ -20,7 +18,6 @@
 
   services.seerr = {
     enable = true;
-    package = inputs.unstable.legacyPackages.${pkgs.system}.seerr;
     port = 5055;
     configDir = "/mnt/jellyseerr/config";
   };
