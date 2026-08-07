@@ -21,11 +21,11 @@
     enable = true;
     dataDir = "/mnt/postgresql";
     enableTCPIP = true;
-    extraPlugins = with pkgs.postgresql_14.pkgs; [ pgvecto-rs ];
+    extraPlugins = with pkgs.postgresql_14.pkgs; [ pgvector vectorchord ];
     package = pkgs.postgresql_14;
 
     settings = {
-      shared_preload_libraries = "vectors.so";
+      shared_preload_libraries = "vchord.so";
     };
 
     ensureDatabases = [
