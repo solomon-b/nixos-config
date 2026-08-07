@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = github:nixos/nixpkgs/nixos-25.11;
+    nixpkgs.url = github:nixos/nixpkgs/nixos-26.05;
     unstable.url = github:nixos/nixpkgs;
 
     flake-utils = {
@@ -70,10 +70,6 @@
       url = github:sadjow/claude-code-nix;
     };
 
-    claude-env = {
-      url = github:solomon-b/claude-env;
-    };
-
     friendly-ghost = {
       url = github:solomon-b/friendly-ghost;
       inputs.nixpkgs.follows = "nixpkgs";
@@ -108,7 +104,6 @@
     , worktrunk
     , micasa
     , claude-code
-    , claude-env
     , friendly-ghost
     , nixos-anywhere
     , nix-darwin
@@ -242,8 +237,6 @@
         inherit pkgs;
         modules = [
           ./config/machines/personal-computers/nightshade/home.nix
-          claude-env.homeManagerModules.default
-          { programs.claude-env.enable = true; }
           sops-nix.homeManagerModules.sops
           {
             sops = {
