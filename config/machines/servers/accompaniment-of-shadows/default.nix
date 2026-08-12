@@ -53,6 +53,11 @@
       enable = true;
       storageDriver = "overlay2";
       daemon.settings.log-driver = "journald";
+      # Docker copies the host resolv.conf into each container at creation time.
+      # During boot, resolvconf rewrites that file, so containers created in the
+      # wrong moment get no nameserver and lose all DNS. Pin the resolvers here:
+      # coredns first for home.arpa names, then a public fallback.
+      daemon.settings.dns = [ "192.168.5.105" "1.1.1.1" ];
     };
     oci-containers.backend = "docker";
   };
