@@ -1,4 +1,4 @@
-{ config, mkPin, ... }:
+{ config, lib, mkPin, ... }:
 
 let
   home-assistant-port = "8123";
@@ -73,6 +73,17 @@ in
 
     autoStart = true;
   };
+
+  # dataDir is an NFS export that maps all clients to the server's mosquitto
+  # user, uid 1013 and gid 1015. The mapping applies to the request credential,
+  # not to what this client sees, so a local uid of 246 does not own those files
+  # here. The pre-start runs `install -m 0700` on the ACL file, and a chmod needs
+  # local ownership, so it fails with EPERM. These pins make both sides agree.
+  # isSystemUser is implied for a uid below 1000. At 1013 it must be explicit,
+  # or the users-groups assertion rejects a user that is neither kind.
+  users.users.mosquitto.uid = lib.mkForce 1013;
+  users.users.mosquitto.isSystemUser = true;
+  users.groups.mosquitto.gid = lib.mkForce 1015;
 
   # https://nixos.wiki/wiki/Mosquitto
   services.mosquitto = {
