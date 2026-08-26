@@ -18,10 +18,6 @@
       # Always save and restore window state
       window-save-state = always
 
-      # Enable shell integration for working directory preservation
-      shell-integrations = detect
-      shell-integration-features = no-sudo,cursor,title
-
       # Control auto-update behavior to avoid surprise restarts
       auto-update = check
     '';
