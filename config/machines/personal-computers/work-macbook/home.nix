@@ -67,5 +67,8 @@
     HOMEBREW_PREFIX = "/opt/homebrew";
     HOMEBREW_CELLAR = "/opt/homebrew/Cellar";
     HOMEBREW_REPOSITORY = "/opt/homebrew";
+    ANSIBLE_SSH_ARGS = "-o ControlMaster=auto -o ControlPersist=60s -F /Users/solomon/.ssh/config";
+    ANSIBLE_REMOTE_USER = "sbothwell";
+
   };
 }
