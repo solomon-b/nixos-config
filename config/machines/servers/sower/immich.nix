@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 let
   dbHostname = "192.168.5.105"; # accompaniment-of-shadows
@@ -11,8 +11,14 @@ let
   photosLocation = "/mnt/immich";
 
   typesenseApiKey = "abcxyz123";
+  # Immich 2.x is end of life and marked insecure in 26.05. Use Immich 3.x
+  # and its module from unstable. Remove this when we move to 26.11.
+  unstable-pkgs = inputs.unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
+  disabledModules = [ "services/web-apps/immich.nix" ];
+  imports = [ "${inputs.unstable}/nixos/modules/services/web-apps/immich.nix" ];
+
   fileSystems."/mnt/immich" = {
     device = "192.168.5.6:/mnt/tank/app-data/immich";
     fsType = "nfs";
@@ -29,6 +35,7 @@ in
 
   services.immich = {
     enable = true;
+    package = unstable-pkgs.immich;
     machine-learning.enable = true;
 
     database = {
