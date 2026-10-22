@@ -1,0 +1,23 @@
+recorder:
+  db_url: "postgresql://hass:hass@192.168.5.105/hass"
+
+irrigation_unlimited:
+  controllers:
+    - name: "Middle Garden"
+      zones:
+        - name: "Cactus Fence"
+          entity_id: "switch.manifold_1"
+          schedules:
+            - time: "06:00"
+              weekday: [mon]
+    - name: "Back Orchard"
+      zones:
+        - name: "Apple Row"
+          entity_id: "switch.manifold_20"
+          schedules:
+            - time: "07:00"
+              weekday: [tue]
+        - name: "Pear Row"
+          entity_id: "switch.manifold_21"
+          schedules:
+            - time: "07:00"

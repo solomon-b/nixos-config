@@ -1,0 +1,38 @@
+homeassistant:
+  time_zone: America/Los_Angeles
+
+default_config:
+
+frontend:
+  themes: !include_dir_merge_named themes
+
+automation: !include automations.yaml
+
+recorder:
+  db_url: "postgresql://hass:hass@192.168.5.105/hass"
+  purge_keep_days: 365
+
+api:
+
+irrigation_unlimited:
+  controllers:
+    - name: "Middle Garden"
+      zones:
+        - name: "Cactus Fence"
+          entity_id: "switch.cactus_fence_irrigation_controller"
+          schedules:
+            - time: "06:00"
+              duration: "02:00"
+              weekday: [mon]
+        - name: "Green House 1"
+          entity_id: "switch.manifold_1"
+          schedules:
+            - time: "05:00"
+              duration: "01:00"
+              weekday: [mon, wed, sat]
+        - name: "Green House 2"
+          entity_id: "switch.manifold_11"
+          schedules:
+            - time: "06:00"
+              duration: "01:00"
+              weekday: []

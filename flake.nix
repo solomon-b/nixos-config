@@ -224,12 +224,21 @@
           runtimeInputs = with pkgs; [ skopeo gum jq gnused gawk gnugrep coreutils git ];
           text = builtins.readFile ./tools/check-pins/check-pins.sh;
         };
+
+        irrigation = pkgs.buildGoModule {
+          pname = "irrigation";
+          version = "0.1.0";
+          src = ./tools/irrigation;
+          vendorHash = "sha256-qgvqRl8KodAYkIfsBQSoM7MBACZnDZj9LgKhIyJEFq0=";
+          meta.mainProgram = "irrigation";
+        };
       };
 
       apps.x86_64-linux = {
         deploy = flake-utils.lib.mkApp { drv = self.packages.${system}.deploy; };
         deploy-all = flake-utils.lib.mkApp { drv = self.packages.${system}.deploy-all; };
         check-pins = flake-utils.lib.mkApp { drv = self.packages.${system}.check-pins; };
+        irrigation = flake-utils.lib.mkApp { drv = self.packages.${system}.irrigation; };
         default = self.apps.${system}.deploy;
       };
 
