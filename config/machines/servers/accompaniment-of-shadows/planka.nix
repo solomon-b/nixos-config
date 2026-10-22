@@ -31,6 +31,7 @@ in
 
       extraOptions = [
         "--network=host"
+        "--group-add=${toString config.users.groups.planka-secrets.gid}"
       ];
 
       volumes = [
@@ -62,17 +63,17 @@ in
     };
   };
 
-  # The Planka application is:
-  #
-  #   UID: 1000
-  #   Username: node
-  #
-  # This means I can't create a matching user in the host system for assigning
-  # SOPS secret permissions.
+  # The Planka container runs as node (UID 1000). On the host, UID 1000 is the
+  # primary user, so the secrets go to a dedicated group instead. The container
+  # joins this group through --group-add.
+  users.groups.planka-secrets.gid = 2001;
+
   sops.secrets.planka-secret-key = {
-    mode = "0444";
+    group = "planka-secrets";
+    mode = "0440";
   };
   sops.secrets.planka-database-password = {
-    mode = "0444";
+    group = "planka-secrets";
+    mode = "0440";
   };
 }

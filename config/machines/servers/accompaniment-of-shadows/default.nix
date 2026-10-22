@@ -102,25 +102,27 @@
       username = "ssbothwell@gmail.com";
       from = "ssbothwell@gmail.com";
       to = [ "ssbothwell@gmail.com" ];
-      passwordFile = config.sops.secrets.friendly-ghost-smtp-password.path;
+      passwordFile = "/run/credentials/friendly-ghost.service/smtp-password";
     };
 
     llm = {
       enable = true;
       apiUrl = "https://api.deepseek.com/chat/completions";
       model = "deepseek-chat";
-      apiKeyFile = config.sops.secrets.friendly-ghost-llm-api-key.path;
+      apiKeyFile = "/run/credentials/friendly-ghost.service/llm-api-key";
       systemPromptFile = ./friendly-ghost-prompt.txt;
     };
   };
 
-  sops.secrets.friendly-ghost-smtp-password = {
-    mode = "0444";
-  };
+  # friendly-ghost runs with DynamicUser, so it cannot own the sops files.
+  # systemd reads the root-only secrets and gives the service a private copy.
+  sops.secrets.friendly-ghost-smtp-password = { };
+  sops.secrets.friendly-ghost-llm-api-key = { };
 
-  sops.secrets.friendly-ghost-llm-api-key = {
-    mode = "0444";
-  };
+  systemd.services.friendly-ghost.serviceConfig.LoadCredential = [
+    "smtp-password:${config.sops.secrets.friendly-ghost-smtp-password.path}"
+    "llm-api-key:${config.sops.secrets.friendly-ghost-llm-api-key.path}"
+  ];
 
   services.micasa = {
     enable = true;
