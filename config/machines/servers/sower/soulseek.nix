@@ -22,6 +22,9 @@
     # environmentFile = config.sops.secrets.slskd.path;
   };
 
+  # Do not start slskd before its NFS directories are mounted.
+  systemd.services.slskd.unitConfig.RequiresMountsFor = [ "/mnt/slskd" "/mnt/media" ];
+
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [ 50300 5030 ];
