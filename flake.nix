@@ -84,6 +84,11 @@
       url = github:nix-darwin/nix-darwin/nix-darwin-25.11;
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-doom-emacs-unstraightened = {
+      url = github:marienz/nix-doom-emacs-unstraightened;
+      inputs.nixpkgs.follows = "";
+    };
   };
 
   outputs =
@@ -107,6 +112,7 @@
     , friendly-ghost
     , nixos-anywhere
     , nix-darwin
+    , nix-doom-emacs-unstraightened
     }:
     let
       system = "x86_64-linux";
@@ -244,6 +250,7 @@
 
       homeConfigurations.nightshade = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
+        extraSpecialArgs = { inherit inputs; };
         modules = [
           ./config/machines/personal-computers/nightshade/home.nix
           sops-nix.homeManagerModules.sops

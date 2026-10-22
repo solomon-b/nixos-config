@@ -1,10 +1,20 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
+let
+  # Doom reads this directory from the Nix store. The ditaa jar path is
+  # put in at build time, so it always points to a live store path.
+  doomDir = pkgs.runCommand "doom-config" { } ''
+    cp -r ${./doom} $out
+    chmod -R u+w $out
+    substituteInPlace $out/config.el --replace-fail "@ditaa@" "${pkgs.ditaa}"
+  '';
+in
 {
-  programs.emacs = {
+  imports = [ inputs.nix-doom-emacs-unstraightened.homeModule ];
+
+  programs.doom-emacs = {
     enable = true;
-    package = pkgs.emacs;
+    inherit doomDir;
     extraPackages = epkgs: with epkgs; [ vterm ];
   };
 }
-

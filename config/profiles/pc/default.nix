@@ -24,6 +24,8 @@
 
   #nixpkgs.overlays = [ (import ../../../overlays/graphqurl.nix) ];
 
+  home-manager.extraSpecialArgs = { inherit inputs; };
+
   primary-user.home-manager = {
     imports = [
       ../../modules/packages/pc-cli-tools.nix
