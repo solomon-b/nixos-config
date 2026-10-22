@@ -25,6 +25,17 @@
 
       settings.security.secret_key = "$__file{${config.sops.secrets.grafana-secret-key.path}}";
 
+      # Grafana sends its own alert mail. It reuses the friendly-ghost SMTP
+      # credential rather than introducing a second one.
+      settings.smtp = {
+        enabled = true;
+        host = "smtp.gmail.com:587";
+        user = "ssbothwell@gmail.com";
+        password = "$__file{${config.sops.secrets.friendly-ghost-smtp-password.path}}";
+        from_address = "ssbothwell@gmail.com";
+        from_name = "Grafana";
+      };
+
       provision.datasources.settings.datasources = [
         {
           name = "Prometheus";
@@ -40,6 +51,9 @@
         {
           name = "Home Assistant";
           type = "postgres";
+          # Pinned to the value Grafana generated on its own. Changing it would
+          # break every hand-built dashboard that already references it.
+          uid = "P2A366ABB0CD47F51";
           url = "localhost:5432";
           user = "hass";
           jsonData = {
@@ -50,6 +64,195 @@
           secureJsonData.password = "hass";
         }
       ];
+
+      provision.alerting = {
+        contactPoints.settings = {
+          apiVersion = 1;
+          contactPoints = [{
+            orgId = 1;
+            name = "email";
+            receivers = [{
+              uid = "default-email";
+              type = "email";
+              settings.addresses = "ssbothwell@gmail.com";
+            }];
+          }];
+          # Grafana upserts receivers by uid and keeps any receiver that leaves
+          # this file. The former irrigation-email uid needs an explicit delete,
+          # or the email contact point holds two receivers and sends twice.
+          deleteContactPoints = [{
+            orgId = 1;
+            uid = "irrigation-email";
+          }];
+        };
+
+        policies.settings = {
+          apiVersion = 1;
+          policies = [{
+            orgId = 1;
+            receiver = "email";
+            group_by = [ "alertname" ];
+            # A dead valve stays dead until someone walks out to it. The Grafana
+            # default of 4 hours sent 94 mails for one flat battery.
+            repeat_interval = "24h";
+          }];
+        };
+
+        rules.settings = {
+          apiVersion = 1;
+          groups = [{
+            orgId = 1;
+            name = "irrigation";
+            folder = "Irrigation";
+            interval = "10m";
+            rules = [
+              {
+                uid = "irrigation-valve-silent";
+                title = "Irrigation valve silent";
+                condition = "C";
+                # Only valves that have reported before appear in this query, so
+                # a valve that never exposed health entities cannot trigger it.
+                "for" = "1h";
+                noDataState = "OK";
+                execErrState = "Error";
+                labels = {
+                  severity = "warning";
+                  component = "irrigation";
+                };
+                annotations = {
+                  summary = "Irrigation valve {{ $labels.device }} is silent.";
+                  description = "{{ $labels.device }} last reported {{ printf \"%.0f\" $values.B.Value }} hours ago, past the 48 hour threshold.";
+                };
+                data = [
+                  {
+                    refId = "A";
+                    datasourceUid = "P2A366ABB0CD47F51";
+                    # This window does nothing here. Grafana only applies it to a
+                    # SQL datasource through the $__timeFrom, $__timeTo, and
+                    # $__timeFilter macros, and the query below uses none of them.
+                    # Keep it that way. Home Assistant writes a row only when a
+                    # value changes, so a healthy valve can hold a reading for
+                    # weeks. A time filter would drop a long dead valve out of the
+                    # result set and resolve the alert while the valve stayed dead.
+                    relativeTimeRange = { from = 2592000; to = 0; };
+                    model = {
+                      refId = "A";
+                      format = "table";
+                      rawQuery = true;
+                      rawSql = ''
+                        SELECT regexp_replace(m.entity_id, '^sensor\.(.*)_linkquality$', '\1') AS device,
+                               ((extract(epoch FROM now()) - max(s.last_updated_ts)) / 3600.0)::float8 AS hours_silent
+                        FROM states s
+                        JOIN states_meta m ON m.metadata_id = s.metadata_id
+                        WHERE m.entity_id ~ '_linkquality$'
+                          AND s.state NOT IN ('unknown','unavailable')
+                        GROUP BY 1
+                      '';
+                    };
+                  }
+                  {
+                    refId = "B";
+                    datasourceUid = "__expr__";
+                    model = {
+                      refId = "B";
+                      type = "reduce";
+                      expression = "A";
+                      reducer = "last";
+                    };
+                  }
+                  {
+                    refId = "C";
+                    datasourceUid = "__expr__";
+                    model = {
+                      refId = "C";
+                      type = "threshold";
+                      expression = "B";
+                      conditions = [{
+                        evaluator = { type = "gt"; params = [ 48.0 ]; };
+                      }];
+                    };
+                  }
+                ];
+              }
+              {
+                uid = "irrigation-valve-battery-low";
+                title = "Irrigation valve battery low";
+                condition = "C";
+                # A flat battery is what precedes silence. manifold_2 read 0
+                # percent for nine days before it dropped off the mesh, and the
+                # silent valve rule only spoke up 48 hours after it was gone.
+                "for" = "1h";
+                noDataState = "OK";
+                execErrState = "Error";
+                labels = {
+                  severity = "warning";
+                  component = "irrigation";
+                };
+                annotations = {
+                  summary = "Irrigation valve {{ $labels.device }} has a low battery.";
+                  description = "{{ $labels.device }} reports {{ printf \"%.0f\" $values.B.Value }} percent battery. Replace it before the valve goes silent.";
+                };
+                data = [
+                  {
+                    refId = "A";
+                    datasourceUid = "P2A366ABB0CD47F51";
+                    # Inert for raw SQL. See the note on the silent valve rule.
+                    relativeTimeRange = { from = 2592000; to = 0; };
+                    model = {
+                      refId = "A";
+                      format = "table";
+                      rawQuery = true;
+                      # current_device_status is a SONOFF SWV entity. It selects
+                      # the irrigation valves and leaves out every other battery
+                      # device on the Zigbee mesh, such as the Hue dimmer.
+                      rawSql = ''
+                        WITH latest AS (
+                          SELECT DISTINCT ON (m.entity_id)
+                                 regexp_replace(m.entity_id, '^sensor\.(.*)_battery$', '\1') AS device,
+                                 s.state::float8 AS battery_percent
+                          FROM states s
+                          JOIN states_meta m ON m.metadata_id = s.metadata_id
+                          WHERE m.entity_id ~ '^sensor\..*_battery$'
+                            AND s.state ~ '^[0-9]+(\.[0-9]+)?$'
+                          ORDER BY m.entity_id, s.last_updated_ts DESC
+                        )
+                        SELECT device, battery_percent
+                        FROM latest
+                        WHERE EXISTS (
+                          SELECT 1 FROM states_meta v
+                          WHERE v.entity_id = 'sensor.' || latest.device || '_current_device_status'
+                        )
+                      '';
+                    };
+                  }
+                  {
+                    refId = "B";
+                    datasourceUid = "__expr__";
+                    model = {
+                      refId = "B";
+                      type = "reduce";
+                      expression = "A";
+                      reducer = "last";
+                    };
+                  }
+                  {
+                    refId = "C";
+                    datasourceUid = "__expr__";
+                    model = {
+                      refId = "C";
+                      type = "threshold";
+                      expression = "B";
+                      conditions = [{
+                        evaluator = { type = "lt"; params = [ 15.0 ]; };
+                      }];
+                    };
+                  }
+                ];
+              }
+            ];
+          }];
+        };
+      };
     };
 
     prometheus = {
