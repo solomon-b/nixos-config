@@ -81,13 +81,13 @@
       host irrigation irrigation 192.168.5.7/32 md5
       host irrigation irrigation sower md5
 
-      # Admin access from personal computers
-      host all all 100.76.234.131/32 md5
-      host all all zodiacal-light md5
-      host all all 100.100.33.33/32 md5
-      host all all nightshade md5
-      host all all 100.126.171.15/32 md5
-      host all all lorean md5
+      # Admin access from personal computers.
+      # Tailscale addresses churn, so match on MagicDNS names instead. A bare
+      # hostname never matches, because PostgreSQL compares against the full
+      # name from the reverse lookup, which is the MagicDNS FQDN.
+      host all all nightshade.tail6e646.ts.net md5
+      host all all voice-of-evening.tail6e646.ts.net md5
+      host all all lorean.tail6e646.ts.net md5
       host all all 192.168.5.7/32 md5
     '';
   };
