@@ -157,27 +157,45 @@
         ];
       };
 
-      mkServer = targetHost: { config, ... }: {
+      # Every directory under config/machines/servers is a server.
+      # void-warren is aarch64 and not in use.
+      serverNames = builtins.attrNames (nixpkgs.lib.filterAttrs
+        (name: kind: kind == "directory" && name != "void-warren")
+        (builtins.readDir ./config/machines/servers));
+
+      # These servers are not deployed with the server tag.
+      nonServerTagged = [ "gnostic-ascension" ];
+
+      serverModules = name: [
+        ./config/machines/servers/${name}
+        nixpkgs.nixosModules.notDetected
+        home-manager.nixosModules.home-manager
+        sops-nix.nixosModules.sops
+        disko.nixosModules.disko
+        friendly-ghost.nixosModules.default
+        ({ ... }: {
+          # A host can set its own default sops file.
+          sops = {
+            defaultSopsFile = nixpkgs.lib.mkDefault ./secrets.yaml;
+            secrets.primary-user-password = { };
+          };
+        })
+      ];
+
+      mkServer = name: {
         deployment = {
-          inherit targetHost;
-          #targetUser = config.primary-user.name;
+          targetHost = name;
           tags = [ "server" ];
           allowLocalDeployment = false;
         };
 
-        imports = [
-          "${toString config/machines/servers}/${targetHost}"
-          nixpkgs.nixosModules.notDetected
-          home-manager.nixosModules.home-manager
-          sops-nix.nixosModules.sops
-          disko.nixosModules.disko
-          friendly-ghost.nixosModules.default
-        ];
+        imports = serverModules name;
+      };
 
-        sops = {
-          defaultSopsFile = ./secrets.yaml;
-          secrets.primary-user-password = { };
-        };
+      mkServerSystem = name: nixpkgs.lib.nixosSystem {
+        inherit pkgs system;
+        modules = serverModules name;
+        specialArgs = { inherit inputs; };
       };
     in
     {
@@ -345,63 +363,6 @@
           specialArgs = { inherit inputs; };
         };
 
-        gnostic-ascension = nixpkgs.lib.nixosSystem {
-          inherit pkgs system;
-          modules = [
-            ./config/machines/servers/gnostic-ascension
-            ({ ... }: {
-              sops = {
-                defaultSopsFile = ./secrets.yaml;
-                secrets.primary-user-password = { };
-              };
-            })
-            nixpkgs.nixosModules.notDetected
-            home-manager.nixosModules.home-manager
-            sops-nix.nixosModules.sops
-            disko.nixosModules.disko
-          ];
-
-          specialArgs = { inherit inputs; };
-        };
-
-        sower = nixpkgs.lib.nixosSystem {
-          inherit pkgs system;
-          modules = [
-            ./config/machines/servers/sower
-            ({ ... }: {
-              sops = {
-                defaultSopsFile = ./secrets.yaml;
-                secrets.primary-user-password = { };
-              };
-            })
-            nixpkgs.nixosModules.notDetected
-            home-manager.nixosModules.home-manager
-            sops-nix.nixosModules.sops
-            disko.nixosModules.disko
-          ];
-
-          specialArgs = { inherit inputs; };
-        };
-
-        test-vm = nixpkgs.lib.nixosSystem {
-          inherit pkgs system;
-          modules = [
-            ./config/machines/servers/test-vm
-            ({ ... }: {
-              sops = {
-                defaultSopsFile = ./secrets.yaml;
-                secrets.primary-user-password = { };
-              };
-            })
-            nixpkgs.nixosModules.notDetected
-            home-manager.nixosModules.home-manager
-            sops-nix.nixosModules.sops
-            disko.nixosModules.disko
-          ];
-
-          specialArgs = { inherit inputs; };
-        };
-
         # void-warren = nixpkgs.lib.nixosSystem {
         #   system = "aarch64-linux";
         #   pkgs = import nixpkgs {
@@ -424,7 +385,7 @@
 
         #   specialArgs = { inherit inputs; };
         # };
-      };
+      } // nixpkgs.lib.genAttrs serverNames mkServerSystem;
 
       colmena =
         let
@@ -439,8 +400,9 @@
             nodeNixpkgs = builtins.mapAttrs (name: value: value.pkgs) configs;
             nodeSpecialArgs = builtins.mapAttrs (name: value: value._module.specialArgs) configs;
           };
-        } // builtins.mapAttrs (machine: _: mkServer machine)
-          (builtins.removeAttrs (builtins.readDir ./config/machines/servers) [ "void-warren" "gnostic-ascension" ])
+        } // nixpkgs.lib.genAttrs
+          (nixpkgs.lib.subtractLists nonServerTagged serverNames)
+          mkServer
         // builtins.mapAttrs
           (name: value: {
             deployment = {
@@ -450,6 +412,7 @@
             };
             imports = value._module.args.modules;
           })
-          configs;
+          (builtins.removeAttrs configs
+            (nixpkgs.lib.subtractLists nonServerTagged serverNames));
     };
 }
