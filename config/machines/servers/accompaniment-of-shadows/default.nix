@@ -22,7 +22,7 @@
 
   networking = {
     hostName = "accompaniment-of-shadows";
-    firewall.allowedTCPPorts = [ 53 80 3101 8080 ];
+    firewall.allowedTCPPorts = [ 53 80 3101 8080 9090 ];
     firewall.allowedUDPPorts = [ 53 ];
   };
 

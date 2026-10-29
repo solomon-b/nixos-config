@@ -16,6 +16,7 @@ keys:
   - &pc_lorean age1h9eclrfude5fkzvt0v7sjyhfsu5f839xw0wwh29lrptq70mfvgescqng6a
   - &pc_zodiacal-light age18ghrww7r6adve0aaeaj8gl2pz2hh3qpvc0l9w48nzw89yp4yngpscmqc3d
   - &pc_voice-of-evening age1esadyxrm9kjt25jlg9y0mmp8u75mh05pncxxd8csl7z6dsycy3pszhrh35
+  - &server_caleuche age1ufff3t686k807drxxmz8frguk8n2d4dwv6ulrmphaz3hp7g8tshqedwh6x
 
 creation_rules:
   - path_regex: secrets.yaml$
@@ -37,3 +38,14 @@ creation_rules:
       - *pc_lorean
       - *pc_zodiacal-light
       - *pc_voice-of-evening
+  # Isolated file for caleuche. Keep this rule after the secrets.yaml rule,
+  # because the installer adds new hosts to creation_rules[0].
+  - path_regex: ^secrets/hermes\.yaml$
+    key_groups:
+    - age:
+      - *solomon
+      - *solomon_lorean
+      - *solomon_zodiacal-light
+      - *solomon_voice-of-evening
+      - *pc_nightshade
+      - *server_caleuche
