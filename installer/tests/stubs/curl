@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Test stub for curl. It writes its arguments and stdin to $STUB_LOG.
+# It prints $STUB_BODY, then a line with $STUB_STATUS, like
+# curl -w '\n%{http_code}'.
+{
+  echo "ARGS $*"
+  if [ ! -t 0 ]; then
+    sed 's/^/STDIN /'
+  fi
+} >> "${STUB_LOG:-/dev/null}"
+printf '%s\n%s' "${STUB_BODY:-}" "${STUB_STATUS:-200}"

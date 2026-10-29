@@ -15,8 +15,140 @@
 
 set -e
 
+# shellcheck source=lib/truenas.sh
+source "${INSTALLER_LIB_DIR:-installer/lib}/truenas.sh"
+
 cleanup() {
   rm -rf "$temp" "$ssh_temp"
+}
+
+# Print the UniFi steps for a fixed IP reservation.
+print_unifi_steps() {
+    local machine="$1" mac="$2"
+    cat >&2 <<EOF
+
+Make a fixed IP reservation for this VM in UniFi:
+  MAC address: ${mac}
+  1. Open the UniFi Network web UI.
+  2. Go to Settings > Networks, and note the DHCP range of the LAN.
+  3. Go to Client Devices. The VM is not on the network yet, so choose
+     "Add client" (or use Settings > Networks > LAN > DHCP > Fixed IP).
+  4. Enter the MAC address above and the name ${machine}.
+  5. Turn on "Fixed IP Address" and enter a free address.
+  6. Save.
+When the reservation is saved, enter the IP address here.
+
+EOF
+}
+
+# Find the installer ISO file. Build it if the wrapper did not give one.
+find_installer_iso() {
+    local out="${INSTALLER_ISO:-}" iso
+    if [ -z "${out}" ]; then
+        out=$(nix build '.#nixos-iso' --no-link --print-out-paths) || return 1
+    fi
+    if [ -z "${out}" ] || [ ! -d "${out}" ]; then
+        return 1
+    fi
+    # The store directory name also ends in .iso, so match files only.
+    iso=$(find "${out}/" -type f -name '*.iso' -print -quit)
+    if [ -z "${iso}" ]; then
+        return 1
+    fi
+    echo "${iso}"
+}
+
+# Remove the ISO from the VM. A CD-ROM that stays attached does no harm,
+# because the disk comes first in the boot order. So a failure here is
+# only a warning.
+detach_installer_iso() {
+    if truenas_detach_iso "$1"; then
+        gum log --level info "Removed the installer ISO from the VM."
+    else
+        gum log --level warn "Remove the CD-ROM device by hand: Virtual Machines > the VM > Devices, in the TrueNAS web UI."
+    fi
+}
+
+# Create the VM on TrueNAS, or reuse one from an earlier run. Set IP and
+# TRUENAS_VM_ID. Return 2 if Solomon does not want a TrueNAS VM.
+install_truenas_vm() {
+    local machine="$1" vm_name check mac cpus ram disk vnc_password iso iso_file waited
+
+    truenas_load_key || exit 1
+    vm_name=$(truenas_vm_name "${machine}")
+    check=$(truenas_check_vm "${vm_name}") || exit 1
+
+    case "${check}" in
+        foreign)
+            gum log --level error "A VM named ${vm_name} exists on TrueNAS, but the installer did not make it. The installer will not change it."
+            exit 1
+            ;;
+        absent)
+            if ! gum confirm "Create this VM on TrueNAS?"; then
+                return 2
+            fi
+            if truenas_zvol_exists "${machine}"; then
+                gum log --level error "The zvol ${TRUENAS_POOL}/${machine} exists already. The installer will not change it."
+                exit 1
+            fi
+            while true; do
+                cpus=$(gum input --value 2 --header "Guest CPUs (even number, 2 to 16)")
+                ram=$(gum input --value 4 --header "RAM in GiB")
+                disk=$(gum input --value 50 --header "Disk size in GiB")
+                if truenas_validate_specs "${cpus}" "${ram}" "${disk}"; then
+                    break
+                fi
+            done
+
+            mac=$(truenas_gen_mac)
+            vnc_password=$(truenas_gen_vnc_password)
+            # The VM does not exist, so an old entry here is from a failed run.
+            if ! echo "${vnc_password}" | pass insert -m -f "machine/${machine}/vnc-password" >/dev/null; then
+                gum log --level error "Cannot store the VNC password in pass at machine/${machine}/vnc-password."
+                exit 1
+            fi
+            VNC_PASSWORD_MADE=1
+
+            if ! iso_file=$(find_installer_iso); then
+                gum log --level error "Cannot build or find the installer ISO (nix build '.#nixos-iso')."
+                exit 1
+            fi
+            iso=$(truenas_ensure_iso "${iso_file}") || exit 1
+            TRUENAS_VM_ID=$(truenas_create_vm "${machine}" "${cpus}" "${ram}" "${disk}" "${mac}" "${iso}" "${vnc_password}") || exit 1
+            gum log --level info "Created the VM ${vm_name} on TrueNAS (id ${TRUENAS_VM_ID})"
+            ;;
+        ours\ *)
+            gum log --level info "Found the VM ${machine} from an earlier run. The installer will use it."
+            TRUENAS_VM_ID=$(jq -r '.id' <<<"${check#ours }")
+            mac=$(truenas_vm_mac "${check#ours }")
+            ;;
+    esac
+
+    print_unifi_steps "${machine}" "${mac}"
+    IP=$(gum input --placeholder "reserved IP address...")
+    if [ -z "${IP}" ]; then
+        gum log --level error "IP address cannot be empty."
+        exit 1
+    fi
+
+    if [ "$(truenas_vm_state "${TRUENAS_VM_ID}")" != "RUNNING" ]; then
+        truenas_start_vm "${TRUENAS_VM_ID}" || exit 1
+    fi
+
+    # The ISO makes new host keys at each boot. Remove old keys for this
+    # IP, and accept the first key that the ISO shows. The later steps of
+    # the installer then use the normal known_hosts file.
+    ssh-keygen -R "${IP}" >/dev/null 2>&1 || true
+    gum log --level info "Waiting for the VM to answer on SSH at ${IP}..."
+    waited=0
+    until ssh -o ConnectTimeout=5 -o BatchMode=yes -o StrictHostKeyChecking=accept-new "root@${IP}" true 2>/dev/null; do
+        if [ "${waited}" -ge "${TRUENAS_SSH_TIMEOUT:-300}" ]; then
+            gum log --level error "The VM did not answer on SSH at ${IP}. Look at the VM console in the TrueNAS web UI. Run the installer again to continue with this VM."
+            exit 1
+        fi
+        sleep "${TRUENAS_SSH_INTERVAL:-5}"
+        waited=$((waited + ${TRUENAS_SSH_INTERVAL:-5}))
+    done
 }
 
 main() {
@@ -72,11 +204,20 @@ main() {
 
     TARGET="${MACHINE_PATH}/${MACHINE}"
 
-    # ── 3. IP address ────────────────────────────────────────────────
-    IP=$(gum input --placeholder "enter address..")
-    if [ -z "$IP" ]; then
-        gum log --level error "IP address cannot be empty."
-        exit 1
+    # ── 3. TrueNAS VM and IP address ─────────────────────────────────
+    TRUENAS_VM_ID=""
+    VNC_PASSWORD_MADE=0
+    TRUENAS_STATUS=2
+    if [ "$IS_PC" -eq 0 ] && [ "$SERVER_KIND" = "virtual machine" ]; then
+        install_truenas_vm "$MACHINE" && TRUENAS_STATUS=0 || TRUENAS_STATUS=$?
+    fi
+
+    if [ "$TRUENAS_STATUS" -eq 2 ]; then
+        IP=$(gum input --placeholder "enter address..")
+        if [ -z "$IP" ]; then
+            gum log --level error "IP address cannot be empty."
+            exit 1
+        fi
     fi
 
     # ── 4. Pre-flight: LUKS key and user SSH keys (PCs only) ────────
@@ -187,7 +328,8 @@ main() {
     # ── 9. SSH host key generation / retrieval ───────────────────────
     temp=$(mktemp -d)
 
-    install -d -m755 "$temp/etc/ssh"
+    # Not "install -d": the wrapper puts this package's own bin/install first in PATH.
+    mkdir -p -m755 "$temp/etc/ssh"
 
     if pass show "machine/${MACHINE}/ssh-host-key/ed25519/private" >/dev/null 2>&1; then
         gum log --level info "SSH keys already exist for ${MACHINE}, using existing keys"
@@ -226,6 +368,13 @@ main() {
         nixos-anywhere \
             --extra-files "$temp" \
             --flake ".#${MACHINE}" "root@${IP}"
+    fi
+
+    # The VM now boots from its disk, so it does not need the ISO.
+    # The installed system has the host keys from pass, not the ISO keys.
+    if [ -n "$TRUENAS_VM_ID" ]; then
+        detach_installer_iso "$TRUENAS_VM_ID"
+        ssh-keygen -R "${IP}" >/dev/null 2>&1 || true
     fi
 
     # ── 11. PC post-install (before reboot) ─────────────────────────
@@ -312,6 +461,13 @@ EOF
     if [ "$IS_PC" -eq 1 ]; then
         ssh "root@${IP}" 'reboot now' || true
     fi
+
+    if [ "$VNC_PASSWORD_MADE" -eq 1 ]; then
+        gum log --level info "VNC password for the TrueNAS console is in pass at machine/${MACHINE}/vnc-password."
+    fi
 }
 
-main
+# Run main only when the script runs, not when a test sources it.
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+    main
+fi

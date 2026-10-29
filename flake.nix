@@ -227,9 +227,9 @@
           in
           pkgs.symlinkJoin {
             name = "install";
-            paths = [ pkgs.gum pkgs.jq pkgs.pass pkgs.openssh pkgs.rsync pkgs.ssh-to-age pkgs.sops pkgs.yq-go nixos-anywhere-pkg script ];
+            paths = [ pkgs.curl pkgs.gum pkgs.jq pkgs.pass pkgs.openssh pkgs.rsync pkgs.ssh-to-age pkgs.sops pkgs.yq-go nixos-anywhere-pkg script ];
             buildInputs = [ pkgs.makeWrapper ];
-            postBuild = "wrapProgram $out/bin/install --prefix PATH : $out/bin";
+            postBuild = "wrapProgram $out/bin/install --prefix PATH : $out/bin --set INSTALLER_LIB_DIR ${./installer/lib}";
           };
 
         deploy = pkgs.writeShellScriptBin "deploy" ''
