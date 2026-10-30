@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   imports = [
@@ -58,6 +58,12 @@
       enabledCollectors = [ "systemd" ];
       port = 9002;
     };
+  };
+
+  # Loki runs on accompaniment-of-shadows.
+  services.log-shipper = {
+    enable = true;
+    lokiUrl = lib.mkDefault "http://192.168.5.105:3101";
   };
 
   networking.firewall.allowedTCPPorts = [ 9002 ];

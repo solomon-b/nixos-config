@@ -69,8 +69,8 @@ in
       Each server is the instance "<hostname>:9002". Check the "up" metric
       first. A target that is down has no unit data.
 
-      Logs: Loki at http://accompaniment-of-shadows:3101, no auth. Only
-      accompaniment-of-shadows and sower send logs. Labels: host,
+      Logs: Loki at http://accompaniment-of-shadows:3101, no auth. All
+      servers send logs. Labels: host,
       service_name (the systemd unit, for example "nginx.service"),
       container_name (for Docker containers, for example "tubearchivist"),
       and level (can be "unknown"). Use logcli, for example:
