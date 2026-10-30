@@ -57,6 +57,9 @@
               100.80.98.4 soulseek.service.home.arpa
               100.80.98.4 wikipedia.service.home.arpa
 
+              # Services on caleuche (Tailscale IP)
+              100.105.77.22 hermes.service.home.arpa
+
               fallthrough
           }
       }
@@ -106,6 +109,9 @@
               192.168.5.7 zigbee2mqtt.service.home.arpa
               192.168.5.7 soulseek.service.home.arpa
               192.168.5.7 wikipedia.service.home.arpa
+
+              # Services on caleuche (local IP)
+              192.168.5.106 hermes.service.home.arpa
 
               fallthrough
           }

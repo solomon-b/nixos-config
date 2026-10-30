@@ -89,6 +89,10 @@
       url = github:marienz/nix-doom-emacs-unstraightened;
       inputs.nixpkgs.follows = "";
     };
+
+    hermes-agent = {
+      url = github:NousResearch/hermes-agent;
+    };
   };
 
   outputs =
@@ -113,6 +117,7 @@
     , nixos-anywhere
     , nix-darwin
     , nix-doom-emacs-unstraightened
+    , hermes-agent
     }:
     let
       system = "x86_64-linux";
