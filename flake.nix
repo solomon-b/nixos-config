@@ -27,10 +27,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-hardware = {
-      url = github:NixOS/nixos-hardware/master;
-    };
-
     brightness-bar = {
       url = github:solomon-b/brightness-bar;
       inputs.nixpkgs.follows = "nixpkgs";
@@ -103,7 +99,6 @@
     , home-manager
     , disko
     , sops-nix
-    , nixos-hardware
     , nixos-generators
     , brightness-bar
     , volume-bar
@@ -163,13 +158,9 @@
       };
 
       # Every directory under config/machines/servers is a server.
-      # void-warren is aarch64 and not in use.
       serverNames = builtins.attrNames (nixpkgs.lib.filterAttrs
-        (name: kind: kind == "directory" && name != "void-warren")
+        (name: kind: kind == "directory")
         (builtins.readDir ./config/machines/servers));
-
-      # These servers are not deployed with the server tag.
-      nonServerTagged = [ "gnostic-ascension" ];
 
       serverModules = name: [
         ./config/machines/servers/${name}
@@ -238,7 +229,7 @@
           };
 
         deploy = pkgs.writeShellScriptBin "deploy" ''
-          servers=$(ls config/machines/servers | grep -vE '^(void-warren)$')
+          servers=$(ls config/machines/servers)
           machine=$(echo "$servers" | ${pkgs.gum}/bin/gum choose)
           echo "Deploying '$machine'"
           ${pkgs.colmena}/bin/colmena apply --on $machine
@@ -367,29 +358,6 @@
 
           specialArgs = { inherit inputs; };
         };
-
-        # void-warren = nixpkgs.lib.nixosSystem {
-        #   system = "aarch64-linux";
-        #   pkgs = import nixpkgs {
-        #     system = "aarch64-linux";
-        #     config.allowUnfree = true;
-        #   };
-        #   modules = [
-        #     ./config/machines/servers/void-warren
-        #     ({ ... }: {
-        #       sops = {
-        #         defaultSopsFile = ./secrets.yaml;
-        #         secrets.primary-user-password = { };
-        #       };
-        #     })
-        #     nixpkgs.nixosModules.notDetected
-        #     home-manager.nixosModules.home-manager
-        #     sops-nix.nixosModules.sops
-        #     disko.nixosModules.disko
-        #   ];
-
-        #   specialArgs = { inherit inputs; };
-        # };
       } // nixpkgs.lib.genAttrs serverNames mkServerSystem;
 
       colmena =
@@ -405,9 +373,7 @@
             nodeNixpkgs = builtins.mapAttrs (name: value: value.pkgs) configs;
             nodeSpecialArgs = builtins.mapAttrs (name: value: value._module.specialArgs) configs;
           };
-        } // nixpkgs.lib.genAttrs
-          (nixpkgs.lib.subtractLists nonServerTagged serverNames)
-          mkServer
+        } // nixpkgs.lib.genAttrs serverNames mkServer
         // builtins.mapAttrs
           (name: value: {
             deployment = {
@@ -417,7 +383,6 @@
             };
             imports = value._module.args.modules;
           })
-          (builtins.removeAttrs configs
-            (nixpkgs.lib.subtractLists nonServerTagged serverNames));
+          (builtins.removeAttrs configs serverNames);
     };
 }

@@ -11,7 +11,6 @@ keys:
   - &server_sower age1h2nlwkzquf4c8ltwuqey2y9z6cpumxw42q8x9qu0dwzx638vtd0scpm80c
   - &server_storm-bird age14qgly6gwzf0sc4sfchwkaesd6u4gl4mksjhx2reapnxz7p25kugshk0x2f
   - &server_transfigured-night age1cw04hz668dw2gxd8dkpyzk7yjwushtg9v77qzyhn9jgtfl4xm46s2jeexg
-  - &server_gnostic-ascension age1dwxgs38t62urlqjlvkpun5zxv5skyh2r5p7awa7ye0r97zvyg97qlrgwzl
   - &pc_nightshade age1hm87e69thh5c4glk9w2gn2dn3mhexe7cen3c57upfg9zech9qe9sz0ha4j
   - &pc_lorean age1h9eclrfude5fkzvt0v7sjyhfsu5f839xw0wwh29lrptq70mfvgescqng6a
   - &pc_zodiacal-light age18ghrww7r6adve0aaeaj8gl2pz2hh3qpvc0l9w48nzw89yp4yngpscmqc3d
@@ -33,7 +32,6 @@ creation_rules:
       - *server_sower
       - *server_storm-bird
       - *server_transfigured-night
-      - *server_gnostic-ascension
       - *pc_nightshade
       - *pc_lorean
       - *pc_zodiacal-light
