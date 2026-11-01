@@ -28,6 +28,15 @@
 
   sops.secrets.primary-user-wireguard-private-key = { };
 
+  # Kill switch. When wg0 goes down, wg-quick removes its routing rules and
+  # traffic falls back to the LAN default route. qBittorrent must stop with
+  # the tunnel so that torrent traffic never leaves on the home IP.
+  systemd.services.qBittorrent = {
+    bindsTo = [ "wg-quick-wg0.service" ];
+    after = [ "wg-quick-wg0.service" ];
+    partOf = [ "wg-quick-wg0.service" ];
+  };
+
   # We must enforce the order for service launch of tailscale and
   # wireguard to set the correct IP rule prioritization.
   # https://rakhesh.com/linux-bsd/tailscale-wireguard-co-existing-or-i-love-policy-based-routing/
