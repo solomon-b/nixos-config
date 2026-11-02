@@ -107,8 +107,8 @@
 
     llm = {
       enable = true;
-      apiUrl = "https://api.deepseek.com/chat/completions";
-      model = "deepseek-chat";
+      apiUrl = "https://openrouter.ai/api/v1/chat/completions";
+      model = "deepseek/deepseek-v4.1-flash";
       apiKeyFile = "/run/credentials/friendly-ghost.service/llm-api-key";
       systemPromptFile = ./friendly-ghost-prompt.txt;
     };
