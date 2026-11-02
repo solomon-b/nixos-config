@@ -5,6 +5,7 @@
     ./hardware.nix
 
     ./coredns.nix
+    ./forgejo.nix
     ./homebox.nix
     ./homepage.nix
     ./lubelogger.nix
@@ -22,7 +23,7 @@
 
   networking = {
     hostName = "accompaniment-of-shadows";
-    firewall.allowedTCPPorts = [ 53 80 3101 8080 9090 ];
+    firewall.allowedTCPPorts = [ 53 80 3101 3300 8080 9090 ];
     firewall.allowedUDPPorts = [ 53 ];
   };
 

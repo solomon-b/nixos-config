@@ -34,6 +34,7 @@
               192.168.5.104 apollyon
 
               # Services on accompaniment-of-shadows (Tailscale IP)
+              100.123.147.26 forgejo.service.home.arpa
               100.123.147.26 homebox.service.home.arpa
               100.123.147.26 homepage.service.home.arpa
               100.123.147.26 lubelogger.service.home.arpa
@@ -87,6 +88,7 @@
               192.168.5.104 apollyon
 
               # Services on accompaniment-of-shadows (local IP)
+              192.168.5.105 forgejo.service.home.arpa
               192.168.5.105 homebox.service.home.arpa
               192.168.5.105 homepage.service.home.arpa
               192.168.5.105 lubelogger.service.home.arpa
