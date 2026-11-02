@@ -6,6 +6,11 @@
   systemd.services.coredns = {
     after = [ "tailscaled.service" ];
     wants = [ "tailscaled.service" ];
+
+    # CoreDNS binds the Tailscale IP, which appears some time after tailscaled
+    # starts. Retry until the IP exists, with no start limit.
+    startLimitIntervalSec = 0;
+    serviceConfig.RestartSec = 5;
   };
 
   services.coredns = {
