@@ -11,6 +11,12 @@
     mode = "0400";
   };
 
+  # The friendly-ghost SMTP secret is root-only. systemd reads it and gives
+  # Grafana a private copy.
+  systemd.services.grafana.serviceConfig.LoadCredential = [
+    "smtp-password:${config.sops.secrets.friendly-ghost-smtp-password.path}"
+  ];
+
   services.log-shipper.lokiUrl = "http://127.0.0.1:3101";
 
   services = {
@@ -28,7 +34,7 @@
         enabled = true;
         host = "smtp.gmail.com:587";
         user = "ssbothwell@gmail.com";
-        password = "$__file{${config.sops.secrets.friendly-ghost-smtp-password.path}}";
+        password = "$__file{/run/credentials/grafana.service/smtp-password}";
         from_address = "ssbothwell@gmail.com";
         from_name = "Grafana";
       };
