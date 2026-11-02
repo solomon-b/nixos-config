@@ -155,7 +155,7 @@ truenas_vm_payload() {
             threads: 2,
             memory: $memory,
             bootloader: "UEFI",
-            time: "LOCAL",
+            time: "UTC",
             autostart: true,
             shutdown_timeout: 90,
             devices: [
