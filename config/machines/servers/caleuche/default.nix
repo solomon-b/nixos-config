@@ -4,6 +4,7 @@
   imports = [
     ./hardware.nix
     ./disk-config.nix
+    ./friendly-ghost.nix
     ./hermes.nix
 
     ../../../profiles/virtual-machine

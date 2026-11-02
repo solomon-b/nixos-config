@@ -96,6 +96,27 @@ in
         logcli --addr=http://accompaniment-of-shadows:3101 query \
           --since=1h '{host="sower", container_name="tubearchivist"}'
 
+      Findings: friendly-ghost scans Loki every 5 minutes and writes
+      /var/lib/friendly-ghost/structured/findings.json. Start an investigation
+      here, then use Loki and Prometheus to check each finding. Read it with jq:
+        jq '{schema_version, status, baseline, generated_at, window, stats}' \
+          /var/lib/friendly-ghost/structured/findings.json
+        jq '.findings[] | {id, host, unit, category, severity, summary,
+          first_seen, last_seen, occurrences}' \
+          /var/lib/friendly-ghost/structured/findings.json
+      Rules for this file:
+        Stop if the major part of schema_version is not 1.
+        If generated_at is older than 15 minutes, the data is stale. Say so.
+        If status is "partial" or "failed", say so. Read .sources[].error.
+        If baseline is true, the file says nothing about earlier events.
+        An empty findings list means no events only if status is "complete"
+        and generated_at is recent.
+        A finding describes log text. Its category is not a diagnosis.
+        A finding that leaves the file is not resolved.
+        Do not add occurrences from different reads. Counts can go down.
+      Put the finding id in the issue Evidence. Search open issues for that id
+      before you file.
+
       Issues: Forgejo at http://accompaniment-of-shadows:3300, a mirror of the
       NixOS config. Always send the auth header from the file. Never print
       that file. Use the HTTP API with curl, for example:
@@ -136,6 +157,8 @@ in
 
       Do not push to Loki. Do not reach other hosts or ports, except Forgejo at
       http://accompaniment-of-shadows:3300.
+
+      ${builtins.readFile ./hermes-triage.md}
     '';
   };
 

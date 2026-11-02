@@ -65,66 +65,6 @@
 
   primary-user.extraGroups = [ "docker" ];
 
-  services.friendly-ghost = {
-    enable = true;
-    source = "loki";
-
-    loki = {
-      url = "http://127.0.0.1:3101";
-      auth = "none";
-      query = ''{service_name!=""}'';
-    };
-
-    filter = {
-      units = [ ''.*\.service'' ];
-      priority = "warning";
-      ignorePatterns = [
-        # alloy and loki are the monitoring substrate itself; their own warnings
-        # about pushing/querying logs would create a feedback loop.
-        "alloy"
-        "loki"
-        # HA bluetooth subsystem runs a permission check every restart even
-        # though no integration uses it; the warning is benign.
-        "Missing required permissions for Bluetooth"
-        # HA emits this for every custom integration on every startup.
-        "custom integration .* which has not been tested by Home Assistant"
-        # irrigation_unlimited compares switches against Zigbee devices that
-        # report "unknown" briefly during HA boot before re-reporting state.
-        "irrigation_unlimited.*SYNCHRONISATION.*found: unknown"
-        # Some container's locale init writes to stderr, which Docker's
-        # journald driver mislabels as priority=err regardless of content.
-        "^Language set to .+$"
-      ];
-    };
-
-    email = {
-      smtpHost = "smtp.gmail.com";
-      smtpPort = 587;
-      username = "ssbothwell@gmail.com";
-      from = "ssbothwell@gmail.com";
-      to = [ "ssbothwell@gmail.com" ];
-      passwordFile = "/run/credentials/friendly-ghost.service/smtp-password";
-    };
-
-    llm = {
-      enable = true;
-      apiUrl = "https://openrouter.ai/api/v1/chat/completions";
-      model = "deepseek/deepseek-v4.1-flash";
-      apiKeyFile = "/run/credentials/friendly-ghost.service/llm-api-key";
-      systemPromptFile = ./friendly-ghost-prompt.txt;
-    };
-  };
-
-  # friendly-ghost runs with DynamicUser, so it cannot own the sops files.
-  # systemd reads the root-only secrets and gives the service a private copy.
-  sops.secrets.friendly-ghost-smtp-password = { };
-  sops.secrets.friendly-ghost-llm-api-key = { };
-
-  systemd.services.friendly-ghost.serviceConfig.LoadCredential = [
-    "smtp-password:${config.sops.secrets.friendly-ghost-smtp-password.path}"
-    "llm-api-key:${config.sops.secrets.friendly-ghost-llm-api-key.path}"
-  ];
-
   services.micasa = {
     enable = true;
     package = inputs.micasa.packages.${pkgs.system}.default;

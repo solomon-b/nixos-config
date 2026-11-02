@@ -11,8 +11,10 @@
     mode = "0400";
   };
 
-  # The friendly-ghost SMTP secret is root-only. systemd reads it and gives
-  # Grafana a private copy.
+  # The SMTP secret is root-only. systemd reads it and gives Grafana a private
+  # copy. The secret keeps its old name, from when friendly-ghost sent mail.
+  sops.secrets.friendly-ghost-smtp-password = { };
+
   systemd.services.grafana.serviceConfig.LoadCredential = [
     "smtp-password:${config.sops.secrets.friendly-ghost-smtp-password.path}"
   ];
@@ -28,8 +30,7 @@
 
       settings.security.secret_key = "$__file{${config.sops.secrets.grafana-secret-key.path}}";
 
-      # Grafana sends its own alert mail. It reuses the friendly-ghost SMTP
-      # credential rather than introducing a second one.
+      # Grafana sends its own alert mail.
       settings.smtp = {
         enabled = true;
         host = "smtp.gmail.com:587";
