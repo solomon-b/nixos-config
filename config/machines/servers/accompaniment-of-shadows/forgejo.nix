@@ -19,7 +19,10 @@
   users.users.forgejo.uid = 2002;
   users.groups.forgejo.gid = 2002;
 
+  # Without this, forgejo-secrets can write to the root disk under the mount
+  # point at boot.
   systemd.services.forgejo.unitConfig.RequiresMountsFor = "/mnt/forgejo";
+  systemd.services.forgejo-secrets.unitConfig.RequiresMountsFor = "/mnt/forgejo";
 
   services.forgejo = {
     enable = true;
