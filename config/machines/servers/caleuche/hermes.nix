@@ -39,8 +39,13 @@ in
 
     environmentFiles = [ config.sops.templates."hermes-env".path ];
 
-    # The file tools refuse writes outside the state directory.
-    environment.HERMES_WRITE_SAFE_ROOT = cfg.stateDir;
+    environment = {
+      # The file tools refuse writes outside the state directory.
+      HERMES_WRITE_SAFE_ROOT = cfg.stateDir;
+      # A cron run stops after 600 s with no activity. This is an idle limit,
+      # not a wall-clock limit.
+      HERMES_CRON_TIMEOUT = "600";
+    };
 
     settings = {
       model = {
@@ -48,10 +53,25 @@ in
         default = "deepseek/deepseek-v4.1-flash";
       };
 
-      platform_toolsets.cli = [ "terminal" "file" "todo" "clarify" ];
+      platform_toolsets = {
+        cli = [ "terminal" "file" "todo" "clarify" ];
+        # The CLI cannot set toolsets on a job, so this sets them for every
+        # cron job on the host.
+        cron = [ "terminal" "file" ];
+      };
 
-      # Ask Solomon before a flagged command. "smart" asks another model.
-      approvals.mode = "manual";
+      # This limit is global. It also stops chat sessions after 150 turns.
+      agent.max_turns = 150;
+
+      # A stuck gate script fails fast.
+      cron.script_timeout_seconds = 120;
+
+      approvals = {
+        # Ask Solomon before a flagged command. "smart" asks another model.
+        mode = "manual";
+        # A cron run has nobody to ask, so a flagged command fails.
+        cron_mode = "deny";
+      };
 
       # The browser workspace, behind nginx. A public_url turns on sign-in.
       webapp = {
@@ -114,6 +134,9 @@ in
         A finding describes log text. Its category is not a diagnosis.
         A finding that leaves the file is not resolved.
         Do not add occurrences from different reads. Counts can go down.
+      An active systemd unit does not prove that the application works. Do
+      not infer application health from active units.
+      Do not recommend a restart for a symptom that has recovered.
       Put the finding id in the issue Evidence. Search open issues for that id
       before you file.
 
@@ -166,6 +189,10 @@ in
 
       ${builtins.readFile ./hermes-triage.md}
     '';
+
+    # The pre-run gate for the homelab-sre cron job. docs/hermes-sre.md tells
+    # how to create the job.
+    hermesHomeFiles."scripts/sre-gate.sh" = builtins.readFile ./sre-gate.sh;
   };
 
   services.nginx.virtualHosts."hermes.service.home.arpa" = {
@@ -176,8 +203,9 @@ in
     };
   };
 
-  # The module turns on linger for cron jobs. We use no cron jobs, and
-  # linger lets the agent leave timers that run after the CLI exits.
+  # The module turns on linger for cron jobs. Linger lets the agent leave
+  # timers that run after the CLI exits. The SRE cron job runs without it. A
+  # gateway restart then stops a running job, and the next tick runs again.
   users.users.hermes.linger = false;
 
   users.users.solomon.packages = [ hermes-cli ];
