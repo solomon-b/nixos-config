@@ -86,5 +86,10 @@ speculative report.
   warnings, slskd peer churn.
 - Warnings originating from the monitoring stack itself (alloy, loki, grafana,
   prometheus, unpoller) about its own scrape/query/push activity.
+- High "used" memory on a host. `sower` uses ZFS, and the ZFS ARC counts as
+  used, so free-based figures sit near 100%. The Zigbee2MQTT health payload is
+  one such figure. Judge memory only by `node_memory_MemAvailable_bytes`, PSI
+  (`node_pressure_memory_*`), and `node_vmstat_oom_kill`. Report memory only
+  when MemAvailable stays low, pressure is sustained, or an OOM kill occurs.
 - Backup and cleanup timer jobs are oneshot units; being inactive between runs
   is normal, and a successful run producing info-level output is not an anomaly.
