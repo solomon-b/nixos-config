@@ -8,6 +8,29 @@ let
   hermes-cli = pkgs.writeShellScriptBin "hermes" ''
     exec sudo -u ${cfg.user} -i -- ${cfg.package}/bin/hermes "$@"
   '';
+
+  # Prints the cron job state. It takes no arguments and changes nothing, so
+  # solomon can run it as hermes with no password. Claude Code reads job
+  # errors over ssh with it.
+  cron-status = pkgs.writeShellApplication {
+    name = "hermes-cron-status";
+    runtimeInputs = [ cfg.package pkgs.jq pkgs.coreutils ];
+    text = ''
+      export HERMES_HOME=${cfg.stateDir}/.hermes
+      cd "$HERMES_HOME"
+      hermes cron list --all
+      echo
+      hermes cron runs | tail -n 40
+      echo
+      jq '.jobs[] | {name, state, last_status, last_error, last_run_at, failure_streak}' \
+        cron/jobs.json
+    '';
+  };
+
+  # The command that solomon runs. It calls the script above as hermes.
+  cron-status-cli = pkgs.writeShellScriptBin "hermes-cron-status" ''
+    exec sudo -u ${cfg.user} -- ${cron-status}/bin/hermes-cron-status
+  '';
 in
 {
   imports = [ inputs.hermes-agent.nixosModules.default ];
@@ -208,5 +231,14 @@ in
   # gateway restart then stops a running job, and the next tick runs again.
   users.users.hermes.linger = false;
 
-  users.users.solomon.packages = [ hermes-cli ];
+  users.users.solomon.packages = [ hermes-cli cron-status-cli ];
+
+  security.sudo.extraRules = [{
+    users = [ "solomon" ];
+    runAs = cfg.user;
+    commands = [{
+      command = "${cron-status}/bin/hermes-cron-status";
+      options = [ "NOPASSWD" ];
+    }];
+  }];
 }
