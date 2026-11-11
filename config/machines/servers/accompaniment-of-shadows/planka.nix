@@ -56,6 +56,16 @@ in
     };
   };
 
+  # Planka needs PostgreSQL and its NFS data. Without this ordering it
+  # restart-loops while either is down. wantedBy starts Planka again when a
+  # late PostgreSQL start follows a failed boot. See Forgejo issue 2.
+  systemd.services.docker-planka = {
+    after = [ "postgresql.service" ];
+    requires = [ "postgresql.service" ];
+    wantedBy = [ "postgresql.service" ];
+    unitConfig.RequiresMountsFor = [ plankaLocation ];
+  };
+
   services.nginx.virtualHosts."planka.service.home.arpa" = {
     locations."/" = {
       proxyPass = "http://localhost:1337";
