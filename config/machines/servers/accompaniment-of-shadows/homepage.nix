@@ -380,6 +380,19 @@
             };
           }
           {
+            Forgejo = {
+              href = "http://forgejo.service.home.arpa";
+              icon = "forgejo";
+              description = "Git mirror and Hermes issues";
+            };
+          }
+          {
+            Hermes = {
+              href = "http://hermes.service.home.arpa";
+              description = "Homelab SRE agent";
+            };
+          }
+          {
             "tt-rss" = {
               href = "http://tt-rss.service.home.arpa";
               icon = "tiny-tiny-rss";
