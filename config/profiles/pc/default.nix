@@ -31,6 +31,7 @@
       ../../modules/packages/pc-cli-tools.nix
       ../../modules/packages/gui-applications.nix
       ../../modules/packages/development.nix
+      ../../modules/ui/claude-code/home.nix
       ../../modules/ui/emacs/home.nix
       ../../modules/ui/ipod-sync/home.nix
       ../../modules/ui/ntfy/home.nix

@@ -6,6 +6,7 @@
     ../../../../modules/home-manager/primary-user.nix
 
     # Cross-platform shell + tooling shared with the Linux machines.
+    ../../../modules/ui/claude-code/home.nix
     ../../../modules/ui/zsh/home.nix
     ../../../modules/ui/git/home.nix
     ../../../modules/ui/starship/home.nix

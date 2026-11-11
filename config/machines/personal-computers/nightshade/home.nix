@@ -3,6 +3,7 @@
 {
   imports = [
     ../../../../modules/home-manager/primary-user.nix
+    ../../../modules/ui/claude-code/home.nix
     ../../../modules/ui/dmenu/home.nix
     ../../../modules/ui/emacs/home.nix
     ../../../modules/ui/direnv/home.nix
