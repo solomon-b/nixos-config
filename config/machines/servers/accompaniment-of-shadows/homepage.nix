@@ -431,7 +431,6 @@
                 type = "truenas";
                 url = "http://sandra-voi.home.arpa";
                 key = "{{HOMEPAGE_FILE_TRUENAS_KEY}}";
-                version = 2;
               };
             };
           }
