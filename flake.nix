@@ -1,6 +1,9 @@
 {
   inputs = {
     nixpkgs.url = github:nixos/nixpkgs/nixos-26.05;
+    # nixos-* branches gate on Linux Hydra jobs only. The darwin branch gates on
+    # macOS jobs, so work-macbook gets more binary cache hits.
+    nixpkgs-darwin.url = github:nixos/nixpkgs/nixpkgs-26.05-darwin;
     unstable.url = github:nixos/nixpkgs;
 
     flake-utils = {
@@ -77,8 +80,8 @@
     };
 
     nix-darwin = {
-      url = github:nix-darwin/nix-darwin/nix-darwin-25.11;
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = github:nix-darwin/nix-darwin/nix-darwin-26.05;
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
     nix-doom-emacs-unstraightened = {
@@ -94,6 +97,7 @@
   outputs =
     inputs@{ self
     , nixpkgs
+    , nixpkgs-darwin
     , unstable
     , flake-utils
     , home-manager
@@ -141,19 +145,19 @@
           # (final: prev: { eww = eww.packages.${final.system}.default; })
           (final: prev: { prowlarr = unstable-pkgs.prowlarr; })
           claude-code.overlays.default
-          (final: prev: { worktrunk = worktrunk.packages.${final.system}.default; })
+          (final: prev: { worktrunk = worktrunk.packages.${final.stdenv.hostPlatform.system}.default; })
         ];
       };
 
       # Apple Silicon work machine. Kept separate from the Linux `pkgs` above
       # because the xmonad/brightness-bar/etc. overlays are Linux-only.
       darwinSystem = "aarch64-darwin";
-      darwinPkgs = import nixpkgs {
+      darwinPkgs = import nixpkgs-darwin {
         system = darwinSystem;
         config.allowUnfree = true;
         overlays = [
           claude-code.overlays.default
-          (final: prev: { worktrunk = worktrunk.packages.${final.system}.default; })
+          (final: prev: { worktrunk = worktrunk.packages.${final.stdenv.hostPlatform.system}.default; })
         ];
       };
 
