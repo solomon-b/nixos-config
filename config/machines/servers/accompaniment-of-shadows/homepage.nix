@@ -384,6 +384,12 @@
               href = "http://forgejo.service.home.arpa";
               icon = "forgejo";
               description = "Git mirror and Hermes issues";
+              # The Forgejo API is compatible with Gitea.
+              widget = {
+                type = "gitea";
+                url = "http://forgejo.service.home.arpa";
+                key = "{{HOMEPAGE_FILE_FORGEJO_KEY}}";
+              };
             };
           }
           {
@@ -479,6 +485,7 @@
 
     # Infrastructure
     HOMEPAGE_FILE_TRUENAS_KEY=${config.sops.secrets.truenas-key.path}
+    HOMEPAGE_FILE_FORGEJO_KEY=${config.sops.secrets.forgejo-homepage-key.path}
   '';
 
   sops.secrets = {
@@ -500,6 +507,7 @@
     sabnzbd-key = { };
     # bazarr-key = { };
     truenas-key = { };
+    forgejo-homepage-key = { };
   };
 
   services.nginx.virtualHosts."homepage.service.home.arpa" = {
