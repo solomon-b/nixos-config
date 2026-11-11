@@ -35,9 +35,16 @@
       ];
     };
 
+    # The reader group must not be the hermes group. The friendly-ghost user
+    # gets this group as its primary group. In the hermes group, it could
+    # write to the Hermes home, and Hermes then refuses to run cron jobs.
     structured = {
       enable = true;
-      readerGroup = config.services.hermes-agent.group;
+      readerGroup = "friendly-ghost-readers";
     };
   };
+
+  users.users.${config.services.hermes-agent.user}.extraGroups = [
+    config.services.friendly-ghost.structured.readerGroup
+  ];
 }
