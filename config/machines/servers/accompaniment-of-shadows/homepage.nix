@@ -399,6 +399,24 @@
             };
           }
           {
+            # /api/v1/credits gives the account totals. It needs a management
+            # key.
+            OpenRouter = {
+              href = "https://openrouter.ai/activity";
+              description = "Account spend";
+              widget = {
+                type = "customapi";
+                url = "https://openrouter.ai/api/v1/credits";
+                headers.Authorization = "Bearer {{HOMEPAGE_FILE_OPENROUTER_KEY}}";
+                refreshInterval = 300000;
+                mappings = [
+                  { field.data = "total_usage"; label = "Spent"; format = "float"; prefix = "$"; }
+                  { field.data = "total_credits"; label = "Bought"; format = "float"; prefix = "$"; }
+                ];
+              };
+            };
+          }
+          {
             "tt-rss" = {
               href = "http://tt-rss.service.home.arpa";
               icon = "tiny-tiny-rss";
@@ -486,6 +504,7 @@
     # Infrastructure
     HOMEPAGE_FILE_TRUENAS_KEY=${config.sops.secrets.truenas-key.path}
     HOMEPAGE_FILE_FORGEJO_KEY=${config.sops.secrets.forgejo-homepage-key.path}
+    HOMEPAGE_FILE_OPENROUTER_KEY=${config.sops.secrets.openrouter-management-key.path}
   '';
 
   sops.secrets = {
@@ -508,6 +527,7 @@
     # bazarr-key = { };
     truenas-key = { };
     forgejo-homepage-key = { };
+    openrouter-management-key = { };
   };
 
   services.nginx.virtualHosts."homepage.service.home.arpa" = {
