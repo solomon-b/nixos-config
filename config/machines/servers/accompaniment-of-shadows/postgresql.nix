@@ -10,9 +10,8 @@
       "defaults" # → rw,suid,dev,exec,auto,nouser,async
       "vers=3" # force NFSv3
       "proto=tcp" # use TCP transport
-      "intr" # allow signals (Ctrl-C) to interrupt
-      "timeo=30" # initial timeout = 3 s (30 deciseconds)
-      "retrans=3" # retry only 3 times (~9 s total)
+      # Keep the default timeo and retrans. With timeo=30,retrans=3 the mount
+      # gave up after 15 s on a slow NAS at boot, and PostgreSQL never started.
       "_netdev" # wait for network before mounting
     ];
   };
