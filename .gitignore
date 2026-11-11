@@ -7,6 +7,3 @@
 /codebase-explorer/
 /tools/irrigation/irrigation
 docs/superpowers/
-
-# Local secrets for direnv. Never commit.
-/.envrc.local
