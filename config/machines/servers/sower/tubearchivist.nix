@@ -65,9 +65,9 @@ in
     };
 
     archivist-es = mkPin {
-      image = "bbilly1/tubearchivist-es:8.19.0";
-      imageDigest = "sha256:9da63fb1973ec3d57daf6916be948eddd0d8a404cc8e447c938480c85fe2c554";
-      sha256 = "sha256-shRcHXF7zh1ApOwDntbqBlUgjGmMNZSvQNl/QI7zOLM=";
+      image = "bbilly1/tubearchivist-es:9.5.5";
+      imageDigest = "sha256:9513a22cd332402cb6fd6ef69844f4f78717190ba9e2e08cb72b3288839d84fa";
+      sha256 = "sha256-4lW5/75v01Kz8LlVZ5A60uvC/Nufsr3p5F6fH+K+YJU=";
 
       environment = {
         ELASTIC_PASSWORD = "hunter2";
