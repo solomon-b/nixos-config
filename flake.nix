@@ -201,7 +201,7 @@
     {
       formatter."${system}" = pkgs.nixpkgs-fmt;
       devShells."${system}".default = pkgs.mkShell {
-        nativeBuildInputs = [ pkgs.colmena pkgs.pass pkgs.sops ];
+        nativeBuildInputs = [ pkgs.colmena pkgs.just pkgs.nixpkgs-fmt pkgs.pass pkgs.sops ];
       };
 
       packages.x86_64-linux = {
