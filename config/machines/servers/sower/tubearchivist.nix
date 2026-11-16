@@ -35,9 +35,9 @@ in
 
   virtualisation.oci-containers.containers = {
     tubearchivist = mkPin {
-      image = "bbilly1/tubearchivist:v0.5.10";
-      imageDigest = "sha256:dfe723cf008520e1758ecc3e59e6ea8761dd10d5bb099cd87289e80f5bd66567";
-      sha256 = "sha256-VXvBggbz6vEFXW/CYtunG74wHMZzDGrrHNnoQyqGtDY=";
+      image = "bbilly1/tubearchivist:v0.5.12";
+      imageDigest = "sha256:ba1c846ddd0c6fdd0f040727129d2466e03b7a0c26499223839d450c7586ac09";
+      sha256 = "sha256-7cjMLkQ7UiX4Do2QdQpdMHbSw5i98bSBio5G/gdAFuI=";
 
       ports = [ "8000:8000" ];
 
