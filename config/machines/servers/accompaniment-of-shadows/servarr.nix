@@ -53,9 +53,9 @@ in
 
   virtualisation.oci-containers.containers = {
     profilarr = mkPin {
-      image = "santiagosayshey/profilarr:v1.1.4";
-      imageDigest = "sha256:8a514f8429cd33885166facc9eb6504fa9ded056c737609e5e8ef32ae0afb350";
-      sha256 = "sha256-q7y7cw4dP98Gn0A307NgaXw8J7OVrVKslS7ylqfgp2k=";
+      image = "santiagosayshey/profilarr:v1.1.5";
+      imageDigest = "sha256:8033e9c6d6995f37625afeb93d7020e99566f549ae83b65f1db7e11048952d0f";
+      sha256 = "sha256-QYI/xE8Gkc3BpGaL62L96nhSfyiQIA9sNTEviXyITaA=";
 
       extraOptions = [
         "--network=host"
