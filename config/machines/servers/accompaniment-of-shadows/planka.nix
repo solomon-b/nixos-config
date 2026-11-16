@@ -25,9 +25,9 @@ in
 
   virtualisation.oci-containers.containers = {
     planka = mkPin {
-      image = "ghcr.io/plankanban/planka:2.1.1";
-      imageDigest = "sha256:19b507ae3ab5cb1855c3f6984249e4a4881ed0b912febdfd492139c29bf10f39";
-      sha256 = "sha256-QonM7MmBmx/nvGymd4+Hh0pDa3a0E6UuDETRURqALg8=";
+      image = "ghcr.io/plankanban/planka:2.3.1";
+      imageDigest = "sha256:f767ab97b878265ea1fff826867718d6ffa95dac04cd979fb5db82489806fb51";
+      sha256 = "sha256-9ozRlN/SBpERyu7sQRznIhrzJyqP3t9JrNHK0hg2YqQ=";
 
       extraOptions = [
         "--network=host"
