@@ -91,9 +91,9 @@ in
     };
 
     archivist-redis = mkPin {
-      image = "redis:8.8.0";
-      imageDigest = "sha256:aa049e689e141a4358ad1d4562dc49c88a89fbab711fd8fcc33f684c80b26301";
-      sha256 = "sha256-MqvbKSI/s5qmie0zXP688oB+kQvPkWJREJvw9oHjhRM=";
+      image = "redis:8.10.3";
+      imageDigest = "sha256:1f88291b4c57bdf249f02eb085a8669889b2d2954e91d4de5118a5da6b78dd53";
+      sha256 = "sha256-HrVR03KEkZ8/DtTJpMkAeodeuorVu60PQbQNZP5PkE4=";
 
       ports = [ "6379:6379" ];
 
